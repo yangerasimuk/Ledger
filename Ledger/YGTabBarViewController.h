@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  YGTabBarViewController.h
 //  Ledger
 //
 //  Created by Ян on 28/05/2017.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface YGTabBarViewController : UITabBarController
 
 @end
-

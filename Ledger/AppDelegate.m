@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "YGSQLite.h"
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    YGSQLite *db = [YGSQLite sharedInstance];
+    
+    
+    
     return YES;
 }
 
