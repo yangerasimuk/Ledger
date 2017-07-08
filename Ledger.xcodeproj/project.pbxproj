@@ -7,6 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1317BEF11F0E67920039A224 /* YGDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1317BEF01F0E67920039A224 /* YGDBManager.m */; };
+		1317BEF71F0F72A80039A224 /* YGStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1317BEF61F0F72A80039A224 /* YGStorage.m */; };
+		1317BEFD1F0F7BD10039A224 /* YGStorageLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1317BEFC1F0F7BD10039A224 /* YGStorageLocal.m */; };
+		1317BF361F0FB0F80039A224 /* libYGConfigIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1317BF351F0FB0F80039A224 /* libYGConfigIOS.a */; };
+		1317BF3B1F0FC2E10039A224 /* YGBackupLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1317BF3A1F0FC2E10039A224 /* YGBackupLocalViewController.m */; };
+		1317BF3D1F0FC7280039A224 /* libYGFileSystemIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1317BF3C1F0FC7280039A224 /* libYGFileSystemIOS.a */; };
+		1317BF401F0FD8D50039A224 /* YGBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1317BF3F1F0FD8D50039A224 /* YGBackup.m */; };
+		1317BF441F10F5740039A224 /* Define.m in Sources */ = {isa = PBXBuildFile; fileRef = 1317BF431F10F5740039A224 /* Define.m */; };
+		131E1D961EF59B1600531F10 /* YGExpenseCategoryEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1D941EF59B1600531F10 /* YGExpenseCategoryEditController.m */; };
+		131E1D991EF59C4900531F10 /* YGExpenseEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1D971EF59C4900531F10 /* YGExpenseEditController.m */; };
+		131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1D9B1EF7A3BA00531F10 /* YGAccountChoiceController.m */; };
+		131E1D9F1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */; };
+		131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */; };
+		131E1DA51EF93DEE00531F10 /* YGOperationAccountActualCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1DA41EF93DEE00531F10 /* YGOperationAccountActualCell.m */; };
+		131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */; };
+		131E1E411EFBD56300531F10 /* YGOperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1E401EFBD56300531F10 /* YGOperationCell.m */; };
+		131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */; };
+		13279D4D1EED949900BA46AF /* YGEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D4C1EED949900BA46AF /* YGEntity.m */; };
+		13279D501EED96F000BA46AF /* YGOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D4F1EED96F000BA46AF /* YGOperation.m */; };
+		13279D551EEDA27B00BA46AF /* YGEntityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D541EEDA27B00BA46AF /* YGEntityManager.m */; };
+		13279D581EEDD9A700BA46AF /* YGOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D571EEDD9A700BA46AF /* YGOperationManager.m */; };
+		13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D5A1EEDE89900BA46AF /* YGOperationViewController.m */; };
+		13279D8C1EEFC14200BA46AF /* YGOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */; };
+		13279D8F1EEFC1B800BA46AF /* YGCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */; };
+		13279DBC1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */; };
+		13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */; };
+		13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC11EF26F6F00BA46AF /* YGEntityViewController.m */; };
+		13279DC51EF2814E00BA46AF /* YGDebtEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC41EF2814E00BA46AF /* YGDebtEditController.m */; };
+		13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC71EF2816600BA46AF /* YGAccountEditController.m */; };
+		13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */; };
+		13279DCE1EF3F8BD00BA46AF /* YGOperationExpenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DCD1EF3F8BD00BA46AF /* YGOperationExpenseCell.m */; };
+		13279DD31EF41D7800BA46AF /* YGSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DD21EF41D7800BA46AF /* YGSection.m */; };
+		13279DD61EF4223D00BA46AF /* YGSections.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DD51EF4223D00BA46AF /* YGSections.m */; };
+		13279DE01EF58C8900BA46AF /* YGDateChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */; };
 		133050F51EDAE29D0031044D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 133050F41EDAE29D0031044D /* main.m */; };
 		133050F81EDAE29D0031044D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 133050F71EDAE29D0031044D /* AppDelegate.m */; };
 		133050FE1EDAE29D0031044D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 133050FC1EDAE29D0031044D /* Main.storyboard */; };
@@ -15,9 +49,15 @@
 		1330510E1EDAE29D0031044D /* LedgerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330510D1EDAE29D0031044D /* LedgerTests.m */; };
 		133051191EDAE29D0031044D /* LedgerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051181EDAE29D0031044D /* LedgerUITests.m */; };
 		133051281EDAE3300031044D /* YGTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051271EDAE3300031044D /* YGTabBarViewController.m */; };
-		1330512B1EDAE5260031044D /* YGOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330512A1EDAE5260031044D /* YGOptionViewController.m */; };
 		1330512E1EDAE60F0031044D /* YGSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330512D1EDAE60F0031044D /* YGSQLite.m */; };
 		133051311EDAEDA00031044D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 133051301EDAEDA00031044D /* libsqlite3.tbd */; };
+		133051991EDEEFBC0031044D /* YGCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051981EDEEFBC0031044D /* YGCategory.m */; };
+		1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519B1EDEF09D0031044D /* YGCategoryManager.m */; };
+		1330519F1EDF31A60031044D /* YGTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519E1EDF31A60031044D /* YGTools.m */; };
+		133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051A41EE0399B0031044D /* YGCurrencyViewController.m */; };
+		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
+		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
+		139F7A971EFD677000BD85AB /* YGOperationInTwoRowsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A961EFD677000BD85AB /* YGOperationInTwoRowsCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +78,72 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1317BEEF1F0E67920039A224 /* YGDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDBManager.h; sourceTree = "<group>"; };
+		1317BEF01F0E67920039A224 /* YGDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDBManager.m; sourceTree = "<group>"; };
+		1317BEF51F0F72A80039A224 /* YGStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGStorage.h; sourceTree = "<group>"; };
+		1317BEF61F0F72A80039A224 /* YGStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGStorage.m; sourceTree = "<group>"; };
+		1317BEFB1F0F7BD10039A224 /* YGStorageLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGStorageLocal.h; sourceTree = "<group>"; };
+		1317BEFC1F0F7BD10039A224 /* YGStorageLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGStorageLocal.m; sourceTree = "<group>"; };
+		1317BF351F0FB0F80039A224 /* libYGConfigIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYGConfigIOS.a; path = "../../../../../Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/libYGConfigIOS.a"; sourceTree = "<group>"; };
+		1317BF391F0FC2E10039A224 /* YGBackupLocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGBackupLocalViewController.h; sourceTree = "<group>"; };
+		1317BF3A1F0FC2E10039A224 /* YGBackupLocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGBackupLocalViewController.m; sourceTree = "<group>"; };
+		1317BF3C1F0FC7280039A224 /* libYGFileSystemIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYGFileSystemIOS.a; path = "../../../../../Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/libYGFileSystemIOS.a"; sourceTree = "<group>"; };
+		1317BF3E1F0FD8D50039A224 /* YGBackup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGBackup.h; sourceTree = "<group>"; };
+		1317BF3F1F0FD8D50039A224 /* YGBackup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGBackup.m; sourceTree = "<group>"; };
+		1317BF421F10F5740039A224 /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
+		1317BF431F10F5740039A224 /* Define.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Define.m; sourceTree = "<group>"; };
+		131E1D941EF59B1600531F10 /* YGExpenseCategoryEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGExpenseCategoryEditController.m; sourceTree = "<group>"; };
+		131E1D951EF59B1600531F10 /* YGExpenseCategoryEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGExpenseCategoryEditController.h; sourceTree = "<group>"; };
+		131E1D971EF59C4900531F10 /* YGExpenseEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGExpenseEditController.m; sourceTree = "<group>"; };
+		131E1D981EF59C4900531F10 /* YGExpenseEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGExpenseEditController.h; sourceTree = "<group>"; };
+		131E1D9A1EF7A3BA00531F10 /* YGAccountChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGAccountChoiceController.h; sourceTree = "<group>"; };
+		131E1D9B1EF7A3BA00531F10 /* YGAccountChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGAccountChoiceController.m; sourceTree = "<group>"; };
+		131E1D9D1EF7B78900531F10 /* YGExpenseCategoryChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGExpenseCategoryChoiceController.h; sourceTree = "<group>"; };
+		131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGExpenseCategoryChoiceController.m; sourceTree = "<group>"; };
+		131E1DA01EF7E67C00531F10 /* YGAccountActualEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGAccountActualEditController.h; sourceTree = "<group>"; };
+		131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGAccountActualEditController.m; sourceTree = "<group>"; };
+		131E1DA31EF93DEE00531F10 /* YGOperationAccountActualCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationAccountActualCell.h; sourceTree = "<group>"; };
+		131E1DA41EF93DEE00531F10 /* YGOperationAccountActualCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationAccountActualCell.m; sourceTree = "<group>"; };
+		131E1E391EFBD17A00531F10 /* YGIncomeEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGIncomeEditController.h; sourceTree = "<group>"; };
+		131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGIncomeEditController.m; sourceTree = "<group>"; };
+		131E1E3F1EFBD56300531F10 /* YGOperationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationCell.h; sourceTree = "<group>"; };
+		131E1E401EFBD56300531F10 /* YGOperationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationCell.m; sourceTree = "<group>"; };
+		131E1E421EFC094300531F10 /* YGIncomeSourceChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGIncomeSourceChoiceController.h; sourceTree = "<group>"; };
+		131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGIncomeSourceChoiceController.m; sourceTree = "<group>"; };
+		13279D4B1EED949900BA46AF /* YGEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGEntity.h; sourceTree = "<group>"; };
+		13279D4C1EED949900BA46AF /* YGEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGEntity.m; sourceTree = "<group>"; };
+		13279D4E1EED96F000BA46AF /* YGOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperation.h; sourceTree = "<group>"; };
+		13279D4F1EED96F000BA46AF /* YGOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperation.m; sourceTree = "<group>"; };
+		13279D531EEDA27B00BA46AF /* YGEntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGEntityManager.h; sourceTree = "<group>"; };
+		13279D541EEDA27B00BA46AF /* YGEntityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGEntityManager.m; sourceTree = "<group>"; };
+		13279D561EEDD9A700BA46AF /* YGOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationManager.h; sourceTree = "<group>"; };
+		13279D571EEDD9A700BA46AF /* YGOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationManager.m; sourceTree = "<group>"; };
+		13279D591EEDE89900BA46AF /* YGOperationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationViewController.h; sourceTree = "<group>"; };
+		13279D5A1EEDE89900BA46AF /* YGOperationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationViewController.m; sourceTree = "<group>"; };
+		13279D8A1EEFC14200BA46AF /* YGOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOptionViewController.h; sourceTree = "<group>"; };
+		13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOptionViewController.m; sourceTree = "<group>"; };
+		13279D8D1EEFC1B800BA46AF /* YGCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCategoryViewController.h; sourceTree = "<group>"; };
+		13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCategoryViewController.m; sourceTree = "<group>"; };
+		13279DBA1EF13A4E00BA46AF /* YGExpenseParentChoiseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGExpenseParentChoiseController.h; sourceTree = "<group>"; };
+		13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGExpenseParentChoiseController.m; sourceTree = "<group>"; };
+		13279DBD1EF1903B00BA46AF /* YGCategoryDefaultEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCategoryDefaultEditController.h; sourceTree = "<group>"; };
+		13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCategoryDefaultEditController.m; sourceTree = "<group>"; };
+		13279DC01EF26F6F00BA46AF /* YGEntityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGEntityViewController.h; sourceTree = "<group>"; };
+		13279DC11EF26F6F00BA46AF /* YGEntityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGEntityViewController.m; sourceTree = "<group>"; };
+		13279DC31EF2814E00BA46AF /* YGDebtEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDebtEditController.h; sourceTree = "<group>"; };
+		13279DC41EF2814E00BA46AF /* YGDebtEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDebtEditController.m; sourceTree = "<group>"; };
+		13279DC61EF2816600BA46AF /* YGAccountEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGAccountEditController.h; sourceTree = "<group>"; };
+		13279DC71EF2816600BA46AF /* YGAccountEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGAccountEditController.m; sourceTree = "<group>"; };
+		13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyChoiceController.h; sourceTree = "<group>"; };
+		13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyChoiceController.m; sourceTree = "<group>"; };
+		13279DCC1EF3F8BD00BA46AF /* YGOperationExpenseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationExpenseCell.h; sourceTree = "<group>"; };
+		13279DCD1EF3F8BD00BA46AF /* YGOperationExpenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationExpenseCell.m; sourceTree = "<group>"; };
+		13279DD11EF41D7800BA46AF /* YGSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSection.h; sourceTree = "<group>"; };
+		13279DD21EF41D7800BA46AF /* YGSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSection.m; sourceTree = "<group>"; };
+		13279DD41EF4223D00BA46AF /* YGSections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSections.h; sourceTree = "<group>"; };
+		13279DD51EF4223D00BA46AF /* YGSections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSections.m; sourceTree = "<group>"; };
+		13279DDE1EF58C8900BA46AF /* YGDateChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDateChoiceController.h; sourceTree = "<group>"; };
+		13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDateChoiceController.m; sourceTree = "<group>"; };
 		133050F01EDAE29D0031044D /* Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		133050F41EDAE29D0031044D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		133050F61EDAE29D0031044D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,11 +160,23 @@
 		1330511A1EDAE29D0031044D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		133051261EDAE3300031044D /* YGTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTabBarViewController.h; sourceTree = "<group>"; };
 		133051271EDAE3300031044D /* YGTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTabBarViewController.m; sourceTree = "<group>"; };
-		133051291EDAE5260031044D /* YGOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOptionViewController.h; sourceTree = "<group>"; };
-		1330512A1EDAE5260031044D /* YGOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOptionViewController.m; sourceTree = "<group>"; };
 		1330512C1EDAE60F0031044D /* YGSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSQLite.h; sourceTree = "<group>"; };
 		1330512D1EDAE60F0031044D /* YGSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSQLite.m; sourceTree = "<group>"; };
 		133051301EDAEDA00031044D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		133051971EDEEFBC0031044D /* YGCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCategory.h; sourceTree = "<group>"; };
+		133051981EDEEFBC0031044D /* YGCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCategory.m; sourceTree = "<group>"; };
+		1330519A1EDEF09D0031044D /* YGCategoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCategoryManager.h; sourceTree = "<group>"; };
+		1330519B1EDEF09D0031044D /* YGCategoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCategoryManager.m; sourceTree = "<group>"; };
+		1330519D1EDF31A60031044D /* YGTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTools.h; sourceTree = "<group>"; };
+		1330519E1EDF31A60031044D /* YGTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTools.m; sourceTree = "<group>"; };
+		133051A31EE0399B0031044D /* YGCurrencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyViewController.h; sourceTree = "<group>"; };
+		133051A41EE0399B0031044D /* YGCurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyViewController.m; sourceTree = "<group>"; };
+		133051A91EE054740031044D /* YGCurrencyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyEditController.h; sourceTree = "<group>"; };
+		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
+		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
+		139F7A931EFD111200BD85AB /* YGTransferEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTransferEditController.m; sourceTree = "<group>"; };
+		139F7A951EFD677000BD85AB /* YGOperationInTwoRowsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationInTwoRowsCell.h; sourceTree = "<group>"; };
+		139F7A961EFD677000BD85AB /* YGOperationInTwoRowsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationInTwoRowsCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +184,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1317BF3D1F0FC7280039A224 /* libYGFileSystemIOS.a in Frameworks */,
+				1317BF361F0FB0F80039A224 /* libYGConfigIOS.a in Frameworks */,
 				133051311EDAEDA00031044D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +207,93 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13279D511EED990200BA46AF /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				13279DD01EF41CE800BA46AF /* UI */,
+				131E1D9A1EF7A3BA00531F10 /* YGAccountChoiceController.h */,
+				131E1D9B1EF7A3BA00531F10 /* YGAccountChoiceController.m */,
+				131E1E421EFC094300531F10 /* YGIncomeSourceChoiceController.h */,
+				131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */,
+				131E1D9D1EF7B78900531F10 /* YGExpenseCategoryChoiceController.h */,
+				131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */,
+				13279DDE1EF58C8900BA46AF /* YGDateChoiceController.h */,
+				13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */,
+				139F7A921EFD111200BD85AB /* YGTransferEditController.h */,
+				139F7A931EFD111200BD85AB /* YGTransferEditController.m */,
+				131E1E391EFBD17A00531F10 /* YGIncomeEditController.h */,
+				131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */,
+				131E1DA01EF7E67C00531F10 /* YGAccountActualEditController.h */,
+				131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */,
+				131E1D981EF59C4900531F10 /* YGExpenseEditController.h */,
+				131E1D971EF59C4900531F10 /* YGExpenseEditController.m */,
+				13279D591EEDE89900BA46AF /* YGOperationViewController.h */,
+				13279D5A1EEDE89900BA46AF /* YGOperationViewController.m */,
+				13279D561EEDD9A700BA46AF /* YGOperationManager.h */,
+				13279D571EEDD9A700BA46AF /* YGOperationManager.m */,
+				13279D4E1EED96F000BA46AF /* YGOperation.h */,
+				13279D4F1EED96F000BA46AF /* YGOperation.m */,
+			);
+			name = Operation;
+			sourceTree = "<group>";
+		};
+		13279D521EED990C00BA46AF /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */,
+				13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */,
+				13279DC61EF2816600BA46AF /* YGAccountEditController.h */,
+				13279DC71EF2816600BA46AF /* YGAccountEditController.m */,
+				13279DC31EF2814E00BA46AF /* YGDebtEditController.h */,
+				13279DC41EF2814E00BA46AF /* YGDebtEditController.m */,
+				13279DC01EF26F6F00BA46AF /* YGEntityViewController.h */,
+				13279DC11EF26F6F00BA46AF /* YGEntityViewController.m */,
+				13279D531EEDA27B00BA46AF /* YGEntityManager.h */,
+				13279D541EEDA27B00BA46AF /* YGEntityManager.m */,
+				13279D4B1EED949900BA46AF /* YGEntity.h */,
+				13279D4C1EED949900BA46AF /* YGEntity.m */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
+		13279D851EEECFE900BA46AF /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				133050F61EDAE29D0031044D /* AppDelegate.h */,
+				133050F71EDAE29D0031044D /* AppDelegate.m */,
+				133051261EDAE3300031044D /* YGTabBarViewController.h */,
+				133051271EDAE3300031044D /* YGTabBarViewController.m */,
+				1317BF391F0FC2E10039A224 /* YGBackupLocalViewController.h */,
+				1317BF3A1F0FC2E10039A224 /* YGBackupLocalViewController.m */,
+				13279D8A1EEFC14200BA46AF /* YGOptionViewController.h */,
+				13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */,
+				1330519D1EDF31A60031044D /* YGTools.h */,
+				1330519E1EDF31A60031044D /* YGTools.m */,
+				1317BF421F10F5740039A224 /* Define.h */,
+				1317BF431F10F5740039A224 /* Define.m */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		13279DD01EF41CE800BA46AF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				131E1E3F1EFBD56300531F10 /* YGOperationCell.h */,
+				131E1E401EFBD56300531F10 /* YGOperationCell.m */,
+				139F7A951EFD677000BD85AB /* YGOperationInTwoRowsCell.h */,
+				139F7A961EFD677000BD85AB /* YGOperationInTwoRowsCell.m */,
+				13279DCC1EF3F8BD00BA46AF /* YGOperationExpenseCell.h */,
+				13279DCD1EF3F8BD00BA46AF /* YGOperationExpenseCell.m */,
+				131E1DA31EF93DEE00531F10 /* YGOperationAccountActualCell.h */,
+				131E1DA41EF93DEE00531F10 /* YGOperationAccountActualCell.m */,
+				13279DD41EF4223D00BA46AF /* YGSections.h */,
+				13279DD51EF4223D00BA46AF /* YGSections.m */,
+				13279DD11EF41D7800BA46AF /* YGSection.h */,
+				13279DD21EF41D7800BA46AF /* YGSection.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		133050E71EDAE29D0031044D = {
 			isa = PBXGroup;
 			children = (
@@ -111,15 +318,12 @@
 		133050F21EDAE29D0031044D /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
-				133050F61EDAE29D0031044D /* AppDelegate.h */,
-				133050F71EDAE29D0031044D /* AppDelegate.m */,
 				133050FC1EDAE29D0031044D /* Main.storyboard */,
-				133051261EDAE3300031044D /* YGTabBarViewController.h */,
-				133051271EDAE3300031044D /* YGTabBarViewController.m */,
-				133051291EDAE5260031044D /* YGOptionViewController.h */,
-				1330512A1EDAE5260031044D /* YGOptionViewController.m */,
-				1330512C1EDAE60F0031044D /* YGSQLite.h */,
-				1330512D1EDAE60F0031044D /* YGSQLite.m */,
+				13279D511EED990200BA46AF /* Operation */,
+				13279D521EED990C00BA46AF /* Entity */,
+				134255871EEA9A8C00DBF934 /* Category */,
+				139F7A911EFD0D1B00BD85AB /* DB */,
+				13279D851EEECFE900BA46AF /* Others */,
 				133050FF1EDAE29D0031044D /* Assets.xcassets */,
 				133051011EDAE29D0031044D /* LaunchScreen.storyboard */,
 				133051041EDAE29D0031044D /* Info.plist */,
@@ -157,9 +361,51 @@
 		1330512F1EDAEDA00031044D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1317BF3C1F0FC7280039A224 /* libYGFileSystemIOS.a */,
+				1317BF351F0FB0F80039A224 /* libYGConfigIOS.a */,
 				133051301EDAEDA00031044D /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		134255871EEA9A8C00DBF934 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				13279DBA1EF13A4E00BA46AF /* YGExpenseParentChoiseController.h */,
+				13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */,
+				133051A91EE054740031044D /* YGCurrencyEditController.h */,
+				133051AA1EE054740031044D /* YGCurrencyEditController.m */,
+				131E1D941EF59B1600531F10 /* YGExpenseCategoryEditController.m */,
+				131E1D951EF59B1600531F10 /* YGExpenseCategoryEditController.h */,
+				133051A31EE0399B0031044D /* YGCurrencyViewController.h */,
+				133051A41EE0399B0031044D /* YGCurrencyViewController.m */,
+				13279DBD1EF1903B00BA46AF /* YGCategoryDefaultEditController.h */,
+				13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */,
+				13279D8D1EEFC1B800BA46AF /* YGCategoryViewController.h */,
+				13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */,
+				1330519A1EDEF09D0031044D /* YGCategoryManager.h */,
+				1330519B1EDEF09D0031044D /* YGCategoryManager.m */,
+				133051971EDEEFBC0031044D /* YGCategory.h */,
+				133051981EDEEFBC0031044D /* YGCategory.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		139F7A911EFD0D1B00BD85AB /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				1330512C1EDAE60F0031044D /* YGSQLite.h */,
+				1330512D1EDAE60F0031044D /* YGSQLite.m */,
+				1317BEF51F0F72A80039A224 /* YGStorage.h */,
+				1317BEF61F0F72A80039A224 /* YGStorage.m */,
+				1317BEFB1F0F7BD10039A224 /* YGStorageLocal.h */,
+				1317BEFC1F0F7BD10039A224 /* YGStorageLocal.m */,
+				1317BEEF1F0E67920039A224 /* YGDBManager.h */,
+				1317BEF01F0E67920039A224 /* YGDBManager.m */,
+				1317BF3E1F0FD8D50039A224 /* YGBackup.h */,
+				1317BF3F1F0FD8D50039A224 /* YGBackup.m */,
+			);
+			name = DB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,11 +544,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1317BF401F0FD8D50039A224 /* YGBackup.m in Sources */,
+				131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */,
+				133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */,
+				13279DD31EF41D7800BA46AF /* YGSection.m in Sources */,
+				13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */,
+				1317BF3B1F0FC2E10039A224 /* YGBackupLocalViewController.m in Sources */,
+				133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */,
+				13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */,
+				13279DBC1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m in Sources */,
+				1317BEF11F0E67920039A224 /* YGDBManager.m in Sources */,
+				131E1D991EF59C4900531F10 /* YGExpenseEditController.m in Sources */,
+				13279D4D1EED949900BA46AF /* YGEntity.m in Sources */,
+				133051991EDEEFBC0031044D /* YGCategory.m in Sources */,
+				131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */,
 				133051281EDAE3300031044D /* YGTabBarViewController.m in Sources */,
+				13279DD61EF4223D00BA46AF /* YGSections.m in Sources */,
+				13279DE01EF58C8900BA46AF /* YGDateChoiceController.m in Sources */,
+				1317BEFD1F0F7BD10039A224 /* YGStorageLocal.m in Sources */,
+				13279D551EEDA27B00BA46AF /* YGEntityManager.m in Sources */,
+				13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */,
+				131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */,
+				1317BF441F10F5740039A224 /* Define.m in Sources */,
+				1317BEF71F0F72A80039A224 /* YGStorage.m in Sources */,
+				131E1D9F1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m in Sources */,
+				131E1E411EFBD56300531F10 /* YGOperationCell.m in Sources */,
+				131E1DA51EF93DEE00531F10 /* YGOperationAccountActualCell.m in Sources */,
+				13279D8F1EEFC1B800BA46AF /* YGCategoryViewController.m in Sources */,
+				13279D8C1EEFC14200BA46AF /* YGOptionViewController.m in Sources */,
+				139F7A971EFD677000BD85AB /* YGOperationInTwoRowsCell.m in Sources */,
 				133050F81EDAE29D0031044D /* AppDelegate.m in Sources */,
 				133050F51EDAE29D0031044D /* main.m in Sources */,
+				139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */,
+				13279DC51EF2814E00BA46AF /* YGDebtEditController.m in Sources */,
+				131E1D961EF59B1600531F10 /* YGExpenseCategoryEditController.m in Sources */,
+				131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */,
+				13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */,
+				13279DCE1EF3F8BD00BA46AF /* YGOperationExpenseCell.m in Sources */,
+				1330519F1EDF31A60031044D /* YGTools.m in Sources */,
+				13279D581EEDD9A700BA46AF /* YGOperationManager.m in Sources */,
+				13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */,
+				1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */,
+				13279D501EED96F000BA46AF /* YGOperation.m in Sources */,
 				1330512E1EDAE60F0031044D /* YGSQLite.m in Sources */,
-				1330512B1EDAE5260031044D /* YGOptionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +644,7 @@
 		1330511B1EDAE29D0031044D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -398,17 +682,26 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem";
 			};
 			name = Debug;
 		};
 		1330511C1EDAE29D0031044D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -440,9 +733,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -7,8 +7,12 @@
 //
 
 #import "AppDelegate.h"
-
 #import "YGSQLite.h"
+#import "YGDBManager.h"
+#import "YGTools.h"
+#import <YGConfig.h>
+
+static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 
 @interface AppDelegate ()
 
@@ -18,12 +22,27 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
+    // Check for first launch
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    YGSQLite *db = [YGSQLite sharedInstance];
-    
-    
+#warning Must be if(![defaults objectForKey:kIsFirstLaunch]){
+    if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
+        
+        // create new work db
+        YGDBManager *dm = [YGDBManager sharedInstance];
+        //if(![dm isDbExists]){
+            [dm makeNewDb];
+        //}
+        
+        // set config for app
+        YGConfig *config = [YGTools config];
+        
+        NSArray *storageAvailible = @[@"Local"];
+        [config setValue:storageAvailible forKey:@"StoragesAvailible"];
+        
+        [defaults setBool:YES forKey:kIsFirstLaunch];
+    }
     
     return YES;
 }
