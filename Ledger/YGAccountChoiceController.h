@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, YGAccountChoiceCustomer){
 @interface YGAccountChoiceController : UITableViewController
 
 @property (assign, nonatomic) YGAccountChoiceCustomer customer;
-@property (copy, nonatomic) YGEntity *sourceAccount;
-@property (copy, nonatomic) YGEntity *targetAccount;
+@property (strong, nonatomic) YGEntity *sourceAccount;
+@property (strong, nonatomic) YGEntity *targetAccount;
 
 @end

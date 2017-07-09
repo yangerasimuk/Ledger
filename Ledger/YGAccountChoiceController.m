@@ -7,11 +7,14 @@
 //
 
 #import "YGAccountChoiceController.h"
-#import "YGEntityManager.h"
 #import "YGEntity.h"
+#import "YGEntityManager.h"
+#import "YGCategory.h"
+#import "YGCategoryManager.h"
 
 @interface YGAccountChoiceController (){
     NSArray <YGEntity *> *_accounts;
+    NSArray <YGCategory *> *_currencies;
 }
 
 @end
@@ -23,16 +26,24 @@
     
     self.navigationItem.title = @"Account";
     
+    // get list of accounts
     YGEntityManager *em = [YGEntityManager sharedInstance];
-    
     if(self.sourceAccount){
-        _accounts = [em listEntitiesByType:YGEntityTypeAccount exceptForId:self.sourceAccount.rowId];
+        _accounts = [em entitiesByType:YGEntityTypeAccount onlyActive:YES exceptEntity:self.sourceAccount];
     }
     else{
-        _accounts = [em listEntitiesByType:YGEntityTypeAccount];
+        _accounts = [em entitiesByType:YGEntityTypeAccount onlyActive:YES];
     }
     
+    // get list of active currencies
+    YGCategoryManager *cm = [YGCategoryManager sharedInstance];
+    _currencies = [cm listCategoriesByType:YGCategoryTypeCurrency];
+}
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,11 +70,24 @@
                              kAccountCellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
+                initWithStyle:UITableViewCellStyleValue1
                 reuseIdentifier:kAccountCellIdentifier];
     }
     
-    cell.textLabel.text = _accounts[indexPath.row].name;
+    YGEntity *account = _accounts[indexPath.row];
+    cell.textLabel.text = account.name;
+    
+    YGCategory *currency = nil;
+    for(YGCategory *c in _currencies){
+        if(c.rowId == account.currencyId){
+            currency = c;
+            break;
+        }
+    }
+    cell.detailTextLabel.text =[currency shorterName];
+    
+    //cell.st
+    
     
     return cell;
 }

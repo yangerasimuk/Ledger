@@ -13,25 +13,27 @@
 
 @interface YGEntityManager : NSObject
 
+@property (strong, nonatomic, readonly) NSMutableDictionary <NSString *, NSMutableArray <YGEntity *>*> *entities;
+
 + (instancetype)sharedInstance;
+- (instancetype)init;
 
 - (void)addEntity:(YGEntity *)entity;
-
-- (YGEntity *)entityById:(NSInteger)entityId;
-- (YGEntity *)entityAttachedForType:(YGEntityType)type;
-- (YGEntity *)entityOnTopForType:(YGEntityType)type;
-
+- (YGEntity *)entityById:(NSInteger)entityId type:(YGEntityType)type;
 - (void)updateEntity:(YGEntity *)entity;
-- (void)setOnlyOneDefaultEntity:(YGEntity *)entity;
 - (void)deactivateEntity:(YGEntity *)entity;
 - (void)activateEntity:(YGEntity *)entity;
 - (void)removeEntity:(YGEntity *)entity;
 
-- (NSArray <YGEntity *> *)listEntitiesByType:(YGEntityType)type;
-- (NSArray <YGEntity *> *)listEntitiesByType:(YGEntityType)type exceptForId:(NSInteger)exceptId;
+- (YGEntity *)entityAttachedForType:(YGEntityType)type;
+- (YGEntity *)entityOnTopForType:(YGEntityType)type;
+- (void)setOnlyOneDefaultEntity:(YGEntity *)entity;
 
-- (BOOL)isExistRecordsForEntity:(YGEntity *)entity;
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive exceptEntity:(YGEntity *)exceptEntity;
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive;
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type;
 
 - (void)recalcSumOfAccount:(YGEntity *)entity forOperation:(YGOperation *)operation;
+- (BOOL)isExistLinkedOperationsForEntity:(YGEntity *)entity;
 
 @end

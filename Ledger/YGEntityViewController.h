@@ -11,6 +11,6 @@
 
 @interface YGEntityViewController : UITableViewController
 
-@property (assign, nonatomic) YGEntityType entityType;
+@property (assign, nonatomic) YGEntityType type;
 
 @end

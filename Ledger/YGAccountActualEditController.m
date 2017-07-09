@@ -106,7 +106,7 @@
         self.cellDate.userInteractionEnabled = NO;
         
         // set account
-        _account = [_em entityById:self.accountActual.sourceId];
+        _account = [_em entityById:self.accountActual.sourceId type:YGEntityTypeAccount];
         self.labelAccount.text = _account.name;
         self.cellAccount.accessoryType = UITableViewCellAccessoryNone;
         self.cellAccount.userInteractionEnabled = NO;

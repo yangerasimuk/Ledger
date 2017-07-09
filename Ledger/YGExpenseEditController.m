@@ -76,18 +76,13 @@
         if(!_account)
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
         if(_account){
-            
             _currency = [_cm categoryById:_account.currencyId];
-            if(_currency.symbol || _currency.shortName){
-                self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [_currency shorterName]];
-                self.textFieldSum.placeholder = [_currency shorterName];
-            }
-            else{
-                self.labelAccount.text = _account.name;
-            }
+            
+            self.labelAccount.text = _account.name;
+            self.labelCurrency.text = [_currency shorterName];
         }
         else{
-            self.labelAccount.text = @"No account choice";
+            self.labelAccount.text = @"Select account";
         }
         
         // init
@@ -106,7 +101,7 @@
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
         
         // set account
-        _account = [_em entityById:self.expense.sourceId];
+        _account = [_em entityById:self.expense.sourceId type:YGEntityTypeAccount];
         self.labelAccount.text = _account.name;
         
         
@@ -151,6 +146,8 @@
     _isCommentChanged = NO;
     
     [self.textFieldSum becomeFirstResponder];
+    
+    //NSLog(@"%@", self.textFieldSum.keyboardType]
 }
 
 - (void)didReceiveMemoryWarning {

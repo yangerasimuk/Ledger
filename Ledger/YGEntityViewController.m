@@ -10,7 +10,7 @@
 #import "YGEntityManager.h"
 #import "YGCategoryManager.h"
 #import "YGAccountEditController.h"
-#import "YGOperationCell.h"
+//#import "YGOperationCell.h"
 
 #import "YGTools.h"
 #import "YGConfig.h"
@@ -38,12 +38,19 @@ static NSString *const kEntityCellId = @"EntityCellId";
     _cm = [YGCategoryManager sharedInstance];
         
     if(self.tabBarController.selectedIndex == 2){
-        self.entityType = YGEntityTypeAccount;
+        self.type = YGEntityTypeAccount;
     }
     
-    [self.tableView registerClass:[YGOperationCell class] forCellReuseIdentifier:kEntityCellId];
+    //[self.tableView registerClass:[YGOperationCell class] forCellReuseIdentifier:kEntityCellId];
     
-    self.entities = [_em listEntitiesByType:self.entityType];
+    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kEntityCellId];
+    
+    //self.entities = [_em listEntitiesByType:self.type];
+    NSPredicate *typePredicate = [NSPredicate predicateWithFormat:@"type = %ld", _type];
+    
+    //self.entities = [[_em.entities valueForKey:NSStringFromEntityType(_type)] filteredArrayUsingPredicate:typePredicate];
+    
+    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
     
     [self updateUI];
     
@@ -61,8 +68,13 @@ static NSString *const kEntityCellId = @"EntityCellId";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    self.entities = [_em listEntitiesByType:self.entityType];
     
+    //self.entities = [_em listEntitiesByType:self.type];
+/*
+    NSPredicate *typePredicate = [NSPredicate predicateWithFormat:@"type = %ld", _type];
+    self.entities = [_em.entities filteredArrayUsingPredicate:typePredicate];
+
+  */  
     [self updateUI];
     
     [self.tableView reloadData];
@@ -86,7 +98,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
 
 - (void)actionAddButtonPressed {
     
-    if(self.entityType == YGEntityTypeAccount){
+    if(self.type == YGEntityTypeAccount){
         
         YGAccountEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountEditScene"];
         
@@ -102,7 +114,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(self.entityType == YGEntityTypeAccount){
+    if(self.type == YGEntityTypeAccount){
         
         YGAccountEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountEditScene"];
         
@@ -132,6 +144,8 @@ static NSString *const kEntityCellId = @"EntityCellId";
         formatForNumbers = @"%.f %@";
     else
         formatForNumbers = @"%.2f %@";
+    
+    /*
 
     YGOperationCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              kEntityCellId];
@@ -156,6 +170,46 @@ static NSString *const kEntityCellId = @"EntityCellId";
         else
             cell.cellTextColor = [UIColor redColor];
     }
+    
+    return cell;
+     */
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kEntityCellId];
+    if(cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kEntityCellId];
+    }
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    YGEntity *entity = self.entities[indexPath.row];
+    
+    YGCategory *currency = [_cm categoryById:entity.currencyId];
+    
+    NSDictionary *nameAttributes = nil;
+    if(!entity.active){
+        nameAttributes = @{
+                           NSFontAttributeName:[UIFont systemFontOfSize:18],
+                           NSForegroundColorAttributeName:[UIColor grayColor],
+                           };
+    }
+    else{
+        nameAttributes = @{
+                           NSFontAttributeName:[UIFont systemFontOfSize:18],
+                           };
+    }
+    
+    NSAttributedString *nameAttributed = [[NSAttributedString alloc] initWithString:entity.name attributes:nameAttributes];
+    
+    cell.textLabel.attributedText = nameAttributed;
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    
+    NSDictionary *sumAttributes =  @{
+                                     NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                     };
+    NSAttributedString *sumAttributed = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:formatForNumbers, entity.sum, [currency shorterName]] attributes:sumAttributes];
+    cell.detailTextLabel.attributedText = sumAttributed;
+    cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
     
     return cell;
 }

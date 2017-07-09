@@ -84,7 +84,7 @@
         if(lastOperation){
             
             // set source account
-            _sourceAccount = [_em entityById:lastOperation.sourceId];
+            _sourceAccount = [_em entityById:lastOperation.sourceId type:YGEntityTypeAccount];
             self.labelSourceAccount.text = _sourceAccount.name;
             
             // set source currence
@@ -93,7 +93,7 @@
             
             
             // set target account
-            _targetAccount = [_em entityById:lastOperation.targetId];
+            _targetAccount = [_em entityById:lastOperation.targetId type:YGEntityTypeAccount];
             self.labelTargetAccount.text = _targetAccount.name;
             
             // set target currency
@@ -132,7 +132,7 @@
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
         
         // set source account
-        _sourceAccount = [_em entityById:self.transfer.sourceId];
+        _sourceAccount = [_em entityById:self.transfer.sourceId type:YGEntityTypeAccount];
         self.labelSourceAccount.text = _sourceAccount.name;
         
         // set source sum
@@ -144,7 +144,7 @@
         self.labelSourceCurrency.text = [_sourceCurrency shorterName];
         
         // set target account
-        _targetAccount = [_em entityById:self.transfer.targetId];
+        _targetAccount = [_em entityById:self.transfer.targetId type:YGEntityTypeAccount];
         self.labelTargetAccount.text = _targetAccount.name;
         
         // set target sum

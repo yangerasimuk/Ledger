@@ -88,7 +88,7 @@
             
             YGEntityManager *em = [YGEntityManager sharedInstance];
             
-            YGEntity *account = [em entityById:operation.targetId];
+            YGEntity *account = [em entityById:operation.targetId type:YGEntityTypeAccount];
             
             account.sum = operation.targetSum;
             

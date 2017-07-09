@@ -71,9 +71,9 @@
         [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         
         self.buttonDelete.enabled = NO;
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+        [self.buttonDelete setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         
-        self.labelCurrency.text = @"No currency";
+        self.labelCurrency.text = @"Select currency";
     }
     else{
         self.textFieldName.text = self.account.name;
@@ -83,7 +83,6 @@
         self.switchIsDefault.on = self.account.attach;
         
         self.buttonActivate.enabled = YES;
-        self.buttonDelete.enabled = YES;
         
         if(self.account.active)
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
@@ -93,6 +92,19 @@
         // get currency object by currencyId
         self.currency = [_cm categoryById:self.account.currencyId];
         self.labelCurrency.text = self.currency.name;
+        
+        // question - is account have linked operations?
+        if([_em isExistLinkedOperationsForEntity:self.account]){
+            self.buttonDelete.enabled = NO;
+            [self.buttonDelete setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+        }
+        else{
+            self.buttonDelete.enabled = YES;
+            [self.buttonDelete setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        }
+        
+        
+        
     }
     
 
@@ -114,6 +126,18 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Has account linked operations?
+
+- (BOOL)hasAccountLinkedOperations {
+    
+    if(_account){
+
+        if([_em isExistLinkedOperationsForEntity:_account])
+            return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Come back from currency choice
@@ -249,7 +273,7 @@
         [_em addEntity:account];
         
         if(self.switchIsDefault.isOn)
-            [_em setOnlyOneDefaultEntity:[account copy]];
+            [_em setOnlyOneDefaultEntity:account];
     }
     else{
         
@@ -265,10 +289,10 @@
             self.account.attach = self.switchIsDefault.isOn;
         
         // change db, not instance
-        [_em updateEntity:[self.account copy]];
+        [_em updateEntity:self.account];
         
         if(_isDefaultChanged && _initIsDefaultValue == NO){
-            [_em setOnlyOneDefaultEntity:[self.account copy]];
+            [_em setOnlyOneDefaultEntity:self.account];
         }
     }
     
@@ -293,7 +317,8 @@
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
-    if(![_em isExistRecordsForEntity:self.account]){
+    //if(![_em isExistRecordsForEntity:self.account]){
+    if([_em isExistLinkedOperationsForEntity:_account]){
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории расхода, необходимо удалить все связанные с ней записи (категории, операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];

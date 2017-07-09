@@ -44,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelIncomeSource;
 @property (weak, nonatomic) IBOutlet UILabel *labelAccount;
+
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
@@ -83,10 +84,17 @@
         _account = [_em entityAttachedForType:YGEntityTypeAccount];
         if(!_account)
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
-        if(!_account)
-            self.labelAccount.text = @"No account";
-        else
+        if(_account){
+            _currency = [_cm categoryById:_account.currencyId];
+
             self.labelAccount.text = _account.name;
+            self.labelCurrency.text = [_currency shorterName];
+            
+        }
+        else{
+            self.labelAccount.text = @"Select account";
+            
+        }
         
         // init
         _initDateValue = [_date copy];
@@ -108,7 +116,7 @@
         self.labelIncomeSource.text = _incomeSource.name;
         
         // set account
-        _account = [_em entityById:self.income.targetId];
+        _account = [_em entityById:self.income.targetId type:YGEntityTypeAccount];
         self.labelAccount.text = _account.name;
         
         // set currency

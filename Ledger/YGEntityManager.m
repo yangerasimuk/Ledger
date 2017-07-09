@@ -11,20 +11,21 @@
 #import "YGTools.h"
 #import "YGOperationManager.h"
 
-#define YGBooleanValueNO    0
-#define YGBooleanValueYES   1
-
 @interface YGEntityManager (){
     YGSQLite *_sqlite;
 }
+- (NSArray <YGEntity *> *)entitiesFromDb;
+- (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entitiesForCache;
+- (void)sortEntitiesInArray:(NSMutableArray <YGEntity *>*)array;
 
-- (YGEntity *)entityBySqlQuery:(NSString *)sqlQuery;
-
+- (NSInteger)idAddEntity:(YGEntity *)entity;
 @end
 
 @implementation YGEntityManager
 
-#pragma mark - Init
+@synthesize entities = _entities;
+
+#pragma mark - Singleton, init & accessors
 
 + (instancetype)sharedInstance{
     static YGEntityManager *manager = nil;
@@ -39,186 +40,25 @@
     self = [super init];
     if(self){
         _sqlite = [YGSQLite sharedInstance];
+        _entities = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
-#pragma mark - Actions on entity(s)
 
-- (void)addEntity:(YGEntity *)entity{
-    
-    @try {
-        
-        NSArray *entityArr = [NSArray arrayWithObjects:
-                              [NSNumber numberWithInteger:entity.type], // entity_type_id
-                              entity.name ? entity.name : [NSNull null], // name
-                              entity.ownerId != -1 ? [NSNumber numberWithInteger:entity.ownerId] : [NSNull null], // owner_id
-                              [NSNumber numberWithDouble:entity.sum], // sum
-                              [NSNumber numberWithInteger:entity.currencyId], //currencyId
-                              [NSNumber numberWithBool:entity.isActive], // active
-                              [YGTools stringFromDate:entity.activeFrom], // active_from,
-                              entity.activeTo ? [YGTools stringFromDate:entity.activeTo] : [NSNull null], // active_to,
-                              [NSNumber numberWithBool:entity.isAttach], // attach,
-                              [NSNumber numberWithInteger:entity.sort], // sort,
-                              entity.comment ? entity.comment : [NSNull null], //comment,
-                              nil];
-        
-        NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        
-        // db
-        [_sqlite addRecord:entityArr insertSQL:insertSQL];
-        
+- (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entities {
+
+    if([_entities count] == 0) {
+        _entities = [self entitiesForCache];
     }
-    @catch (NSException *exception) {
-        NSLog(@"Exception: %@", [exception description]);
-    }
-    
+    return _entities;
 }
 
-- (YGEntity *)entityById:(NSInteger)entityId {
-    
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment  FROM entity WHERE entity_id = %ld;", entityId];
-    
-    return [self entityBySqlQuery:sqlQuery];
-}
+#pragma mark - Inner methods for memory cache process
 
-/**
- Return only one attached entity for type. Terms for entity: equals type, active, attach, and must be only one. Else return nil.
- 
- */
-- (YGEntity *)entityAttachedForType:(YGEntityType)type {
+- (NSArray <YGEntity *> *)entitiesFromDb {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment  FROM entity WHERE entity_type_id = %ld AND active = %d AND attach = %d;", type, YGBooleanValueYES, YGBooleanValueYES];
-    
-    return [self entityBySqlQuery:sqlQuery];
-}
-
-- (YGEntity *)entityOnTopForType:(YGEntityType)type {
-    
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment  FROM entity WHERE entity_type_id = %ld AND active = %d ORDER BY sort ASC LIMIT 1;", type, YGBooleanValueYES];
-    
-    return [self entityBySqlQuery:sqlQuery];
-}
-
-
-/**
- Inner func for entityById:, entity
- */
-- (YGEntity *)entityBySqlQuery:(NSString *)sqlQuery {
-    
-    NSMutableArray <YGEntity *> *result = [[NSMutableArray alloc] init];
-    
-    NSArray *classes = [NSArray arrayWithObjects:
-                        [NSNumber class], // entity_id
-                        [NSNumber class], // entity_type_id
-                        [NSString class], // name
-                        [NSNumber class], // owner_id
-                        [NSNumber class], // sum
-                        [NSNumber class], // currency_id
-                        [NSNumber class], // active
-                        [NSString class], // active_from
-                        [NSString class], // active_to
-                        [NSNumber class], // attach
-                        [NSNumber class], // sort
-                        [NSString class], // comment
-                        nil];
-    
-    YGSQLite *sql = [YGSQLite sharedInstance];
-    
-    NSArray *rawCategories = [sql selectWithSqlQuery:sqlQuery bindClasses:classes];
-    
-    for(NSArray *arr in rawCategories){
-        
-        NSInteger rowId = [arr[0] integerValue];
-        YGEntityType type = [arr[1] integerValue];
-        NSString *name = arr[2];
-        NSInteger ownerId = arr[3] > 0 ? [arr[3] integerValue] : -1;
-        NSInteger sum = [arr[4] integerValue];
-        NSInteger currencyId = [arr[5] integerValue];
-        BOOL active = [arr[6] boolValue];
-        NSDate *activeFrom = [YGTools dateFromString:arr[7]];
-        NSDate *activeTo = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
-        BOOL attach = [arr[9] boolValue];
-        NSInteger sort = [arr[10] integerValue];
-        NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
-        
-        YGEntity *entity = [[YGEntity alloc] initWithRowId:rowId type:type name:name ownerId:ownerId sum:sum currencyId:currencyId active:active activeFrom:activeFrom activeTo:activeTo attach:attach sort:sort comment:comment];
-        
-        [result addObject:entity];
-    }
-    
-    if([result count] == 0)
-        return nil;
-    else if([result count] > 1)
-        @throw [NSException exceptionWithName:@"-[YGEntityManager entityBySqlQuery]" reason:[NSString stringWithFormat:@"Undefined choice for entity. Sql query: %@", sqlQuery]  userInfo:nil];
-    else
-        return [result objectAtIndex:0];
-}
-
-
-- (void)updateEntity:(YGEntity *)entity{
-    
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, owner_id=%@, sum=%@, currency_id=%@, active=%@, active_from=%@, active_to=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
-                           [YGTools sqlStringForIntOrNull:entity.type],
-                           [YGTools sqlStringForStringOrNull:entity.name],
-                           [YGTools sqlStringForIntOrNull:entity.ownerId],
-                            [YGTools sqlStringForDecimal:entity.sum],
-                           [YGTools sqlStringForIntOrNull:entity.currencyId],
-                           [YGTools sqlStringForBool:entity.isActive],
-                           [YGTools sqlStringForDateOrNull:entity.activeFrom],
-                           [YGTools sqlStringForDateOrNull:entity.activeTo],
-                           [YGTools sqlStringForBool:entity.attach],
-                            [YGTools sqlStringForIntOrDefault:entity.sort],
-                           [YGTools sqlStringForStringOrNull:entity.comment],
-                           [YGTools sqlStringForIntOrNull:entity.rowId]];
-    
-
-    [_sqlite execSQL:updateSQL];
-}
-
-
-- (void)setOnlyOneDefaultEntity:(YGEntity *)entity {
-    
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET attach=0 WHERE entity_type_id = %ld AND entity_id != %ld;",
-                           entity.type,
-                           entity.rowId];
-    
-    [_sqlite execSQL:updateSQL];
-}
-
-
-- (void)deactivateEntity:(YGEntity *)entity{
-
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, active_to='%@' WHERE entity_id=%ld;", [YGTools stringFromDate:[NSDate date]], entity.rowId];
-    
-    [_sqlite execSQL:updateSQL];
-}
-
-- (void)activateEntity:(YGEntity *)entity{
-    
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, active_to=NULL WHERE entity_id=%ld;", entity.rowId];
-    
-    [_sqlite execSQL:updateSQL];
-}
-
-- (void)removeEntity:(YGEntity *)entity{
-    
-    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM entity WHERE entity_id = %ld;", entity.rowId];
-    
-    [_sqlite removeRecordWithSQL:deleteSQL];
-}
-
-- (NSArray <YGEntity *> *)listEntitiesByType:(YGEntityType)type exceptForId:(NSInteger)exceptId {
-    
-    NSString *sqlQuery = nil;
-    
-    if(exceptId == -1){
-        sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity WHERE entity_type_id = %ld ORDER BY active DESC, sort ASC;", type];
-    }
-    else{
-        sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity WHERE entity_type_id = %ld AND entity_id != %ld ORDER BY active DESC, sort ASC;", type, exceptId];
-
-    }
+    NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity ORDER BY active DESC, sort ASC;";
     
     NSArray *classes = [NSArray arrayWithObjects:
                         [NSNumber class],   // entity_id
@@ -256,18 +96,286 @@
         
         YGEntity *entity = [[YGEntity alloc] initWithRowId:rowId type:type name:name ownerId:ownerId  sum:sum currencyId:currencyId active:active activeFrom:activeFrom activeTo:activeTo attach:attach sort:sort comment:comment];
         
-        //NSLog(@"%@", [entity description]);
-        
         [result addObject:entity];
     }
     
     return [result copy];
 }
 
-- (NSArray <YGEntity *> *)listEntitiesByType:(YGEntityType)type{
-    return [self listEntitiesByType:type exceptForId:-1];
+
+- (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entitiesForCache {
+    
+    NSArray *entitiesRaw = [self entitiesFromDb];
+    
+    NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *entitiesResult = [[NSMutableDictionary alloc] init];
+    
+    NSString *typeString = nil;
+    for(YGEntity *entity in entitiesRaw){
+        
+        typeString = NSStringFromEntityType(entity.type);
+        
+        if([entitiesResult valueForKey:typeString]){
+            [[entitiesResult valueForKey:typeString] addObject:entity];
+        }
+        else{
+            [entitiesResult setValue:[[NSMutableArray alloc] init] forKey:typeString];
+            [[entitiesResult valueForKey:typeString] addObject:entity];
+        }
+        
+    }
+    
+    // sort entities in each inner array
+    NSArray *types = [entitiesResult allKeys];
+    for(NSString *type in types)
+        [self sortEntitiesInArray:entitiesResult[type]];
+    
+    return entitiesResult;
 }
 
+
+
+/**
+ @warning It will be better if in table entities we have colomn date_unix for sort.
+ */
+- (void)sortEntitiesInArray:(NSMutableArray <YGEntity *>*)array {
+    
+    NSSortDescriptor *sortOnActiveByDesc = [[NSSortDescriptor alloc] initWithKey:@"active" ascending:NO];
+    NSSortDescriptor *sortOnSortByAsc = [[NSSortDescriptor alloc] initWithKey:@"sort" ascending:YES];
+    NSSortDescriptor *sortOnActiveFromByAsc = [[NSSortDescriptor alloc] initWithKey:@"activeFrom"  ascending:YES];
+    
+    [array sortUsingDescriptors:@[sortOnActiveByDesc, sortOnSortByAsc, sortOnActiveFromByAsc]];
+}
+
+
+#pragma mark - Actions on entity(s)
+
+- (NSInteger)idAddEntity:(YGEntity *)entity {
+    
+    NSInteger rowId = -1;
+    
+    @try {
+        
+        NSArray *entityArr = [NSArray arrayWithObjects:
+                              [NSNumber numberWithInteger:entity.type], // entity_type_id
+                              entity.name ? entity.name : [NSNull null], // name
+                              entity.ownerId != -1 ? [NSNumber numberWithInteger:entity.ownerId] : [NSNull null], // owner_id
+                              [NSNumber numberWithDouble:entity.sum], // sum
+                              [NSNumber numberWithInteger:entity.currencyId], //currencyId
+                              [NSNumber numberWithBool:entity.isActive], // active
+                              [YGTools stringFromDate:entity.activeFrom], // active_from,
+                              entity.activeTo ? [YGTools stringFromDate:entity.activeTo] : [NSNull null], // active_to,
+                              [NSNumber numberWithBool:entity.isAttach], // attach,
+                              [NSNumber numberWithInteger:entity.sort], // sort,
+                              entity.comment ? entity.comment : [NSNull null], //comment,
+                              nil];
+        
+        NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        
+        // db
+        rowId = [_sqlite addRecord:entityArr insertSQL:insertSQL];
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exception: %@", [exception description]);
+    }
+    @finally {
+        return rowId;
+    }
+}
+
+
+
+#pragma mark - Extern methods - Actions on one entity
+
+- (void)addEntity:(YGEntity *)entity{
+    
+    // add entity to db
+    NSInteger rowId = [self idAddEntity:entity];
+    YGEntity *newEntity = [entity copy];
+    newEntity.rowId = rowId;
+    
+    // add entity to memory cache
+    [[_entities valueForKey:NSStringFromEntityType(newEntity.type)] addObject:newEntity];
+    [self sortEntitiesInArray:[_entities valueForKey:NSStringFromEntityType(newEntity.type)]];
+}
+
+
+#warning May be throw exception when return array count > 1?
+- (YGEntity *)entityById:(NSInteger)entityId type:(YGEntityType)type {
+    
+    NSArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(type)];
+    
+    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"rowId = %ld", entityId];
+    
+    return [[entitiesByType filteredArrayUsingPredicate:idPredicate] firstObject];
+}
+
+
+
+#warning Is entity needs to update in inner storage?
+/**
+ @warning It seems entity updated in EditController edit by reference, so...
+ */
+- (void)updateEntity:(YGEntity *)entity{
+    
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, owner_id=%@, sum=%@, currency_id=%@, active=%@, active_from=%@, active_to=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
+                           [YGTools sqlStringForIntOrNull:entity.type],
+                           [YGTools sqlStringForStringOrNull:entity.name],
+                           [YGTools sqlStringForIntOrNull:entity.ownerId],
+                            [YGTools sqlStringForDecimal:entity.sum],
+                           [YGTools sqlStringForIntOrNull:entity.currencyId],
+                           [YGTools sqlStringForBool:entity.isActive],
+                           [YGTools sqlStringForDateOrNull:entity.activeFrom],
+                           [YGTools sqlStringForDateOrNull:entity.activeTo],
+                           [YGTools sqlStringForBool:entity.attach],
+                            [YGTools sqlStringForIntOrDefault:entity.sort],
+                           [YGTools sqlStringForStringOrNull:entity.comment],
+                           [YGTools sqlStringForIntOrNull:entity.rowId]];
+    
+    [_sqlite execSQL:updateSQL];
+}
+
+
+- (void)deactivateEntity:(YGEntity *)entity{
+    
+    NSString *activeTo = [YGTools stringFromDate:[NSDate date]];
+
+    // update db
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, active_to='%@' WHERE entity_id=%ld;", activeTo, entity.rowId];
+    
+    [_sqlite execSQL:updateSQL];
+
+    // update memory cache
+    NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(entity.type)];
+    YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
+    updateEntity.active = NO;
+    updateEntity.activeTo = [YGTools dateFromString:activeTo];
+    
+    // sort memory cache
+    [self sortEntitiesInArray:entitiesByType];
+}
+
+- (void)activateEntity:(YGEntity *)entity{
+    
+    // update db
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, active_to=NULL WHERE entity_id=%ld;", entity.rowId];
+    
+    [_sqlite execSQL:updateSQL];
+    
+    // update memory cache
+    NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(entity.type)];
+    YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
+    updateEntity.active = YES;
+    updateEntity.activeTo = nil;
+    
+    [self sortEntitiesInArray:entitiesByType];
+}
+
+- (void)removeEntity:(YGEntity *)entity{
+    
+    // update db
+    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM entity WHERE entity_id = %ld;", entity.rowId];
+    
+    [_sqlite removeRecordWithSQL:deleteSQL];
+    
+    // update memory cache
+    NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(entity.type)];
+    [entitiesByType removeObject:entity];
+}
+
+
+/**
+ Return only one attached entity for type. Terms for entity: equals type, active, attach, and must be only one. Else return nil.
+ 
+ */
+- (YGEntity *)entityAttachedForType:(YGEntityType)type {
+    
+    NSArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(type)];
+    
+    NSPredicate *attachPredicate = [NSPredicate predicateWithFormat:@"active = YES && attach = YES"];
+    
+    NSArray <YGEntity *> *entitiesResult = [entitiesByType filteredArrayUsingPredicate:attachPredicate];
+    
+    if(entitiesResult && [entitiesResult count] > 0)
+        return [entitiesResult firstObject];
+    else
+        return nil;
+}
+
+/**
+ NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment  FROM entity WHERE entity_type_id = %ld AND active = %d ORDER BY sort ASC LIMIT 1;", type, YGBooleanValueYES];
+ */
+- (YGEntity *)entityOnTopForType:(YGEntityType)type {
+    
+    NSArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(type)];
+    
+    NSPredicate *attachPredicate = [NSPredicate predicateWithFormat:@"active = YES"];
+    
+    NSArray <YGEntity *> *entitiesResult = [entitiesByType filteredArrayUsingPredicate:attachPredicate];
+    
+    if(entitiesResult && [entitiesResult count] > 0)
+        return [entitiesResult firstObject];
+    else
+        return nil;
+}
+
+
+
+- (void)setOnlyOneDefaultEntity:(YGEntity *)entity {
+    
+    // update db
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET attach=0 WHERE entity_type_id = %ld AND entity_id != %ld;",
+                           entity.type,
+                           entity.rowId];
+    
+    [_sqlite execSQL:updateSQL];
+    
+    // update inner storage
+    NSPredicate *unAttachedPredicate = [NSPredicate predicateWithFormat:@"type = %ld && rowId != %ld", entity.type, entity.rowId];
+    
+    NSArray <YGEntity *> *updateEntities = [[_entities valueForKey:NSStringFromEntityType(entity.type)]filteredArrayUsingPredicate:unAttachedPredicate];
+    
+    for(YGEntity *ent in updateEntities){
+        ent.attach = NO;
+    }
+}
+
+
+
+
+#pragma mark - Extern methods - Getting lists of entitites
+
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive exceptEntity:(YGEntity *)exceptEntity {
+    
+    NSArray <YGEntity *> *entitiesResult = [_entities valueForKey:NSStringFromEntityType(type)];
+    
+    if(onlyActive){
+        NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];
+        entitiesResult = [entitiesResult filteredArrayUsingPredicate:activePredicate];
+    }
+    
+    if(exceptEntity){
+        NSPredicate *exceptPredicate = [NSPredicate predicateWithFormat:@"rowId != %ld", exceptEntity.rowId];
+        entitiesResult = [entitiesResult filteredArrayUsingPredicate:exceptPredicate];
+    }
+    
+    return entitiesResult;
+}
+
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive {
+    
+    return [self entitiesByType:type onlyActive:onlyActive exceptEntity:nil];
+}
+
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type {
+    
+    return [self entitiesByType:type onlyActive:NO exceptEntity:nil];
+}
+
+
+
+
+#pragma mark - Working with Operations: reculc and check of exist operations for entity
 
 - (void)recalcSumOfAccount:(YGEntity *)account forOperation:(YGOperation *)operation {
     
@@ -328,30 +436,44 @@
 
     // is account needs to update?
     if(account.sum != targetSum){
-        // save to db
+        // update db
         NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET sum=%@ WHERE entity_id=%@;",
                                [YGTools sqlStringForDecimal:targetSum],
                                [YGTools sqlStringForIntOrNull:account.rowId]];
         
         [_sqlite execSQL:updateSQL];
+        
+        // update memory cache
+        NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
+        YGEntity *updateAccount = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:account]];
+        updateAccount.sum = targetSum;
     }
 }
 
 
-
-- (BOOL)isExistRecordsForEntity:(YGEntity *)entity {
+- (BOOL)isExistLinkedOperationsForEntity:(YGEntity *)entity {
     
     if(entity.type == YGEntityTypeAccount){
         
-        // in operations
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE source_id = %ld OR target_id = %ld LIMIT 1;", entity.rowId, entity.rowId];
+        // search in operations
+        NSString *selectSql = [NSString stringWithFormat:@"SELECT operation_id FROM operation "
+                               "WHERE "
+                               "(operation_type_id IN (%ld,%ld,%ld,%ld,%ld) AND source_id = %ld) OR "
+                               "(operation_type_id IN (%ld,%ld,%ld,%ld,%ld) AND target_id = %ld) "
+                               "LIMIT 1;",
+                               YGOperationTypeExpense, YGOperationTypeAccountActual, YGOperationTypeTransfer, YGOperationTypeReturnCredit, YGOperationTypeGiveDebt, entity.rowId,
+                               YGOperationTypeIncome, YGOperationTypeAccountActual, YGOperationTypeTransfer, YGOperationTypeGetCredit, YGOperationTypeReturnDebt, entity.rowId
+                               ];
+        
         NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
-        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        NSArray *categories = [_sqlite selectWithSqlQuery:selectSql bindClasses:classes];
         
         if([categories count] > 0)
             return YES;
+        
     }
+    
     return NO;
 }
 

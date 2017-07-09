@@ -15,6 +15,7 @@
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
 #import "YGEntityManager.h"
+#import "YGEntity.h"
 
 #import "YGExpenseEditController.h"
 #import "YGAccountActualEditController.h"
@@ -23,6 +24,8 @@
 
 #import "YGTools.h"
 #import "YGConfig.h"
+
+#define USE_MEMORY_CACHE
 
 static NSString *const kOperationCellIdentifier = @"OperationCellIdentifier";
 static NSString *const kOperationInTwoRowsCellIdentifier = @"OperationInTwoRowsCellIdentifier";
@@ -98,12 +101,13 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     _tags = [_cm listCategoriesByType:YGCategoryTypeTag];
     
     // get list of accounts
-    _accounts = [_em listEntitiesByType:YGEntityTypeAccount];
+    _accounts = [_em.entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
     
     // get list of credits
-    _debts = [_em listEntitiesByType:YGEntityTypeDebt];
+    //_debts = [_em.entities valueForKey:NSStringFromEntityType(YGEntityTypeDebt)];
     
     [self updateUI];
+    
     
 }
 

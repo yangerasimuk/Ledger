@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, YGEntityType){
+    YGEntityTypeNone    = 0, // using for select all entities
     YGEntityTypeAccount = 1,
-    YGEntityTypeDebt    = 2
+    YGEntityTypeDebt    = 2,
+    YGEntityTypeCredit  = 3
 };
+
+NSString * NSStringFromEntityType(YGEntityType type);
 
 @interface YGEntity : NSObject
 
