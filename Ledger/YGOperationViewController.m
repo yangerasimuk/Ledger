@@ -22,6 +22,8 @@
 #import "YGIncomeEditController.h"
 #import "YGTransferEditController.h"
 
+#import "YGOperationOneRowCell.h"
+
 #import "YGTools.h"
 #import "YGConfig.h"
 
@@ -29,6 +31,7 @@
 
 static NSString *const kOperationCellIdentifier = @"OperationCellIdentifier";
 static NSString *const kOperationInTwoRowsCellIdentifier = @"OperationInTwoRowsCellIdentifier";
+static NSString *const kOperationOneRowsCellId = @"OperationOneRowCellId";
 static NSString *const kExpenseCellIdentifier = @"ExpenseCellIdentifier";
 static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentifier";
 
@@ -66,6 +69,9 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddBarButton)];
     self.navigationItem.rightBarButtonItem = addBarButton;
+    
+    //new one row cell
+    [self.tableView registerClass:[YGOperationOneRowCell class] forCellReuseIdentifier:kOperationOneRowsCellId];
     
     // expense cell
     [self.tableView registerClass:[YGOperationExpenseCell class]
@@ -423,6 +429,7 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     
     if(operation.type == YGOperationTypeExpense){
         
+        /*
         // if Expense -> source == account and target == expenseCategory
         
         YGOperationExpenseCell *cell = [tableView dequeueReusableCellWithIdentifier:kExpenseCellIdentifier];
@@ -450,6 +457,50 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
         cell.sumValue = stringForSumValue;
         
         return cell;
+*/
+        
+        
+        // if Expense -> source == account and target == expenseCategory
+        
+        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowsCellId];
+        if (cell == nil) {
+            /*
+            cell = (YGOperationOneRowCell *)[[UITableViewCell alloc]
+                                              initWithStyle:UITableViewCellStyleValue1
+                                              reuseIdentifier:kOperationOneRowsCellId];
+             */
+            
+            cell = [[YGOperationOneRowCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kOperationOneRowsCellId];
+        }
+        
+        cell.type = YGOperationTypeExpense;
+        
+        // account
+        YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
+        
+        // category
+        YGCategory *expenseCategory = [self categoryByType:YGCategoryTypeExpense rowId:operation.targetId];
+        //cell.categoryName = expenseCategory.name;
+        //cell.textLabel.text = expenseCategory.name;
+        cell.text = expenseCategory.name;
+        
+        // currency
+        YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
+        
+        // sum
+        // !!!!! cell.sumValue = [NSString stringWithFormat:formatForNumbers, operation.sourceSum];
+        
+        NSString *stringForSumValue = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [currency shorterName]];
+        
+        //cell.sumValue = stringForSumValue;
+        cell.detailText = stringForSumValue;
+        
+        //cell.sum = stringForSumValue;
+        
+        return cell;
+        
+        
+        
         
     }
     else if(operation.type == YGOperationTypeAccountActual){

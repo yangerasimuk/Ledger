@@ -296,6 +296,49 @@
     return resultString;
 }
 
+#pragma mark - Specific device tuning
+
+/**
+ Default font size depends from width of screen this device. If func can not get info about screen width of concrete device fot set to 18.
+ 
+ @return Font size.
+ */
++ (NSInteger)defaultFontSize {
+    
+    NSInteger defaultSize = 18;
+    
+    
+    NSInteger deviceScreenHeight = [YGTools deviceScreenWidth];
+    
+    if(deviceScreenHeight == 640){
+        defaultSize = 18;
+    }
+    else if(deviceScreenHeight == 750){
+        defaultSize = 20;
+    }
+    else if(deviceScreenHeight == 1242){
+        defaultSize = 22;
+    }
+    
+    return defaultSize;
+}
+
++ (NSInteger)deviceScreenWidth {
+    
+    NSInteger screenWidth = 750;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if(![defaults valueForKey:@"DeviceScreenWidth"])
+        return screenWidth;
+    
+    screenWidth = [[defaults valueForKey:@"DeviceScreenWidth"] integerValue];
+
+    NSLog(@"Device screen width: %ld", screenWidth);
+    
+    return screenWidth;
+}
+
 + (void)sizeClassOfCurrentIPhone {
     UIDevice *device = [UIDevice currentDevice];
     

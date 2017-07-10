@@ -37,5 +37,7 @@
 
 + (NSInteger *)sizeClassOfCurrentIPhone;
 
++ (NSInteger)defaultFontSize;
+
 
 @end
