@@ -435,13 +435,10 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
         
         cell.type = YGOperationTypeExpense;
         
+        cell.text = [self categoryByType:YGCategoryTypeExpense rowId:operation.targetId].name;
+
         // account
         YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
-        
-        // category
-        YGCategory *expenseCategory = [self categoryByType:YGCategoryTypeExpense rowId:operation.targetId];
-
-        cell.text = expenseCategory.name;
         
         // currency
         YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
@@ -490,13 +487,10 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
         cell.type = YGOperationTypeIncome;
         
         // get incomeSource
-        YGCategory *incomeSource = [self categoryByType:YGCategoryTypeIncome rowId:operation.sourceId];
+        cell.detailText = [self categoryByType:YGCategoryTypeIncome rowId:operation.sourceId].name;
         
         // account
         YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.targetId];
-        
-        //cell.accountName = account.name;
-        cell.detailText = incomeSource.name;
         
         // currency
         YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
@@ -520,18 +514,16 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
         cell.type = YGOperationTypeTransfer;
         
         // source account
-        YGEntity *sourceAccount = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
+        cell.firstRowText = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId].name;
+        
         // source currency
         YGCategory *sourceCurrency = [self categoryByType:YGCategoryTypeCurrency rowId:operation.sourceCurrencyId];
         
         // target account
-        YGEntity *targetAccount = [self entityByType:YGEntityTypeAccount rowId:operation.targetId];
+        cell.secondRowText = [self entityByType:YGEntityTypeAccount rowId:operation.targetId].name;
         // target currency
         YGCategory *targetCurrency = [self categoryByType:YGCategoryTypeCurrency rowId:operation.targetCurrencyId];
-        
-        cell.firstRowText = sourceAccount.name;
-        cell.secondRowText = targetAccount.name;
-        
+                
         cell.firstRowDetailText = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [sourceCurrency shorterName]];
         cell.secondRowDetailText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [targetCurrency shorterName]];
         
