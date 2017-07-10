@@ -307,16 +307,15 @@
     
     NSInteger defaultSize = 18;
     
-    
     NSInteger deviceScreenHeight = [YGTools deviceScreenWidth];
     
-    if(deviceScreenHeight == 640){
+    if(deviceScreenHeight == 320){
         defaultSize = 18;
     }
-    else if(deviceScreenHeight == 750){
+    else if(deviceScreenHeight == 375){
         defaultSize = 20;
     }
-    else if(deviceScreenHeight == 1242){
+    else if(deviceScreenHeight == 414){
         defaultSize = 22;
     }
     
@@ -333,8 +332,18 @@
         return screenWidth;
     
     screenWidth = [[defaults valueForKey:@"DeviceScreenWidth"] integerValue];
-
-    NSLog(@"Device screen width: %ld", screenWidth);
+    
+    switch(screenWidth){
+        case 320:
+            return 320;
+        case 640:
+            return 320; //screenWidth / 2;
+        case 750:
+            return 375; //screenWidth / 2;
+        case 1080:
+        case 1242:
+            return 414; //screenWidth / 3;
+    }
     
     return screenWidth;
 }

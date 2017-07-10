@@ -39,5 +39,7 @@
 
 + (NSInteger)defaultFontSize;
 
++ (NSInteger)deviceScreenWidth;
+
 
 @end

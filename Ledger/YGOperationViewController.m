@@ -7,10 +7,6 @@
 //
 
 #import "YGOperationViewController.h"
-#import "YGOperationCell.h"
-#import "YGOperationInTwoRowsCell.h"
-#import "YGOperationExpenseCell.h"
-#import "YGOperationAccountActualCell.h"
 #import "YGSections.h"
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
@@ -23,17 +19,15 @@
 #import "YGTransferEditController.h"
 
 #import "YGOperationOneRowCell.h"
+#import "YGOperationTwoRowCell.h"
 
 #import "YGTools.h"
 #import "YGConfig.h"
 
 #define USE_MEMORY_CACHE
 
-static NSString *const kOperationCellIdentifier = @"OperationCellIdentifier";
-static NSString *const kOperationInTwoRowsCellIdentifier = @"OperationInTwoRowsCellIdentifier";
-static NSString *const kOperationOneRowsCellId = @"OperationOneRowCellId";
-static NSString *const kExpenseCellIdentifier = @"ExpenseCellIdentifier";
-static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentifier";
+static NSString *const kOperationOneRowCellId = @"OperationOneRowCellId";
+static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 
 @interface YGOperationViewController (){
     YGSections *_sections;
@@ -54,6 +48,10 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     BOOL _isPullRefreshToAddElement;
     
     UIRefreshControl *_refresh;
+    
+    CGFloat _heightSection;
+    CGFloat _heightOneRowCell;
+    CGFloat _heightTwoRowCell;
 }
 
 @end
@@ -70,21 +68,15 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddBarButton)];
     self.navigationItem.rightBarButtonItem = addBarButton;
     
-    //new one row cell
-    [self.tableView registerClass:[YGOperationOneRowCell class] forCellReuseIdentifier:kOperationOneRowsCellId];
     
-    // expense cell
-    [self.tableView registerClass:[YGOperationExpenseCell class]
-           forCellReuseIdentifier:kExpenseCellIdentifier];
+    // set heights of sections and rows
+    _heightSection = [self heightSectionHeader];
+    _heightOneRowCell = [self heightOneRowCell];
+    _heightTwoRowCell = [self heightTwoRowCell];
     
-    // base 1 row cell, ex.: income cell
-    [self.tableView registerClass:[YGOperationCell class] forCellReuseIdentifier:kOperationCellIdentifier];
-    
-    // base 2 rows cell, ex.: transfer cell
-    [self.tableView registerClass:[YGOperationInTwoRowsCell class] forCellReuseIdentifier:kOperationInTwoRowsCellIdentifier];
-    
-    // account actual cell
-    [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kAccountActualCellIdentifier];
+    // cell classes for one and two rows
+    [self.tableView registerClass:[YGOperationOneRowCell class] forCellReuseIdentifier:kOperationOneRowCellId];
+    [self.tableView registerClass:[YGOperationTwoRowCell class] forCellReuseIdentifier:kOperationTwoRowCellId];
     
     // get list of operations
     NSArray *operations = [_om listOperations];
@@ -179,9 +171,9 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     YGConfig *config = [YGTools config];
     
     // Hide decimal fraction
-    _isHideDecimalFraction = NO;
-    if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"Y"])
-        _isHideDecimalFraction = YES;
+    _isHideDecimalFraction = YES;
+    if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"NO"])
+        _isHideDecimalFraction = NO;
     
     // Pull refresh add new element
     _isPullRefreshToAddElement = NO;
@@ -358,10 +350,12 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     
     CGRect superViewRect =  [tableView.superview frame];
     
-    // create the parent view that will hold header Label
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewRect.size.width, 22.0f)];
+    CGFloat height = [self heightSectionHeader];
     
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewRect.size.width, 22.0f)];
+    // create the parent view that will hold header Label
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewRect.size.width, height)];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewRect.size.width, height)];
     
     headerLabel.backgroundColor = [UIColor clearColor];
     
@@ -381,17 +375,19 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 22.0;
+    return [self heightSectionHeader];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperation *operation = _sections.list[indexPath.section].operations[indexPath.row];
+    YGOperationType type = _sections.list[indexPath.section].operations[indexPath.row].type;
     
-    if(operation.type == YGOperationTypeTransfer)
-        return 76;
-    else
-        return 44;
+    if(type == YGOperationTypeTransfer){
+        return _heightTwoRowCell; // 76;
+    }
+    else{
+        return _heightOneRowCell; // 44;
+    }
 }
 
 
@@ -428,49 +424,13 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     YGOperation *operation = _sections.list[indexPath.section].operations[indexPath.row];
     
     if(operation.type == YGOperationTypeExpense){
-        
-        /*
-        // if Expense -> source == account and target == expenseCategory
-        
-        YGOperationExpenseCell *cell = [tableView dequeueReusableCellWithIdentifier:kExpenseCellIdentifier];
-        if (cell == nil) {
-            cell = (YGOperationExpenseCell *)[[UITableViewCell alloc]
-                                              initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:kExpenseCellIdentifier];
-        }
 
-        // account
-        YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
-        
-        // category
-        YGCategory *expenseCategory = [self categoryByType:YGCategoryTypeExpense rowId:operation.targetId];
-        cell.categoryName = expenseCategory.name;
-        
-        // currency
-        YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
-        
-        // sum
-        // !!!!! cell.sumValue = [NSString stringWithFormat:formatForNumbers, operation.sourceSum];
-        
-        NSString *stringForSumValue = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [currency shorterName]];
-        
-        cell.sumValue = stringForSumValue;
-        
-        return cell;
-*/
-        
-        
         // if Expense -> source == account and target == expenseCategory
         
-        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowsCellId];
+        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowCellId];
         if (cell == nil) {
-            /*
-            cell = (YGOperationOneRowCell *)[[UITableViewCell alloc]
-                                              initWithStyle:UITableViewCellStyleValue1
-                                              reuseIdentifier:kOperationOneRowsCellId];
-             */
             
-            cell = [[YGOperationOneRowCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kOperationOneRowsCellId];
+            cell = [[YGOperationOneRowCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kOperationOneRowCellId];
         }
         
         cell.type = YGOperationTypeExpense;
@@ -480,69 +440,54 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
         
         // category
         YGCategory *expenseCategory = [self categoryByType:YGCategoryTypeExpense rowId:operation.targetId];
-        //cell.categoryName = expenseCategory.name;
-        //cell.textLabel.text = expenseCategory.name;
+
         cell.text = expenseCategory.name;
         
         // currency
         YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
         
-        // sum
-        // !!!!! cell.sumValue = [NSString stringWithFormat:formatForNumbers, operation.sourceSum];
-        
-        NSString *stringForSumValue = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [currency shorterName]];
-        
-        //cell.sumValue = stringForSumValue;
-        cell.detailText = stringForSumValue;
-        
-        //cell.sum = stringForSumValue;
+        cell.detailText = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [currency shorterName]];
         
         return cell;
-        
-        
-        
-        
     }
     else if(operation.type == YGOperationTypeAccountActual){
         
         // if Account actual -> source == account and target == account
         
-        YGOperationAccountActualCell *cell = [tableView dequeueReusableCellWithIdentifier:kAccountActualCellIdentifier];
+        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowCellId];
         if (cell == nil) {
-            cell = (YGOperationAccountActualCell *)[[UITableViewCell alloc]
-                                              initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:kAccountActualCellIdentifier];
+            cell = [[YGOperationOneRowCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:kOperationOneRowCellId];
         }
+        
+        cell.type = YGOperationTypeAccountActual;
         
         // account
         YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
         
-        cell.accountName = account.name;
+        cell.text = account.name;
         
         // currency
         YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
         
-        // sum
-        //cell.sumValue = [NSString stringWithFormat:@"%.2f", operation.targetSum];
-        
-        NSString *stringForSumValue = [NSString stringWithFormat:formatForEqualNumbers, operation.targetSum, [currency shorterName]];
-        
-        cell.sumValue = stringForSumValue;
+        cell.detailText = [NSString stringWithFormat:formatForEqualNumbers, operation.targetSum, [currency shorterName]];
         
         return cell;
-
     }
     else if(operation.type == YGOperationTypeIncome){
         
         // what is income?
         // it is transfer from IncomeSource to Account
         
-        YGOperationCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationCellIdentifier];
+        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowCellId];
         if (cell == nil) {
-            cell = (YGOperationCell *)[[UITableViewCell alloc]
-                                                    initWithStyle:UITableViewCellStyleDefault
-                                                    reuseIdentifier:kOperationCellIdentifier];
+            cell = [[YGOperationOneRowCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:kOperationOneRowCellId];
         }
+        
+        cell.type = YGOperationTypeIncome;
         
         // get incomeSource
         YGCategory *incomeSource = [self categoryByType:YGCategoryTypeIncome rowId:operation.sourceId];
@@ -551,30 +496,29 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
         YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.targetId];
         
         //cell.accountName = account.name;
-        cell.descriptionText = incomeSource.name;
+        cell.detailText = incomeSource.name;
         
         // currency
         YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
         
-        NSString *stringForSumText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [currency shorterName]];
-        
-        cell.sumText = stringForSumText;
-        
+        cell.detailText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [currency shorterName]];
+
         return cell;
-        
     }
     else if(operation.type == YGOperationTypeTransfer){
-        
+
         // what is transfer?
         // it is transfer from sourceAccount to targetAccount
         
-        YGOperationInTwoRowsCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationInTwoRowsCellIdentifier];
+        YGOperationTwoRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationTwoRowCellId];
         if (cell == nil) {
-            cell = (YGOperationInTwoRowsCell *)[[UITableViewCell alloc]
-                                       initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:kOperationInTwoRowsCellIdentifier];
+            cell = [[YGOperationTwoRowCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                reuseIdentifier:kOperationTwoRowCellId];
         }
-                
+        
+        // pass type to color detail text
+        cell.type = YGOperationTypeTransfer;
+        
         // source account
         YGEntity *sourceAccount = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
         // source currency
@@ -585,18 +529,16 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
         // target currency
         YGCategory *targetCurrency = [self categoryByType:YGCategoryTypeCurrency rowId:operation.targetCurrencyId];
         
-        cell.firstRowLeftSideText = sourceAccount.name;
-        cell.secondRowLeftSideText = targetAccount.name;
+        cell.firstRowText = sourceAccount.name;
+        cell.secondRowText = targetAccount.name;
         
-        cell.firstRowRightSideText = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [sourceCurrency shorterName]];
-        cell.secondRowRightSideText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [targetCurrency shorterName]];
+        cell.firstRowDetailText = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [sourceCurrency shorterName]];
+        cell.secondRowDetailText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [targetCurrency shorterName]];
         
         return cell;
-        
     }
-
+    
     return nil;
-
 }
 
 /*
@@ -642,5 +584,41 @@ static NSString *const kAccountActualCellIdentifier = @"AccountActualCellIdentif
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Some usefull methods
+
+- (CGFloat)heightSectionHeader {
+    
+    NSInteger width = [YGTools deviceScreenWidth];
+    
+    switch(width){
+        case 320: return 26.f;
+        case 375: return 30.f;
+        case 414: return 34.f;
+        default: return 26.f;
+    }
+}
+
+- (CGFloat)heightOneRowCell {
+    NSInteger width = [YGTools deviceScreenWidth];
+    
+    switch(width){
+        case 320: return 44.f;
+        case 375: return 48.f;
+        case 414: return 52.f;
+        default: return 48.f;
+    }
+}
+
+- (CGFloat)heightTwoRowCell {
+    NSInteger width = [YGTools deviceScreenWidth];
+    
+    switch(width){
+        case 320: return 80.f;
+        case 375: return 88.f;
+        case 414: return 96.f;
+        default: return 76.f;
+    }
+}
 
 @end

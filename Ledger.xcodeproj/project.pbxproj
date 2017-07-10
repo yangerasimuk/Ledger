@@ -20,9 +20,7 @@
 		131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1D9B1EF7A3BA00531F10 /* YGAccountChoiceController.m */; };
 		131E1D9F1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */; };
 		131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */; };
-		131E1DA51EF93DEE00531F10 /* YGOperationAccountActualCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1DA41EF93DEE00531F10 /* YGOperationAccountActualCell.m */; };
 		131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */; };
-		131E1E411EFBD56300531F10 /* YGOperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1E401EFBD56300531F10 /* YGOperationCell.m */; };
 		131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */; };
 		132379E11F136F150051325F /* YGOperationOneRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 132379E01F136F150051325F /* YGOperationOneRowCell.m */; };
 		132379E41F1383420051325F /* YGOperationTwoRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 132379E31F1383420051325F /* YGOperationTwoRowCell.m */; };
@@ -39,7 +37,6 @@
 		13279DC51EF2814E00BA46AF /* YGDebtEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC41EF2814E00BA46AF /* YGDebtEditController.m */; };
 		13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC71EF2816600BA46AF /* YGAccountEditController.m */; };
 		13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */; };
-		13279DCE1EF3F8BD00BA46AF /* YGOperationExpenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DCD1EF3F8BD00BA46AF /* YGOperationExpenseCell.m */; };
 		13279DD31EF41D7800BA46AF /* YGSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DD21EF41D7800BA46AF /* YGSection.m */; };
 		13279DD61EF4223D00BA46AF /* YGSections.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DD51EF4223D00BA46AF /* YGSections.m */; };
 		13279DE01EF58C8900BA46AF /* YGDateChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */; };
@@ -59,7 +56,6 @@
 		133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051A41EE0399B0031044D /* YGCurrencyViewController.m */; };
 		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
-		139F7A971EFD677000BD85AB /* YGOperationInTwoRowsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A961EFD677000BD85AB /* YGOperationInTwoRowsCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,12 +100,8 @@
 		131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGExpenseCategoryChoiceController.m; sourceTree = "<group>"; };
 		131E1DA01EF7E67C00531F10 /* YGAccountActualEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGAccountActualEditController.h; sourceTree = "<group>"; };
 		131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGAccountActualEditController.m; sourceTree = "<group>"; };
-		131E1DA31EF93DEE00531F10 /* YGOperationAccountActualCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationAccountActualCell.h; sourceTree = "<group>"; };
-		131E1DA41EF93DEE00531F10 /* YGOperationAccountActualCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationAccountActualCell.m; sourceTree = "<group>"; };
 		131E1E391EFBD17A00531F10 /* YGIncomeEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGIncomeEditController.h; sourceTree = "<group>"; };
 		131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGIncomeEditController.m; sourceTree = "<group>"; };
-		131E1E3F1EFBD56300531F10 /* YGOperationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationCell.h; sourceTree = "<group>"; };
-		131E1E401EFBD56300531F10 /* YGOperationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationCell.m; sourceTree = "<group>"; };
 		131E1E421EFC094300531F10 /* YGIncomeSourceChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGIncomeSourceChoiceController.h; sourceTree = "<group>"; };
 		131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGIncomeSourceChoiceController.m; sourceTree = "<group>"; };
 		132379DF1F136F150051325F /* YGOperationOneRowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationOneRowCell.h; sourceTree = "<group>"; };
@@ -142,8 +134,6 @@
 		13279DC71EF2816600BA46AF /* YGAccountEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGAccountEditController.m; sourceTree = "<group>"; };
 		13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyChoiceController.h; sourceTree = "<group>"; };
 		13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyChoiceController.m; sourceTree = "<group>"; };
-		13279DCC1EF3F8BD00BA46AF /* YGOperationExpenseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationExpenseCell.h; sourceTree = "<group>"; };
-		13279DCD1EF3F8BD00BA46AF /* YGOperationExpenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationExpenseCell.m; sourceTree = "<group>"; };
 		13279DD11EF41D7800BA46AF /* YGSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSection.h; sourceTree = "<group>"; };
 		13279DD21EF41D7800BA46AF /* YGSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSection.m; sourceTree = "<group>"; };
 		13279DD41EF4223D00BA46AF /* YGSections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSections.h; sourceTree = "<group>"; };
@@ -181,8 +171,6 @@
 		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
 		139F7A931EFD111200BD85AB /* YGTransferEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTransferEditController.m; sourceTree = "<group>"; };
-		139F7A951EFD677000BD85AB /* YGOperationInTwoRowsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGOperationInTwoRowsCell.h; sourceTree = "<group>"; };
-		139F7A961EFD677000BD85AB /* YGOperationInTwoRowsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOperationInTwoRowsCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,14 +331,6 @@
 				132379E01F136F150051325F /* YGOperationOneRowCell.m */,
 				132379E21F1383420051325F /* YGOperationTwoRowCell.h */,
 				132379E31F1383420051325F /* YGOperationTwoRowCell.m */,
-				131E1E3F1EFBD56300531F10 /* YGOperationCell.h */,
-				131E1E401EFBD56300531F10 /* YGOperationCell.m */,
-				139F7A951EFD677000BD85AB /* YGOperationInTwoRowsCell.h */,
-				139F7A961EFD677000BD85AB /* YGOperationInTwoRowsCell.m */,
-				13279DCC1EF3F8BD00BA46AF /* YGOperationExpenseCell.h */,
-				13279DCD1EF3F8BD00BA46AF /* YGOperationExpenseCell.m */,
-				131E1DA31EF93DEE00531F10 /* YGOperationAccountActualCell.h */,
-				131E1DA41EF93DEE00531F10 /* YGOperationAccountActualCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -618,11 +598,8 @@
 				1317BF441F10F5740039A224 /* Define.m in Sources */,
 				1317BEF71F0F72A80039A224 /* YGStorage.m in Sources */,
 				131E1D9F1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m in Sources */,
-				131E1E411EFBD56300531F10 /* YGOperationCell.m in Sources */,
-				131E1DA51EF93DEE00531F10 /* YGOperationAccountActualCell.m in Sources */,
 				13279D8F1EEFC1B800BA46AF /* YGCategoryViewController.m in Sources */,
 				13279D8C1EEFC14200BA46AF /* YGOptionViewController.m in Sources */,
-				139F7A971EFD677000BD85AB /* YGOperationInTwoRowsCell.m in Sources */,
 				133050F81EDAE29D0031044D /* AppDelegate.m in Sources */,
 				133050F51EDAE29D0031044D /* main.m in Sources */,
 				139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */,
@@ -630,7 +607,6 @@
 				131E1D961EF59B1600531F10 /* YGExpenseCategoryEditController.m in Sources */,
 				131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */,
 				13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */,
-				13279DCE1EF3F8BD00BA46AF /* YGOperationExpenseCell.m in Sources */,
 				132379E41F1383420051325F /* YGOperationTwoRowCell.m in Sources */,
 				132379E11F136F150051325F /* YGOperationOneRowCell.m in Sources */,
 				1330519F1EDF31A60031044D /* YGTools.m in Sources */,
