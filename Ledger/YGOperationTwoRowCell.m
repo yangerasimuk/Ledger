@@ -38,19 +38,14 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
-    _width = [YGTools deviceScreenWidth];
-    _fontSizeText = [YGTools defaultFontSize];
-    _fontSizeDetailText = _fontSizeText;
-    
-    _colorText = [UIColor blackColor];
-    _colorDetailText = [self colorForOperationType:_type];
-
-    
-#ifdef FUNC_DEBUG
-#undef FUNC_DEBUG
-#endif
-    
     if(self){
+        
+        _width = [YGTools deviceScreenWidth];
+        _fontSizeText = [YGTools defaultFontSize];
+        _fontSizeDetailText = _fontSizeText;
+        
+        _colorText = [UIColor blackColor];
+        _colorDetailText = [self colorForOperationType:_type];
         
         _firstRowText = @"";
         _firstRowDetailText = @"";
@@ -61,126 +56,120 @@
         // First row text
         self.labelFirstRowText = [[UILabel alloc] initWithFrame:[self rectFirstRowTextLabel]];
         self.labelFirstRowText.textAlignment = NSTextAlignmentLeft;
+        self.labelFirstRowText.backgroundColor = [UIColor whiteColor];
         
-        /*
-        NSDictionary *attributes = @{
-                                     NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeText],
-                                     NSForegroundColorAttributeName:[UIColor blackColor],
-                                     };
-        NSAttributedString *textAttributed = [[NSAttributedString alloc] initWithString:self.firstRowText attributes:attributes];
-        
-        self.labelFirstRowText.attributedText = textAttributed;
-         */
         [self.contentView addSubview:self.labelFirstRowText];
-
-#ifdef FUNC_DEBUG
-        self.labelFirstRowText.backgroundColor = [UIColor greenColor];
-#endif
         
         
         // First row detail text
         self.labelFirstRowDetailText = [[UILabel alloc] initWithFrame:[self rectFirstRowDetailTextLabel]];
         self.labelFirstRowDetailText.textAlignment = NSTextAlignmentRight;
-                /*
-        attributes = @{
-                       NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeDetailText],
-                       NSForegroundColorAttributeName:[self colorForOperationType:_type],
-                       };
-        textAttributed = [[NSAttributedString alloc] initWithString:self.firstRowDetailText attributes:attributes];
-        self.labelFirstRowText.attributedText = textAttributed;
-                 */
+        self.labelFirstRowDetailText.backgroundColor = [UIColor whiteColor];
+
         [self.contentView addSubview:self.labelFirstRowDetailText];
-        
-#ifdef FUNC_DEBUG
-        self.labelFirstRowDetailText.backgroundColor = [UIColor brownColor];
-#endif
         
         // Second row text
         self.labelSecondRowText = [[UILabel alloc] initWithFrame:[self rectSecondRowTextLabel]];
         self.labelSecondRowText.textAlignment = NSTextAlignmentLeft;
-        /*
-        attributes = @{
-                       NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeText],
-                       NSForegroundColorAttributeName:[UIColor blackColor],
-                       };
-        textAttributed = [[NSAttributedString alloc] initWithString:self.secondRowText attributes:attributes];
+        self.labelSecondRowText.backgroundColor = [UIColor whiteColor];
         
-        self.labelSecondRowText.attributedText = textAttributed;
-         */
         [self.contentView addSubview:self.labelSecondRowText];
-        
-#ifdef FUNC_DEBUG
-        self.labelSecondRowText.backgroundColor = [UIColor yellowColor];
-#endif
-        
         
         // Second row detail text
         self.labelSecondRowDetailText = [[UILabel alloc] initWithFrame:[self rectSecondRowDetailTextLabel]];
         self.labelSecondRowDetailText.textAlignment = NSTextAlignmentRight;
+        self.labelSecondRowDetailText.backgroundColor = [UIColor whiteColor];
         
-        /*
-        attributes = @{
-                       NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeText],
-                       NSForegroundColorAttributeName:[self colorForOperationType:_type],
-                       };
-        textAttributed = [[NSAttributedString alloc] initWithString:self.secondRowDetailText attributes:attributes];
-        self.labelSecondRowDetailText.attributedText = textAttributed;
-         */
         [self.contentView addSubview:self.labelSecondRowDetailText];
-        
-#ifdef FUNC_DEBUG
-        self.labelFirstRowDetailText.backgroundColor = [UIColor purpleColor];
-#endif
          
-        
     }
     return self;
 }
 
 - (CGRect)rectFirstRowTextLabel {
     
-    switch(_width){
-        case 320: return CGRectMake(16, 4, 160, 36); // x + width = 160 - 10
-        case 375: return CGRectMake(16, 4, 187, 40); // x + width = 187
-        case 414: return CGRectMake(20, 6, 207, 42); // x + width = 207
-    }
+    static CGRect rectFirstRowTextLabel;
     
-    return CGRectZero;
+    if(rectFirstRowTextLabel.size.width == 0){
+        
+        switch(_width){
+            case 320:
+                rectFirstRowTextLabel = CGRectMake(16, 4, 160, 36); // x + width = 160 - 10
+                break;
+            case 375:
+                rectFirstRowTextLabel = CGRectMake(16, 4, 187, 40); // x + width = 187
+                break;
+            case 414:
+                rectFirstRowTextLabel = CGRectMake(20, 6, 207, 42); // x + width = 207
+                break;
+        }
+    }
+    return rectFirstRowTextLabel;
 }
 
 - (CGRect)rectFirstRowDetailTextLabel {
     
-    switch(_width){
-        case 320: return CGRectMake(180, 4, 125, 36); // x + width = 320
-        case 375: return CGRectMake(210, 6, 150, 40); // x + width = 375
-        case 414: return CGRectMake(230, 4, 165, 42);  // x +
+    static CGRect rectFirstRowDetailTextLabel;
+    
+    if(rectFirstRowDetailTextLabel.size.width == 0){
+        switch(_width){
+            case 320:
+                rectFirstRowDetailTextLabel = CGRectMake(180, 4, 125, 36); // x + width = 320
+                break;
+            case 375:
+                rectFirstRowDetailTextLabel = CGRectMake(210, 6, 150, 40); // x + width = 375
+                break;
+            case 414:
+                rectFirstRowDetailTextLabel = CGRectMake(230, 4, 165, 42);  // x +
+                break;
+        }
     }
-    return CGRectZero;
+    return rectFirstRowDetailTextLabel;
 }
 
 - (CGRect)rectSecondRowTextLabel {
     
-    switch(_width){
-        case 320: return CGRectMake(16, 40, 160, 36); // x + width = 160
-        case 375: return CGRectMake(16, 42, 187, 40); // x + width = 187
-        case 414: return CGRectMake(20, 48, 207, 42); // x + width = 207
+    static CGRect rectSecondRowTextLabel;
+    
+    if(rectSecondRowTextLabel.size.width == 0){
+        switch(_width){
+            case 320:
+                rectSecondRowTextLabel = CGRectMake(16, 40, 160, 36); // x + width = 160
+                break;
+            case 375:
+                rectSecondRowTextLabel = CGRectMake(16, 42, 187, 40); // x + width = 187
+                break;
+            case 414:
+                rectSecondRowTextLabel = CGRectMake(20, 48, 207, 42); // x + width = 207
+                break;
+        }
     }
-    return CGRectZero;
+    return rectSecondRowTextLabel;
 }
 
 - (CGRect)rectSecondRowDetailTextLabel {
     
-    switch(_width){
-        case 320: return CGRectMake(180, 40, 125, 36); // x + width = 320
-        case 375: return CGRectMake(210, 42, 150, 40); // x + width = 375
-        case 414: return CGRectMake(230, 48, 165, 42);  // x +
+    static CGRect rectSecondRowDetailTextLabel;
+    
+    if(rectSecondRowDetailTextLabel.size.width == 0){
+        switch(_width){
+            case 320:
+                rectSecondRowDetailTextLabel = CGRectMake(180, 40, 125, 36); // x + width = 320
+                break;
+            case 375:
+                rectSecondRowDetailTextLabel = CGRectMake(210, 42, 150, 40); // x + width = 375
+                break;
+            case 414:
+                rectSecondRowDetailTextLabel = CGRectMake(230, 48, 165, 42);  // x +
+                break;
+        }
     }
-    return CGRectZero;
+    return rectSecondRowDetailTextLabel;
 }
 
 -(void)setFirstRowText:(NSString *)firstRowText {
     
-    if(![_firstRowText isEqualToString:firstRowText]){
+    if(firstRowText && ![_firstRowText isEqualToString:firstRowText]){
         _firstRowText = firstRowText;
         
         NSDictionary *attributes = @{
@@ -197,7 +186,7 @@
 
 -(void)setFirstRowDetailText:(NSString *)firstRowDetailText {
     
-    if(![_firstRowDetailText isEqualToString:firstRowDetailText]){
+    if(firstRowDetailText && ![_firstRowDetailText isEqualToString:firstRowDetailText]){
         _firstRowDetailText = firstRowDetailText;
         
         NSDictionary *attributes = @{
@@ -215,7 +204,7 @@
 
 -(void)setSecondRowText:(NSString *)secondRowText {
     
-    if(![_secondRowText isEqualToString:secondRowText]){
+    if(secondRowText && ![_secondRowText isEqualToString:secondRowText]){
         _secondRowText = secondRowText;
         
         NSDictionary *attributes = @{
@@ -232,7 +221,7 @@
 
 -(void)setSecondRowDetailText:(NSString *)secondRowDetailText {
     
-    if(![_secondRowDetailText isEqualToString:secondRowDetailText]){
+    if(secondRowDetailText && ![_secondRowDetailText isEqualToString:secondRowDetailText]){
         _secondRowDetailText = secondRowDetailText;
         
         NSDictionary *attributes = @{

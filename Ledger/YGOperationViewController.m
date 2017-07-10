@@ -7,11 +7,15 @@
 //
 
 #import "YGOperationViewController.h"
-#import "YGSections.h"
+
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
 #import "YGEntityManager.h"
 #import "YGEntity.h"
+
+#import "YGOperationSections.h"
+#import "YGOperationSectionHeader.h"
+#import "YGOperationRow.h"
 
 #import "YGExpenseEditController.h"
 #import "YGAccountActualEditController.h"
@@ -20,6 +24,10 @@
 
 #import "YGOperationOneRowCell.h"
 #import "YGOperationTwoRowCell.h"
+#import "YGOperationExpenseCell.h"
+#import "YGOperationIncomeCell.h"
+#import "YGOperationAccountActualCell.h"
+#import "YGOperationTransferCell.h"
 
 #import "YGTools.h"
 #import "YGConfig.h"
@@ -28,9 +36,13 @@
 
 static NSString *const kOperationOneRowCellId = @"OperationOneRowCellId";
 static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
+static NSString *const kOperationExpenseCellId = @"OperationExpenseCellId";
+static NSString *const kOperationIncomeCellId = @"OperationIncomeCellId";
+static NSString *const kOperationAccountActualCellId = @"OperationAccountActualCellId";
+static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 @interface YGOperationViewController (){
-    YGSections *_sections;
+    YGOperationSections *_sections;
     
     NSArray <YGCategory *> *_currencies;
     NSArray <YGCategory *> *_expenseCategories;
@@ -61,6 +73,8 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     _om = [YGOperationManager sharedInstance];
     _cm = [YGCategoryManager sharedInstance];
     _em = [YGEntityManager sharedInstance];
@@ -70,18 +84,23 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
     
     
     // set heights of sections and rows
-    _heightSection = [self heightSectionHeader];
+    //_heightSection = [self heightSectionHeader];
     _heightOneRowCell = [self heightOneRowCell];
     _heightTwoRowCell = [self heightTwoRowCell];
     
     // cell classes for one and two rows
     [self.tableView registerClass:[YGOperationOneRowCell class] forCellReuseIdentifier:kOperationOneRowCellId];
     [self.tableView registerClass:[YGOperationTwoRowCell class] forCellReuseIdentifier:kOperationTwoRowCellId];
+    [self.tableView registerClass:[YGOperationExpenseCell class] forCellReuseIdentifier:kOperationExpenseCellId];
+    
+    [self.tableView registerClass:[YGOperationIncomeCell class] forCellReuseIdentifier:kOperationIncomeCellId];
+    [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kOperationAccountActualCellId];
+    [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
     // get list of operations
     NSArray *operations = [_om listOperations];
     
-    _sections = [[YGSections alloc] initWithOperations:operations];
+    _sections = [[YGOperationSections alloc] initWithOperations:operations];
     
     // get list of currencies
     _currencies = [_cm listCategoriesByType:YGCategoryTypeCurrency];
@@ -162,7 +181,7 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
     // get list of operations
     NSArray *operations = [_om listOperations];
     
-    _sections = [[YGSections alloc] initWithOperations:operations];
+    _sections = [[YGOperationSections alloc] initWithOperations:operations];
     
     [self.tableView reloadData];
 }
@@ -302,42 +321,42 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperation *operation = _sections.list[indexPath.section].operations[indexPath.row];
+    YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
 
-    if(operation.type == YGOperationTypeExpense){
+    if(operationRow.operation.type == YGOperationTypeExpense){
         
         YGExpenseEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGExpenseEditScene"];
         
         vc.isNewExpense = NO;
-        vc.expense = [operation copy];
+        vc.expense = operationRow.operation;
         
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if(operation.type == YGOperationTypeAccountActual){
+    else if(operationRow.operation.type == YGOperationTypeAccountActual){
         
         YGAccountActualEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGAccountActualEditScene"];
         
         vc.isNewAccountAcutal = NO;
-        vc.accountActual = [operation copy];
+        vc.accountActual = operationRow.operation;
         
         [self.navigationController pushViewController:vc animated:YES];
         
     }
-    else if(operation.type == YGOperationTypeIncome){
+    else if(operationRow.operation.type == YGOperationTypeIncome){
         
         YGIncomeEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGIncomeEditScene"];
         
         vc.isNewIncome = NO;
-        vc.income = [operation copy];
+        vc.income = operationRow.operation;
         
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if(operation.type == YGOperationTypeTransfer){
+    else if(operationRow.operation.type == YGOperationTypeTransfer){
         
         YGTransferEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGTransferEditScene"];
         
         vc.isNewTransfer = NO;
-        vc.transfer = [operation copy];
+        vc.transfer = operationRow.operation;
         
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -345,42 +364,23 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 }
 
 
-// 320x22
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    CGRect superViewRect =  [tableView.superview frame];
-    
-    CGFloat height = [self heightSectionHeader];
-    
-    // create the parent view that will hold header Label
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewRect.size.width, height)];
-    
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewRect.size.width, height)];
-    
-    headerLabel.backgroundColor = [UIColor clearColor];
-    
-    float rgb = (float)247/255;
-    
-    UIColor *backColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0f];
-    headerLabel.backgroundColor = backColor;
-    headerLabel.opaque = NO;
-    headerLabel.textColor = [UIColor blackColor];
-    headerLabel.font = [UIFont systemFontOfSize:16];
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-    headerLabel.text = [YGTools humanViewOfDate:_sections.list[section].date];
-
-    [headerView addSubview:headerLabel];
-    
-    return headerView;
+    return _sections.list[section].headerView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [self heightSectionHeader];
+    return [YGOperationSectionHeader heightSectionHeader];
 }
+
+/*
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return _sections.list[section].name;
+}
+*/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperationType type = _sections.list[indexPath.section].operations[indexPath.row].type;
+    YGOperationType type = _sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
     
     if(type == YGOperationTypeTransfer){
         return _heightTwoRowCell; // 76;
@@ -399,137 +399,92 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return [_sections.list[section].operations count];
+    return [_sections.list[section].operationRows count];
 }
 
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
+
+    if(operationRow.operation.type == YGOperationTypeExpense) {
+        
+        YGOperationExpenseCell *cellExpense = (YGOperationExpenseCell *)cell;
+        
+        cellExpense.leftText = operationRow.target;
+        
+        cellExpense.rightText = operationRow.sourceSum;
+    }
+    else if(operationRow.operation.type == YGOperationTypeAccountActual){
+        
+        YGOperationAccountActualCell *cellBalance = (YGOperationAccountActualCell *)cell;
+        
+        cellBalance.leftText = operationRow.target;
+        
+        cellBalance.rightText = operationRow.targetSum;
+    }
+    else if(operationRow.operation.type == YGOperationTypeIncome){
+        
+        YGOperationIncomeCell *cellIncome = (YGOperationIncomeCell *)cell;
+
+        cellIncome.leftText = operationRow.source;
+        
+        cellIncome.rightText = operationRow.targetSum;
+    }
+    else if(operationRow.operation.type == YGOperationTypeTransfer){
+
+        YGOperationTransferCell *cellTransfer = (YGOperationTransferCell *)cell;
+
+        cellTransfer.firstRowText = operationRow.source;
+        cellTransfer.firstRowDetailText = operationRow.sourceSum;
+        
+        cellTransfer.secondRowText = operationRow.target;
+        cellTransfer.secondRowDetailText = operationRow.targetSum;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *formatForIncomeNumbers;
-    static NSString *formatForExpenseNumbers;
-    static NSString *formatForEqualNumbers;
-    if(_isHideDecimalFraction){
-        formatForIncomeNumbers = @"+ %.f %@";
-        formatForExpenseNumbers = @"- %.f %@";
-        formatForEqualNumbers = @"= %.f %@";
-    }
-    else{
-        formatForIncomeNumbers = @"+ %.2f %@";
-        formatForExpenseNumbers = @"- %.2f %@";
-        formatForEqualNumbers = @"= %.2f %@";
-    }
+    YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
     
-    
-    // check class
-    YGOperation *operation = _sections.list[indexPath.section].operations[indexPath.row];
-    
-    if(operation.type == YGOperationTypeExpense){
-
-        // if Expense -> source == account and target == expenseCategory
+    if(operationRow.operation.type == YGOperationTypeExpense){
         
-        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowCellId];
+        YGOperationExpenseCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationExpenseCellId];
         if (cell == nil) {
             
-            cell = [[YGOperationOneRowCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kOperationOneRowCellId];
+            cell = [[YGOperationExpenseCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kOperationExpenseCellId];
         }
-        
-        cell.type = YGOperationTypeExpense;
-        
-        cell.text = [self categoryByType:YGCategoryTypeExpense rowId:operation.targetId].name;
-
-        // account
-        YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
-        
-        // currency
-        YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
-        
-        cell.detailText = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [currency shorterName]];
-        
         return cell;
     }
-    else if(operation.type == YGOperationTypeAccountActual){
+    else if(operationRow.operation.type == YGOperationTypeAccountActual){
         
-        // if Account actual -> source == account and target == account
-        
-        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowCellId];
+        YGOperationAccountActualCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationAccountActualCellId];
         if (cell == nil) {
-            cell = [[YGOperationOneRowCell alloc]
+            cell = [[YGOperationAccountActualCell alloc]
                     initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:kOperationOneRowCellId];
+                    reuseIdentifier:kOperationAccountActualCellId];
         }
-        
-        cell.type = YGOperationTypeAccountActual;
-        
-        // account
-        YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId];
-        
-        cell.text = account.name;
-        
-        // currency
-        YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
-        
-        cell.detailText = [NSString stringWithFormat:formatForEqualNumbers, operation.targetSum, [currency shorterName]];
-        
         return cell;
     }
-    else if(operation.type == YGOperationTypeIncome){
+    else if(operationRow.operation.type == YGOperationTypeIncome){
         
-        // what is income?
-        // it is transfer from IncomeSource to Account
-        
-        YGOperationOneRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationOneRowCellId];
+        YGOperationIncomeCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationIncomeCellId];
         if (cell == nil) {
-            cell = [[YGOperationOneRowCell alloc]
+            cell = [[YGOperationIncomeCell alloc]
                     initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:kOperationOneRowCellId];
+                    reuseIdentifier:kOperationIncomeCellId];
         }
-        
-        cell.type = YGOperationTypeIncome;
-        
-        // get incomeSource
-        cell.detailText = [self categoryByType:YGCategoryTypeIncome rowId:operation.sourceId].name;
-        
-        // account
-        YGEntity *account = [self entityByType:YGEntityTypeAccount rowId:operation.targetId];
-        
-        // currency
-        YGCategory *currency = [self categoryByType:YGCategoryTypeCurrency rowId:account.currencyId];
-        
-        cell.detailText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [currency shorterName]];
-
         return cell;
     }
-    else if(operation.type == YGOperationTypeTransfer){
-
-        // what is transfer?
-        // it is transfer from sourceAccount to targetAccount
+    else if(operationRow.operation.type == YGOperationTypeTransfer){
         
-        YGOperationTwoRowCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationTwoRowCellId];
+        YGOperationTransferCell *cell = [tableView dequeueReusableCellWithIdentifier:kOperationTransferCellId];
         if (cell == nil) {
-            cell = [[YGOperationTwoRowCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                reuseIdentifier:kOperationTwoRowCellId];
+            cell = [[YGOperationTransferCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                reuseIdentifier:kOperationTransferCellId];
         }
-        
-        // pass type to color detail text
-        cell.type = YGOperationTypeTransfer;
-        
-        // source account
-        cell.firstRowText = [self entityByType:YGEntityTypeAccount rowId:operation.sourceId].name;
-        
-        // source currency
-        YGCategory *sourceCurrency = [self categoryByType:YGCategoryTypeCurrency rowId:operation.sourceCurrencyId];
-        
-        // target account
-        cell.secondRowText = [self entityByType:YGEntityTypeAccount rowId:operation.targetId].name;
-        // target currency
-        YGCategory *targetCurrency = [self categoryByType:YGCategoryTypeCurrency rowId:operation.targetCurrencyId];
-                
-        cell.firstRowDetailText = [NSString stringWithFormat:formatForExpenseNumbers, operation.sourceSum, [sourceCurrency shorterName]];
-        cell.secondRowDetailText = [NSString stringWithFormat:formatForIncomeNumbers, operation.targetSum, [targetCurrency shorterName]];
-        
         return cell;
     }
-    
     return nil;
 }
 
@@ -579,38 +534,56 @@ static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 
 #pragma mark - Some usefull methods
 
-- (CGFloat)heightSectionHeader {
-    
-    NSInteger width = [YGTools deviceScreenWidth];
-    
-    switch(width){
-        case 320: return 26.f;
-        case 375: return 30.f;
-        case 414: return 34.f;
-        default: return 26.f;
-    }
-}
+
 
 - (CGFloat)heightOneRowCell {
-    NSInteger width = [YGTools deviceScreenWidth];
     
-    switch(width){
-        case 320: return 44.f;
-        case 375: return 48.f;
-        case 414: return 52.f;
-        default: return 48.f;
+    static CGFloat heightOneRowCell = 0.f;
+    
+    if(heightOneRowCell == 0){
+        
+        NSInteger width = [YGTools deviceScreenWidth];
+        
+        switch(width){
+            case 320:
+                heightOneRowCell = 44.f;
+                break;
+            case 375:
+                heightOneRowCell = 48.f;
+                break;
+            case 414:
+                heightOneRowCell = 52.f;
+                break;
+            default:
+                heightOneRowCell = 48.f;
+        }
     }
+    return heightOneRowCell;
 }
 
 - (CGFloat)heightTwoRowCell {
-    NSInteger width = [YGTools deviceScreenWidth];
     
-    switch(width){
-        case 320: return 80.f;
-        case 375: return 88.f;
-        case 414: return 96.f;
-        default: return 76.f;
+    static CGFloat heightTwoRowCell = 0.f;
+    
+    if(heightTwoRowCell == 0){
+        
+        NSInteger width = [YGTools deviceScreenWidth];
+        
+        switch(width){
+            case 320:
+                heightTwoRowCell = 80.f;
+                break;
+            case 375:
+                heightTwoRowCell = 88.f;
+                break;
+            case 414:
+                heightTwoRowCell = 96.f;
+                break;
+            default:
+                heightTwoRowCell = 76.f;
+        }
     }
+    return heightTwoRowCell;
 }
 
 @end

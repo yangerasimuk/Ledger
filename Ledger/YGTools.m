@@ -80,6 +80,63 @@
 }
 
 
++ (NSString *)humanViewShortWithTodayOfDay:(NSDate *)day {
+    
+    NSString *resultDateString = nil;
+    
+    // get nsdate object
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:kDateTimeFormat];
+    
+    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
+    
+    NSDateComponents *dayComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay  | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:day];
+    
+    
+    if([todayComponents day] == [dayComponents day] &&
+       [todayComponents month] == [dayComponents month] &&
+       [todayComponents year] == [dayComponents year] &&
+       [todayComponents era] == [dayComponents era]) {
+        
+        resultDateString = @"Today";
+    }
+    else if(([todayComponents day] - [dayComponents day]) == 1 &&
+            [todayComponents month] == [dayComponents month] &&
+            [todayComponents year] == [dayComponents year] &&
+            [todayComponents era] == [dayComponents era]) {
+        
+        resultDateString = @"Yesterday";
+    }
+    else{
+        
+        BOOL isSameYear = NO;
+        
+        if([todayComponents year] == [dayComponents year] &&
+           [todayComponents era] == [dayComponents era]){
+            isSameYear = YES;
+        }
+        
+        
+        NSDateFormatter *formatterLocale = [[NSDateFormatter alloc] init];
+        [formatterLocale setLocale:[NSLocale currentLocale]];
+        
+        if(isSameYear){
+            if([[[NSLocale currentLocale] localeIdentifier] hasPrefix:@"en"])
+                [formatterLocale setDateFormat:@"MMMM d"];
+            else
+                [formatterLocale setDateFormat:@"d MMMM"];
+        }
+        else{
+            [formatterLocale setDateStyle:NSDateFormatterLongStyle];
+        }
+        
+        resultDateString = [formatterLocale stringFromDate:day];
+        
+    }
+    
+    return resultDateString;
+}
+
 /**
  Return given date string in human view.
  
@@ -87,7 +144,7 @@
  
  @return String with date in human view. For example: Today, 15:06; June 17, 11:11; January 17, 2017, 11:15.
  */
-+ (NSString *)humanViewShortWithTodayOfDate:(NSString *)dateString {
++ (NSString *)humanViewShortWithTodayOfDateString:(NSString *)dateString {
         
     NSString *resultDateString = nil;
     

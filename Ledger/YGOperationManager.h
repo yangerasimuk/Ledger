@@ -11,6 +11,9 @@
 
 @interface YGOperationManager : NSObject
 
+@property (assign, nonatomic) BOOL hideDecimalFraction;
+
+
 + (instancetype)sharedInstance;
 
 - (NSInteger)addOperation:(YGOperation *)operation;

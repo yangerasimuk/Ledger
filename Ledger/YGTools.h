@@ -20,7 +20,8 @@
 + (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
 + (NSDate *)dateFromString:(NSString *)string;
 
-+ (NSString *)humanViewShortWithTodayOfDate:(NSString *)dateString;
++ (NSString *)humanViewShortWithTodayOfDateString:(NSString *)dateString;
++ (NSString *)humanViewShortWithTodayOfDay:(NSDate *)day;
 
 + (NSString *)sqlStringForDateOrNull:(NSDate *)dateValue;
 + (NSString *)sqlStringForBool:(BOOL)boolValue;

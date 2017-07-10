@@ -10,16 +10,16 @@
 #import "YGTools.h"
 
 @interface YGOperationOneRowCell (){
-    NSInteger _fontSizeText;
-    NSInteger _fontSizeDetailText;
-    UIColor *_colorText;
-    UIColor *_colorDetailText;
+    NSInteger _fontSizeLeftText;
+    NSInteger _fontSizeRightText;
+    UIColor *_colorLeftText;
+    UIColor *_colorRightText;
 }
 @end
 
 @implementation YGOperationOneRowCell
 
-@synthesize text = _text, detailText = _detailText;
+@synthesize leftText = _leftText, rightText = _rightText;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -32,11 +32,13 @@
     
     if(self){
         
-        _fontSizeText = [YGTools defaultFontSize];
-        _fontSizeDetailText = _fontSizeText;
+        _fontSizeLeftText = [YGTools defaultFontSize];
+        _fontSizeRightText = _fontSizeLeftText;
         
-        _colorText = [UIColor blackColor];
-        _colorDetailText = [self colorForOperationType:_type];
+        _colorLeftText = [UIColor blackColor];
+        _colorRightText = [self colorForOperationType:_type];
+        
+        self.backgroundColor = [UIColor whiteColor];
         
     }
     return self;
@@ -48,31 +50,32 @@
     // Configure the view for the selected state
 }
 
--(void)setText:(NSString *)text {
+-(void)setLeftText:(NSString *)leftText {
     
-    if(![_text isEqualToString:text]){
-        _text = text;
+    if(leftText && ![_leftText isEqualToString:leftText]){
+        _leftText = leftText;
         
         NSDictionary *textAttributes = @{
-                                         NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeText],
+                                         NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeLeftText],
                                          NSForegroundColorAttributeName:[UIColor blackColor],
                                          };
-        NSAttributedString *textAttributed = [[NSAttributedString alloc] initWithString:self.text attributes:textAttributes];
+        NSAttributedString *textAttributed = [[NSAttributedString alloc] initWithString:self.leftText attributes:textAttributes];
         
         self.textLabel.attributedText = textAttributed;
     }
+    
 }
 
--(void)setDetailText:(NSString *)detailText {
+-(void)setRightText:(NSString *)rightText {
     
-    if(![_detailText isEqualToString:detailText]){
-        _detailText = detailText;
+    if(rightText && ![_rightText isEqualToString:rightText]){
+        _rightText = rightText;
         
         NSDictionary *textAttributes = @{
-                                         NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeDetailText],
+                                         NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeRightText],
                                          NSForegroundColorAttributeName:[self colorForOperationType:_type],
                                          };
-        NSAttributedString *textAttributed = [[NSAttributedString alloc] initWithString:self.detailText attributes:textAttributes];
+        NSAttributedString *textAttributed = [[NSAttributedString alloc] initWithString:self.rightText attributes:textAttributes];
         
         self.detailTextLabel.attributedText = textAttributed;
     }

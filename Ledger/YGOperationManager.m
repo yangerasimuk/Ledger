@@ -10,6 +10,7 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 #import "YGEntityManager.h"
+#import "YGConfig.h"
 
 @interface YGOperationManager (){
     YGSQLite *_sqlite;
@@ -35,9 +36,19 @@
     self = [super init];
     if(self){
         _sqlite = [YGSQLite sharedInstance];
+        
+        YGConfig *config = [YGTools config];
+#warning Make observer for the property
+        if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"NO"]){
+            _hideDecimalFraction = NO;
+        }
+        else{
+            _hideDecimalFraction = YES;
+        }
     }
     return self;
 }
+
 
 #pragma mark - Actions on operation(s)
 

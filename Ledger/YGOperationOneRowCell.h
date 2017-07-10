@@ -11,8 +11,8 @@
 
 @interface YGOperationOneRowCell : UITableViewCell
 
-@property (copy, nonatomic) NSString *text;
-@property (copy, nonatomic) NSString *detailText;
+@property (copy, nonatomic) NSString *leftText;
+@property (copy, nonatomic) NSString *rightText;
 
 @property (assign, nonatomic) YGOperationType type;
 

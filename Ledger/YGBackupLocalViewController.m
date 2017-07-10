@@ -70,8 +70,8 @@
         backup = [backups firstObject];
     
     if(backup){
-        self.labelBackupDate.text = [YGTools humanViewShortWithTodayOfDate:backup.backupDate];
-        self.labelBackupLastOperation.text = [YGTools humanViewShortWithTodayOfDate:backup.lastOperation];
+        self.labelBackupDate.text = [YGTools humanViewShortWithTodayOfDateString:backup.backupDate];
+        self.labelBackupLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:backup.lastOperation];
         self.labelBackupDBSize.text = backup.dbSize;
         
         self.buttonRestore.enabled = YES;
@@ -94,7 +94,7 @@
     
     NSString *workDbFileSize = [YGTools humanViewStringForByteSize:workDbFile.size];
 
-    self.labelWorkDBLastOperation.text = [YGTools humanViewShortWithTodayOfDate:lastOperation];
+    self.labelWorkDBLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:lastOperation];
     self.labelWorkDBSize.text = workDbFileSize;
 
 }
