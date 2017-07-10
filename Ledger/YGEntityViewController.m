@@ -189,13 +189,13 @@ static NSString *const kEntityCellId = @"EntityCellId";
     NSDictionary *nameAttributes = nil;
     if(!entity.active){
         nameAttributes = @{
-                           NSFontAttributeName:[UIFont systemFontOfSize:18],
+                           NSFontAttributeName:[UIFont systemFontOfSize:16],
                            NSForegroundColorAttributeName:[UIColor grayColor],
                            };
     }
     else{
         nameAttributes = @{
-                           NSFontAttributeName:[UIFont systemFontOfSize:18],
+                           NSFontAttributeName:[UIFont systemFontOfSize:16],
                            };
     }
     

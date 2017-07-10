@@ -35,5 +35,7 @@
 
 + (NSString *)humanViewStringForByteSize:(NSUInteger)size;
 
++ (NSInteger *)sizeClassOfCurrentIPhone;
+
 
 @end

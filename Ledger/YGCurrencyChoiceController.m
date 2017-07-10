@@ -22,9 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"-[YGCurrencyChoiceController viewDidLoad]...");
-    NSLog(@"currencyId: %ld", self.sourceCurrency.rowId);
-    
     YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
     if(self.sourceCurrency)
@@ -33,14 +30,13 @@
         self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
     
     [self.tableView reloadData];
+    
+    self.navigationItem.title = @"Currency";
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    NSLog(@"-[YGCurrencyChoiceController viewDidAppear:]...");
-    NSLog(@"currencyId: %ld", self.sourceCurrency.rowId);
-    
     YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
     if(self.sourceCurrency)
@@ -49,6 +45,8 @@
         self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
     
     [self.tableView reloadData];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,21 +66,19 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
     static NSString *const kCurrencyCellId = @"CurrencyCellID";
-    
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCurrencyItemId forIndexPath:indexPath];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              kCurrencyCellId];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
+                initWithStyle:UITableViewCellStyleValue1
                 reuseIdentifier:kCurrencyCellId];
     }
     
     cell.textLabel.text = self.currencies[indexPath.row].name;
+    cell.detailTextLabel.text = [self.currencies[indexPath.row] shorterName];
     
     return cell;
 }
@@ -91,13 +87,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //NSLog(@"-[YGCurrencyChoiceController tableView:didSelectRowAtIndexPath:]...");
-    
-    //NSLog(@"Choosen indexPath.row: %ld", indexPath.row);
-    
     YGCategory *currency = self.currencies[indexPath.row];
-    
-    //NSLog(@"Choosen category: %@", [currency description]);
     
     self.targetCurrency = currency;
     

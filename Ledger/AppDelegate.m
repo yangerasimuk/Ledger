@@ -29,6 +29,16 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 #warning Must be if(![defaults objectForKey:kIsFirstLaunch]){
     if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
         
+        // save screen sizes for default font calc
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        UIScreen *screen = [UIScreen mainScreen];
+        NSInteger width = [screen nativeBounds].size.width;
+        NSInteger height = [screen nativeBounds].size.height;
+        
+        [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
+        [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
+        
         // create new work db
         YGDBManager *dm = [YGDBManager sharedInstance];
         //if(![dm isDbExists]){
@@ -43,6 +53,8 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         
         [defaults setBool:YES forKey:kIsFirstLaunch];
     }
+    
+    [YGTools sizeClassOfCurrentIPhone];
     
     return YES;
 }

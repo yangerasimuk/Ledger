@@ -9,6 +9,7 @@
 #import "YGTools.h"
 #import "YGConfig.h"
 #import "Define.h"
+#import <UIKit/UIKit.h>
 
 #define kFileSizeAcronyms @[@"B", @"KB", @"MB", @"GB", @"TB"]
 
@@ -293,6 +294,14 @@
         resultString = @"0 B";
     
     return resultString;
+}
+
++ (void)sizeClassOfCurrentIPhone {
+    UIDevice *device = [UIDevice currentDevice];
+    
+    UIScreen *screen = [UIScreen mainScreen];
+    
+    NSLog(@"%@", NSStringFromCGRect([screen nativeBounds]));
 }
 
 

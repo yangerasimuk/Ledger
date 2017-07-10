@@ -91,9 +91,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"-[YGCategoryViewController tableView:didSelectRowAtIndexPath:]...");
-    
+        
     if(self.categoryType == YGCategoryTypeCurrency){
         YGCurrencyEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CurrencyDetailScene"];
         
@@ -138,25 +136,59 @@
 
 /**/
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
 
     static NSString *const kCategoryCellId = @"CategoryCellID";
     
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCurrencyItemId forIndexPath:indexPath];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger fontSize = [[defaults objectForKey:@"DefaultFontSize"] integerValue];
+    
+    YGCategory *category = self.categories[indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              kCategoryCellId];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:kCategoryCellId];
+        
+        if(category.type == YGCategoryTypeCurrency){
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleValue1
+                    reuseIdentifier:kCategoryCellId];
+            
+            //cell.detailTextLabel.text = [category shorterName];
+            
+            NSDictionary *symbolAttributes = @{
+                                               NSFontAttributeName:[UIFont systemFontOfSize:fontSize+2],
+                                               NSForegroundColorAttributeName:[UIColor grayColor],
+                                               };
+            NSAttributedString *symbolAttributed = [[NSAttributedString alloc] initWithString:[category shorterName] attributes:symbolAttributes];
+            
+            cell.detailTextLabel.attributedText = symbolAttributed;
+            
+        }
+        else{
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:kCategoryCellId];
+        }
     }
     
-    YGCategory *category = self.categories[indexPath.row];
-    cell.textLabel.text = category.name;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+    NSDictionary *nameAttributes = nil;
     
-    if(!category.active)
-        cell.textLabel.textColor = [UIColor grayColor];
+
+    if(category.active){
+        nameAttributes = @{
+                           NSFontAttributeName:[UIFont systemFontOfSize:fontSize],
+                           };
+    }
+    else{
+        nameAttributes = @{
+                           NSFontAttributeName:[UIFont systemFontOfSize:fontSize],
+                           NSForegroundColorAttributeName:[UIColor grayColor],
+                           };
+    }
+    NSAttributedString *nameAttributed = [[NSAttributedString alloc] initWithString:category.name attributes:nameAttributes];
+    cell.textLabel.attributedText = nameAttributed;
     
     return cell;
 }

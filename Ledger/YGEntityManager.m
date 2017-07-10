@@ -17,7 +17,6 @@
 - (NSArray <YGEntity *> *)entitiesFromDb;
 - (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entitiesForCache;
 - (void)sortEntitiesInArray:(NSMutableArray <YGEntity *>*)array;
-
 - (NSInteger)idAddEntity:(YGEntity *)entity;
 @end
 
