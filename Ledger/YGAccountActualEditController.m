@@ -84,7 +84,7 @@
             self.labelAccount.text = @"No account choice";
         }
         
-        // focus on sum
+        // focus on sum only for new element
         [self.textFieldTargetSum becomeFirstResponder];
         
         // button save

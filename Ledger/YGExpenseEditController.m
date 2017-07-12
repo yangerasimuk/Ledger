@@ -93,6 +93,9 @@
         _initCommentValue = nil;
         
         self.buttonDelete.enabled = NO;
+        
+        // set focus on sum only for new element
+        [self.textFieldSum becomeFirstResponder];
 
     }
     else{
@@ -145,7 +148,7 @@
     _isSumChanged = NO;
     _isCommentChanged = NO;
     
-    [self.textFieldSum becomeFirstResponder];
+    
     
     //NSLog(@"%@", self.textFieldSum.keyboardType]
 }

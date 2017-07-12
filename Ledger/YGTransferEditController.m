@@ -124,6 +124,9 @@
         _initTargetSumValue = 0.0;
         _initSourceCurrencyValue = nil;
         _initCommentValue = nil;
+        
+        // set focus on sum only for new element
+        [self.textFieldSourceSum becomeFirstResponder];
     }
     else{
         
@@ -186,7 +189,7 @@
     _isTargetSumChanged = NO;
     _isCommentChanged = NO;
     
-    [self.textFieldSourceSum becomeFirstResponder];
+    
 
 }
 

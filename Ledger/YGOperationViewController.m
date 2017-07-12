@@ -295,11 +295,12 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
 }
 
-/*
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return _sections.list[section].headerView;
 }
-*/
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [YGOperationSectionHeader heightSectionHeader];
 }

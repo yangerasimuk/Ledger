@@ -105,6 +105,9 @@
         
         self.buttonDelete.enabled = NO;
         
+        // set focus on sum only for new element
+        [self.textFieldSum becomeFirstResponder];
+        
     }
     else{
         // set date
@@ -155,7 +158,7 @@
     _isSumChanged = NO;
     _isCommentChanged = NO;
     
-    [self.textFieldSum becomeFirstResponder];
+    
 }
 
 - (void)didReceiveMemoryWarning {
