@@ -12,7 +12,7 @@ typedef NS_OPTIONS(NSInteger, YGFileSystemObjectType) {
     YGFileSystemObjectTypeUnknown = 0,
     YGFileSystemObjectTypeFile = 1 << 0,
     YGFileSystemObjectTypeDirectory = 1 << 1,
-    YGFileSystemObjectTypePackage = 1 << 2
+    YGFileSystemObjectTypePackage = 1 << 2 
     
 };
 //typedef enum YGFileSystemObjectType YGFileSystemObjectType;

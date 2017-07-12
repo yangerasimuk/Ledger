@@ -60,8 +60,20 @@
 		133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051A41EE0399B0031044D /* YGCurrencyViewController.m */; };
 		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
-		13CCF81A1F1663E400EAB928 /* libYGFileSystemIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CCF8191F1663E400EAB928 /* libYGFileSystemIOS.a */; };
-		13CCF81C1F16640000EAB928 /* libYGConfigIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CCF81B1F16640000EAB928 /* libYGConfigIOS.a */; };
+		13CCF86C1F16861400EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8521F16861400EAB928 /* YGFile.m */; };
+		13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8551F16861400EAB928 /* YGFileSystemObject.m */; };
+		13CCF86E1F16861400EAB928 /* YGSearchRuleNameIsRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8561F16861400EAB928 /* YGSearchRuleNameIsRegex.m */; };
+		13CCF86F1F16861400EAB928 /* YGDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8571F16861400EAB928 /* YGDirectory.m */; };
+		13CCF8701F16861400EAB928 /* YGFileSystemEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8591F16861400EAB928 /* YGFileSystemEnumerator.m */; };
+		13CCF8711F16861400EAB928 /* YGSearchPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF85A1F16861400EAB928 /* YGSearchPattern.m */; };
+		13CCF8721F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF85B1F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.m */; };
+		13CCF8731F16861400EAB928 /* YGSearchRuleNameMinLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF85D1F16861400EAB928 /* YGSearchRuleNameMinLength.m */; };
+		13CCF8741F16861400EAB928 /* YGSearchRuleByType.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF85E1F16861400EAB928 /* YGSearchRuleByType.m */; };
+		13CCF8751F16861400EAB928 /* YGSearchRuleHasPrefix.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF85F1F16861400EAB928 /* YGSearchRuleHasPrefix.m */; };
+		13CCF8761F16861400EAB928 /* YGFileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8651F16861400EAB928 /* YGFileSystem.m */; };
+		13CCF8771F16861400EAB928 /* YGSearchRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8691F16861400EAB928 /* YGSearchRule.m */; };
+		13CCF8781F16861400EAB928 /* YGFileSystemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF86B1F16861400EAB928 /* YGFileSystemSorter.m */; };
+		13CCF87C1F16862E00EAB928 /* YGConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF87A1F16862E00EAB928 /* YGConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,8 +199,36 @@
 		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
 		139F7A931EFD111200BD85AB /* YGTransferEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTransferEditController.m; sourceTree = "<group>"; };
-		13CCF8191F1663E400EAB928 /* libYGFileSystemIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYGFileSystemIOS.a; path = "../../../../../Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/libYGFileSystemIOS.a"; sourceTree = "<group>"; };
-		13CCF81B1F16640000EAB928 /* libYGConfigIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYGConfigIOS.a; path = "../../../../../Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/libYGConfigIOS.a"; sourceTree = "<group>"; };
+		13CCF8521F16861400EAB928 /* YGFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFile.m; sourceTree = "<group>"; };
+		13CCF8531F16861400EAB928 /* YGFileSystemObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemObject.h; sourceTree = "<group>"; };
+		13CCF8541F16861400EAB928 /* YGSearchPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchPattern.h; sourceTree = "<group>"; };
+		13CCF8551F16861400EAB928 /* YGFileSystemObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemObject.m; sourceTree = "<group>"; };
+		13CCF8561F16861400EAB928 /* YGSearchRuleNameIsRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleNameIsRegex.m; sourceTree = "<group>"; };
+		13CCF8571F16861400EAB928 /* YGDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDirectory.m; sourceTree = "<group>"; };
+		13CCF8581F16861400EAB928 /* YGFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystem.h; sourceTree = "<group>"; };
+		13CCF8591F16861400EAB928 /* YGFileSystemEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemEnumerator.m; sourceTree = "<group>"; };
+		13CCF85A1F16861400EAB928 /* YGSearchPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchPattern.m; sourceTree = "<group>"; };
+		13CCF85B1F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleDirectoryContainsFileName.m; sourceTree = "<group>"; };
+		13CCF85C1F16861400EAB928 /* YGSearchRuleNameIsRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleNameIsRegex.h; sourceTree = "<group>"; };
+		13CCF85D1F16861400EAB928 /* YGSearchRuleNameMinLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleNameMinLength.m; sourceTree = "<group>"; };
+		13CCF85E1F16861400EAB928 /* YGSearchRuleByType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleByType.m; sourceTree = "<group>"; };
+		13CCF85F1F16861400EAB928 /* YGSearchRuleHasPrefix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleHasPrefix.m; sourceTree = "<group>"; };
+		13CCF8601F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleDirectoryContainsFileName.h; sourceTree = "<group>"; };
+		13CCF8611F16861400EAB928 /* YGSearchRuleNameMinLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleNameMinLength.h; sourceTree = "<group>"; };
+		13CCF8621F16861400EAB928 /* YGSearchRuleByType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleByType.h; sourceTree = "<group>"; };
+		13CCF8631F16861400EAB928 /* YGSearchRuleHasPrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleHasPrefix.h; sourceTree = "<group>"; };
+		13CCF8641F16861400EAB928 /* YGSearchRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRule.h; sourceTree = "<group>"; };
+		13CCF8651F16861400EAB928 /* YGFileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystem.m; sourceTree = "<group>"; };
+		13CCF8661F16861400EAB928 /* YGDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDirectory.h; sourceTree = "<group>"; };
+		13CCF8671F16861400EAB928 /* YGFileSystemEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemEnumerator.h; sourceTree = "<group>"; };
+		13CCF8681F16861400EAB928 /* YGFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFile.h; sourceTree = "<group>"; };
+		13CCF8691F16861400EAB928 /* YGSearchRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRule.m; sourceTree = "<group>"; };
+		13CCF86A1F16861400EAB928 /* YGFileSystemSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemSorter.h; sourceTree = "<group>"; };
+		13CCF86B1F16861400EAB928 /* YGFileSystemSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemSorter.m; sourceTree = "<group>"; };
+		13CCF87A1F16862E00EAB928 /* YGConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGConfig.m; sourceTree = "<group>"; };
+		13CCF87B1F16862E00EAB928 /* YGConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGConfig.h; sourceTree = "<group>"; };
+		13CCF8801F16886900EAB928 /* YGConfigDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGConfigDefine.h; sourceTree = "<group>"; };
+		13CCF8831F1688F600EAB928 /* YGFileSystemDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YGFileSystemDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,8 +236,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13CCF81C1F16640000EAB928 /* libYGConfigIOS.a in Frameworks */,
-				13CCF81A1F1663E400EAB928 /* libYGFileSystemIOS.a in Frameworks */,
 				133051311EDAEDA00031044D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,9 +371,11 @@
 		13279D851EEECFE900BA46AF /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				13CCF8511F16854600EAB928 /* FileSystem */,
 				132379DE1F136E8C0051325F /* Controllers */,
 				133050F61EDAE29D0031044D /* AppDelegate.h */,
 				133050F71EDAE29D0031044D /* AppDelegate.m */,
+				13CCF8791F16861E00EAB928 /* Config */,
 				1330519D1EDF31A60031044D /* YGTools.h */,
 				1330519E1EDF31A60031044D /* YGTools.m */,
 				1317BF421F10F5740039A224 /* Define.h */,
@@ -432,8 +472,6 @@
 		1330512F1EDAEDA00031044D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				13CCF81B1F16640000EAB928 /* libYGConfigIOS.a */,
-				13CCF8191F1663E400EAB928 /* libYGFileSystemIOS.a */,
 				133051301EDAEDA00031044D /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -466,6 +504,50 @@
 				1317BF3F1F0FD8D50039A224 /* YGBackup.m */,
 			);
 			name = DB;
+			sourceTree = "<group>";
+		};
+		13CCF8511F16854600EAB928 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				13CCF8521F16861400EAB928 /* YGFile.m */,
+				13CCF8831F1688F600EAB928 /* YGFileSystemDefine.h */,
+				13CCF8531F16861400EAB928 /* YGFileSystemObject.h */,
+				13CCF8541F16861400EAB928 /* YGSearchPattern.h */,
+				13CCF8551F16861400EAB928 /* YGFileSystemObject.m */,
+				13CCF8561F16861400EAB928 /* YGSearchRuleNameIsRegex.m */,
+				13CCF8571F16861400EAB928 /* YGDirectory.m */,
+				13CCF8581F16861400EAB928 /* YGFileSystem.h */,
+				13CCF8591F16861400EAB928 /* YGFileSystemEnumerator.m */,
+				13CCF85A1F16861400EAB928 /* YGSearchPattern.m */,
+				13CCF85B1F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.m */,
+				13CCF85C1F16861400EAB928 /* YGSearchRuleNameIsRegex.h */,
+				13CCF85D1F16861400EAB928 /* YGSearchRuleNameMinLength.m */,
+				13CCF85E1F16861400EAB928 /* YGSearchRuleByType.m */,
+				13CCF85F1F16861400EAB928 /* YGSearchRuleHasPrefix.m */,
+				13CCF8601F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.h */,
+				13CCF8611F16861400EAB928 /* YGSearchRuleNameMinLength.h */,
+				13CCF8621F16861400EAB928 /* YGSearchRuleByType.h */,
+				13CCF8631F16861400EAB928 /* YGSearchRuleHasPrefix.h */,
+				13CCF8641F16861400EAB928 /* YGSearchRule.h */,
+				13CCF8651F16861400EAB928 /* YGFileSystem.m */,
+				13CCF8661F16861400EAB928 /* YGDirectory.h */,
+				13CCF8671F16861400EAB928 /* YGFileSystemEnumerator.h */,
+				13CCF8681F16861400EAB928 /* YGFile.h */,
+				13CCF8691F16861400EAB928 /* YGSearchRule.m */,
+				13CCF86A1F16861400EAB928 /* YGFileSystemSorter.h */,
+				13CCF86B1F16861400EAB928 /* YGFileSystemSorter.m */,
+			);
+			name = FileSystem;
+			sourceTree = "<group>";
+		};
+		13CCF8791F16861E00EAB928 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				13CCF8801F16886900EAB928 /* YGConfigDefine.h */,
+				13CCF87A1F16862E00EAB928 /* YGConfig.m */,
+				13CCF87B1F16862E00EAB928 /* YGConfig.h */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -604,18 +686,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13CCF8761F16861400EAB928 /* YGFileSystem.m in Sources */,
+				13CCF8751F16861400EAB928 /* YGSearchRuleHasPrefix.m in Sources */,
+				13CCF8731F16861400EAB928 /* YGSearchRuleNameMinLength.m in Sources */,
 				1317BF401F0FD8D50039A224 /* YGBackup.m in Sources */,
+				13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */,
 				131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */,
 				133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */,
+				13CCF8781F16861400EAB928 /* YGFileSystemSorter.m in Sources */,
+				13CCF86C1F16861400EAB928 /* YGFile.m in Sources */,
 				13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */,
+				13CCF86E1F16861400EAB928 /* YGSearchRuleNameIsRegex.m in Sources */,
 				1317BF3B1F0FC2E10039A224 /* YGBackupLocalViewController.m in Sources */,
 				132379FC1F14175E0051325F /* YGOperationSectionHeader.m in Sources */,
 				133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */,
 				13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */,
 				13279DBC1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m in Sources */,
+				13CCF8711F16861400EAB928 /* YGSearchPattern.m in Sources */,
 				1317BEF11F0E67920039A224 /* YGDBManager.m in Sources */,
 				132379E71F13D1350051325F /* YGOperationRow.m in Sources */,
 				131E1D991EF59C4900531F10 /* YGExpenseEditController.m in Sources */,
+				13CCF86F1F16861400EAB928 /* YGDirectory.m in Sources */,
 				13279D4D1EED949900BA46AF /* YGEntity.m in Sources */,
 				133051991EDEEFBC0031044D /* YGCategory.m in Sources */,
 				131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */,
@@ -624,8 +715,12 @@
 				132379ED1F13DFEE0051325F /* YGOperationIncomeCell.m in Sources */,
 				132379F01F13E0000051325F /* YGOperationAccountActualCell.m in Sources */,
 				1317BEFD1F0F7BD10039A224 /* YGStorageLocal.m in Sources */,
+				13CCF8741F16861400EAB928 /* YGSearchRuleByType.m in Sources */,
+				13CCF8721F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.m in Sources */,
 				13279D551EEDA27B00BA46AF /* YGEntityManager.m in Sources */,
 				132379EA1F13D24E0051325F /* YGOperationExpenseCell.m in Sources */,
+				13CCF8701F16861400EAB928 /* YGFileSystemEnumerator.m in Sources */,
+				13CCF8771F16861400EAB928 /* YGSearchRule.m in Sources */,
 				13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */,
 				131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */,
 				1317BF441F10F5740039A224 /* Define.m in Sources */,
@@ -644,6 +739,7 @@
 				132379E11F136F150051325F /* YGOperationOneRowCell.m in Sources */,
 				1330519F1EDF31A60031044D /* YGTools.m in Sources */,
 				13279D581EEDD9A700BA46AF /* YGOperationManager.m in Sources */,
+				13CCF87C1F16862E00EAB928 /* YGConfig.m in Sources */,
 				13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */,
 				132379F61F13F2600051325F /* YGOperationSection.m in Sources */,
 				132379F31F13E01C0051325F /* YGOperationTransferCell.m in Sources */,
@@ -746,20 +842,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/include/YGFileSystem",
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/include/YGConfig",
-				);
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LIBRARY_SEARCH_PATHS = (
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Debug-iphoneos",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Debug-iphonesimulator",
 					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem";
+				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/include/YGFileSystem";
 			};
 			name = Debug;
 		};
@@ -798,19 +892,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/include/YGFileSystem",
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/include/YGConfig",
-				);
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LIBRARY_SEARCH_PATHS = (
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Debug-iphoneos",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Debug-iphonesimulator",
 					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem";
+				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/include/YGFileSystem";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -820,8 +912,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EF64T58JW4;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Ledger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos",
+					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.Ledger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -19,7 +19,7 @@
 #import <Foundation/Foundation.h>
 
 @class YGDirectory;
-@class YGFile;
+@class YGFile; 
 
 @interface YGConfig : NSObject
 

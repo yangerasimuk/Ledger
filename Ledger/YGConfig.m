@@ -7,15 +7,8 @@
 //
 
 #import "YGConfig.h"
+#import "YGConfigDefine.h"
 #import <YGFileSystem.h>
-
-#define kConfigFileSuffix @"config"
-#define kConfigFileExtension @"xml"
-#define kConfigFileDateTimeFormat @"yyyy-MM-dd HH:mm:ss Z"
-#define kConfigFileKeyType = @"ConfigType"
-#define kConfigfileValueType = @"Project config"
-#define kConfigFileKeyCreated @"ConfigCreated"
-#define kConfigFileKeyModified @"ConfigModified"
 
 @interface YGConfig ()
 - (void) writeOnDisk:(NSMutableDictionary *)dict;
@@ -115,11 +108,12 @@
     return [_dictionary objectForKey:key];
 }
 
+
 - (void) setValue:(id)value forKey:(NSString *)key{
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:_dictionary];
     [dict setValue:value forKey:key];
     
-    [self writeOnDisk:dict];
+    [self writeOnDisk:dict]; 
 }
 
 - (void) removeValueForKey:(NSString *)key{
