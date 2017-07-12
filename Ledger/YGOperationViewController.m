@@ -56,7 +56,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     YGCategoryManager *_cm;
     YGEntityManager *_em;
     
-    BOOL _isHideDecimalFraction;
+    //BOOL _isHideDecimalFraction;
     BOOL _isPullRefreshToAddElement;
     
     UIRefreshControl *_refresh;
@@ -72,8 +72,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     
     _om = [YGOperationManager sharedInstance];
     _cm = [YGCategoryManager sharedInstance];
@@ -101,27 +99,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     NSArray *operations = [_om listOperations];
     
     _sections = [[YGOperationSections alloc] initWithOperations:operations];
-    
-    // get list of currencies
-    _currencies = [_cm listCategoriesByType:YGCategoryTypeCurrency];
-    
-    // get list of expense categories
-    _expenseCategories = [_cm listCategoriesByType:YGCategoryTypeExpense];
-    
-    // get list of income sources
-    _incomeSources = [_cm listCategoriesByType:YGCategoryTypeIncome];
-    
-    // get list of creditors/debtors
-    _creditorsOrDebtors = [_cm listCategoriesByType:YGCategoryTypeCreditorOrDebtor];
-    
-    // get list of tags
-    _tags = [_cm listCategoriesByType:YGCategoryTypeTag];
-    
-    // get list of accounts
-    _accounts = [_em.entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
-    
-    // get list of credits
-    //_debts = [_em.entities valueForKey:NSStringFromEntityType(YGEntityTypeDebt)];
     
     [self updateUI];
     
@@ -189,10 +166,12 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 - (void)updateUI {
     YGConfig *config = [YGTools config];
     
+    /*
     // Hide decimal fraction
     _isHideDecimalFraction = YES;
     if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"NO"])
         _isHideDecimalFraction = NO;
+     */
     
     // Pull refresh add new element
     _isPullRefreshToAddElement = NO;
@@ -213,53 +192,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     }
 }
 
-#pragma mark - Object from dictionaries: categories and entities
-
-- (YGCategory *)categoryByType:(YGCategoryType)type rowId:(NSInteger)rowId {
-    
-    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"rowId = %ld", rowId];
-    
-    NSArray *filteredArray = nil;
-    
-    if(type == YGCategoryTypeCurrency)
-        filteredArray = [_currencies filteredArrayUsingPredicate:idPredicate];
-    else if(type == YGCategoryTypeExpense)
-        filteredArray = [_expenseCategories filteredArrayUsingPredicate:idPredicate];
-    else if(type == YGCategoryTypeIncome)
-        filteredArray = [_incomeSources filteredArrayUsingPredicate:idPredicate];
-    else if(type == YGCategoryTypeCreditorOrDebtor)
-        filteredArray = [_creditorsOrDebtors filteredArrayUsingPredicate:idPredicate];
-    else
-        @throw [NSException exceptionWithName:@"-[YGOperationViewController categoryByType:rowId:]" reason:@"Unknown category type" userInfo:nil];
-    
-    if([filteredArray count] > 1)
-        @throw [NSException exceptionWithName:@"-[YGOperationViewController categoryByRowId" reason:@"Undefined choice of category by id" userInfo:nil];
-    else if ([filteredArray count] < 1)
-        @throw [NSException exceptionWithName:@"-[YGOperationViewController categoryByRowId" reason:[NSString stringWithFormat:@"Can not get category by id. Type: %ld, Id: %ld", (long)type, rowId] userInfo:nil];
-    
-    return filteredArray[0];
-}
-
-- (YGEntity *)entityByType:(YGEntityType)type rowId:(NSInteger)rowId {
-    
-    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"rowId = %ld", rowId];
-    
-    NSArray *filteredArray = nil;
-    
-    if(type == YGEntityTypeAccount)
-        filteredArray = [_accounts filteredArrayUsingPredicate:idPredicate];
-    else if(type == YGEntityTypeDebt)
-        filteredArray = [_debts filteredArrayUsingPredicate:idPredicate];
-    else
-        @throw [NSException exceptionWithName:@"-[YGOperationViewController entityByType:rowId:]" reason:@"Unknown entity type" userInfo:nil];
-    
-    if([filteredArray count] > 1)
-        @throw [NSException exceptionWithName:@"-[YGOperationViewController entityByRowId" reason:@"Undefined choice of entity by id" userInfo:nil];
-    else if ([filteredArray count] < 1)
-        @throw [NSException exceptionWithName:@"-[YGOperationViewController entityByRowId" reason:@"Can not get entity by id" userInfo:nil];
-
-    return filteredArray[0];
-}
 
 
 - (void)actionAddBarButton {
@@ -363,20 +295,14 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
 }
 
-
+/*
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return _sections.list[section].headerView;
 }
-
+*/
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [YGOperationSectionHeader heightSectionHeader];
 }
-
-/*
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return _sections.list[section].name;
-}
-*/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     

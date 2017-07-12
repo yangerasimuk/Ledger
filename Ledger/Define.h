@@ -18,3 +18,8 @@ extern NSString *const kDateTimeFormatOnlyTime;
 
 extern NSString *const kDateTimeFormatForBackupName;
 
+#define kFileDateTimeFormat @"yyyy-MM-dd HH:mm:ss zzzz"
+#define kPrintVerticalFileSizes @[@"B", @"KB", @"MB", @"GB", @"TB"]
+
+
+

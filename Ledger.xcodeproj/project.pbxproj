@@ -62,6 +62,20 @@
 		133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051A41EE0399B0031044D /* YGCurrencyViewController.m */; };
 		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
+		13CCF7EF1F14390B00EAB928 /* YGConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7ED1F14390B00EAB928 /* YGConfig.m */; };
+		13CCF80A1F14398B00EAB928 /* YGSearchRuleNameMinLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7F01F14398B00EAB928 /* YGSearchRuleNameMinLength.m */; };
+		13CCF80B1F14398B00EAB928 /* YGSearchRuleNameIsRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7F21F14398B00EAB928 /* YGSearchRuleNameIsRegex.m */; };
+		13CCF80C1F14398B00EAB928 /* YGSearchRuleHasPrefix.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7F41F14398B00EAB928 /* YGSearchRuleHasPrefix.m */; };
+		13CCF80D1F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7F61F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.m */; };
+		13CCF80E1F14398B00EAB928 /* YGSearchRuleByType.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7F81F14398B00EAB928 /* YGSearchRuleByType.m */; };
+		13CCF80F1F14398B00EAB928 /* YGSearchRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7FA1F14398B00EAB928 /* YGSearchRule.m */; };
+		13CCF8101F14398B00EAB928 /* YGSearchPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7FC1F14398B00EAB928 /* YGSearchPattern.m */; };
+		13CCF8111F14398B00EAB928 /* YGFileSystemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF7FE1F14398B00EAB928 /* YGFileSystemSorter.m */; };
+		13CCF8121F14398B00EAB928 /* YGFileSystemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8001F14398B00EAB928 /* YGFileSystemObject.m */; };
+		13CCF8131F14398B00EAB928 /* YGFileSystemEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8021F14398B00EAB928 /* YGFileSystemEnumerator.m */; };
+		13CCF8141F14398B00EAB928 /* YGFileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8041F14398B00EAB928 /* YGFileSystem.m */; };
+		13CCF8151F14398B00EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8061F14398B00EAB928 /* YGFile.m */; };
+		13CCF8161F14398B00EAB928 /* YGDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8081F14398B00EAB928 /* YGDirectory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +203,34 @@
 		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
 		139F7A931EFD111200BD85AB /* YGTransferEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTransferEditController.m; sourceTree = "<group>"; };
+		13CCF7ED1F14390B00EAB928 /* YGConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGConfig.m; sourceTree = "<group>"; };
+		13CCF7EE1F14390B00EAB928 /* YGConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGConfig.h; sourceTree = "<group>"; };
+		13CCF7F01F14398B00EAB928 /* YGSearchRuleNameMinLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleNameMinLength.m; sourceTree = "<group>"; };
+		13CCF7F11F14398B00EAB928 /* YGSearchRuleNameMinLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleNameMinLength.h; sourceTree = "<group>"; };
+		13CCF7F21F14398B00EAB928 /* YGSearchRuleNameIsRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleNameIsRegex.m; sourceTree = "<group>"; };
+		13CCF7F31F14398B00EAB928 /* YGSearchRuleNameIsRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleNameIsRegex.h; sourceTree = "<group>"; };
+		13CCF7F41F14398B00EAB928 /* YGSearchRuleHasPrefix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleHasPrefix.m; sourceTree = "<group>"; };
+		13CCF7F51F14398B00EAB928 /* YGSearchRuleHasPrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleHasPrefix.h; sourceTree = "<group>"; };
+		13CCF7F61F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleDirectoryContainsFileName.m; sourceTree = "<group>"; };
+		13CCF7F71F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleDirectoryContainsFileName.h; sourceTree = "<group>"; };
+		13CCF7F81F14398B00EAB928 /* YGSearchRuleByType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRuleByType.m; sourceTree = "<group>"; };
+		13CCF7F91F14398B00EAB928 /* YGSearchRuleByType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRuleByType.h; sourceTree = "<group>"; };
+		13CCF7FA1F14398B00EAB928 /* YGSearchRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchRule.m; sourceTree = "<group>"; };
+		13CCF7FB1F14398B00EAB928 /* YGSearchRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchRule.h; sourceTree = "<group>"; };
+		13CCF7FC1F14398B00EAB928 /* YGSearchPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGSearchPattern.m; sourceTree = "<group>"; };
+		13CCF7FD1F14398B00EAB928 /* YGSearchPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchPattern.h; sourceTree = "<group>"; };
+		13CCF7FE1F14398B00EAB928 /* YGFileSystemSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemSorter.m; sourceTree = "<group>"; };
+		13CCF7FF1F14398B00EAB928 /* YGFileSystemSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemSorter.h; sourceTree = "<group>"; };
+		13CCF8001F14398B00EAB928 /* YGFileSystemObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemObject.m; sourceTree = "<group>"; };
+		13CCF8011F14398B00EAB928 /* YGFileSystemObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemObject.h; sourceTree = "<group>"; };
+		13CCF8021F14398B00EAB928 /* YGFileSystemEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemEnumerator.m; sourceTree = "<group>"; };
+		13CCF8031F14398B00EAB928 /* YGFileSystemEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemEnumerator.h; sourceTree = "<group>"; };
+		13CCF8041F14398B00EAB928 /* YGFileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystem.m; sourceTree = "<group>"; };
+		13CCF8051F14398B00EAB928 /* YGFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystem.h; sourceTree = "<group>"; };
+		13CCF8061F14398B00EAB928 /* YGFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFile.m; sourceTree = "<group>"; };
+		13CCF8071F14398B00EAB928 /* YGFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFile.h; sourceTree = "<group>"; };
+		13CCF8081F14398B00EAB928 /* YGDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDirectory.m; sourceTree = "<group>"; };
+		13CCF8091F14398B00EAB928 /* YGDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDirectory.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +382,8 @@
 				1330519E1EDF31A60031044D /* YGTools.m */,
 				1317BF421F10F5740039A224 /* Define.h */,
 				1317BF431F10F5740039A224 /* Define.m */,
+				13CCF7EE1F14390B00EAB928 /* YGConfig.h */,
+				13CCF7ED1F14390B00EAB928 /* YGConfig.m */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -390,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				133050FC1EDAE29D0031044D /* Main.storyboard */,
+				13CCF8181F1439B400EAB928 /* FileSystem */,
 				13279D511EED990200BA46AF /* Operation */,
 				13279D521EED990C00BA46AF /* Entity */,
 				134255871EEA9A8C00DBF934 /* Category */,
@@ -466,6 +511,39 @@
 				1317BF3F1F0FD8D50039A224 /* YGBackup.m */,
 			);
 			name = DB;
+			sourceTree = "<group>";
+		};
+		13CCF8181F1439B400EAB928 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				13CCF7F01F14398B00EAB928 /* YGSearchRuleNameMinLength.m */,
+				13CCF7F11F14398B00EAB928 /* YGSearchRuleNameMinLength.h */,
+				13CCF7F21F14398B00EAB928 /* YGSearchRuleNameIsRegex.m */,
+				13CCF7F31F14398B00EAB928 /* YGSearchRuleNameIsRegex.h */,
+				13CCF7F41F14398B00EAB928 /* YGSearchRuleHasPrefix.m */,
+				13CCF7F51F14398B00EAB928 /* YGSearchRuleHasPrefix.h */,
+				13CCF7F61F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.m */,
+				13CCF7F71F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.h */,
+				13CCF7F81F14398B00EAB928 /* YGSearchRuleByType.m */,
+				13CCF7F91F14398B00EAB928 /* YGSearchRuleByType.h */,
+				13CCF7FA1F14398B00EAB928 /* YGSearchRule.m */,
+				13CCF7FB1F14398B00EAB928 /* YGSearchRule.h */,
+				13CCF7FC1F14398B00EAB928 /* YGSearchPattern.m */,
+				13CCF7FD1F14398B00EAB928 /* YGSearchPattern.h */,
+				13CCF7FE1F14398B00EAB928 /* YGFileSystemSorter.m */,
+				13CCF7FF1F14398B00EAB928 /* YGFileSystemSorter.h */,
+				13CCF8001F14398B00EAB928 /* YGFileSystemObject.m */,
+				13CCF8011F14398B00EAB928 /* YGFileSystemObject.h */,
+				13CCF8021F14398B00EAB928 /* YGFileSystemEnumerator.m */,
+				13CCF8031F14398B00EAB928 /* YGFileSystemEnumerator.h */,
+				13CCF8041F14398B00EAB928 /* YGFileSystem.m */,
+				13CCF8051F14398B00EAB928 /* YGFileSystem.h */,
+				13CCF8061F14398B00EAB928 /* YGFile.m */,
+				13CCF8071F14398B00EAB928 /* YGFile.h */,
+				13CCF8081F14398B00EAB928 /* YGDirectory.m */,
+				13CCF8091F14398B00EAB928 /* YGDirectory.h */,
+			);
+			name = FileSystem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -605,26 +683,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				1317BF401F0FD8D50039A224 /* YGBackup.m in Sources */,
+				13CCF80D1F14398B00EAB928 /* YGSearchRuleDirectoryContainsFileName.m in Sources */,
 				131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */,
+				13CCF8111F14398B00EAB928 /* YGFileSystemSorter.m in Sources */,
 				133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */,
 				13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */,
 				1317BF3B1F0FC2E10039A224 /* YGBackupLocalViewController.m in Sources */,
 				132379FC1F14175E0051325F /* YGOperationSectionHeader.m in Sources */,
+				13CCF80B1F14398B00EAB928 /* YGSearchRuleNameIsRegex.m in Sources */,
 				133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */,
 				13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */,
 				13279DBC1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m in Sources */,
 				1317BEF11F0E67920039A224 /* YGDBManager.m in Sources */,
 				132379E71F13D1350051325F /* YGOperationRow.m in Sources */,
+				13CCF7EF1F14390B00EAB928 /* YGConfig.m in Sources */,
 				131E1D991EF59C4900531F10 /* YGExpenseEditController.m in Sources */,
 				13279D4D1EED949900BA46AF /* YGEntity.m in Sources */,
 				133051991EDEEFBC0031044D /* YGCategory.m in Sources */,
+				13CCF8141F14398B00EAB928 /* YGFileSystem.m in Sources */,
 				131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */,
 				133051281EDAE3300031044D /* YGTabBarViewController.m in Sources */,
 				13279DE01EF58C8900BA46AF /* YGDateChoiceController.m in Sources */,
+				13CCF80E1F14398B00EAB928 /* YGSearchRuleByType.m in Sources */,
 				132379ED1F13DFEE0051325F /* YGOperationIncomeCell.m in Sources */,
 				132379F01F13E0000051325F /* YGOperationAccountActualCell.m in Sources */,
 				1317BEFD1F0F7BD10039A224 /* YGStorageLocal.m in Sources */,
 				13279D551EEDA27B00BA46AF /* YGEntityManager.m in Sources */,
+				13CCF8151F14398B00EAB928 /* YGFile.m in Sources */,
 				132379EA1F13D24E0051325F /* YGOperationExpenseCell.m in Sources */,
 				13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */,
 				131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */,
@@ -635,14 +720,20 @@
 				13279D8C1EEFC14200BA46AF /* YGOptionViewController.m in Sources */,
 				133050F81EDAE29D0031044D /* AppDelegate.m in Sources */,
 				133050F51EDAE29D0031044D /* main.m in Sources */,
+				13CCF80C1F14398B00EAB928 /* YGSearchRuleHasPrefix.m in Sources */,
 				139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */,
 				13279DC51EF2814E00BA46AF /* YGDebtEditController.m in Sources */,
 				131E1D961EF59B1600531F10 /* YGExpenseCategoryEditController.m in Sources */,
+				13CCF8131F14398B00EAB928 /* YGFileSystemEnumerator.m in Sources */,
 				131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */,
 				13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */,
 				132379E41F1383420051325F /* YGOperationTwoRowCell.m in Sources */,
 				132379E11F136F150051325F /* YGOperationOneRowCell.m in Sources */,
+				13CCF80F1F14398B00EAB928 /* YGSearchRule.m in Sources */,
+				13CCF8121F14398B00EAB928 /* YGFileSystemObject.m in Sources */,
+				13CCF8101F14398B00EAB928 /* YGSearchPattern.m in Sources */,
 				1330519F1EDF31A60031044D /* YGTools.m in Sources */,
+				13CCF8161F14398B00EAB928 /* YGDirectory.m in Sources */,
 				13279D581EEDD9A700BA46AF /* YGOperationManager.m in Sources */,
 				13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */,
 				132379F61F13F2600051325F /* YGOperationSection.m in Sources */,
@@ -650,6 +741,7 @@
 				132379F91F13F2B90051325F /* YGOperationSections.m in Sources */,
 				1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */,
 				13279D501EED96F000BA46AF /* YGOperation.m in Sources */,
+				13CCF80A1F14398B00EAB928 /* YGSearchRuleNameMinLength.m in Sources */,
 				1330512E1EDAE60F0031044D /* YGSQLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,6 +849,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem";
 			};
@@ -807,6 +900,7 @@
 					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphonesimulator/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphonesimulator/include/YGFileSystem";
 				VALIDATE_PRODUCT = YES;

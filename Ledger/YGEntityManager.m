@@ -202,7 +202,7 @@
 #warning May be throw exception when return array count > 1?
 - (YGEntity *)entityById:(NSInteger)entityId type:(YGEntityType)type {
     
-    NSArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(type)];
+    NSArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(type)];
     
     NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"rowId = %ld", entityId];
     
