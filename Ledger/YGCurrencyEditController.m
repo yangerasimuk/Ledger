@@ -23,6 +23,8 @@
     NSString *_initSortValue;
     BOOL _initDefaultValue;
     NSString *_initCommentValue;
+    
+    YGCategoryManager *p_manager;
 }
 
 
@@ -51,6 +53,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    p_manager = [YGCategoryManager sharedInstance];
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
     
@@ -229,12 +233,10 @@
 
 - (void)saveButtonPressed {
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
     if(_isNewCurrency){
         YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] shortName:self.currencyShortName.text symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.currencyComment.text];
         
-        [manager addCategory:currency];
+        [p_manager addCategory:currency];
     }
     else{
         
@@ -251,11 +253,11 @@
         if(_isCommentChanged)
             _currency.comment = self.currencyComment.text;
         
-        [manager updateCategory:[_currency copy]];
+        [p_manager updateCategory:[_currency copy]];
         
         // if set to default, and early be not default
         if(_isDefaultChanged && _initDefaultValue == NO){
-            [manager setOnlyOneDefaultCategory:[_currency copy]];
+            [p_manager setOnlyOneDefaultCategory:[_currency copy]];
         }
     }
     
@@ -264,14 +266,12 @@
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
     if(_currency.active){
-        [manager deactivateCategory:_currency];
+        [p_manager deactivateCategory:_currency];
         [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
-        [manager activateCategory:_currency];
+        [p_manager activateCategory:_currency];
         [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
     }
     
@@ -280,16 +280,24 @@
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
-    if(![manager isExistRecordsForCategory:_currency]){
+    if([p_manager hasLinkedObjectsForCategory:_currency]){
+        
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной валюты, необходимо удалить все связанные с ней записи (операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
     }
     else{
-        [manager removeCategory:_currency];
+        
+        // check for removed category just one
+        if([p_manager isJustOneCategory:_currency]){
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна валюта." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+        
+        [p_manager removeCategory:_currency];
         
         [self.navigationController popViewControllerAnimated:YES];
     }

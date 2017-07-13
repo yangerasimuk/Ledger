@@ -26,7 +26,8 @@
 - (void)removeCategoryWithId:(NSInteger)rowId;
 - (void)removeCategory:(YGCategory *)category;
 
-- (BOOL)isExistRecordsForCategory:(YGCategory *)category;
+- (BOOL)hasLinkedObjectsForCategory:(YGCategory *)category;
+- (BOOL)isJustOneCategory:(YGCategory *)category;
 
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type;
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type exceptForId:(NSInteger)categoryId;

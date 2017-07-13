@@ -17,6 +17,8 @@
     NSString *_initNameValue;
     NSString *_initSortValue;
     NSString *_initCommentValue;
+    
+    YGCategoryManager *p_manager;
 }
 
 
@@ -39,6 +41,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    p_manager = [YGCategoryManager sharedInstance];
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
     
@@ -172,8 +176,6 @@
 
 - (void)saveButtonPressed {
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
     if(self.isNewCategory){
         
         YGCategory *expenseCategory = [[YGCategory alloc]
@@ -186,7 +188,7 @@
                                        parentId:-1
                                        comment:self.textFieldComment.text];
         
-        [manager addCategory:expenseCategory];
+        [p_manager addCategory:expenseCategory];
     }
     else{
         
@@ -199,21 +201,20 @@
 
         
         // change db, not instance
-        [manager updateCategory:[self.category copy]];
+        [p_manager updateCategory:[self.category copy]];
     }
     
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
     if(self.category.active){
-        [manager deactivateCategory:self.category];
+        [p_manager deactivateCategory:self.category];
         [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
-        [manager activateCategory:self.category];
+        [p_manager activateCategory:self.category];
         [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
     }
     
@@ -221,16 +222,24 @@
 }
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
-    if(![manager isExistRecordsForCategory:self.category]){
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории, необходимо удалить все связанные с ней записи (категории, операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
+    if([p_manager hasLinkedObjectsForCategory:self.category]){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории, необходимо удалить все связанные с ней записи (операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
     }
     else{
-        [manager removeCategory:self.category];
+        
+        // check for removed category just one
+        if([p_manager isJustOneCategory:self.category]){
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+        
+        [p_manager removeCategory:self.category];
         
         [self.navigationController popViewControllerAnimated:YES];
     }

@@ -23,6 +23,8 @@
     
     NSInteger _parentId;
     
+    YGCategoryManager *p_manager;
+    
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
@@ -44,6 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    p_manager = [YGCategoryManager sharedInstance];
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
     
@@ -82,9 +86,7 @@
         
         if(_expenseCategory.parentId > 0){
             
-            YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-            
-            _expenseParent = [manager categoryById:_expenseCategory.parentId];
+            _expenseParent = [p_manager categoryById:_expenseCategory.parentId];
             self.labelParent.text = _expenseParent.name;
             
         }
@@ -126,9 +128,8 @@
         
         // fake or real parent category
         if(vc.targetParentId != -1){
-            YGCategoryManager *manager = [YGCategoryManager sharedInstance];
             
-            YGCategory *parent = [manager categoryById:vc.targetParentId];
+            YGCategory *parent = [p_manager categoryById:vc.targetParentId];
             
             self.labelParent.text = [NSString stringWithFormat:@"%@", parent.name];
             
@@ -226,8 +227,6 @@
 
 - (void)saveButtonPressed {
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
     if(self.isNewExpenseCategory){
         
         YGCategory *expenseCategory = [[YGCategory alloc]
@@ -240,7 +239,7 @@
                                        parentId:self.expenseParent.rowId 
                                        comment:self.textFieldComment.text];
         
-        [manager addCategory:expenseCategory];
+        [p_manager addCategory:expenseCategory];
     }
     else{
         
@@ -254,7 +253,7 @@
             self.expenseCategory.parentId = self.expenseParent.rowId;
         
         // change db, not instance
-        [manager updateCategory:[self.expenseCategory copy]];
+        [p_manager updateCategory:[self.expenseCategory copy]];
     }
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -262,14 +261,13 @@
 
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
     if(self.expenseCategory.active){
-        [manager deactivateCategory:self.expenseCategory];
+        [p_manager deactivateCategory:self.expenseCategory];
         [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
-        [manager activateCategory:self.expenseCategory];
+        [p_manager activateCategory:self.expenseCategory];
         [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
     }
     
@@ -278,17 +276,27 @@
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
-    if(![manager isExistRecordsForCategory:self.expenseCategory]){
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории расхода, необходимо удалить все связанные с ней записи (категории, операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
+    // check for linked object existens
+    if([p_manager hasLinkedObjectsForCategory:self.expenseCategory]){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории, необходимо удалить все связанные с ней записи (категории, операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
     }
     else{
-        [manager removeCategory:self.expenseCategory];
         
+        // check for removed category just one
+        if([p_manager isJustOneCategory:self.expenseCategory]){
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+        
+        // remove category
+        [p_manager removeCategory:self.expenseCategory];
+        
+        // return to Option controller
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

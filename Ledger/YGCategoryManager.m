@@ -132,10 +132,39 @@
     return [result copy];
 }
 
-- (BOOL)isExistRecordsForCategory:(YGCategory *)category{
+
+#pragma mark - Is it possible to delete category? 
+
+- (BOOL)isJustOneCategory:(YGCategory *)category {
     
-    if(category.type == YGCategoryTypeCurrency){
-        // in operations
+    // search all categories for the current type
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id = %ld;", category.type];
+    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+    
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    
+    if([categories count] == 1)
+        return YES;
+    else if([categories count] > 1)
+        return NO;
+    else
+        @throw [NSException exceptionWithName:@"-[YGCategoryManager isJustOneCategory" reason:[NSString stringWithFormat:@"Category is not exist for the type: %ld", category.type] userInfo:nil];
+}
+
+
+
+/**
+ Check category for linked objects (operations, entities, etc.) existense.
+ 
+ @category Category checked for existense of objects
+ 
+ @return YES if linked object exists and NO if linked objects does not exists
+ */
+- (BOOL)hasLinkedObjectsForCategory:(YGCategory *)category {
+    
+    if(category.type == YGCategoryTypeCurrency) {
+        
+        // search currency in operations
         NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE source_currency_id = %ld OR target_currency_id = %ld LIMIT 1;", category.rowId, category.rowId];
         NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
@@ -153,9 +182,32 @@
         if([categories count] > 0)
             return YES;
     }
-
+    else if(category.type == YGCategoryTypeExpense){
+        
+        // search in operations
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGCategoryTypeExpense, category.rowId];
+        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+        
+        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        
+        if([categories count] > 0)
+            return YES;
+    }
+    else if(category.type == YGCategoryTypeIncome){
+        
+        // search in operations
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGCategoryTypeIncome, category.rowId];
+        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+        
+        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        
+        if([categories count] > 0)
+            return YES;
+    }
+    
     return NO;
 }
+
 
 - (void)removeCategoryWithId:(NSInteger)rowId{
     
