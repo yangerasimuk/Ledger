@@ -123,7 +123,7 @@
             NSString *dateStringFromFileSystem = [NSString stringWithFormat:@"%@", attribute];
             
             NSDateFormatter *formatterFromFileSystem = [[NSDateFormatter alloc] init];
-            [formatterFromFileSystem setDateFormat:kFileDateTimeFormat]; //2017-04-27 21:16:49 +0000
+            [formatterFromFileSystem setDateFormat:kFileDateTimeFormatFromFSAttributes]; //2017-04-27 21:16:49 +0000
             NSDate *dateOnFileSystem = [formatterFromFileSystem dateFromString:dateStringFromFileSystem];
             
             result = dateOnFileSystem;

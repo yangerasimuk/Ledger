@@ -11,7 +11,7 @@
 #import "YGOperationRow.h"
 #import "YGOperationSectionHeader.h"
 #import "YGTools.h"
-#import "Define.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGOperationSection (){
     NSMutableArray <YGOperationRow *> *_operationRows;

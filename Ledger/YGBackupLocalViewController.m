@@ -13,7 +13,7 @@
 #import "YGTools.h"
 #import "YGConfig.h"
 #import <YGFileSystem.h>
-#import "Define.h"
+#import "YYGLedgerDefine.h"
 
 //static NSString *const kDateTimeFormat = @"yyyy-MM-dd HH:mm:ss Z";
 

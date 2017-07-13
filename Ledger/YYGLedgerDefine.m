@@ -6,7 +6,7 @@
 //  Copyright © 2017 Yan Gerasimuk. All rights reserved.
 //
 
-#import "Define.h"
+#import "YYGLedgerDefine.h"
 
 // Application database name
 NSString *const kDatabaseName = @"ledger.db.sqlite";
@@ -25,5 +25,3 @@ NSString *const kDateTimeFormatOnlyTime = @"HH:mm";
 
 // Timestamp for backup file name
 NSString *const kDateTimeFormatForBackupName = @"yyyy-MM-dd-HH-mm-ssZ";
-
-

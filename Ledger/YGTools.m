@@ -8,7 +8,7 @@
 
 #import "YGTools.h"
 #import "YGConfig.h"
-#import "Define.h"
+#import "YYGLedgerDefine.h"
 #import <UIKit/UIKit.h>
 
 #define kFileSizeAcronyms @[@"B", @"KB", @"MB", @"GB", @"TB"]

@@ -14,7 +14,7 @@
 #import <sqlite3.h>
 #import "YGSQLite.h"
 #import "YGTools.h"
-#import "Define.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGSQLite()
 

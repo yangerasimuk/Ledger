@@ -13,7 +13,7 @@
 #import "YGSQLite.h"
 #import "YGDBManager.h"
 #import "YGConfig.h"
-#import "Define.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGStorageLocal ()
 
