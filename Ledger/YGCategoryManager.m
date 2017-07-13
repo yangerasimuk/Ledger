@@ -9,6 +9,7 @@
 #import "YGCategoryManager.h"
 #import "YGSQLite.h"
 #import "YGTools.h"
+#import "YGOperation.h"
 
 #define YGBooleanValueNO    0
 #define YGBooleanValueYES   1
@@ -135,6 +136,10 @@
 
 #pragma mark - Is it possible to delete category? 
 
+/**
+ @warning Why search in db instead of cache?
+
+*/
 - (BOOL)isJustOneCategory:(YGCategory *)category {
     
     // search all categories for the current type
@@ -155,6 +160,7 @@
 
 /**
  Check category for linked objects (operations, entities, etc.) existense.
+ @warning Why search in db instead of cache?
  
  @category Category checked for existense of objects
  
@@ -182,21 +188,10 @@
         if([categories count] > 0)
             return YES;
     }
-    else if(category.type == YGCategoryTypeExpense){
-        
-        // search in operations
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGCategoryTypeExpense, category.rowId];
-        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
-        
-        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
-        
-        if([categories count] > 0)
-            return YES;
-    }
     else if(category.type == YGCategoryTypeIncome){
         
         // search in operations
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGCategoryTypeIncome, category.rowId];
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND source_id = %ld LIMIT 1;", YGOperationTypeIncome, category.rowId];
         NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
         NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
@@ -204,8 +199,66 @@
         if([categories count] > 0)
             return YES;
     }
+    else if(category.type == YGCategoryTypeExpense){
+        
+        // search in operations
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGOperationTypeExpense, category.rowId];
+        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+        
+        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        
+        if([categories count] > 0)
+            return YES;
+                
+    }
+    else{
+        @throw [NSException exceptionWithName:@"-[YGCategoryManager hasLinkedObjectsForCategory]" reason:@"Can not check for this type of category" userInfo:nil];
+    }
     
     return NO;
+}
+
+- (BOOL)hasChildObjectForCategory:(YGCategory *)category {
+    
+    // search child for category
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld LIMIT 1;", category.rowId];
+    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    
+    if([categories count] > 0)
+        return YES;
+    else
+        return NO;
+}
+
+- (BOOL)hasChildObjectActiveForCategory:(YGCategory *)category {
+    
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld AND active=%d LIMIT 1;", category.rowId, YGBooleanValueYES];
+    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    
+    if([categories count] > 0)
+        return YES;
+    else
+        return NO;
+}
+
+
+/**
+ @warning Why search in db instead of cache?
+ */
+- (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category {
+    
+    // search currency in operations
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id=%ld AND active=%d AND category_id<>%ld LIMIT 1;", category.type,  YGBooleanValueYES, category.rowId];
+    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
+    
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    
+    if([categories count] > 0)
+        return YES;
+    else
+        return NO;
 }
 
 

@@ -27,7 +27,11 @@
 - (void)removeCategory:(YGCategory *)category;
 
 - (BOOL)hasLinkedObjectsForCategory:(YGCategory *)category;
+- (BOOL)hasChildObjectForCategory:(YGCategory *)category;
+- (BOOL)hasChildObjectActiveForCategory:(YGCategory *)category;
 - (BOOL)isJustOneCategory:(YGCategory *)category;
+- (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category;
+
 
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type;
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type exceptForId:(NSInteger)categoryId;

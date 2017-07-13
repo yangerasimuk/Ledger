@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class YGConfig;
 
@@ -41,6 +42,13 @@
 + (NSInteger)defaultFontSize;
 
 + (NSInteger)deviceScreenWidth;
+
++ (UIColor *)colorForActionDisable;
++ (UIColor *)colorForActionDeactivate;
++ (UIColor *)colorForActionActivate;
++ (UIColor *)colorForActionBackup;
++ (UIColor *)colorForActionRestore;
++ (UIColor *)colorForActionDelete;
 
 
 @end

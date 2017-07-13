@@ -9,6 +9,7 @@
 #import "YGExpenseCategoryEditController.h"
 #import "YGCategoryManager.h"
 #import "YGExpenseParentChoiseController.h"
+#import "YGTools.h"
 
 @interface YGExpenseCategoryEditController (){
     BOOL _isNameChanged;
@@ -62,10 +63,8 @@
         
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = @"Deactivate";
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         
         self.buttonDelete.enabled = NO;
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         
         self.labelParent.text = @"No parent";
         
@@ -79,10 +78,14 @@
         self.buttonActivate.enabled = YES;
         self.buttonDelete.enabled = YES;
         
-        if(self.expenseCategory.active)
+        if(self.expenseCategory.active){
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
-        else
+            self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
+        }
+        else{
             [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
+        }
         
         if(_expenseCategory.parentId > 0){
             
@@ -96,7 +99,6 @@
         }
         
         _initParentIdValue = _expenseCategory.parentId;
-
     }
     
     _isNameChanged = NO;
@@ -107,7 +109,9 @@
     _initNameValue = self.textFieldName.text;
     _initSortValue = self.textFieldSort.text;
     _initCommentValue = self.textFieldComment.text;
-
+    
+    [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -263,14 +267,40 @@
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
     if(self.expenseCategory.active){
+        
+        if(![p_manager hasActiveCategoryForTypeExceptCategory:self.expenseCategory]){
+            
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Деактивировать невозможно" message:@"Для работы программы нужна хотя бы одна активная категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+            
+            [self disableButtonActivate];
+            
+            return;
+        }
+        
+        if([p_manager hasChildObjectActiveForCategory:self.expenseCategory]){
+            
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Деактивировать невозможно" message:@"Для деактивации категории необходимо деактивировать все дочерние подкатегории." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+            
+            [self disableButtonActivate];
+            
+            return;
+        }
+        
         [p_manager deactivateCategory:self.expenseCategory];
-        [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
         [p_manager activateCategory:self.expenseCategory];
-        [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
     }
     
+    // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -282,23 +312,65 @@
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
     }
-    else{
+    
+    // check for linked object existens
+    if([p_manager hasChildObjectForCategory:self.expenseCategory]){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории, необходимо удалить или отвязать все подкатегории." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
         
-        // check for removed category just one
-        if([p_manager isJustOneCategory:self.expenseCategory]){
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            [controller addAction:actionOk];
-            [self presentViewController:controller animated:YES completion:nil];
-        }
+        [self disableButtonDelete];
         
-        // remove category
-        [p_manager removeCategory:self.expenseCategory];
-        
-        // return to Option controller
-        [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
+    
+    if(![p_manager hasActiveCategoryForTypeExceptCategory:self.expenseCategory]){
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна активная категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
+    }
+    
+    // check for removed category just one
+    if([p_manager isJustOneCategory:self.expenseCategory]){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
+    }
+    
+    // remove category
+    [p_manager removeCategory:self.expenseCategory];
+    
+    // return to Option controller
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)disableButtonDelete {
+    self.buttonDelete.enabled = NO;
+    self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
+    self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)disableButtonActivate {
+    self.buttonActivate.enabled = NO;
+    self.buttonActivate.backgroundColor = [UIColor lightGrayColor];
+    self.buttonActivate.titleLabel.textColor = [UIColor whiteColor];
 }
 
 
@@ -323,7 +395,7 @@
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
      
@@ -331,7 +403,6 @@
      
      vc.expenseCategoryId = _expenseCategory.rowId;
      vc.sourceParentId = _expenseCategory.parentId;
-    
- }
+}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "YGCurrencyEditController.h"
 #import "YGCategoryManager.h"
+#import "YGTools.h"
 
 @interface YGCurrencyEditController (){
     BOOL _isNameChanged;
@@ -27,7 +28,6 @@
     YGCategoryManager *p_manager;
 }
 
-
 @property (weak, nonatomic) IBOutlet UITextField *currencyName;
 @property (weak, nonatomic) IBOutlet UITextField *currencySymbol;
 @property (weak, nonatomic) IBOutlet UITextField *currencySort;
@@ -45,7 +45,6 @@
 - (IBAction)sliderDefaultChanged:(id)sender;
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
-
 
 @end
 
@@ -69,11 +68,10 @@
         self.currencySort.text = @"100";
         self.currencyIsDefault.on = NO;
         
-        self.buttonDelete.enabled = NO;
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = @"Deactivate";
-        [self.buttonDelete setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+
+        self.buttonDelete.enabled = NO;
     }
     else{
 
@@ -85,14 +83,17 @@
         self.currencyIsDefault.on = self.currency.isAttach;
         
         self.buttonActivate.enabled = YES;
-        self.buttonDelete.enabled = YES;
-        
         if(_currency.active){
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
+            self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
         else{
             [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
+        
+        self.buttonDelete.enabled = YES;
+        self.buttonDelete.backgroundColor = [YGTools colorForActionDelete];
     }
     
     _isSortChanged = NO;
@@ -108,6 +109,13 @@
     _initShortNameValue = self.currencyShortName.text;
     _initCommentValue = self.currencyComment.text;
     _initDefaultValue = self.currencyIsDefault.isOn;
+
+    [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -267,14 +275,28 @@
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
     if(_currency.active){
+        
+        if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]){
+            
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Деактивировать невозможно" message:@"Для работы программы нужна хотя бы одна активная валюта." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+            
+            [self disableButtonActivate];
+            
+            return;
+        }
+        
         [p_manager deactivateCategory:_currency];
-        [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
         [p_manager activateCategory:_currency];
-        [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
     }
     
+    // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -286,22 +308,55 @@
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
     }
-    else{
+    
+    // check for removed category just one active
+    if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]){
         
-        // check for removed category just one
-        if([p_manager isJustOneCategory:_currency]){
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна валюта." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            [controller addAction:actionOk];
-            [self presentViewController:controller animated:YES completion:nil];
-        }
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна активная валюта." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
         
-        [p_manager removeCategory:_currency];
+        [self disableButtonDelete];
         
-        [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
+    
+    // check for removed category just one
+    if([p_manager isJustOneCategory:_currency]){
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна валюта." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
+    }
+    
+    [p_manager removeCategory:_currency];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)disableButtonDelete {
+    self.buttonDelete.enabled = NO;
+    self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
+    self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)disableButtonActivate {
+    self.buttonDelete.enabled = NO;
+    self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
+    self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
+}
+
 
 #pragma mark - Tools
 

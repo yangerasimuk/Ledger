@@ -8,6 +8,7 @@
 
 #import "YGCategoryDefaultEditController.h"
 #import "YGCategoryManager.h"
+#import "YGTools.h"
 
 @interface YGCategoryDefaultEditController (){
     BOOL _isNameChanged;
@@ -65,10 +66,8 @@
         
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = @"Deactivate";
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         
         self.buttonDelete.enabled = NO;
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
 
     }
     else{
@@ -79,10 +78,15 @@
         self.buttonActivate.enabled = YES;
         self.buttonDelete.enabled = YES;
         
-        if(self.category.active)
+        
+        if(self.category.active){
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
-        else
+            self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
+        }
+        else{
             [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
+        }
         
     }
     
@@ -93,7 +97,11 @@
     _initNameValue = self.textFieldName.text;
     _initSortValue = self.textFieldSort.text;
     _initCommentValue = self.textFieldComment.text;
-
+    
+    [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
 
 }
 
@@ -210,14 +218,28 @@
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
     if(self.category.active){
+        
+        if(![p_manager hasActiveCategoryForTypeExceptCategory:self.category]){
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Деактивировать невозможно" message:@"Для работы программы нужна хотя бы одна активная категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [controller addAction:actionOk];
+            [self presentViewController:controller animated:YES completion:nil];
+            
+            [self disableButtonActivate];
+            
+            return;
+        }
+        
         [p_manager deactivateCategory:self.category];
-        [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
         [p_manager activateCategory:self.category];
         [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitleColor:[UIColor ] forState:UIControlStateNormal];
     }
     
+    // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -228,22 +250,51 @@
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
     }
-    else{
+    
+    if(![p_manager hasActiveCategoryForTypeExceptCategory:self.category]){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна активная категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
         
-        // check for removed category just one
-        if([p_manager isJustOneCategory:self.category]){
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            [controller addAction:actionOk];
-            [self presentViewController:controller animated:YES completion:nil];
-        }
+        [self disableButtonDelete];
         
-        [p_manager removeCategory:self.category];
-        
-        [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
+    
+    if([p_manager isJustOneCategory:self.category]){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:actionOk];
+        [self presentViewController:controller animated:YES completion:nil];
+        
+        [self disableButtonDelete];
+        
+        return;
+    }
+    
+    [p_manager removeCategory:self.category];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)disableButtonDelete {
+    self.buttonDelete.enabled = NO;
+    self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
+    self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)disableButtonActivate {
+    self.buttonDelete.enabled = NO;
+    self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
+    self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
+}
+
 
 #pragma mark - Tools
 
