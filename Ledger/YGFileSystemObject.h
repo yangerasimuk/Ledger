@@ -15,7 +15,6 @@ typedef NS_OPTIONS(NSInteger, YGFileSystemObjectType) {
     YGFileSystemObjectTypePackage = 1 << 2 
     
 };
-//typedef enum YGFileSystemObjectType YGFileSystemObjectType;
 
 @interface YGFileSystemObject : NSObject
 

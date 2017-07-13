@@ -8,7 +8,7 @@
 
 #import "YGFileSystemObject.h"
 
-#import "YGFileSystemDefine.h"
+#import "YYGFileSystemDefine.h"
 
 /**
  YGFileSystemObject represent exists object on file system.

@@ -59,6 +59,8 @@
 		1330519F1EDF31A60031044D /* YGTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519E1EDF31A60031044D /* YGTools.m */; };
 		133051A51EE0399B0031044D /* YGCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051A41EE0399B0031044D /* YGCurrencyViewController.m */; };
 		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
+		135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E51F177096004F10DE /* YYGConfigDefine.m */; };
+		135510E91F177096004F10DE /* YYGConfigError.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E71F177096004F10DE /* YYGConfigError.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
 		13CCF86C1F16861400EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8521F16861400EAB928 /* YGFile.m */; };
 		13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8551F16861400EAB928 /* YGFileSystemObject.m */; };
@@ -197,6 +199,10 @@
 		133051A41EE0399B0031044D /* YGCurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyViewController.m; sourceTree = "<group>"; };
 		133051A91EE054740031044D /* YGCurrencyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyEditController.h; sourceTree = "<group>"; };
 		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
+		135510E41F177096004F10DE /* YYGConfigDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGConfigDefine.h; sourceTree = "<group>"; };
+		135510E51F177096004F10DE /* YYGConfigDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigDefine.m; sourceTree = "<group>"; };
+		135510E61F177096004F10DE /* YYGConfigError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGConfigError.h; sourceTree = "<group>"; };
+		135510E71F177096004F10DE /* YYGConfigError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigError.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
 		139F7A931EFD111200BD85AB /* YGTransferEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTransferEditController.m; sourceTree = "<group>"; };
 		13CCF8521F16861400EAB928 /* YGFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFile.m; sourceTree = "<group>"; };
@@ -227,7 +233,6 @@
 		13CCF86B1F16861400EAB928 /* YGFileSystemSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFileSystemSorter.m; sourceTree = "<group>"; };
 		13CCF87A1F16862E00EAB928 /* YGConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGConfig.m; sourceTree = "<group>"; };
 		13CCF87B1F16862E00EAB928 /* YGConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGConfig.h; sourceTree = "<group>"; };
-		13CCF8801F16886900EAB928 /* YGConfigDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGConfigDefine.h; sourceTree = "<group>"; };
 		13CCF8831F1688F600EAB928 /* YGFileSystemDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YGFileSystemDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -373,9 +378,9 @@
 			children = (
 				13CCF8511F16854600EAB928 /* FileSystem */,
 				132379DE1F136E8C0051325F /* Controllers */,
+				13CCF8791F16861E00EAB928 /* Config */,
 				133050F61EDAE29D0031044D /* AppDelegate.h */,
 				133050F71EDAE29D0031044D /* AppDelegate.m */,
-				13CCF8791F16861E00EAB928 /* Config */,
 				1330519D1EDF31A60031044D /* YGTools.h */,
 				1330519E1EDF31A60031044D /* YGTools.m */,
 				1317BF421F10F5740039A224 /* Define.h */,
@@ -543,9 +548,12 @@
 		13CCF8791F16861E00EAB928 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				13CCF8801F16886900EAB928 /* YGConfigDefine.h */,
-				13CCF87A1F16862E00EAB928 /* YGConfig.m */,
 				13CCF87B1F16862E00EAB928 /* YGConfig.h */,
+				13CCF87A1F16862E00EAB928 /* YGConfig.m */,
+				135510E41F177096004F10DE /* YYGConfigDefine.h */,
+				135510E51F177096004F10DE /* YYGConfigDefine.m */,
+				135510E61F177096004F10DE /* YYGConfigError.h */,
+				135510E71F177096004F10DE /* YYGConfigError.m */,
 			);
 			name = Config;
 			sourceTree = "<group>";
@@ -696,6 +704,7 @@
 				13CCF8781F16861400EAB928 /* YGFileSystemSorter.m in Sources */,
 				13CCF86C1F16861400EAB928 /* YGFile.m in Sources */,
 				13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */,
+				135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */,
 				13CCF86E1F16861400EAB928 /* YGSearchRuleNameIsRegex.m in Sources */,
 				1317BF3B1F0FC2E10039A224 /* YGBackupLocalViewController.m in Sources */,
 				132379FC1F14175E0051325F /* YGOperationSectionHeader.m in Sources */,
@@ -721,6 +730,7 @@
 				132379EA1F13D24E0051325F /* YGOperationExpenseCell.m in Sources */,
 				13CCF8701F16861400EAB928 /* YGFileSystemEnumerator.m in Sources */,
 				13CCF8771F16861400EAB928 /* YGSearchRule.m in Sources */,
+				135510E91F177096004F10DE /* YYGConfigError.m in Sources */,
 				13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */,
 				131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */,
 				1317BF441F10F5740039A224 /* Define.m in Sources */,

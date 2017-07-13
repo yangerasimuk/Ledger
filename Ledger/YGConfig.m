@@ -7,7 +7,7 @@
 //
 
 #import "YGConfig.h"
-#import "YGConfigDefine.h"
+#import "YYGConfigDefine.h"
 #import <YGFileSystem.h>
 
 @interface YGConfig ()
@@ -26,7 +26,6 @@
         
         NSFileManager *fm = [NSFileManager defaultManager];
         
-        //NSString *configFileName = [NSString stringWithFormat:@"%@/%@", directory.pathFull, name];
         NSString *configFileName = [directory.pathFull stringByAppendingPathComponent:name];
         
         if(![fm fileExistsAtPath:configFileName]){

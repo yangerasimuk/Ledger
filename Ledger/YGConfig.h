@@ -23,6 +23,13 @@
 
 @interface YGConfig : NSObject
 
+/// directory with config file
+@property (readonly) YGDirectory *directory;
+/// config file, wrap in YGFile object
+@property (readonly) YGFile *file;
+/// dictionary with keys and values
+@property (readonly) NSDictionary *dictionary;
+
 /// base init
 - (instancetype)initWithDirectory:(YGDirectory *)directory name:(NSString *)name;
 
@@ -35,7 +42,6 @@
 /// init for current directory
 - (instancetype)init;
 
-
 - (BOOL) isEmpty;
 - (void) setConfigDefaults:(NSDictionary *)dictionary;
 - (id) valueForKey:(NSString *)key;
@@ -43,11 +49,5 @@
 - (void) removeValueForKey:(NSString *)key;
 - (void) writeOnDisk:(NSMutableDictionary *)dict;
 
-/// directory with config file
-@property (readonly) YGDirectory *directory;
-/// config file, wrap in YGFile object
-@property (readonly) YGFile *file;
-/// dictionary with keys and values
-@property (readonly) NSDictionary *dictionary;
 
 @end
