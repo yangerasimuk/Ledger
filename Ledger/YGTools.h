@@ -37,7 +37,7 @@
 
 + (NSString *)humanViewStringForByteSize:(NSUInteger)size;
 
-+ (NSInteger *)sizeClassOfCurrentIPhone;
+//+ (NSInteger *)sizeClassOfCurrentIPhone;
 
 + (NSInteger)defaultFontSize;
 

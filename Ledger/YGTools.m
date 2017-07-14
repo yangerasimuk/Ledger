@@ -405,13 +405,15 @@
     return screenWidth;
 }
 
+/*
 + (void)sizeClassOfCurrentIPhone {
     UIDevice *device = [UIDevice currentDevice];
     
     UIScreen *screen = [UIScreen mainScreen];
     
-    NSLog(@"%@", NSStringFromCGRect([screen nativeBounds]));
+    //NSLog(@"%@", NSStringFromCGRect([screen nativeBounds]));
 }
+ */
 
 #pragma mark - Default colors for actions
 
