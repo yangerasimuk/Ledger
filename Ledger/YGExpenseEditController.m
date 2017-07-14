@@ -76,7 +76,7 @@
         if(!_account)
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
         if(_account){
-            _currency = [_cm categoryById:_account.currencyId];
+            _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
             
             self.labelAccount.text = _account.name;
             self.labelCurrency.text = [_currency shorterName];
@@ -109,11 +109,13 @@
         
         
         // set expenseCategory
-        _category = [_cm categoryById:self.expense.targetId];
+        //_category = [_cm categoryById:self.expense.targetId];
+        _category = [_cm categoryById:self.expense.targetId type:YGCategoryTypeExpense];
         self.labelCategory.text = _category.name;
         
         // set currency
-        _currency = [_cm categoryById:self.expense.sourceCurrencyId];
+        //_currency = [_cm categoryById:self.expense.sourceCurrencyId];
+        _currency = [_cm categoryById:self.expense.sourceCurrencyId type:YGCategoryTypeCurrency];
         self.labelCurrency.text = [_currency shorterName];
         
         // set sum
@@ -195,7 +197,8 @@
     _account = newAccount;
     self.labelAccount.text = _account.name;
     
-    _currency = [_cm categoryById:_account.currencyId];
+    //_currency = [_cm categoryById:_account.currencyId];
+    _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
     self.labelCurrency.text = [_currency shorterName];
     
     if([_account isEqual:_initAccountValue])

@@ -25,10 +25,16 @@
     
     YGCategoryManager *cm = [YGCategoryManager sharedInstance];
     
-    if(self.sourceCategory)
-        _categories = [cm listCategoriesByType:YGCategoryTypeExpense exceptForId:self.sourceCategory.rowId];
-    else
-        _categories = [cm listCategoriesByType:YGCategoryTypeExpense];
+    if(self.sourceCategory){
+        //_categories = [cm listCategoriesByType:YGCategoryTypeExpense exceptForId:self.sourceCategory.rowId];
+        _categories = [cm categoriesByType:YGCategoryTypeExpense onlyActive:YES exceptCategory:self.sourceCategory];
+        
+    }
+    else{
+        //_categories = [cm listCategoriesByType:YGCategoryTypeExpense];
+        _categories = [cm categoriesByType:YGCategoryTypeExpense onlyActive:YES];
+        
+    }
 
 }
 

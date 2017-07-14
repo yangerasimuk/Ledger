@@ -85,7 +85,8 @@
         if(!_account)
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
         if(_account){
-            _currency = [_cm categoryById:_account.currencyId];
+            //_currency = [_cm categoryById:_account.currencyId];
+            _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
 
             self.labelAccount.text = _account.name;
             self.labelCurrency.text = [_currency shorterName];
@@ -115,7 +116,8 @@
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
         
         // set income source
-        _incomeSource = [_cm categoryById:self.income.sourceId];
+        //_incomeSource = [_cm categoryById:self.income.sourceId];
+        _incomeSource = [_cm categoryById:self.income.sourceId type:YGCategoryTypeIncome];
         self.labelIncomeSource.text = _incomeSource.name;
         
         // set account
@@ -123,7 +125,8 @@
         self.labelAccount.text = _account.name;
         
         // set currency
-        _currency = [_cm categoryById:self.income.targetCurrencyId];
+        //_currency = [_cm categoryById:self.income.targetCurrencyId];
+        _currency = [_cm categoryById:self.income.targetCurrencyId type:YGCategoryTypeCurrency];
         self.labelCurrency.text = [_currency shorterName];
         
         // set sum
@@ -219,7 +222,8 @@
     self.labelAccount.text = _account.name;
     
     // may be lazy?
-    _currency = [_cm categoryById:_account.currencyId];
+    //_currency = [_cm categoryById:_account.currencyId];
+    _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
     self.labelCurrency.text = [_currency shorterName];
     
     if([_account isEqual:_initAccountValue])

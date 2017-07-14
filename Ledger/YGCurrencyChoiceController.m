@@ -24,10 +24,15 @@
     
     YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
-    if(self.sourceCurrency)
-        self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency exceptForId:self.sourceCurrency.rowId];
-    else
-        self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
+    if(self.sourceCurrency){
+        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency exceptForId:self.sourceCurrency.rowId];
+        self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES exceptCategory:self.sourceCurrency];
+    }
+    else{
+        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
+        self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES];
+        
+    }
     
     [self.tableView reloadData];
     
@@ -39,10 +44,15 @@
     
     YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
-    if(self.sourceCurrency)
-        self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency exceptForId:self.sourceCurrency.rowId];
-    else
-        self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
+    if(self.sourceCurrency){
+        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency exceptForId:self.sourceCurrency.rowId];
+        self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES exceptCategory:self.sourceCurrency];
+    }
+    else{
+        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
+        self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES];
+        
+    }
     
     [self.tableView reloadData];
     

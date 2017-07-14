@@ -16,6 +16,8 @@ typedef NS_ENUM(NSInteger, YGCategoryType){
     YGCategoryTypeTag               = 5
 };
 
+NSString *NSStringFromCategoryType(YGCategoryType type);
+
 @interface YGCategory : NSObject <NSCopying>
 
 /**
@@ -30,12 +32,12 @@ typedef NS_ENUM(NSInteger, YGCategoryType){
 
 - (NSString *)shorterName;
 
-@property (assign, nonatomic, readonly) NSInteger rowId;
+@property (assign, nonatomic) NSInteger rowId;
 @property (assign, nonatomic, readonly) YGCategoryType type;
 @property (copy, nonatomic) NSString *name;
 @property (assign, nonatomic, getter=isActive) BOOL active;
 @property (copy, nonatomic, readonly) NSDate *activeFrom;
-@property (copy, nonatomic, readonly) NSDate *activeTo;
+@property (copy, nonatomic) NSDate *activeTo;
 @property (assign, nonatomic) NSInteger sort;
 @property (copy, nonatomic) NSString *shortName;
 @property (copy, nonatomic) NSString *symbol;

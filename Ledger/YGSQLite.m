@@ -1067,7 +1067,7 @@
         }
         
         NSInteger result = (long)sqlite3_step(stmt);
-        printf("\nresult of sqlite3_step: %ld", result);
+        //printf("\nresult of sqlite3_step: %ld", result);
         
         resultId = sqlite3_last_insert_rowid(db);
         

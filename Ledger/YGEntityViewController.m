@@ -37,7 +37,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     _em = [YGEntityManager sharedInstance];
     _cm = [YGCategoryManager sharedInstance];
         
-    if(self.tabBarController.selectedIndex == 2){
+    if(self.tabBarController.selectedIndex == 1){
         self.type = YGEntityTypeAccount;
     }
     
@@ -184,7 +184,8 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     YGEntity *entity = self.entities[indexPath.row];
     
-    YGCategory *currency = [_cm categoryById:entity.currencyId];
+    //YGCategory *currency = [_cm categoryById:entity.currencyId];
+    YGCategory *currency = [_cm categoryById:entity.currencyId type:YGCategoryTypeCurrency];
     
     NSDictionary *nameAttributes = nil;
     if(!entity.active){

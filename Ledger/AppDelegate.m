@@ -54,7 +54,7 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         [defaults setBool:YES forKey:kIsFirstLaunch];
     }
     
-    [YGTools sizeClassOfCurrentIPhone];
+    //[YGTools sizeClassOfCurrentIPhone];
     
     return YES;
 }

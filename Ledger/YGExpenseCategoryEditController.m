@@ -89,7 +89,8 @@
         
         if(_expenseCategory.parentId > 0){
             
-            _expenseParent = [p_manager categoryById:_expenseCategory.parentId];
+            //_expenseParent = [p_manager categoryById:_expenseCategory.parentId];
+            _expenseParent = [p_manager categoryById:_expenseParent.parentId type:YGCategoryTypeExpense];
             self.labelParent.text = _expenseParent.name;
             
         }
@@ -128,16 +129,20 @@
     YGExpenseParentChoiseController *vc = unwindSegue.sourceViewController;
     
     // check if parentId changed
-    if(vc.targetParentId != _initParentIdValue){
+    //if(vc.targetParentId != _initParentIdValue){
+    if(vc.targetParentCategory.rowId != _initParentIdValue){
         
         // fake or real parent category
-        if(vc.targetParentId != -1){
+        //if(vc.targetParentId != -1){
+        if(vc.targetParentCategory){
             
-            YGCategory *parent = [p_manager categoryById:vc.targetParentId];
+            //YGCategory *parent = [p_manager categoryById:vc.targetParentId];
+            //YGCategory *parent = [p_manager categoryById:vc.targetParentId];
             
-            self.labelParent.text = [NSString stringWithFormat:@"%@", parent.name];
+            //self.labelParent.text = [NSString stringWithFormat:@"%@", parent.name];
+            self.labelParent.text = [NSString stringWithFormat:@"%@", vc.targetParentCategory.name];
             
-            _expenseParent = parent;
+            _expenseParent = vc.targetParentCategory;
         }
         else{
             self.labelParent.text = @"No parent";
@@ -401,8 +406,10 @@
      
      YGExpenseParentChoiseController *vc = segue.destinationViewController;
      
-     vc.expenseCategoryId = _expenseCategory.rowId;
-     vc.sourceParentId = _expenseCategory.parentId;
+     //vc.expenseCategoryId = _expenseCategory.rowId;
+    vc.expenseCategory = _expenseCategory;
+     //vc.sourceParentId = _expenseCategory.parentId;
+    vc.sourceParentCategory = _expenseCategory;
 }
 
 @end

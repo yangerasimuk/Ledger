@@ -7,9 +7,9 @@
 //
 
 #import "YGEntityManager.h"
+#import "YGOperationManager.h"
 #import "YGSQLite.h"
 #import "YGTools.h"
-#import "YGOperationManager.h"
 
 @interface YGEntityManager (){
     YGSQLite *_sqlite;
@@ -45,6 +45,8 @@
 }
 
 
+#pragma mark - Getter for entities
+
 - (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entities {
 
     if([_entities count] == 0) {
@@ -54,6 +56,7 @@
 }
 
 #pragma mark - Inner methods for memory cache process
+
 
 - (NSArray <YGEntity *> *)entitiesFromDb {
     
@@ -183,9 +186,6 @@
 }
 
 
-
-#pragma mark - Extern methods - Actions on one entity
-
 - (void)addEntity:(YGEntity *)entity{
     
     // add entity to db
@@ -208,7 +208,6 @@
     
     return [[entitiesByType filteredArrayUsingPredicate:idPredicate] firstObject];
 }
-
 
 
 #warning Is entity needs to update in inner storage?
@@ -283,6 +282,40 @@
 }
 
 
+
+
+#pragma mark - Lists of entitites
+
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive exceptEntity:(YGEntity *)exceptEntity {
+    
+    NSArray <YGEntity *> *entitiesResult = [_entities valueForKey:NSStringFromEntityType(type)];
+    
+    if(onlyActive){
+        NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];
+        entitiesResult = [entitiesResult filteredArrayUsingPredicate:activePredicate];
+    }
+    
+    if(exceptEntity){
+        NSPredicate *exceptPredicate = [NSPredicate predicateWithFormat:@"rowId != %ld", exceptEntity.rowId];
+        entitiesResult = [entitiesResult filteredArrayUsingPredicate:exceptPredicate];
+    }
+    
+    return entitiesResult;
+}
+
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive {
+    
+    return [self entitiesByType:type onlyActive:onlyActive exceptEntity:nil];
+}
+
+- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type {
+    
+    return [self entitiesByType:type onlyActive:NO exceptEntity:nil];
+}
+
+
+#pragma mark - Auxiliary methods
+
 /**
  Return only one attached entity for type. Terms for entity: equals type, active, attach, and must be only one. Else return nil.
  
@@ -338,39 +371,6 @@
         ent.attach = NO;
     }
 }
-
-
-
-
-#pragma mark - Extern methods - Getting lists of entitites
-
-- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive exceptEntity:(YGEntity *)exceptEntity {
-    
-    NSArray <YGEntity *> *entitiesResult = [_entities valueForKey:NSStringFromEntityType(type)];
-    
-    if(onlyActive){
-        NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];
-        entitiesResult = [entitiesResult filteredArrayUsingPredicate:activePredicate];
-    }
-    
-    if(exceptEntity){
-        NSPredicate *exceptPredicate = [NSPredicate predicateWithFormat:@"rowId != %ld", exceptEntity.rowId];
-        entitiesResult = [entitiesResult filteredArrayUsingPredicate:exceptPredicate];
-    }
-    
-    return entitiesResult;
-}
-
-- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive {
-    
-    return [self entitiesByType:type onlyActive:onlyActive exceptEntity:nil];
-}
-
-- (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type {
-    
-    return [self entitiesByType:type onlyActive:NO exceptEntity:nil];
-}
-
 
 
 

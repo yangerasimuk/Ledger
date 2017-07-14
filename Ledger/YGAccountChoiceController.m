@@ -37,7 +37,8 @@
     
     // get list of active currencies
     YGCategoryManager *cm = [YGCategoryManager sharedInstance];
-    _currencies = [cm listCategoriesByType:YGCategoryTypeCurrency];
+    //_currencies = [cm listCategoriesByType:YGCategoryTypeCurrency];
+    _currencies = [cm categoriesByType:YGCategoryTypeCurrency onlyActive:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

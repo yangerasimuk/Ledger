@@ -160,21 +160,24 @@
     
     if(row.operation.type == YGOperationTypeExpense){
         
-        YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId];
+        //YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId];
+        YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId type:YGCategoryTypeCurrency];
         
         row.sourceSum = [NSString stringWithFormat:formatForExpenseNumbers, row.operation.sourceSum, [sourceCurrency shorterName]];
         
-        YGCategory *expenseCateogry = [_cm categoryById:row.operation.targetId];
+        YGCategory *expenseCateogry = [_cm categoryById:row.operation.targetId type:YGCategoryTypeExpense];
         
         row.target = expenseCateogry.name;
 
     }
     else if(row.operation.type == YGOperationTypeIncome){
         
-        YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId];
+        //YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId];
+        YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId type:YGCategoryTypeIncome];
         row.source = incomeSource.name;
         
-        YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+        //YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+        YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:formatForIncomeNumbers, row.operation.targetSum, [targetCurrency shorterName]];
                           
     }
@@ -183,7 +186,8 @@
         YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
         
         row.target = targetAccount.name;
-        YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+        //YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+        YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:formatForEqualNumbers, row.operation.targetSum, [targetCurrency shorterName]];
         
     }
@@ -191,13 +195,15 @@
         
         YGEntity *sourceAccount = [_em entityById:row.operation.sourceId type:YGEntityTypeAccount];
         row.source = sourceAccount.name;
-        YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId];
+        //YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId];
+        YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId type:YGCategoryTypeCurrency];
         row.sourceSum = [NSString stringWithFormat:formatForExpenseNumbers, row.operation.sourceSum, [sourceCurrency shorterName]];;
         
         YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
         row.target = targetAccount.name;
 
-        YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+        //YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+        YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:formatForIncomeNumbers, row.operation.targetSum, [targetCurrency shorterName]];
     }
 }

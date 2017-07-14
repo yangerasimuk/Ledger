@@ -88,7 +88,8 @@
             self.labelSourceAccount.text = _sourceAccount.name;
             
             // set source currence
-            _sourceCurrency = [_cm categoryById:lastOperation.sourceCurrencyId];
+            //_sourceCurrency = [_cm categoryById:lastOperation.sourceCurrencyId];
+            _sourceCurrency = [_cm categoryById:lastOperation.sourceCurrencyId type:YGCategoryTypeCurrency];
             self.labelSourceCurrency.text = _sourceCurrency.name;
             
             
@@ -97,7 +98,8 @@
             self.labelTargetAccount.text = _targetAccount.name;
             
             // set target currency
-            _targetCurrency = [_cm categoryById:lastOperation.targetCurrencyId];
+            //_targetCurrency = [_cm categoryById:lastOperation.targetCurrencyId];
+            _targetCurrency = [_cm categoryById:lastOperation.targetCurrencyId type:YGCategoryTypeCurrency];
             self.labelTargetCurrency.text = _targetCurrency.name;
             
             self.buttonDelete.enabled = NO;
@@ -143,7 +145,8 @@
         self.textFieldSourceSum.text = [NSString stringWithFormat:@"%.2f", _sourceSum];
         
         // set source currency
-        _sourceCurrency = [_cm categoryById:self.transfer.sourceCurrencyId];
+        //_sourceCurrency = [_cm categoryById:self.transfer.sourceCurrencyId];
+        _sourceCurrency = [_cm categoryById:self.transfer.sourceCurrencyId type:YGCategoryTypeCurrency];
         self.labelSourceCurrency.text = [_sourceCurrency shorterName];
         
         // set target account
@@ -155,7 +158,8 @@
         self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", _targetSum];
         
         // set target currency
-        _targetCurrency = [_cm categoryById:self.transfer.targetCurrencyId];
+        //_targetCurrency = [_cm categoryById:self.transfer.targetCurrencyId];
+        _targetCurrency = [_cm categoryById:self.transfer.targetCurrencyId type:YGCategoryTypeCurrency];
         self.labelTargetCurrency.text = [_targetCurrency shorterName];
         
         // set comment
@@ -238,7 +242,8 @@
     self.labelSourceAccount.text = _sourceAccount.name;
     
     // may be lazy?
-    _sourceCurrency = [_cm categoryById:_sourceAccount.currencyId];
+    //_sourceCurrency = [_cm categoryById:_sourceAccount.currencyId];
+    _sourceCurrency = [_cm categoryById:_sourceAccount.currencyId type:YGCategoryTypeCurrency];
     self.labelSourceCurrency.text = [_sourceCurrency shorterName];
     
     if([_sourceAccount isEqual:_initSourceAccountValue])
@@ -257,7 +262,8 @@
     self.labelTargetAccount.text = _targetAccount.name;
     
     // may be lazy?
-    _targetCurrency = [_cm categoryById:_targetAccount.currencyId];
+    //_targetCurrency = [_cm categoryById:_targetAccount.currencyId];
+    _targetCurrency = [_cm categoryById:_targetAccount.currencyId type:YGCategoryTypeCurrency];
     self.labelTargetCurrency.text = [_targetCurrency shorterName];
     
     if([_targetAccount isEqual:_initTargetAccountValue])

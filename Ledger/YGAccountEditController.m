@@ -90,7 +90,8 @@
             [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
         
         // get currency object by currencyId
-        self.currency = [_cm categoryById:self.account.currencyId];
+        //self.currency = [_cm categoryById:self.account.currencyId];
+        self.currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
         self.labelCurrency.text = self.currency.name;
         
         // question - is account have linked operations?

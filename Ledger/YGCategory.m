@@ -87,4 +87,46 @@
     return newCategory;
 }
 
+#pragma mark - Override system methods: isEqual, hash
+
+- (BOOL)isEqual:(id)object {
+    
+    if(self == object) return YES;
+    
+    if([self class] != [object class]) return NO;
+    
+    YGCategory *otherCategory = (YGCategory *)object;
+    if(self.rowId != otherCategory.rowId)
+        return NO;
+    if(self.type != otherCategory.type)
+        return NO;
+    if(![self.name isEqualToString:otherCategory.name])
+        return NO;
+    return YES;
+}
+
+-(NSUInteger)hash {
+    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@", _type, _rowId, _name, _activeFrom];
+    
+    return [hashString hash];
+}
+
+
 @end
+
+#pragma mark - Category type to string function
+
+NSString *NSStringFromCategoryType(YGCategoryType type) {
+    if(type == YGCategoryTypeCurrency)
+        return @"Currency";
+    else if(type == YGCategoryTypeExpense)
+        return @"Expense category";
+    else if(type == YGCategoryTypeIncome)
+        return @"Income source";
+    else if(type == YGCategoryTypeCreditorOrDebtor)
+        return @"Creditor/debtor";
+    else if(type == YGCategoryTypeCreditorOrDebtor)
+        return @"Tag";
+    else
+        return @"Unknown";
+}

@@ -11,20 +11,26 @@
 
 @interface YGCategoryManager : NSObject
 
-+ (instancetype)sharedInstance;
+@property (strong, nonatomic, readonly) NSMutableDictionary <NSString *, NSMutableArray <YGCategory *>*> *categories;
 
++ (instancetype)sharedInstance;
 - (instancetype)init;
 
 - (void)addCategory:(YGCategory *)category;
-- (YGCategory *)categoryById:(NSInteger)categoryId;
+- (YGCategory *)categoryById:(NSInteger)categoryId type:(YGCategoryType)type;
+- (void)deactivateCategory:(YGCategory *)category;
+- (void)activateCategory:(YGCategory *)category;
+//- (void)removeCategoryWithId:(NSInteger)rowId;
+- (void)removeCategory:(YGCategory *)category;
+
+- (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type onlyActive:(BOOL)onlyActive exceptCategory:(YGCategory *)exceptCategory;
+- (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type onlyActive:(BOOL)onlyActive;
+- (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type;
+
 - (YGCategory *)categoryAttachedForType:(YGCategoryType)type;
 - (YGCategory *)categoryOnTopForType:(YGCategoryType)type;
 - (void)updateCategory:(YGCategory *)category;
 - (void)setOnlyOneDefaultCategory:(YGCategory *)category;
-- (void)deactivateCategory:(YGCategory *)category;
-- (void)activateCategory:(YGCategory *)category;
-- (void)removeCategoryWithId:(NSInteger)rowId;
-- (void)removeCategory:(YGCategory *)category;
 
 - (BOOL)hasLinkedObjectsForCategory:(YGCategory *)category;
 - (BOOL)hasChildObjectForCategory:(YGCategory *)category;
@@ -32,8 +38,8 @@
 - (BOOL)isJustOneCategory:(YGCategory *)category;
 - (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category;
 
-
+/*
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type;
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type exceptForId:(NSInteger)categoryId;
-
+*/
 @end

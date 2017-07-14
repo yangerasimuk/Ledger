@@ -25,10 +25,16 @@
     
     YGCategoryManager *cm = [YGCategoryManager sharedInstance];
     
-    if(self.sourceIncome)
-        _incomes = [cm listCategoriesByType:YGCategoryTypeIncome exceptForId:self.sourceIncome.rowId];
-    else
-        _incomes = [cm listCategoriesByType:YGCategoryTypeIncome];
+    if(self.sourceIncome){
+        //_incomes = [cm listCategoriesByType:YGCategoryTypeIncome exceptForId:self.sourceIncome.rowId];
+        _incomes = [cm categoriesByType:YGCategoryTypeIncome onlyActive:YES exceptCategory:self.sourceIncome];
+        
+    }
+    else{
+        //_incomes = [cm listCategoriesByType:YGCategoryTypeIncome];
+        _incomes = [cm categoriesByType:YGCategoryTypeIncome onlyActive:YES];
+        
+    }
     
     //[self.tableView reloadData];
 }

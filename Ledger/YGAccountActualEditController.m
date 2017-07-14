@@ -70,7 +70,8 @@
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
         if(_account){
             
-            YGCategory *currency = [_cm categoryById:_account.currencyId];
+            //YGCategory *currency = [_cm categoryById:_account.currencyId];
+            YGCategory *currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
             _currency = currency;
             if(currency.symbol || currency.shortName){
                 self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [currency shorterName]];
@@ -113,7 +114,8 @@
         
         if(_account){
             
-            YGCategory *currency = [_cm categoryById:_account.currencyId];
+            //YGCategory *currency = [_cm categoryById:_account.currencyId];
+            YGCategory *currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
             _currency = currency;
             if(currency.symbol || currency.shortName){
                 self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [currency shorterName]];
@@ -125,7 +127,8 @@
         }
         
         // set currency
-        _currency = [_cm categoryById:self.accountActual.sourceCurrencyId];
+        //_currency = [_cm categoryById:self.accountActual.sourceCurrencyId];
+        _currency = [_cm categoryById:self.accountActual.sourceCurrencyId type:YGCategoryTypeCurrency];
         
         if(_currency.symbol || _currency.shortName){
             self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [_currency shorterName]];
@@ -163,7 +166,8 @@
     _account = vc.targetAccount;
     self.labelAccount.text = _account.name;
     
-    _currency = [_cm categoryById:_account.currencyId];
+    //_currency = [_cm categoryById:_account.currencyId];
+    _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
     self.labelSourceCurrency.text = [_currency shorterName];
     self.labelTargetCurrency.text = [_currency shorterName];
     

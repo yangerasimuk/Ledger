@@ -11,7 +11,9 @@
 #import "YGCategory.h"
 #import "YGExpenseCategoryEditController.h"
 
-@interface YGExpenseParentChoiseController ()
+@interface YGExpenseParentChoiseController (){
+    YGCategoryManager *p_manager;
+}
 
 @property (strong, nonatomic) NSArray <YGCategory *> *categories;
 
@@ -22,13 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"expenseCategoryId: %ld", self.expenseCategoryId);
+    //_categories = [manager listCategoriesByType:YGCategoryTypeExpense exceptForId:self.expenseCategoryId];
+    _categories = [p_manager categoriesByType:YGCategoryTypeExpense onlyActive:YES exceptCategory:self.expenseCategory];
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
-    
-    _categories = [manager listCategoriesByType:YGCategoryTypeExpense exceptForId:self.expenseCategoryId];
-    
-    if(self.sourceParentId > 0){
+    if(_sourceParentCategory){
         YGCategory *category = [[YGCategory alloc]
                                 initWithRowId:-1
                                 categoryType:YGCategoryTypeExpense
@@ -55,13 +54,11 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    NSLog(@"expenseCategoryId: %ld", self.expenseCategoryId);
+    //_categories = [manager listCategoriesByType:YGCategoryTypeExpense exceptForId:self.expenseCategoryId];
     
-    YGCategoryManager *manager = [YGCategoryManager sharedInstance];
+    _categories = [p_manager categoriesByType:YGCategoryTypeExpense onlyActive:YES exceptCategory:self.expenseCategory];
     
-    _categories = [manager listCategoriesByType:YGCategoryTypeExpense exceptForId:self.expenseCategoryId];
-    
-    if(self.sourceParentId > 0){
+    if(_sourceParentCategory){
         YGCategory *category = [[YGCategory alloc]
                                 initWithRowId:-1
                                 categoryType:YGCategoryTypeExpense
@@ -125,15 +122,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //NSLog(@"-[YGExpenseParentChoiseController tableView:didSelectRowAtIndexPath:]...");
-    
-    //NSLog(@"Choosen indexPath.row: %ld", indexPath.row);
-    
-    YGCategory *category = _categories[indexPath.row];
-    
-    //NSLog(@"Choosen category: %@", [category description]);
-    
-    self.targetParentId = category.rowId;
+    self.targetParentCategory = _categories[indexPath.row];
     
     [self performSegueWithIdentifier:@"unwindToExpenseCategoryEdit" sender:self];
 }
