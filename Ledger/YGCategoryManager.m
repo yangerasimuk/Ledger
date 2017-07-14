@@ -551,7 +551,7 @@
 
 
 
-#pragma mark - Lists of entitites
+#pragma mark - Lists of categories
 
 - (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type onlyActive:(BOOL)onlyActive exceptCategory:(YGCategory *)exceptCategory {
     
