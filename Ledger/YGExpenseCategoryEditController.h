@@ -14,7 +14,7 @@
 // ? for what?
 @property (assign, nonatomic) YGCategoryType categoryType;
 @property (copy, nonatomic) YGCategory *expenseCategory;
-@property (copy, nonatomic) YGCategory *expenseParent;
+@property (copy, nonatomic) YGCategory *expenseCategoryParent;
 @property (assign, nonatomic) BOOL isNewExpenseCategory;
 
 @end

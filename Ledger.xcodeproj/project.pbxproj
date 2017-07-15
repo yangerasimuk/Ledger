@@ -80,6 +80,7 @@
 		13CCF87C1F16862E00EAB928 /* YGConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF87A1F16862E00EAB928 /* YGConfig.m */; };
 		13D9D8921F19FE17001F46B1 /* YYGCategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */; };
 		13D9D8961F1A4773001F46B1 /* YYGCategorySection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */; };
+		13D9D8991F1A5573001F46B1 /* YYGExpenseParentChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +247,8 @@
 		13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGCategoryRow.m; sourceTree = "<group>"; };
 		13D9D8941F1A4773001F46B1 /* YYGCategorySection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGCategorySection.h; sourceTree = "<group>"; };
 		13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGCategorySection.m; sourceTree = "<group>"; };
+		13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGExpenseParentChoiceController.h; sourceTree = "<group>"; };
+		13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGExpenseParentChoiceController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +333,8 @@
 				138FDD8F1F192F68009C3D2D /* Cells */,
 				13279DBA1EF13A4E00BA46AF /* YGExpenseParentChoiseController.h */,
 				13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */,
+				13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */,
+				13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */,
 				13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */,
 				13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */,
 				133051A91EE054740031044D /* YGCurrencyEditController.h */,
@@ -781,6 +786,7 @@
 				133050F81EDAE29D0031044D /* AppDelegate.m in Sources */,
 				133050F51EDAE29D0031044D /* main.m in Sources */,
 				139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */,
+				13D9D8991F1A5573001F46B1 /* YYGExpenseParentChoiceController.m in Sources */,
 				131E1D961EF59B1600531F10 /* YGExpenseCategoryEditController.m in Sources */,
 				131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */,
 				133C00241F1777B400D0CB0E /* YYGFileSystemDefine.m in Sources */,

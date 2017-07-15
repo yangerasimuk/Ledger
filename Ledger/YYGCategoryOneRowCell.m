@@ -9,6 +9,8 @@
 #import "YYGCategoryOneRowCell.h"
 #import "YGTools.h"
 
+NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
+
 @interface YYGCategoryOneRowCell (){
     NSInteger _fontSizeLeftText;
     NSInteger _fontSizeRightText;
@@ -32,6 +34,9 @@
         
         _fontSizeLeftText = [YGTools defaultFontSize];
         _fontSizeRightText = _fontSizeLeftText+2;
+        
+        _textLeft = @"";
+        _textRight = @"";
         
         _colorTextLeft = [UIColor blackColor];
         _colorTextRight = [UIColor grayColor];

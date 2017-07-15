@@ -7,8 +7,8 @@
 //
 
 #import "YGExpenseCategoryEditController.h"
+#import "YYGExpenseParentChoiceController.h"
 #import "YGCategoryManager.h"
-#import "YGExpenseParentChoiseController.h"
 #import "YGTools.h"
 
 @interface YGExpenseCategoryEditController (){
@@ -20,12 +20,9 @@
     NSString *_initNameValue;
     NSString *_initSortValue;
     NSString *_initCommentValue;
-    NSInteger _initParentIdValue;
-    
-    NSInteger _parentId;
+    YGCategory *_initParentValue;
     
     YGCategoryManager *p_manager;
-    
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
@@ -68,7 +65,7 @@
         
         self.labelParent.text = @"No parent";
         
-        _initParentIdValue = -1;
+        _initParentValue = nil;
     }
     else{
         self.textFieldName.text = self.expenseCategory.name;
@@ -89,17 +86,17 @@
         
         if(_expenseCategory.parentId > 0){
             
-            //_expenseParent = [p_manager categoryById:_expenseCategory.parentId];
-            _expenseParent = [p_manager categoryById:_expenseParent.parentId type:YGCategoryTypeExpense];
-            self.labelParent.text = _expenseParent.name;
+            _expenseCategoryParent = [p_manager categoryById:_expenseCategory.parentId type:YGCategoryTypeExpense];
+            self.labelParent.text = _expenseCategoryParent.name;
+            
+            _initParentValue = [_expenseCategoryParent copy];
             
         }
         else{
             self.labelParent.text = @"No parent";
-            _expenseParent = nil;
+            _expenseCategoryParent = nil;
+            _initParentValue = nil;
         }
-        
-        _initParentIdValue = _expenseCategory.parentId;
     }
     
     _isNameChanged = NO;
@@ -126,29 +123,20 @@
     
     NSLog(@"-[YGExpenseCategoryEditController unwindFromParentCategoryChoice:]..");
     
-    YGExpenseParentChoiseController *vc = unwindSegue.sourceViewController;
+    YYGExpenseParentChoiceController *vc = unwindSegue.sourceViewController;
     
-    // check if parentId changed
-    //if(vc.targetParentId != _initParentIdValue){
-    if(vc.targetParentCategory.rowId != _initParentIdValue){
+    if(vc.targetParentCategory){
         
-        // fake or real parent category
-        //if(vc.targetParentId != -1){
-        if(vc.targetParentCategory){
-            
-            //YGCategory *parent = [p_manager categoryById:vc.targetParentId];
-            //YGCategory *parent = [p_manager categoryById:vc.targetParentId];
-            
-            //self.labelParent.text = [NSString stringWithFormat:@"%@", parent.name];
-            self.labelParent.text = [NSString stringWithFormat:@"%@", vc.targetParentCategory.name];
-            
-            _expenseParent = vc.targetParentCategory;
-        }
-        else{
-            self.labelParent.text = @"No parent";
-            _expenseParent = nil;
-        }
+        self.labelParent.text = [NSString stringWithFormat:@"%@", vc.targetParentCategory.name];
         
+        _expenseCategoryParent = vc.targetParentCategory;
+    }
+    else{
+        self.labelParent.text = @"No parent";
+        _expenseCategoryParent = nil;
+    }
+    
+    if(![_expenseCategoryParent isEqual:_initParentValue]){
         // UI
         _isParentChanged = YES;
         [self changeSaveButtonEnable];
@@ -245,7 +233,7 @@
                                        shortName:nil
                                        symbol:nil
                                        attach:NO
-                                       parentId:self.expenseParent.rowId 
+                                       parentId:self.expenseCategoryParent.rowId
                                        comment:self.textFieldComment.text];
         
         [p_manager addCategory:expenseCategory];
@@ -259,7 +247,7 @@
         if(_isCommentChanged)
             self.expenseCategory.comment = self.textFieldComment.text;
         if(_isParentChanged)
-            self.expenseCategory.parentId = self.expenseParent.rowId;
+            self.expenseCategory.parentId = self.expenseCategoryParent.rowId;
         
         // change db, not instance
         [p_manager updateCategory:[self.expenseCategory copy]];
@@ -404,12 +392,15 @@
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
      
-     YGExpenseParentChoiseController *vc = segue.destinationViewController;
+     YYGExpenseParentChoiceController *vc = segue.destinationViewController;
      
      //vc.expenseCategoryId = _expenseCategory.rowId;
     vc.expenseCategory = _expenseCategory;
      //vc.sourceParentId = _expenseCategory.parentId;
-    vc.sourceParentCategory = _expenseCategory;
+    
+    //YGCategory *parent = [p_manager categoryById:_ex type:<#(YGCategoryType)#>]
+    
+    vc.sourceParentCategory = _expenseCategoryParent;
 }
 
 @end

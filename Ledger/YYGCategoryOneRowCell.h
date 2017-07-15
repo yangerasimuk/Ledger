@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "YGCategory.h"
 
+extern NSString *const kCategoryOneRowCellId;
+
 @interface YYGCategoryOneRowCell : UITableViewCell
 
 @property (copy, nonatomic) NSString *textLeft;

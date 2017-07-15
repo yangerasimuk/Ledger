@@ -16,7 +16,8 @@
 #import "YYGCategorySection.h"
 #import "YYGCategoryRow.h"
 
-static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
+//static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
+//extern NSString *const kCategoryOneRowCellId;
 
 
 @interface YGCategoryViewController (){
