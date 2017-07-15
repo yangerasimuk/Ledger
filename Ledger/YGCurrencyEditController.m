@@ -15,9 +15,9 @@
     BOOL _isShortNameChanged;
     BOOL _isSymbolChanged;
     BOOL _isSortChanged;
+    BOOL _isCommentChanged;
     BOOL _isDefaultChanged;
     
-    BOOL _isCommentChanged;
     NSString *_initNameValue;
     NSString *_initShortNameValue;
     NSString *_initSymbolValue;
@@ -244,7 +244,7 @@
     if(_isNewCurrency){
         YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] shortName:self.currencyShortName.text symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.currencyComment.text];
         
-        [p_manager addCategory:currency];
+        [p_manager addCategory:[currency copy]];
     }
     else{
         

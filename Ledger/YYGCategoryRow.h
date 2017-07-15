@@ -21,8 +21,8 @@
 @property (strong, nonatomic) NSString *symbol;
 
 /// nested level of category
-@property (assign, nonatomic) NSInteger *nestedLevel;
+@property (assign, nonatomic) NSInteger nestedLevel;
 
-- (instancetype)initWithCategory:(YGCategory *)category;
+- (instancetype)initWithCategory:(YGCategory *)category nestedLevel:(NSInteger)nestedLevel;
 
 @end

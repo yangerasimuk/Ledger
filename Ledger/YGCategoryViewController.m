@@ -13,14 +13,17 @@
 #import "YGCategoryManager.h"
 #import "YYGCategoryOneRowCell.h"
 
+#import "YYGCategorySection.h"
+#import "YYGCategoryRow.h"
+
 static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
 
 
 @interface YGCategoryViewController (){
     YGCategoryManager *p_manager;
+    YYGCategorySection *p_section;
 }
-@property (strong, nonatomic) NSArray <YGCategory *> *categories;
-
+//@property (strong, nonatomic) NSArray <YGCategory *> *categories;
 @end
 
 @implementation YGCategoryViewController
@@ -58,6 +61,7 @@ static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
     }
     
     [self reloadDataFromCache];
+    
 }
 
 
@@ -68,7 +72,10 @@ static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
     
     // fill inner db
     p_manager = [YGCategoryManager sharedInstance];
-    self.categories = [p_manager categoriesByType:self.categoryType];
+    //self.categories = [p_manager categoriesByType:self.categoryType];
+    
+    p_section = [[YYGCategorySection alloc] initWithCategories:[p_manager categoriesByType:self.categoryType]];
+    
     [self.tableView reloadData];
 }
 
@@ -126,7 +133,8 @@ static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
         YGCurrencyEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CurrencyDetailScene"];
         
         vc.isNewCurrency = NO;
-        vc.currency = _categories[indexPath.row];
+        //vc.currency = _categories[indexPath.row];
+        vc.currency = p_section.rows[indexPath.row].category;
         
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -135,7 +143,8 @@ static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
         YGExpenseCategoryEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ExpenseCategoryDetailScene"];
         
         vc.isNewExpenseCategory = NO;
-        vc.expenseCategory = self.categories[indexPath.row];
+        //vc.expenseCategory = self.categories[indexPath.row];
+        vc.expenseCategory = p_section.rows[indexPath.row].category;
         
         [self.navigationController pushViewController:vc animated:YES];
         
@@ -148,7 +157,8 @@ static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
         
         vc.categoryType = self.categoryType;
         vc.isNewCategory = NO;
-        vc.category = _categories[indexPath.row];
+        //vc.category = _categories[indexPath.row];
+        vc.category = p_section.rows[indexPath.row].category;
         
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -163,24 +173,36 @@ static NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.categories count];
+    return [p_section.rows count];
 }
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGCategory *category = _categories[indexPath.row];
+    //YGCategory *category = _categories[indexPath.row];
+    YYGCategoryRow *row = p_section.rows[indexPath.row];
     
     YYGCategoryOneRowCell *cellCategory = (YYGCategoryOneRowCell *)cell;
     
-    cellCategory.textLeft = category.name;
+    //cellCategory.textLeft = category.name;
+    if(row.category.type == YGCategoryTypeExpense){
+        
+        NSString *indent = @"";
+        for(NSInteger i = 0; i < row.nestedLevel; i++){
+            indent = [NSString stringWithFormat:@"\t%@", indent];
+        }
+        
+        cellCategory.textLeft = [NSString stringWithFormat:@"%@%@", indent, row.name];
+    }
+    else
+        cellCategory.textLeft = row.name;
     
-    if(category.type == YGCategoryTypeCurrency){
-        cellCategory.textRight = [category shorterName];
+    if(row.category.type == YGCategoryTypeCurrency){
+        cellCategory.textRight = [row.category shorterName];
     }
     
     // need to be colored at any way
-    if(category.active)
+    if(row.category.active)
         cellCategory.colorTextLeft = [UIColor blackColor];
     else
         cellCategory.colorTextLeft = [UIColor grayColor];
