@@ -1022,6 +1022,21 @@
     NSLog(@"Path to db: %@", [YGSQLite databaseFullName]);
 
     sqlite3_close(db);
+    
+#ifdef DEBUG
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error = nil;
+    [fm removeItemAtPath:@"/Users/yanikng/Desktop/ledger.db.sqlite" error:&error];
+    if(error){
+        NSLog(@"Error in remove old symbolic link. Error: %@", [error description]);
+    }
+    [fm createSymbolicLinkAtPath:@"/Users/yanikng/Desktop/ledger.db.sqlite" withDestinationPath:[YGSQLite databaseFullName] error:&error];
+    if(error){
+        NSLog(@"Error in create symbolic link. Error: %@", [error description]);
+    }
+    
+#endif
 }
 
 
