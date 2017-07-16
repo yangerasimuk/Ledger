@@ -431,6 +431,10 @@
     return [UIColor colorWithRed:113/255.f green:211/255.f blue:49/255.f alpha:1.f];
 }
 
++ (UIColor *)colorForActionSaveAndAddNew {
+    return [UIColor colorWithRed:0/255.f green:122/255.f blue:255/255.f alpha:1.f];
+}
+
 + (UIColor *)colorForActionBackup {
     return [UIColor colorWithRed:0/255.f green:122/255.f blue:255/255.f alpha:1.f];
 }

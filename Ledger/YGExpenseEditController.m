@@ -50,9 +50,15 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
+
 - (IBAction)textFieldSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
 
 @end
 
@@ -92,7 +98,13 @@
         _initSumValue = 0.0f;
         _initCommentValue = nil;
         
+        // hide button delete
         self.buttonDelete.enabled = NO;
+        self.cellDelete.hidden = YES;
+        //self.tableView.sec
+        
+        // show button save and add new
+        self.cellSaveAndAddNew.hidden = NO;
         
         // set focus on sum only for new element
         [self.textFieldSum becomeFirstResponder];
@@ -139,6 +151,10 @@
     
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    self.buttonSaveAndAddNew.enabled = NO;
+    self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+    self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
     
     // title
     self.navigationItem.title = @"Expense";
@@ -260,9 +276,19 @@
     
     if([self isEditControlsChanged] && [self isDataReadyForSave]){
         self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+        self.buttonSaveAndAddNew.enabled = YES;
+        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
+        
     }
     else{
         self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+        
     }
 }
 
@@ -299,6 +325,51 @@
 
 - (void)saveButtonPressed {
     
+    [self saveExpense];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender {
+    
+    [self saveExpense];
+    
+    [self initUIForNewExpense];
+}
+
+- (void)initUIForNewExpense {
+    
+    // leave date
+    //_date;
+    
+    // leave account
+    //_account;
+    
+    // leave currency
+    // _currency;
+    
+    
+    // init
+    _initDateValue = [_date copy];
+    _initAccountValue = [_account copy];
+    _initCategoryValue = [_category copy];
+    _initSumValue = 0.0f;
+    _initCommentValue = @"";
+    
+    // init state for monitor user changes
+    _isDateChanged = NO;
+    _isCategoryChanged = NO;
+    _isAccountChanged = NO;
+    _isSumChanged = NO;
+    _isCommentChanged = NO;
+    
+    // set focus on sum only for new element
+    self.textFieldSum.text = @"";
+    [self.textFieldSum becomeFirstResponder];
+
+}
+
+- (void)saveExpense {
     if(self.isNewExpense){
         
         YGOperation *expense = [[YGOperation alloc] initWithType:YGOperationTypeExpense
@@ -348,10 +419,9 @@
         // recalc of old account
         if(![_account isEqual:_initAccountValue] && _initAccountValue)
             [_em recalcSumOfAccount:_initAccountValue forOperation:[self.expense copy]];
-
+        
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
@@ -391,6 +461,48 @@
         vc.sourceCategory = _category;
         
     }
+}
+
+
+#pragma mark - Data source methods to show/hide action cells
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    /*
+    if(indexPath.section == 3 && indexPath.row == 0 && !self.isNewExpense){
+        cell = self.cellDelete;
+    }
+    else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewExpense) {
+        cell = self.cellSaveAndAddNew;
+    }
+     */
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 3 && indexPath.row == 1 && !self.isNewExpense) {
+        height = 0;
+    }
+    else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewExpense) {
+        height = 0;
+    }
+    
+    return height;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSInteger count = [super tableView:tableView numberOfRowsInSection:section];
+    
+    if (section == 3) {
+        count = 2;
+    }
+    
+    return count;
 }
 
 @end

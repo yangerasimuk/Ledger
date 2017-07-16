@@ -34,11 +34,11 @@
     NSPredicate *treePredicate = [NSPredicate predicateWithFormat:@"parentId > 0"];
     
     if([[p_categories filteredArrayUsingPredicate:treePredicate] count] > 0){
-        NSLog(@"p_categories is tree");
+        //NSLog(@"p_categories is tree");
         rows = [self rowsTreeFromCategories:p_categories];
     }
     else{
-        NSLog(@"p_categories is plane");
+        //NSLog(@"p_categories is plane");
         rows = [self rowsPlaneFromCategories:p_categories];
     }
     
@@ -71,7 +71,7 @@
     }
     
     for(YYGCategoryRow *c in result){
-        NSLog(@"category: %@, nested level: %ld", c.name, (long)c.nestedLevel);
+        //NSLog(@"category: %@, nested level: %ld", c.name, (long)c.nestedLevel);
     }
     
     return result;

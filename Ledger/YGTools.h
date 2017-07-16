@@ -46,6 +46,7 @@
 + (UIColor *)colorForActionDisable;
 + (UIColor *)colorForActionDeactivate;
 + (UIColor *)colorForActionActivate;
++ (UIColor *)colorForActionSaveAndAddNew;
 + (UIColor *)colorForActionBackup;
 + (UIColor *)colorForActionRestore;
 + (UIColor *)colorForActionDelete;
