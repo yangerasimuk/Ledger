@@ -54,12 +54,20 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
+
 
 - (IBAction)textFieldSourceSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
 
 @end
 
@@ -90,7 +98,7 @@
             // set source currence
             //_sourceCurrency = [_cm categoryById:lastOperation.sourceCurrencyId];
             _sourceCurrency = [_cm categoryById:lastOperation.sourceCurrencyId type:YGCategoryTypeCurrency];
-            self.labelSourceCurrency.text = _sourceCurrency.name;
+            self.labelSourceCurrency.text = [_sourceCurrency shorterName];
             
             
             // set target account
@@ -100,7 +108,7 @@
             // set target currency
             //_targetCurrency = [_cm categoryById:lastOperation.targetCurrencyId];
             _targetCurrency = [_cm categoryById:lastOperation.targetCurrencyId type:YGCategoryTypeCurrency];
-            self.labelTargetCurrency.text = _targetCurrency.name;
+            self.labelTargetCurrency.text = [_targetCurrency shorterName];
             
             self.buttonDelete.enabled = NO;
             
@@ -120,12 +128,23 @@
         // init
         _initDateValue = [_date copy];
         _initSourceAccountValue = nil;
-        _initSourceSumValue = 0.0;
+        _initSourceSumValue = 0.0f;
         _initSourceCurrencyValue = nil;
         _initTargetAccountValue = nil;
-        _initTargetSumValue = 0.0;
+        _initTargetSumValue = 0.0f;
         _initSourceCurrencyValue = nil;
         _initCommentValue = nil;
+        
+        // hide button delete
+        self.buttonDelete.enabled = NO;
+        self.cellDelete.hidden = YES;
+        //self.tableView.sec
+        
+        // show button save and add new
+        self.cellSaveAndAddNew.hidden = NO;
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
         // set focus on sum only for new element
         [self.textFieldSourceSum becomeFirstResponder];
@@ -174,6 +193,11 @@
         _initTargetAccountValue = [_targetAccount copy];
         _initTargetSumValue = _targetSum;
         _initCommentValue = [_comment copy];
+        
+        // save and add new button does not need
+        self.cellSaveAndAddNew.hidden = YES;
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.hidden = YES;
     }
     
     // button save
@@ -193,8 +217,6 @@
     _isTargetSumChanged = NO;
     _isCommentChanged = NO;
     
-    
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -315,10 +337,23 @@
 - (void) changeSaveButtonEnable{
     
     if([self isEditControlsChanged] && [self isDataReadyForSave]){
+        
         self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+        if(self.isNewTransfer){
+            self.buttonSaveAndAddNew.enabled = YES;
+            self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+            self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
+        }
     }
     else{
         self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+        if(self.isNewTransfer){
+            self.buttonSaveAndAddNew.enabled = NO;
+            self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+            self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+        }
     }
 }
 
@@ -370,6 +405,64 @@
 
 - (void)saveButtonPressed {
     
+    [self saveTransfer];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender {
+    
+    [self saveTransfer];
+    
+    [self initUIForNewExpense];
+}
+
+- (void)initUIForNewExpense {
+    
+    // leave date
+    //_date;
+    
+    // leave account
+    //_account;
+    
+    // leave currency
+    // _currency;
+    
+    
+    // init
+    _initDateValue = [_date copy];
+    
+    
+    _initSourceAccountValue = [_sourceAccount copy];
+    _initSourceSumValue = 0.0f;
+    _initTargetAccountValue = [_targetAccount copy];
+    _initTargetSumValue = 0.0f;
+    _initCommentValue = @"";
+    
+    // init state for monitor user changes
+    _isDateChanged = NO;
+    _isSourceAccountChanged = NO;
+    _isSourceSumChanged = NO;
+    _isTargetAccountChanged = NO;
+    _isTargetSumChanged = NO;
+    _isCommentChanged = NO;
+    
+    // deactivate "Add" and "Save & add new" bottons
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.buttonSaveAndAddNew.enabled = NO;
+    self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+    
+    // set focus on sum only for new element
+    self.textFieldSourceSum.text = @"";
+    self.textFieldTargetSum.text = @"";
+    
+    [self.textFieldSourceSum becomeFirstResponder];
+}
+
+
+
+- (void)saveTransfer {
+    
     if(self.isNewTransfer){
         
         YGOperation *transfer = [[YGOperation alloc] initWithType:YGOperationTypeTransfer
@@ -417,8 +510,6 @@
         [_em recalcSumOfAccount:_sourceAccount forOperation:self.transfer];
         [_em recalcSumOfAccount:_targetAccount forOperation:self.transfer];
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
@@ -430,6 +521,7 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 
 #pragma mark - Navigation
@@ -460,6 +552,48 @@
         vc.customer = YGAccountChoiceCustomerTransferTarget;
     }
 }
+
+#pragma mark - Data source methods to show/hide action cells
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    /*
+     if(indexPath.section == 3 && indexPath.row == 0 && !self.isNewExpense){
+     cell = self.cellDelete;
+     }
+     else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewExpense) {
+     cell = self.cellSaveAndAddNew;
+     }
+     */
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 3 && indexPath.row == 1 && !self.isNewTransfer) {
+        height = 0;
+    }
+    else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewTransfer) {
+        height = 0;
+    }
+    
+    return height;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSInteger count = [super tableView:tableView numberOfRowsInSection:section];
+    
+    if (section == 3) {
+        count = 2;
+    }
+    
+    return count;
+}
+
 
 
 @end

@@ -71,8 +71,8 @@
     _cm = [YGCategoryManager sharedInstance];
     _om = [YGOperationManager sharedInstance];
     
-    
     if(self.isNewExpense){
+        
         // set date
         _date = [NSDate date];
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
@@ -101,11 +101,13 @@
         // hide button delete
         self.buttonDelete.enabled = NO;
         self.cellDelete.hidden = YES;
-        //self.tableView.sec
         
         // show button save and add new
         self.cellSaveAndAddNew.hidden = NO;
-        
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+
         // set focus on sum only for new element
         [self.textFieldSum becomeFirstResponder];
 
@@ -144,6 +146,12 @@
         _initCategoryValue = [_category copy];
         _initSumValue = _sum;
         _initCommentValue = [_comment copy];
+
+        // save and add new button does not need
+        self.cellSaveAndAddNew.hidden = YES;
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.hidden = YES;
+
     }
     
     // button save
@@ -151,10 +159,6 @@
     
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    
-    self.buttonSaveAndAddNew.enabled = NO;
-    self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
-    self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
     
     // title
     self.navigationItem.title = @"Expense";
@@ -166,9 +170,6 @@
     _isSumChanged = NO;
     _isCommentChanged = NO;
     
-    
-    
-    //NSLog(@"%@", self.textFieldSum.keyboardType]
 }
 
 - (void)didReceiveMemoryWarning {
@@ -213,7 +214,6 @@
     _account = newAccount;
     self.labelAccount.text = _account.name;
     
-    //_currency = [_cm categoryById:_account.currencyId];
     _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
     self.labelCurrency.text = [_currency shorterName];
     
@@ -275,22 +275,28 @@
 - (void) changeSaveButtonEnable{
     
     if([self isEditControlsChanged] && [self isDataReadyForSave]){
+        
         self.navigationItem.rightBarButtonItem.enabled = YES;
         
-        self.buttonSaveAndAddNew.enabled = YES;
-        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
-        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
+        if(self.isNewExpense){
+            self.buttonSaveAndAddNew.enabled = YES;
+            self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+            self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
+        }
         
     }
     else{
+        
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        
-        self.buttonSaveAndAddNew.enabled = NO;
-        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
-        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
-        
+
+        if(self.isNewExpense){
+            self.buttonSaveAndAddNew.enabled = NO;
+            self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+            self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+        }
     }
 }
+
 
 #pragma mark - Monitoring of controls changed
 
@@ -330,12 +336,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender {
     
     [self saveExpense];
     
     [self initUIForNewExpense];
 }
+
 
 - (void)initUIForNewExpense {
     
@@ -363,11 +371,17 @@
     _isSumChanged = NO;
     _isCommentChanged = NO;
     
+    // deactivate "Add" and "Save & add new" bottons
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.buttonSaveAndAddNew.enabled = NO;
+    self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+    
     // set focus on sum only for new element
     self.textFieldSum.text = @"";
     [self.textFieldSum becomeFirstResponder];
 
 }
+
 
 - (void)saveExpense {
     if(self.isNewExpense){
@@ -419,9 +433,7 @@
         // recalc of old account
         if(![_account isEqual:_initAccountValue] && _initAccountValue)
             [_em recalcSumOfAccount:_initAccountValue forOperation:[self.expense copy]];
-        
     }
-
 }
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {

@@ -27,26 +27,23 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelAccount;
-
-@property (weak, nonatomic) IBOutlet UITextField *textFieldSourceSum;
-
-
-@property (weak, nonatomic) IBOutlet UILabel *labelSourceCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
 
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDate;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellAccount;
-@property (weak, nonatomic) IBOutlet UITableViewCell *cellCurrentSum;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellActualSum;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellComment;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
 
 @end
 
@@ -60,6 +57,7 @@
     _em = [YGEntityManager sharedInstance];
     
     if(self.isNewAccountAcutal){
+        
         // set date
         _date = [NSDate date];
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
@@ -70,23 +68,17 @@
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
         if(_account){
             
-            //YGCategory *currency = [_cm categoryById:_account.currencyId];
             YGCategory *currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
             _currency = currency;
-            if(currency.symbol || currency.shortName){
-                self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [currency shorterName]];
-                self.textFieldTargetSum.placeholder = [currency shorterName];
-            }
-            else{
-                self.labelAccount.text = _account.name;
-            }
+            
+            self.labelAccount.text = _account.name;
+            self.labelTargetCurrency.text = [_currency shorterName];
         }
         else{
-            self.labelAccount.text = @"No account choice";
+            self.labelAccount.text = @"No account";
+            self.labelTargetCurrency.text = @"?";
         }
-        
-        // focus on sum only for new element
-        [self.textFieldTargetSum becomeFirstResponder];
+
         
         // button save
         UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
@@ -96,6 +88,16 @@
         
         // button delete disable
         self.buttonDelete.enabled = NO;
+        self.buttonDelete.hidden = YES;
+        
+        // show button save and add new
+        self.cellSaveAndAddNew.hidden = NO;
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
+        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+        
+        // focus on sum only for new element
+        [self.textFieldTargetSum becomeFirstResponder];
         
     }
     else{
@@ -112,40 +114,18 @@
         self.cellAccount.accessoryType = UITableViewCellAccessoryNone;
         self.cellAccount.userInteractionEnabled = NO;
         
-        if(_account){
-            
-            //YGCategory *currency = [_cm categoryById:_account.currencyId];
-            YGCategory *currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
-            _currency = currency;
-            if(currency.symbol || currency.shortName){
-                self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [currency shorterName]];
-                self.textFieldTargetSum.placeholder = [currency shorterName];
-            }
-            else{
-                self.labelAccount.text = _account.name;
-            }
-        }
-        
-        // set currency
-        //_currency = [_cm categoryById:self.accountActual.sourceCurrencyId];
-        _currency = [_cm categoryById:self.accountActual.sourceCurrencyId type:YGCategoryTypeCurrency];
-        
-        if(_currency.symbol || _currency.shortName){
-            self.labelAccount.text = [NSString stringWithFormat:@"%@ (%@)", _account.name, [_currency shorterName]];
-        }
-        else{
-            self.labelAccount.text = _account.name;
-        }
+        YGCategory *currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
+        _currency = currency;
+        self.labelAccount.text = _account.name;
+        self.labelTargetCurrency.text = [_currency shorterName];
         
         // set sum
-        _sourceSum = self.accountActual.sourceSum;
-        self.textFieldSourceSum.text = [NSString stringWithFormat:@"%.2f", self.accountActual.sourceSum];
-        //self.labelSourceSum.text = [NSString stringWithFormat:@"%.2f", self.accountActual.sourceSum];
         self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", self.accountActual.targetSum];
-        self.cellCurrentSum.accessoryType = UITableViewCellAccessoryNone;
-        self.cellCurrentSum.userInteractionEnabled = NO;
-        self.cellActualSum.accessoryType = UITableViewCellAccessoryNone;
-        self.cellActualSum.userInteractionEnabled = NO;
+        
+        // save and add new button does not need
+        self.cellSaveAndAddNew.hidden = YES;
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.hidden = YES;
     }
     
     // title
@@ -166,9 +146,8 @@
     _account = vc.targetAccount;
     self.labelAccount.text = _account.name;
     
-    //_currency = [_cm categoryById:_account.currencyId];
     _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
-    self.labelSourceCurrency.text = [_currency shorterName];
+
     self.labelTargetCurrency.text = [_currency shorterName];
     
 }
@@ -177,9 +156,23 @@
 #pragma mark - Monitoring of controls changed
 
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender {
-    double sum = [self.textFieldTargetSum.text doubleValue];
-    if(self.isNewAccountAcutal && sum > 0){
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+    
+    if(![self.textFieldTargetSum.text isEqualToString:@""]){
+        
+        double sum = [self.textFieldTargetSum.text doubleValue];
+        
+        if(self.isNewAccountAcutal && sum > 0){
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            
+            self.buttonSaveAndAddNew.enabled = YES;
+            self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
+        }
+    }
+    else{
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+        self.buttonSaveAndAddNew.enabled = NO;
+        self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
     }
 }
 
@@ -191,14 +184,50 @@
 
 - (void)saveButtonPressed {
     
+    [self saveAccountActual];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender {
+    
+    [self saveAccountActual];
+    
+    [self initUIForNewAccountActual];
+    
+}
+
+- (void)initUIForNewAccountActual {
+    
+    // leave date
+    //_date;
+    
+    // leave account
+    //_account;
+    
+    // leave currency
+    // _currency;
+    
+    // deactivate "Add" and "Save & add new" bottons
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.buttonSaveAndAddNew.enabled = NO;
+    self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+    
+    // set focus on sum only for new element
+    self.textFieldTargetSum.text = @"";
+    [self.textFieldTargetSum becomeFirstResponder];
+}
+
+
+- (void)saveAccountActual {
+    
     double sourceSum = _account.sum;
     double targetSum = [self.textFieldTargetSum.text doubleValue];
 
     YGOperation *accountActual = [[YGOperation alloc] initWithType:YGOperationTypeAccountActual sourceId:_account.rowId targetId:_account.rowId sourceSum:sourceSum sourceCurrencyId:_account.currencyId targetSum:targetSum targetCurrencyId:_account.currencyId date:[NSDate date] comment:self.textFieldComment.text];
     
+#warning Where is recalc? Are we need it?
     [_om addOperation:accountActual];
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -224,5 +253,48 @@
         vc.customer = YGAccountChoiceCustomerAccountActual;
     }
 }
+
+
+#pragma mark - Data source methods to show/hide action cells
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    /*
+     if(indexPath.section == 3 && indexPath.row == 0 && !self.isNewExpense){
+     cell = self.cellDelete;
+     }
+     else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewExpense) {
+     cell = self.cellSaveAndAddNew;
+     }
+     */
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 3 && indexPath.row == 1 && !self.isNewAccountAcutal) {
+        height = 0;
+    }
+    else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewAccountAcutal) {
+        height = 0;
+    }
+    
+    return height;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSInteger count = [super tableView:tableView numberOfRowsInSection:section];
+    
+    if (section == 3) {
+        count = 2;
+    }
+    
+    return count;
+}
+
 
 @end
