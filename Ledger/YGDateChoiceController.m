@@ -46,10 +46,9 @@
     
     _initDateValue = [YGTools dayOfDate:self.datePickerDate.date];
     
-//    NSLog(@"date picker: %@", self.datePickerDate.date);
-//    
-//    NSLog(@"init date value: %@", _initDateValue);
-    
+    // set min and max dates
+    self.datePickerDate.minimumDate = [YGTools dateMinimum];
+    self.datePickerDate.maximumDate = [NSDate date];
 }
 
 - (void)didReceiveMemoryWarning {

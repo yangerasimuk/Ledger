@@ -24,6 +24,8 @@
 + (NSString *)humanViewShortWithTodayOfDateString:(NSString *)dateString;
 + (NSString *)humanViewShortWithTodayOfDay:(NSDate *)day;
 
++ (NSDate *)dateMinimum;
+
 + (NSString *)sqlStringForDateOrNull:(NSDate *)dateValue;
 + (NSString *)sqlStringForBool:(BOOL)boolValue;
 + (NSString *)sqlStringForIntOrNull:(NSInteger)intValue;

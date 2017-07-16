@@ -18,4 +18,6 @@ extern NSString *const kDateTimeFormatOnlyTime;
 
 extern NSString *const kDateTimeFormatForBackupName;
 
+extern NSString *const kDateMinimum;
+
 

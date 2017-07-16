@@ -239,6 +239,14 @@
     return [formatter dateFromString:string];
 }
 
++ (NSDate *)dateMinimum {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:kDateTimeFormat];
+    return [formatter dateFromString:kDateMinimum];
+}
+
+
 #pragma mark - Value/classes to sql string
 
 + (NSString *)sqlStringForDateOrNull:(NSDate *)dateValue {

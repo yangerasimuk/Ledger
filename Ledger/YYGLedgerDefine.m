@@ -25,3 +25,5 @@ NSString *const kDateTimeFormatOnlyTime = @"HH:mm";
 
 // Timestamp for backup file name
 NSString *const kDateTimeFormatForBackupName = @"yyyy-MM-dd-HH-mm-ssZ";
+
+NSString *const kDateMinimum = @"2001-01-01 01:01:01 +0000";
