@@ -516,8 +516,8 @@
     
     [_om removeOperation:self.transfer];
     
-    [_em recalcSumOfAccount:_sourceAccount forOperation:_transfer];
-    [_em recalcSumOfAccount:_targetAccount forOperation:_transfer];
+    [_em recalcSumOfAccount:_sourceAccount forOperation:nil];
+    [_em recalcSumOfAccount:_targetAccount forOperation:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

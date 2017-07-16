@@ -1445,7 +1445,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vvg-Hp-7Nt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1601" y="-2133"/>
+            <point key="canvasLocation" x="1442" y="-1777"/>
         </scene>
         <!--Account Actual Edit Controller-->
         <scene sceneID="SN7-AS-MwP">
@@ -1675,6 +1675,8 @@
                         <outlet property="cellDelete" destination="zzg-nt-EWo" id="C5C-HE-4vK"/>
                         <outlet property="cellSaveAndAddNew" destination="8MN-HO-F77" id="rrM-Fl-WMG"/>
                         <outlet property="labelAccount" destination="OtN-ph-K8P" id="Tx0-OP-dYJ"/>
+                        <outlet property="labelActualTitle" destination="0Ce-YM-T4K" id="gIp-xB-g4g"/>
+                        <outlet property="labelCommentTitle" destination="xha-ew-rDC" id="EBY-7j-OGa"/>
                         <outlet property="labelDate" destination="2SC-if-AoQ" id="6uu-4W-jRT"/>
                         <outlet property="labelTargetCurrency" destination="XNb-Zt-ZuK" id="sej-uC-ZKS"/>
                         <outlet property="textFieldComment" destination="sm7-yl-7Wk" id="dFM-am-hgt"/>
@@ -3013,7 +3015,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
-        <segue reference="eja-KG-Lzi"/>
+        <segue reference="jqm-Xp-GbA"/>
         <segue reference="mcF-KB-89Z"/>
     </inferredMetricsTieBreakers>
 </document>

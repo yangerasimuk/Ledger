@@ -441,7 +441,7 @@
     
     [_om removeOperation:self.income];
     
-    [_em recalcSumOfAccount:_account forOperation:_income];
+    [_em recalcSumOfAccount:_account forOperation:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

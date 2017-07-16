@@ -27,6 +27,9 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelAccount;
+@property (weak, nonatomic) IBOutlet UILabel *labelActualTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelCommentTitle;
+
 @property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
@@ -105,12 +108,15 @@
         // set date
         _date = self.accountActual.date;
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        self.labelDate.textColor = [UIColor grayColor];
         self.cellDate.accessoryType = UITableViewCellAccessoryNone;
+        self.cellDate.textLabel.textColor = [UIColor grayColor]; // light?
         self.cellDate.userInteractionEnabled = NO;
         
         // set account
         _account = [_em entityById:self.accountActual.sourceId type:YGEntityTypeAccount];
         self.labelAccount.text = _account.name;
+        self.labelAccount.textColor = [UIColor grayColor];
         self.cellAccount.accessoryType = UITableViewCellAccessoryNone;
         self.cellAccount.userInteractionEnabled = NO;
         
@@ -118,9 +124,20 @@
         _currency = currency;
         self.labelAccount.text = _account.name;
         self.labelTargetCurrency.text = [_currency shorterName];
+        self.labelTargetCurrency.textColor = [UIColor grayColor];
         
         // set sum
         self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", self.accountActual.targetSum];
+        self.textFieldTargetSum.enabled = NO;
+        self.textFieldTargetSum.textColor = [UIColor grayColor];
+        self.labelActualTitle.textColor = [UIColor grayColor];
+        self.cellActualSum.userInteractionEnabled = NO;
+        
+        // set comment
+        self.textFieldComment.text = self.accountActual.comment;
+        self.textFieldComment.textColor = [UIColor grayColor];
+        self.labelCommentTitle.textColor = [UIColor grayColor];
+        self.cellComment.userInteractionEnabled = NO;
         
         // save and add new button does not need
         self.cellSaveAndAddNew.hidden = YES;
@@ -235,7 +252,7 @@
     
     [_om removeOperation:self.accountActual];
     
-    [_em recalcSumOfAccount:_account forOperation:_accountActual];
+    [_em recalcSumOfAccount:_account forOperation:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

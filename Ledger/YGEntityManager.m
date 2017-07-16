@@ -382,19 +382,24 @@
     if(account.type != YGEntityTypeAccount)
         @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation" reason:@"Recalc can not be made for this entity type" userInfo:nil];
     
-    // check for operation type
+    // check for operation type, if operation is AccountActual recalc does not necessary
     if(operation.type == YGOperationTypeAccountActual)
-        @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation" reason:@"Recalc can not be made for this operation type" userInfo:nil];
+        return;
+        //@throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation" reason:@"Recalc can not be made for this operation type" userInfo:nil];
     
-    // check for more near date of actual account operation
+    
     YGOperationManager *om = [YGOperationManager sharedInstance];
     YGOperation *lastActualAccount = [om lastOperationOfType:YGOperationTypeAccountActual withTargetId:account.rowId];
     
-    if(lastActualAccount){
-        if([lastActualAccount.date compare:operation.date] == NSOrderedDescending){
-            NSLog(@"Exist more latest operation of actual for this account, recalc for sum for the account do not need");
-            return;
+    // check for more near date of actual account operation
+    if(operation){
+        if(lastActualAccount){
+            if([lastActualAccount.date compare:operation.date] == NSOrderedDescending){
+                NSLog(@"Exist more latest operation of actual for this account, recalc for sum for the account do not need");
+                return;
+            }
         }
+        
     }
     
     // get source sum
