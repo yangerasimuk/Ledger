@@ -18,12 +18,29 @@
 
 - (IBAction)switchHideDecimalFractionValueChanged:(UISwitch *)sender;
 - (IBAction)switchPullRefreshAddElementValueChanged:(UISwitch *)sender;
+
+
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOptions;
+
+
+
 @end
 
 @implementation YGOptionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    for(UILabel *label in _labelsOptions){
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]]};
+        
+        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        
+        label.attributedText = attributedText;
+    }
+    
+    self.navigationItem.title = @"Options";
     
     [self updateUI];
 }

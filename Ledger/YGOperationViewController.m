@@ -80,6 +80,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddBarButton)];
     self.navigationItem.rightBarButtonItem = addBarButton;
     
+    self.navigationItem.title = @"Operations";
+    
     
     // set heights of sections and rows
     //_heightSection = [self heightSectionHeader];

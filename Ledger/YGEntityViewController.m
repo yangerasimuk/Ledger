@@ -60,6 +60,8 @@ static NSString *const kEntityCellId = @"EntityCellId";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddButtonPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    self.navigationItem.title = @"Accounts";
+    
 
     
     
@@ -190,13 +192,13 @@ static NSString *const kEntityCellId = @"EntityCellId";
     NSDictionary *nameAttributes = nil;
     if(!entity.active){
         nameAttributes = @{
-                           NSFontAttributeName:[UIFont systemFontOfSize:16],
+                           NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
                            NSForegroundColorAttributeName:[UIColor grayColor],
                            };
     }
     else{
         nameAttributes = @{
-                           NSFontAttributeName:[UIFont systemFontOfSize:16],
+                           NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
                            };
     }
     
@@ -206,7 +208,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     
     NSDictionary *sumAttributes =  @{
-                                     NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                     NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
                                      };
     NSAttributedString *sumAttributed = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:formatForNumbers, entity.sum, [currency shorterName]] attributes:sumAttributes];
     cell.detailTextLabel.attributedText = sumAttributed;

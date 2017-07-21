@@ -36,6 +36,29 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddButtonPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    
+    
+    switch(self.categoryType){
+        case YGCategoryTypeIncome:
+            self.navigationItem.title = @"Income sources";
+            break;
+        case YGCategoryTypeExpense:
+            self.navigationItem.title = @"Expense category";
+            break;
+        case YGCategoryTypeCurrency:
+            self.navigationItem.title = @"Currencies";
+            break;
+        case YGCategoryTypeCreditorOrDebtor:
+            self.navigationItem.title = @"Creditors/Debtors";
+            break;
+        case YGCategoryTypeTag:
+            self.navigationItem.title = @"Tags";
+            break;
+        default:
+            self.navigationItem.title = @"?";
+    }
+    
+    
     // cell classes for one and two rows
     [self.tableView registerClass:[YYGCategoryOneRowCell class] forCellReuseIdentifier:kCategoryOneRowCellId];
     

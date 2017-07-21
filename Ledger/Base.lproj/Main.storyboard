@@ -346,6 +346,12 @@
                     <connections>
                         <outlet property="switchHideDecimalFraction" destination="V8f-1C-ogB" id="Hna-vl-WLh"/>
                         <outlet property="switchPullRefreshAddElement" destination="yHq-5M-4dg" id="3Fj-LX-gWO"/>
+                        <outletCollection property="labelsOptions" destination="8cR-XF-JcC" id="nVo-3c-kGM"/>
+                        <outletCollection property="labelsOptions" destination="2Tz-cI-Dt5" id="eai-3n-pPt"/>
+                        <outletCollection property="labelsOptions" destination="Lu8-d5-ZUG" id="QIu-Ir-yz7"/>
+                        <outletCollection property="labelsOptions" destination="uoU-uD-lqt" id="1lK-gp-MID"/>
+                        <outletCollection property="labelsOptions" destination="582-cI-Djh" id="BMM-Cc-BJv"/>
+                        <outletCollection property="labelsOptions" destination="iNZ-M9-Qa0" id="oum-iO-Ras"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqv-iv-MeI" userLabel="First Responder" sceneMemberID="firstResponder"/>
