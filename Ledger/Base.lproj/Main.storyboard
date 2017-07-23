@@ -1031,14 +1031,16 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="284" id="QEs-Uy-5Aa"/>
+                                    <constraint firstAttribute="width" constant="309" id="tpg-He-nZP"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7ZO-5G-prk" firstAttribute="top" secondItem="Hbc-4r-Ec5" secondAttribute="bottom" constant="135" id="0Wt-yH-FuF"/>
                             <constraint firstItem="7ZO-5G-prk" firstAttribute="centerY" secondItem="T7h-4X-1ej" secondAttribute="centerY" id="3rB-b7-sJ9"/>
                             <constraint firstItem="7ZO-5G-prk" firstAttribute="centerX" secondItem="T7h-4X-1ej" secondAttribute="centerX" id="GsG-UR-uk9"/>
-                            <constraint firstItem="7ZO-5G-prk" firstAttribute="leading" secondItem="T7h-4X-1ej" secondAttribute="leadingMargin" constant="17" id="pVD-5K-dIK"/>
                         </constraints>
                     </view>
                     <connections>
