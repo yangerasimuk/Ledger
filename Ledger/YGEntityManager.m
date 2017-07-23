@@ -409,7 +409,11 @@
         targetSum = lastActualAccount.targetSum;
     
     //NSArray <YGOperation *>*operations = [om operationsWithTargetId:account.rowId];
-    NSArray <YGOperation *>*operations = [om operationsWithAccountId:account.rowId];
+    NSArray <YGOperation *>*operations = nil;
+    if(lastActualAccount)
+        operations = [om operationsWithAccountId:account.rowId sinceDate:lastActualAccount.date];
+    else
+        operations = [om operationsWithAccountId:account.rowId];
     
     if([operations count] > 0){
         for(YGOperation *oper in operations){

@@ -19,8 +19,12 @@
 
 - (id<YGStoraging>)storageByType:(YGStorageType)type;
 
-- (BOOL)isDbExists;
-- (void)makeNewDb;
+//- (void)makeNewDb;
+//- (BOOL)isDbExists;
+
+- (BOOL)databaseExists;
+- (void)createDatabase;
+
 - (NSString *)lastOperation;
 
 - (NSString *)databaseFullName;

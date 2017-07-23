@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define TEST_YAN_DATA
+
 extern NSString *const kDatabaseName;
 extern NSString *const kDateTimeFormat;
 extern NSString *const kAppConfigName;

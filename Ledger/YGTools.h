@@ -53,5 +53,9 @@
 + (UIColor *)colorForActionRestore;
 + (UIColor *)colorForActionDelete;
 
+/// current laguage code
++ (NSString *)languageCodeSystem;
++ (NSString *)languageCodeApplication;
+
 
 @end

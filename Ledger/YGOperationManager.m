@@ -154,6 +154,21 @@
     return [self operationsBySqlQuery:sqlQuery];
 }
 
+- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceDate:(NSDate *)startDate {
+    NSInteger startDateUnix = [startDate timeIntervalSince1970];
+    
+    NSString *sqlQuery = [NSString stringWithFormat:
+        @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, date, comment "
+        "FROM operation "
+        "WHERE date_unix > %ld AND ((operation_type_id=2 AND source_id=%ld) "
+                          "OR (operation_type_id=1 AND target_id=%ld) "
+                          "OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld))) "
+        "ORDER BY date_unix DESC;", startDateUnix, accountId, accountId, accountId, accountId];
+    
+    return [self operationsBySqlQuery:sqlQuery];
+    
+}
+
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId {
     
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, date, comment FROM operation WHERE target_id=%ld ORDER BY date_unix DESC;", targetId];

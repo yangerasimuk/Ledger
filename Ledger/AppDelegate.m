@@ -11,6 +11,7 @@
 #import "YGDBManager.h"
 #import "YGTools.h"
 #import <YGConfig.h>
+#import "YYGLedgerDefine.h"
 
 static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 
@@ -26,9 +27,12 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     // Check for first launch
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-#warning Must be if(![defaults objectForKey:kIsFirstLaunch]){
+#ifdef DEBUG
     if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
-        
+#else
+    if(![defaults objectForKey:kIsFirstLaunch] || [defaults valueForKey:kIsFirstLaunch] == NO){
+#endif
+    
         // save screen sizes for default font calc
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
@@ -41,9 +45,13 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         
         // create new work db
         YGDBManager *dm = [YGDBManager sharedInstance];
-        //if(![dm isDbExists]){
-            [dm makeNewDb];
-        //}
+#ifdef DEBUG
+        if([dm databaseExists]){
+#else
+        if(![dm databaseExists]){
+#endif
+            [dm createDatabase];
+        }
         
         // set config for app
         YGConfig *config = [YGTools config];
@@ -53,9 +61,7 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         
         [defaults setBool:YES forKey:kIsFirstLaunch];
     }
-    
-    //[YGTools sizeClassOfCurrentIPhone];
-    
+        
     return YES;
 }
 

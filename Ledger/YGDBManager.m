@@ -10,6 +10,7 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 #import <YGConfig.h>
+#import "YYGLedgerDefine.h"
 
 @implementation YGDBManager
 
@@ -60,7 +61,7 @@
             return storage;
     }
     
-    @throw [NSException exceptionWithName:@"-[YGDBManager storageByType]" reason:[NSString stringWithFormat:@"Fail to find storage with type: %ld", type] userInfo:nil];
+    @throw [NSException exceptionWithName:@"-[YGDBManager storageByType]" reason:[NSString stringWithFormat:@"Fail to find storage with type: %ld", (long)type] userInfo:nil];
 }
 
 - (void)dealloc {
@@ -68,7 +69,7 @@
 }
 
 
-- (BOOL)isDbExists {
+- (BOOL)databaseExists {
     
     NSString *pathDb = [YGSQLite databaseFullName];
     
@@ -81,18 +82,14 @@
 }
 
 
-- (void)makeNewDb {
+- (void)createDatabase {
     
     // Init of database
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     
     [sqlite createTables];
     
-#ifdef DEBUG
-    [sqlite fillTablesByTestData];
-#else
-    [sqlite fillTablesByCommonData];
-#endif
+    [sqlite fillDatabase];
 }
 
 - (NSString *)lastOperation {

@@ -18,8 +18,8 @@
 
 - (void)createTables;
 
-- (void)fillTablesByCommonData;
-- (void)fillTablesByTestData;
+- (void)fillDatabase;
+- (void)fillTable:(NSString *)tableName items:(NSArray *)items updateSQL:(NSString *)updateSQL;
 
 - (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery bindClasses:(NSArray*)classes;
 - (NSInteger)addRecord:(NSArray *)fieldsOfItem insertSQL:(NSString *)insertSQL;

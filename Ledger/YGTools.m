@@ -456,5 +456,22 @@
     return [UIColor colorWithRed:255/255.f green:95/255.f blue:119/255.f alpha:1.f];
 }
 
++ (NSString *)languageCodeSystem{
+    
+    NSString *languageCode = [[NSLocale preferredLanguages] objectAtIndex:0];
+    
+    return languageCode;
+}
+
++ (NSString *)languageCodeApplication{
+    
+    NSString *languageCode = [self languageCodeSystem];
+    
+    if([languageCode isEqualToString:@"ru"])
+        return @"ru";
+    else
+        return @"en";
+}
+
 
 @end
