@@ -36,8 +36,6 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddButtonPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    
-    
     switch(self.categoryType){
         case YGCategoryTypeIncome:
             self.navigationItem.title = @"Income sources";

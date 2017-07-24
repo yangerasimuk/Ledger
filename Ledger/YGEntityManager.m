@@ -49,7 +49,7 @@
 
 - (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entities {
 
-    if([_entities count] == 0) {
+    if(!_entities || [_entities count] == 0) {
         _entities = [self entitiesForCache];
     }
     return _entities;
@@ -194,8 +194,8 @@
     newEntity.rowId = rowId;
     
     // add entity to memory cache
-    [[_entities valueForKey:NSStringFromEntityType(newEntity.type)] addObject:newEntity];
-    [self sortEntitiesInArray:[_entities valueForKey:NSStringFromEntityType(newEntity.type)]];
+    [[self.entities valueForKey:NSStringFromEntityType(newEntity.type)] addObject:newEntity];
+    [self sortEntitiesInArray:[self.entities valueForKey:NSStringFromEntityType(newEntity.type)]];
 }
 
 
@@ -239,12 +239,12 @@
     NSString *activeTo = [YGTools stringFromDate:[NSDate date]];
 
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, active_to='%@' WHERE entity_id=%ld;", activeTo, entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, active_to='%@' WHERE entity_id=%ld;", activeTo, (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
 
     // update memory cache
-    NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(entity.type)];
+    NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
     updateEntity.active = NO;
     updateEntity.activeTo = [YGTools dateFromString:activeTo];
@@ -256,12 +256,12 @@
 - (void)activateEntity:(YGEntity *)entity{
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, active_to=NULL WHERE entity_id=%ld;", entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, active_to=NULL WHERE entity_id=%ld;", (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
-    NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(entity.type)];
+    NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
     updateEntity.active = YES;
     updateEntity.activeTo = nil;
@@ -272,12 +272,12 @@
 - (void)removeEntity:(YGEntity *)entity{
     
     // update db
-    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM entity WHERE entity_id = %ld;", entity.rowId];
+    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM entity WHERE entity_id = %ld;", (long)entity.rowId];
     
     [_sqlite removeRecordWithSQL:deleteSQL];
     
     // update memory cache
-    NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(entity.type)];
+    NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     [entitiesByType removeObject:entity];
 }
 
@@ -288,7 +288,7 @@
 
 - (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive exceptEntity:(YGEntity *)exceptEntity {
     
-    NSArray <YGEntity *> *entitiesResult = [_entities valueForKey:NSStringFromEntityType(type)];
+    NSArray <YGEntity *> *entitiesResult = [self.entities valueForKey:NSStringFromEntityType(type)];
     
     if(onlyActive){
         NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];
@@ -322,7 +322,7 @@
  */
 - (YGEntity *)entityAttachedForType:(YGEntityType)type {
     
-    NSArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(type)];
+    NSArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(type)];
     
     NSPredicate *attachPredicate = [NSPredicate predicateWithFormat:@"active = YES && attach = YES"];
     
@@ -339,7 +339,7 @@
  */
 - (YGEntity *)entityOnTopForType:(YGEntityType)type {
     
-    NSArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(type)];
+    NSArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(type)];
     
     NSPredicate *attachPredicate = [NSPredicate predicateWithFormat:@"active = YES"];
     
@@ -357,15 +357,15 @@
     
     // update db
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET attach=0 WHERE entity_type_id = %ld AND entity_id != %ld;",
-                           entity.type,
-                           entity.rowId];
+                           (long)entity.type,
+                           (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
     
     // update inner storage
     NSPredicate *unAttachedPredicate = [NSPredicate predicateWithFormat:@"type = %ld && rowId != %ld", entity.type, entity.rowId];
     
-    NSArray <YGEntity *> *updateEntities = [[_entities valueForKey:NSStringFromEntityType(entity.type)]filteredArrayUsingPredicate:unAttachedPredicate];
+    NSArray <YGEntity *> *updateEntities = [[self.entities valueForKey:NSStringFromEntityType(entity.type)]filteredArrayUsingPredicate:unAttachedPredicate];
     
     for(YGEntity *ent in updateEntities){
         ent.attach = NO;
@@ -452,7 +452,7 @@
         [_sqlite execSQL:updateSQL];
         
         // update memory cache
-        NSMutableArray <YGEntity *> *entitiesByType = [_entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
+        NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
         YGEntity *updateAccount = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:account]];
         updateAccount.sum = targetSum;
     }
@@ -469,8 +469,8 @@
                                "(operation_type_id IN (%ld,%ld,%ld,%ld,%ld) AND source_id = %ld) OR "
                                "(operation_type_id IN (%ld,%ld,%ld,%ld,%ld) AND target_id = %ld) "
                                "LIMIT 1;",
-                               YGOperationTypeExpense, YGOperationTypeAccountActual, YGOperationTypeTransfer, YGOperationTypeReturnCredit, YGOperationTypeGiveDebt, entity.rowId,
-                               YGOperationTypeIncome, YGOperationTypeAccountActual, YGOperationTypeTransfer, YGOperationTypeGetCredit, YGOperationTypeReturnDebt, entity.rowId
+                               (long)YGOperationTypeExpense, (long)YGOperationTypeAccountActual, (long)YGOperationTypeTransfer, (long)YGOperationTypeReturnCredit, (long)YGOperationTypeGiveDebt, (long)entity.rowId,
+                               (long)YGOperationTypeIncome, (long)YGOperationTypeAccountActual, (long)YGOperationTypeTransfer, (long)YGOperationTypeGetCredit, (long)YGOperationTypeReturnDebt, (long)entity.rowId
                                ];
         
         NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
