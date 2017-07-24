@@ -3048,7 +3048,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="buttonSaveAndAddNew:" destination="26z-eN-1BT" eventType="touchUpInside" id="mQr-N6-xFb"/>
+                                                        <action selector="buttonSaveAndAddNewPressed" destination="26z-eN-1BT" eventType="touchUpInside" id="fnW-fW-zPE"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -3114,6 +3114,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
         <segue reference="jqm-Xp-GbA"/>
-        <segue reference="mcF-KB-89Z"/>
+        <segue reference="RCi-9n-IWp"/>
     </inferredMetricsTieBreakers>
 </document>

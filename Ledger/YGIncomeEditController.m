@@ -325,9 +325,10 @@
 }
 
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
-    NSString *newComment = self.textFieldComment.text;
     
-    if([_initCommentValue isEqualToString:newComment])
+    _comment = self.textFieldComment.text;
+    
+    if([_initCommentValue isEqualToString:_comment])
         _isCommentChanged = NO;
     else
         _isCommentChanged = YES;
@@ -344,7 +345,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender:(UIButton *)sender {
+- (IBAction)buttonSaveAndAddNewPressed {
     
     [self saveIncome];
     
