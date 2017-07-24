@@ -57,5 +57,8 @@
 + (NSString *)languageCodeSystem;
 + (NSString *)languageCodeApplication;
 
++ (BOOL)isValidSumInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
++ (BOOL)isValidSortInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
+
 
 @end

@@ -180,11 +180,20 @@
     _isSumChanged = NO;
     _isCommentChanged = NO;
     
+    self.textFieldSum.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
 }
 
 #pragma mark - Property sum setter

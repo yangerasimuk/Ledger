@@ -473,5 +473,142 @@
         return @"en";
 }
 
+#pragma mark - Check text in textFields
+
++ (BOOL)isValidSumInSourceString:(NSString *)sourceString replacementString:(NSString *)replacementString range:(NSRange)range {
+    
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 13)
+        return NO;
+    
+    // check if every symbol is valid
+    static NSString *charactersValid = @"0123456789.,";
+    
+    for(int i = 0; i < [replacementString length]; i++){
+        
+        unichar ch = [replacementString characterAtIndex:i];
+        
+        BOOL isCharValid = NO;
+        
+        for(int j = 0; j < [charactersValid length]; j++){
+            unichar chValid = [charactersValid characterAtIndex:j];
+            if(ch == chValid)
+                isCharValid = YES;
+        }
+        
+        if(!isCharValid)
+            return NO;
+    }
+    
+    // check dot and comma, divider must by only one
+    
+    int countDivider = 0;
+    for(int i = 0; i < [resultString length]; i++){
+        if([resultString characterAtIndex:i] == '.')
+            countDivider += 1;
+    }
+    
+    if(countDivider > 1)
+        return NO;
+    
+    // check comma must by only one
+    
+    for(int i = 0; i < [resultString length]; i++){
+        if([resultString characterAtIndex:i] == ',')
+            countDivider += 1;
+    }
+    
+    if(countDivider > 1)
+        return NO;
+    
+    // define divider
+    NSRange rangeDivider = [resultString rangeOfString:@"."];
+    if(rangeDivider.location == NSNotFound)
+        rangeDivider = [resultString rangeOfString:@","];
+    
+    
+    // check how much digit must be after divider
+    
+    if(rangeDivider.location != NSNotFound){
+        
+        if([resultString length] - (rangeDivider.location + 1) > 2)
+            return NO;
+    }
+    
+    // check for leading zero
+    if([resultString characterAtIndex:0] == '0')
+        return NO;
+    
+    return YES;
+
+}
+
+
++ (BOOL)isValidSortInSourceString:(NSString *)sourceString replacementString:(NSString *)replacementString range:(NSRange)range {
+    
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 3)
+        return NO;
+    
+    // check if every symbol is valid
+    static NSString *charactersValid = @"0123456789";
+    
+    for(int i = 0; i < [replacementString length]; i++){
+        
+        unichar ch = [replacementString characterAtIndex:i];
+        
+        BOOL isCharValid = NO;
+        
+        for(int j = 0; j < [charactersValid length]; j++){
+            unichar chValid = [charactersValid characterAtIndex:j];
+            if(ch == chValid)
+                isCharValid = YES;
+        }
+        
+        if(!isCharValid)
+            return NO;
+    }
+    
+    // check dot must by only one
+    
+    int countDot = 0;
+    for(int i = 0; i < [resultString length]; i++){
+        if([resultString characterAtIndex:i] == '.')
+            countDot += 1;
+    }
+    
+    if(countDot > 1)
+        return NO;
+    
+    
+    // check how much digit must be after dot
+    
+    NSRange rangeDot = [resultString rangeOfString:@"."];
+    
+    if(rangeDot.location != NSNotFound){
+        
+        if([resultString length] - (rangeDot.location + 1) > 2)
+            return NO;
+    }
+    
+    // check for leading zero
+    if([resultString characterAtIndex:0] == '0')
+        return NO;
+    
+    return YES;
+    
+}
 
 @end

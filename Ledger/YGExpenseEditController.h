@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YGOperation.h"
 
-@interface YGExpenseEditController : UITableViewController
+@interface YGExpenseEditController : UITableViewController <UITextFieldDelegate>
 
 @property (copy, nonatomic) YGOperation *expense;
 @property (assign, nonatomic) BOOL isNewExpense;

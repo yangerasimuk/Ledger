@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YGOperation.h"
 
-@interface YGTransferEditController : UITableViewController
+@interface YGTransferEditController : UITableViewController <UITextFieldDelegate>
 
 @property (copy, nonatomic) YGOperation *transfer;
 @property (assign, nonatomic) BOOL isNewTransfer;
