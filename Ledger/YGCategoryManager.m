@@ -47,10 +47,12 @@
 
 
 #pragma mark - Getter for categories
-
+/**
+ @warning All another methods must call property only through self. syntax.
+ */
 - (NSMutableDictionary <NSString *, NSMutableArray <YGCategory *> *> *)categories {
     
-    if([_categories count] == 0) {
+    if(!_categories || [_categories count] == 0) {
         _categories = [self categoriesForCache];
     }
     return _categories;
@@ -421,8 +423,8 @@
     newCategory.rowId = rowId;
     
     // add entity to memory cache
-    [[_categories valueForKey:NSStringFromCategoryType(newCategory.type)] addObject:newCategory];
-    [self sortCategoriesInArray:[_categories valueForKey:NSStringFromCategoryType(newCategory.type)]];
+    [[self.categories valueForKey:NSStringFromCategoryType(newCategory.type)] addObject:newCategory];
+    [self sortCategoriesInArray:[self.categories valueForKey:NSStringFromCategoryType(newCategory.type)]];
     
     [self generateChangeCacheEventForType:category.type];
 
@@ -459,7 +461,7 @@
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
-    NSMutableArray <YGCategory *> *categoriesByType = [_categories valueForKey:NSStringFromCategoryType(category.type)];
+    NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *replaceCategory = [self categoryById:category.rowId type:category.type];
     NSUInteger index = [categoriesByType indexOfObject:replaceCategory];
     categoriesByType[index] = category;
@@ -477,12 +479,12 @@
     NSString *activeTo = [YGTools stringFromDate:[NSDate date]];
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=0, active_to='%@' WHERE category_id='%ld';", activeTo, category.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=0, active_to='%@' WHERE category_id=%ld;", activeTo, (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
-    NSMutableArray <YGCategory *> *categoriesByType = [_categories valueForKey:NSStringFromCategoryType(category.type)];
+    NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *updateCategory = [categoriesByType objectAtIndex:[categoriesByType indexOfObject:category]];
     updateCategory.active = NO;
     updateCategory.activeTo = [YGTools dateFromString:activeTo];
@@ -499,12 +501,12 @@
 - (void)activateCategory:(YGCategory *)category {
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=1, active_to=NULL WHERE category_id='%ld';", category.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=1, active_to=NULL WHERE category_id=%ld;", (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
-    NSMutableArray <YGCategory *> *categoriesByType = [_categories valueForKey:NSStringFromCategoryType(category.type)];
+    NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *updateCategory = [categoriesByType objectAtIndex:[categoriesByType indexOfObject:category]];
     updateCategory.active = YES;
     updateCategory.activeTo = nil;
@@ -519,12 +521,12 @@
 - (void)removeCategory:(YGCategory *)category{
 
     // update db
-    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM category WHERE category_id = %ld;", category.rowId];
+    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM category WHERE category_id = %ld;", (long)category.rowId];
     
     [_sqlite removeRecordWithSQL:deleteSQL];
     
     // update memory cache
-    NSMutableArray <YGCategory *> *categoriesByType = [_categories valueForKey:NSStringFromCategoryType(category.type)];
+    NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     
     NSUInteger index = [categoriesByType indexOfObject:category];
     [categoriesByType removeObjectAtIndex:index];
@@ -555,7 +557,7 @@
 
 - (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type onlyActive:(BOOL)onlyActive exceptCategory:(YGCategory *)exceptCategory {
     
-    NSArray <YGCategory *> *categoriesResult = [_categories valueForKey:NSStringFromCategoryType(type)];
+    NSArray <YGCategory *> *categoriesResult = [self.categories valueForKey:NSStringFromCategoryType(type)];
     
     if(onlyActive){
         NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];

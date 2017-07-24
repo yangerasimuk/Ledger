@@ -30,7 +30,11 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 #ifdef DEBUG
     if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
 #else
+#ifndef APP_STORE
+    if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
+#else
     if(![defaults objectForKey:kIsFirstLaunch] || [defaults valueForKey:kIsFirstLaunch] == NO){
+#endif
 #endif
     
         // save screen sizes for default font calc
@@ -48,7 +52,11 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 #ifdef DEBUG
         if([dm databaseExists]){
 #else
+#ifndef APP_STORE
+        if([dm databaseExists]){
+#else
         if(![dm databaseExists]){
+#endif
 #endif
             [dm createDatabase];
         }
