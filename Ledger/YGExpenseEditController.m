@@ -138,7 +138,8 @@
         
         // set comment
         _comment = self.expense.comment;
-        self.textFieldComment.text = _comment;
+        if(self.expense.comment)
+            self.textFieldComment.text = _comment;
         
         // init
         _initDateValue = [_date copy];
@@ -316,9 +317,9 @@
 
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
     
-    NSString *newComment = self.textFieldComment.text;
+    _comment = self.textFieldComment.text;
     
-    if([_initCommentValue isEqualToString:newComment])
+    if([_initCommentValue isEqualToString:_comment])
         _isCommentChanged = NO;
     else
         _isCommentChanged = YES;
