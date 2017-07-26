@@ -227,9 +227,8 @@
 #pragma mark - Property sum setter
 
 - (void)setSum:(double)sum {
-    
+
     _sum = round(sum * 100.0)/100.0;
-    
 }
 
 #pragma mark - Come back from other choice controllers

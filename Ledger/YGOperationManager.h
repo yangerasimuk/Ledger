@@ -13,6 +13,8 @@
 
 @property (assign, nonatomic) BOOL hideDecimalFraction;
 
+@property (strong, nonatomic) NSMutableArray <YGOperation *> *operations;
+
 
 + (instancetype)sharedInstance;
 

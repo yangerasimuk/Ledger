@@ -15,11 +15,14 @@
 @interface YGOperationManager (){
     YGSQLite *_sqlite;
 }
+
 - (YGOperation *)operationBySqlQuery:(NSString *)sqlQuery;
 - (NSArray <YGOperation *> *)operationsBySqlQuery:(NSString *)sqlQuery;
 @end
 
 @implementation YGOperationManager
+
+@synthesize operations = _operations;
 
 #pragma mark - Init
 
@@ -36,17 +39,40 @@
     self = [super init];
     if(self){
         _sqlite = [YGSQLite sharedInstance];
-        
-        YGConfig *config = [YGTools config];
-#warning Make observer for the property
-        if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"NO"]){
-            _hideDecimalFraction = NO;
-        }
-        else{
-            _hideDecimalFraction = YES;
-        }
+        _operations = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+
+#pragma mark - Getter for categories
+
+/**
+ @warning All another methods must call property only through self. syntax.
+ */
+- (NSMutableArray <YGOperation *> *)operations {
+    
+    if(!_operations || [_operations count] == 0) {
+        _operations = [[self operationsForCache] mutableCopy];
+    }
+    return _operations;
+}
+
+
+#pragma mark - Inner methods for memory cache process
+
+- (NSArray <YGOperation *> *)operationsForCache {
+    
+    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, date, comment FROM operation ORDER BY date_unix DESC;";
+    
+    return [self operationsBySqlQuery:sqlQuery];
+}
+
+- (void)sortOperationsInArray:(NSMutableArray <YGOperation *> *)array {
+    
+    NSSortDescriptor *sortOnDateUnixByDesc = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    
+    [array sortUsingDescriptors:@[sortOnDateUnixByDesc]];
 }
 
 
@@ -112,6 +138,17 @@
             [em updateEntity:account];
         }
         
+        // add operation to memory cache
+        YGOperation *newOperation = [operation copy];
+        newOperation.rowId = operationId;
+        [self.operations addObject:newOperation];
+        
+        [self sortOperationsInArray:self.operations];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                              object:nil];
+        
         return operationId;
         
     }
@@ -119,6 +156,13 @@
         NSLog(@"Exception in -[YGOperationManager addOperation]. Description: %@.", [exception description]);
     }
     
+}
+
+- (YGOperation *)operationById:(NSInteger)operationId {
+    
+    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"rowId = %ld", operationId];
+    
+    return [[self.operations filteredArrayUsingPredicate:idPredicate] firstObject];
 }
 
 
@@ -136,6 +180,19 @@
                            operation.rowId];
     
     [_sqlite execSQL:updateSQL];
+    
+    // update memory cache
+    YGOperation *replaceOperation = [self operationById:operation.rowId];
+    NSUInteger index = [self.operations indexOfObject:replaceOperation];
+    //self.operations set
+    self.operations[index] = [operation copy];
+    
+    // Need sort? It seems not. But if update date?
+    [self sortOperationsInArray:self.operations];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 
@@ -144,6 +201,15 @@
     NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM operation WHERE operation_id = %ld;", operation.rowId];
     
     [_sqlite removeRecordWithSQL:deleteSQL];
+    
+    // update memory cache
+    NSUInteger index = [self.operations indexOfObject:operation];
+    [self.operations removeObjectAtIndex:index];
+    
+    // sort don't needed
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 
@@ -182,6 +248,7 @@
     
     return [self operationsBySqlQuery:sqlQuery];
 }
+
 
 - (NSArray <YGOperation *> *)listOperations{
     

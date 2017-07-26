@@ -14,7 +14,6 @@
 @property (strong, nonatomic, readonly) NSMutableDictionary <NSString *, NSMutableArray <YGCategory *>*> *categories;
 
 + (instancetype)sharedInstance;
-- (instancetype)init;
 
 - (void)addCategory:(YGCategory *)category;
 - (YGCategory *)categoryById:(NSInteger)categoryId type:(YGCategoryType)type;

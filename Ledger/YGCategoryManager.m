@@ -58,9 +58,8 @@
     return _categories;
 }
 
+
 #pragma mark - Inner methods for memory cache process
-
-
 
 - (NSArray <YGCategory *> *)categoriesFromDb {
     
@@ -464,7 +463,7 @@
     NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *replaceCategory = [self categoryById:category.rowId type:category.type];
     NSUInteger index = [categoriesByType indexOfObject:replaceCategory];
-    categoriesByType[index] = category;
+    categoriesByType[index] = [category copy];
     
     // sort memory cache
     [self sortCategoriesInArray:categoriesByType];

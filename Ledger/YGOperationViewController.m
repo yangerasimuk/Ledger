@@ -43,7 +43,9 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 @interface YGOperationViewController (){
     
-    YGOperationSections *_sections;
+    //YGOperationSections *_sections;
+    
+    YGOperationSections *p_sections;
     
     NSArray <YGCategory *> *_currencies;
     NSArray <YGCategory *> *_expenseCategories;
@@ -96,14 +98,48 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kOperationAccountActualCellId];
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
+    // fill table from cache - p_sections;
+    [self reloadDataFromCache];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserver:self
+               selector:@selector(reloadDataFromCache)
+                   name:@"OperationManagerCacheUpdateEvent"
+                 object:nil];
+    
+    /*
     // get list of operations
     NSArray *operations = [_om listOperations];
     
     _sections = [[YGOperationSections alloc] initWithOperations:operations];
+     */
+    
+    
     
     [self updateUI];
     
     
+    
+    
+}
+
+/**
+ Dealloc of object. Remove all notifications.
+ */
+-(void)dealloc {
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
+
+
+
+- (void)reloadDataFromCache {
+    
+    p_sections = [[YGOperationSections alloc] initWithOperations:_om.operations];
+    
+    [self.tableView reloadData];
 }
 
 - (void)pullRefreshSwipe:(UIRefreshControl *)refresh {
@@ -111,11 +147,17 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [refresh beginRefreshing];
     [refresh endRefreshing];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self addOperation];
     });
 }
 
+
+#pragma mark - Actions
+
+- (void)actionAddBarButton {
+    [self addOperation];
+}
 
 - (void)addOperation {
     
@@ -131,8 +173,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     }];
     [controller addAction:addIncomeAction];
     
-    
-    
     UIAlertAction *addAccountActualAction = [UIAlertAction actionWithTitle:@"Balance" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddAccountActual];
     }];
@@ -147,12 +187,13 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [controller addAction:cancelAction];
     
     [self presentViewController:controller animated:YES completion:nil];
-
-
 }
 
+/*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self reloadDataFromCache];
     
     [self updateUI];
     
@@ -163,6 +204,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
     [self.tableView reloadData];
 }
+ */
 
 - (void)updateUI {
     YGConfig *config = [YGTools config];
@@ -195,11 +237,9 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 
 
-- (void)actionAddBarButton {
-    [self addOperation];
-}
 
-#pragma mark - Add actions
+
+#pragma mark - Add concrete action
 
 - (void)actionAddExpense {
     
@@ -254,7 +294,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
+    YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
 
     if(operationRow.operation.type == YGOperationTypeExpense){
         
@@ -298,7 +338,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return _sections.list[section].headerView;
+    //return _sections.list[section].headerView;
+    return p_sections.list[section].headerView;
 }
 
 
@@ -308,7 +349,9 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperationType type = _sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
+    //YGOperationType type = _sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
+    
+    YGOperationType type = p_sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
     
     if(type == YGOperationTypeTransfer){
         return _heightTwoRowCell; // 76;
@@ -322,19 +365,25 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 #pragma mark - UITableDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_sections.list count];
+    //return [_sections.list count];
+    return [p_sections.list count];
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return [_sections.list[section].operationRows count];
+    //return [_sections.list[section].operationRows count];
+    return [p_sections.list[section].operationRows count];
 }
 
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
+    //YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
 
+    YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
+
+    
     if(operationRow.operation.type == YGOperationTypeExpense) {
         
         YGOperationExpenseCell *cellExpense = (YGOperationExpenseCell *)cell;
@@ -373,7 +422,9 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
+    //YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
+    
+    YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
     
     if(operationRow.operation.type == YGOperationTypeExpense){
         
