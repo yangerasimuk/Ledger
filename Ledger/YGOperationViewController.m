@@ -99,29 +99,33 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
     // fill table from cache - p_sections;
-    [self reloadDataFromCache];
+    [self buildSectionsCache];
+    [self reloadDataFromSectionsCache];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     [center addObserver:self
-               selector:@selector(reloadDataFromCache)
+               selector:@selector(reloadDataFromSectionsCache)
                    name:@"OperationManagerCacheUpdateEvent"
                  object:nil];
     
-    /*
-    // get list of operations
-    NSArray *operations = [_om listOperations];
+    [center addObserver:self
+               selector:@selector(buildSectionsCache)
+                   name:@"HideDecimalFractionInListsChangedEvent"
+                 object:nil];
     
-    _sections = [[YGOperationSections alloc] initWithOperations:operations];
-     */
+    [self updateUI];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
-    
+    [self reloadDataFromSectionsCache];
     
     [self updateUI];
     
-    
-    
-    
+    [self.tableView reloadData];
+
 }
 
 /**
@@ -133,11 +137,14 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [center removeObserver:self];
 }
 
-
-
-- (void)reloadDataFromCache {
+- (void)buildSectionsCache {
     
     p_sections = [[YGOperationSections alloc] initWithOperations:_om.operations];
+}
+
+
+
+- (void)reloadDataFromSectionsCache {
     
     [self.tableView reloadData];
 }
@@ -147,7 +154,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [refresh beginRefreshing];
     [refresh endRefreshing];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self addOperation];
     });
 }

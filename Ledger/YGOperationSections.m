@@ -49,13 +49,12 @@
 #warning Why mutable?
         _list = [[self sectionsFromOperations] mutableCopy];
         
-        
-        
     }
     return self;
 }
 
--(NSArray <YGOperationSection*>*)sectionsFromOperations{
+
+- (NSArray <YGOperationSection*>*)sectionsFromOperations {
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
@@ -140,7 +139,8 @@
 
 - (void)cacheRow:(YGOperationRow *)row {
 
-    BOOL hideDecimalFraction = _om.hideDecimalFraction;
+    YGConfig *config = [YGTools config];
+    BOOL hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
     
     static NSString *formatForIncomeNumbers;
     static NSString *formatForExpenseNumbers;

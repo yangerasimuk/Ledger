@@ -60,10 +60,7 @@
     YGConfig *config = [YGTools config];
     
     // switch HideDecimalFraction
-    BOOL isHideDecimalFraction = NO;
-    if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"Y"])
-        isHideDecimalFraction = YES;
-    self.switchHideDecimalFraction.on = isHideDecimalFraction;
+    self.switchHideDecimalFraction.on = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
     
     // switch PullRefreshToAddElement
     BOOL isPullRefreshToAddElement = NO;
@@ -122,10 +119,11 @@
     
     YGConfig *config = [YGTools config];
     
-    if(sender.isOn)
-        [config setValue:@"Y" forKey:@"HideDecimalFraction"];
-    else
-        [config setValue:@"N" forKey:@"HideDecimalFraction"];
+    [config setValue:[NSNumber numberWithBool:sender.isOn] forKey:@"HideDecimalFractionInLists"];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center postNotificationName:@"HideDecimalFractionInListsChangedEvent" object:nil];
 }
 
 - (IBAction)switchPullRefreshAddElementValueChanged:(UISwitch *)sender {
