@@ -10,7 +10,7 @@
 #import "YGCategoryManager.h"
 #import "YGTools.h"
 
-@interface YGCategoryDefaultEditController (){
+@interface YGCategoryDefaultEditController () <UITextFieldDelegate> {
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
@@ -72,7 +72,7 @@
     }
     else{
         self.textFieldName.text = self.category.name;
-        self.textFieldSort.text = [NSString stringWithFormat:@"%ld",self.category.sort];
+        self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.category.sort];
         self.textFieldComment.text = self.category.comment;
         
         self.buttonActivate.enabled = YES;
@@ -102,7 +102,25 @@
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    
+    self.textFieldName.delegate = self;
+    self.textFieldSort.delegate = self;
+    self.textFieldComment.delegate = self;
+}
 
+
+#pragma mark - UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if([textField isEqual:self.textFieldName])
+        return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldSort])
+        return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldComment])
+        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
 }
 
 #pragma mark - Monitoring of control value changed

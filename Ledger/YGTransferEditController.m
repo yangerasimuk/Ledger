@@ -14,7 +14,7 @@
 #import "YGOperationManager.h"
 #import "YGTools.h"
 
-@interface YGTransferEditController (){
+@interface YGTransferEditController () <UITextFieldDelegate> {
     NSDate *_date;
     YGEntity *_sourceAccount;
     YGCategory *_sourceCurrency;
@@ -48,16 +48,20 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelSourceAccount;
+@property (weak, nonatomic) IBOutlet UILabel *labelSourceSum;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSourceSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelSourceCurrency;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetAccount;
+@property (weak, nonatomic) IBOutlet UILabel *labelTargetSum;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsController;
+
+
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
-
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
@@ -111,19 +115,25 @@
             self.labelTargetCurrency.text = [_targetCurrency shorterName];
             
             self.buttonDelete.enabled = NO;
-            
         }
         else{
+            
             _sourceAccount = nil;
-            self.labelSourceAccount.text = @"No account";
+            self.labelSourceAccount.text = @"Select account";
+            self.labelSourceAccount.textColor = [UIColor redColor];
             self.sourceSum = 0.0;
-            self.labelSourceCurrency = nil;
+            //self.labelSourceCurrency = @"";
             
             _targetAccount = nil;
-            self.labelTargetAccount.text = @"No account";
+            self.labelTargetAccount.text = @"Select account";
+            self.labelTargetAccount.textColor = [UIColor redColor];
             self.targetSum = 0.0;
-            self.labelTargetCurrency = nil;
+            //self.labelTargetCurrency = @"";
+            
         }
+        
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
         
         // init
         _initDateValue = [_date copy];
@@ -198,6 +208,12 @@
         self.cellSaveAndAddNew.hidden = YES;
         self.buttonSaveAndAddNew.enabled = NO;
         self.buttonSaveAndAddNew.hidden = YES;
+        
+        // delete button
+        self.cellDelete.hidden = NO;
+        self.buttonDelete.enabled = YES;
+        self.buttonDelete.hidden = NO;
+        self.buttonDelete.backgroundColor = [YGTools colorForActionDelete];
     }
     
     // button save
@@ -209,6 +225,14 @@
     // title
     self.navigationItem.title = @"Transfer";
     
+    // set font size of labels
+    for(UILabel *label in self.labelsController){
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
     // init state for monitor user changes
     _isDateChanged = NO;
     _isSourceAccountChanged = NO;
@@ -219,6 +243,7 @@
     
     self.textFieldSourceSum.delegate = self;
     self.textFieldTargetSum.delegate = self;
+    self.textFieldComment.delegate = self;
     
 }
 
@@ -231,7 +256,13 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
+    if([textField isEqual:self.textFieldTargetSum]
+       || [textField isEqual:self.textFieldSourceSum])
+        return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldComment])
+        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
 }
 
 #pragma mark - Properties source and target sums setters
@@ -253,8 +284,7 @@
     YGDateChoiceController *vc = unwindSegue.sourceViewController;
     
     _date = vc.targetDate;
-    
-    self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:_date] color:[UIColor blackColor]];
     
     // date changed?
     if([YGTools isDayOfDate:_date equalsDayOfDate:_initDateValue])
@@ -271,17 +301,25 @@
     YGAccountChoiceController *vc = unwindSegue.sourceViewController;
     
     _sourceAccount = vc.targetAccount;
-    self.labelSourceAccount.text = _sourceAccount.name;
+    self.labelSourceAccount.attributedText = [YGTools attributedStringWithText:_sourceAccount.name color:[UIColor blackColor]];
     
     // may be lazy?
     //_sourceCurrency = [_cm categoryById:_sourceAccount.currencyId];
     _sourceCurrency = [_cm categoryById:_sourceAccount.currencyId type:YGCategoryTypeCurrency];
-    self.labelSourceCurrency.text = [_sourceCurrency shorterName];
+    //self.labelSourceCurrency.text = [_sourceCurrency shorterName];
+    self.labelSourceCurrency.attributedText = [YGTools attributedStringWithText:[_sourceCurrency shorterName] color:[UIColor blackColor]];
     
     if([_sourceAccount isEqual:_initSourceAccountValue])
         _isSourceAccountChanged = NO;
     else
         _isSourceAccountChanged = YES;
+    
+    // if choosen sourceAccount == targetAccount unselect target
+    if([_sourceAccount isEqual:_targetAccount]){
+        _targetAccount = nil;
+        self.labelTargetAccount.attributedText = [YGTools attributedStringWithText:@"Select account" color:[UIColor redColor]];
+        self.labelTargetCurrency.text = @"";
+    }
     
     [self changeSaveButtonEnable];
 }
@@ -291,12 +329,12 @@
     YGAccountChoiceController *vc = unwindSegue.sourceViewController;
     
     _targetAccount = vc.targetAccount;
-    self.labelTargetAccount.text = _targetAccount.name;
+    //self.labelTargetAccount.text = _targetAccount.name;
+    self.labelTargetAccount.attributedText = [YGTools attributedStringWithText:_targetAccount.name color:[UIColor blackColor]];
     
-    // may be lazy?
-    //_targetCurrency = [_cm categoryById:_targetAccount.currencyId];
     _targetCurrency = [_cm categoryById:_targetAccount.currencyId type:YGCategoryTypeCurrency];
-    self.labelTargetCurrency.text = [_targetCurrency shorterName];
+    //self.labelTargetCurrency.text = [_targetCurrency shorterName];
+    self.labelTargetCurrency.attributedText = [YGTools attributedStringWithText:[_targetCurrency shorterName] color:[UIColor blackColor]];
     
     if([_targetAccount isEqual:_initTargetAccountValue])
         _isTargetAccountChanged = NO;
@@ -381,6 +419,11 @@
         _isSourceSumChanged = YES;
     }
     
+    if(self.sourceSum == 0.00f)
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+    else
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
+    
     [self changeSaveButtonEnable];
 }
 
@@ -394,6 +437,11 @@
     else{
         _isTargetSumChanged = YES;
     }
+    
+    if(self.targetSum == 0.00f)
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+    else
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }
@@ -558,26 +606,13 @@
         
         YGAccountChoiceController *vc = segue.destinationViewController;
         
-        vc.sourceAccount = _targetAccount;
+        //vc.sourceAccount = _targetAccount;
+        vc.sourceAccount = _sourceAccount;
         vc.customer = YGAccountChoiceCustomerTransferTarget;
     }
 }
 
 #pragma mark - Data source methods to show/hide action cells
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    /*
-     if(indexPath.section == 3 && indexPath.row == 0 && !self.isNewExpense){
-     cell = self.cellDelete;
-     }
-     else if (indexPath.section == 3 && indexPath.row == 0 && self.isNewExpense) {
-     cell = self.cellSaveAndAddNew;
-     }
-     */
-    return cell;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -592,18 +627,5 @@
     
     return height;
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    NSInteger count = [super tableView:tableView numberOfRowsInSection:section];
-    
-    if (section == 3) {
-        count = 2;
-    }
-    
-    return count;
-}
-
-
 
 @end

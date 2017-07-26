@@ -147,35 +147,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
     else
         formatForNumbers = @"%.2f %@";
     
-    /*
-
-    YGOperationCell *cell = [tableView dequeueReusableCellWithIdentifier:
-                             kEntityCellId];
-    if (cell == nil) {
-        cell = [[YGOperationCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:kEntityCellId];
-    }
-    
-    YGEntity *entity = self.entities[indexPath.row];
-    
-    YGCategory *currency = [_cm categoryById:entity.currencyId];
-    
-    cell.descriptionText = entity.name;
-    cell.sumText = [NSString stringWithFormat:formatForNumbers, entity.sum, [currency shorterName]];
-    
-    if(!entity.active)
-        cell.cellTextColor = [UIColor grayColor];
-    else{
-        if(entity.sum >= 0)
-            cell.cellTextColor = [UIColor blackColor];
-        else
-            cell.cellTextColor = [UIColor redColor];
-    }
-    
-    return cell;
-     */
-    
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kEntityCellId];
     if(cell == nil){
@@ -186,7 +157,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     YGEntity *entity = self.entities[indexPath.row];
     
-    //YGCategory *currency = [_cm categoryById:entity.currencyId];
     YGCategory *currency = [_cm categoryById:entity.currencyId type:YGCategoryTypeCurrency];
     
     NSDictionary *nameAttributes = nil;

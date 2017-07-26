@@ -11,7 +11,7 @@
 #import "YGCategoryManager.h"
 #import "YGTools.h"
 
-@interface YGExpenseCategoryEditController (){
+@interface YGExpenseCategoryEditController () <UITextFieldDelegate> {
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
@@ -110,11 +110,30 @@
     
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    
+    //
+    self.textFieldName.delegate = self;
+    self.textFieldSort.delegate = self;
+    self.textFieldComment.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if([textField isEqual:self.textFieldName])
+        return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldSort])
+        return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldComment])
+        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
 }
 
 #pragma mark - Come back from parent category choice

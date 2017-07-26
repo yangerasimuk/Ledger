@@ -1632,7 +1632,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actual:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ce-YM-T4K">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ce-YM-T4K">
                                                     <rect key="frame" x="16" y="7" width="84" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="84" id="LKQ-bn-mJZ"/>
@@ -1779,6 +1779,11 @@
                         <outlet property="labelTargetCurrency" destination="XNb-Zt-ZuK" id="sej-uC-ZKS"/>
                         <outlet property="textFieldComment" destination="sm7-yl-7Wk" id="dFM-am-hgt"/>
                         <outlet property="textFieldTargetSum" destination="jZ5-ex-uvt" id="pea-gB-eeI"/>
+                        <outletCollection property="labelsController" destination="2SC-if-AoQ" id="Nyt-SP-xS1"/>
+                        <outletCollection property="labelsController" destination="OtN-ph-K8P" id="CLi-4w-6qc"/>
+                        <outletCollection property="labelsController" destination="0Ce-YM-T4K" id="Tpq-rG-YkT"/>
+                        <outletCollection property="labelsController" destination="XNb-Zt-ZuK" id="oPe-4t-8uW"/>
+                        <outletCollection property="labelsController" destination="xha-ew-rDC" id="DE6-HP-Qza"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wzE-Uw-KQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1886,7 +1891,7 @@
                                                     <rect key="frame" x="93" y="7" width="213" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="textFieldSumEditingChanged:" destination="xEe-Ka-tyJ" eventType="editingChanged" id="cGf-Yu-zNU"/>
                                                     </connections>
@@ -2041,8 +2046,15 @@
                         <outlet property="labelCategory" destination="r8S-OU-Xsq" id="4hf-pu-eBQ"/>
                         <outlet property="labelCurrency" destination="Zk0-K6-RDD" id="YFn-OA-uGw"/>
                         <outlet property="labelDate" destination="vEG-9l-7D1" id="tVg-tK-86m"/>
+                        <outlet property="labelSum" destination="sOM-RZ-eVp" id="x7h-7K-oK0"/>
                         <outlet property="textFieldComment" destination="yIl-b0-iSg" id="mml-Kx-1Hz"/>
                         <outlet property="textFieldSum" destination="7bv-Zf-NLh" id="eNB-MX-oC5"/>
+                        <outletCollection property="labelsController" destination="vEG-9l-7D1" id="I4v-Z6-dNR"/>
+                        <outletCollection property="labelsController" destination="JIZ-Wc-P1a" id="0Ma-ri-JhN"/>
+                        <outletCollection property="labelsController" destination="r8S-OU-Xsq" id="pFX-78-0S8"/>
+                        <outletCollection property="labelsController" destination="sOM-RZ-eVp" id="n9I-2S-qLP"/>
+                        <outletCollection property="labelsController" destination="Zk0-K6-RDD" id="miu-rE-fEd"/>
+                        <outletCollection property="labelsController" destination="WUq-2e-630" id="Qu0-Yw-i13"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQZ-yY-db6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2259,7 +2271,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1u-C1-UaU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1u-C1-UaU">
                                                     <rect key="frame" x="16" y="7" width="90" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="Ivk-n8-M3O"/>
@@ -2423,11 +2435,23 @@
                     <connections>
                         <outlet property="buttonActivate" destination="3Lo-ZJ-ryX" id="DzB-fd-khQ"/>
                         <outlet property="buttonDelete" destination="OIX-te-ela" id="zjm-Ja-gtS"/>
+                        <outlet property="cellActivate" destination="ntZ-bE-M1T" id="voS-U6-QCy"/>
+                        <outlet property="cellDelete" destination="5vw-uU-Hwd" id="4eM-3L-Wpd"/>
+                        <outlet property="cellSelectCurrency" destination="4wc-7d-cu4" id="XSV-yE-DNO"/>
+                        <outlet property="labelComment" destination="Z1u-C1-UaU" id="Bqr-uK-p23"/>
                         <outlet property="labelCurrency" destination="mEx-I8-Oey" id="TcZ-tD-7tE"/>
+                        <outlet property="labelIsDefault" destination="z0y-Fm-Toj" id="8Tm-B7-cmU"/>
+                        <outlet property="labelName" destination="MKh-dL-S2f" id="wjE-DL-jtq"/>
+                        <outlet property="labelSort" destination="wEL-gH-SXk" id="c07-Mq-5q3"/>
                         <outlet property="switchIsDefault" destination="Jla-4j-Z7D" id="1Fc-Sh-dHs"/>
                         <outlet property="textFieldComment" destination="MPW-LW-V7I" id="ZTE-GK-3yw"/>
                         <outlet property="textFieldName" destination="D8t-iF-t4m" id="jUd-gU-WiD"/>
                         <outlet property="textFieldSort" destination="rTg-fG-eIT" id="Oe2-Xe-aAX"/>
+                        <outletCollection property="labelsOfController" destination="MKh-dL-S2f" id="rvF-TT-0rH"/>
+                        <outletCollection property="labelsOfController" destination="wEL-gH-SXk" id="v0f-vC-9J9"/>
+                        <outletCollection property="labelsOfController" destination="Z1u-C1-UaU" id="gTq-Hg-XrP"/>
+                        <outletCollection property="labelsOfController" destination="mEx-I8-Oey" id="UPk-eB-9f3"/>
+                        <outletCollection property="labelsOfController" destination="z0y-Fm-Toj" id="cRj-LJ-g0b"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyJ-MD-0FA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2811,11 +2835,21 @@
                         <outlet property="labelDate" destination="p7Q-p6-fkQ" id="DVg-VP-vUT"/>
                         <outlet property="labelSourceAccount" destination="FCm-T6-SAj" id="WNh-7A-RbN"/>
                         <outlet property="labelSourceCurrency" destination="DB7-hG-yUg" id="iKR-Ge-B1y"/>
+                        <outlet property="labelSourceSum" destination="MOz-Mo-JnQ" id="zbZ-cw-0cB"/>
                         <outlet property="labelTargetAccount" destination="AoI-2y-Upt" id="X3Y-Jb-HJi"/>
                         <outlet property="labelTargetCurrency" destination="ZVq-D5-PgT" id="fKO-nY-7hb"/>
+                        <outlet property="labelTargetSum" destination="5V4-XZ-aUx" id="geq-dL-ea0"/>
                         <outlet property="textFieldComment" destination="EUz-vp-yh4" id="d5C-hO-cyP"/>
                         <outlet property="textFieldSourceSum" destination="ZTf-po-uOE" id="H8i-YE-xjq"/>
                         <outlet property="textFieldTargetSum" destination="lcb-8k-CsX" id="GBW-Nf-MAI"/>
+                        <outletCollection property="labelsController" destination="p7Q-p6-fkQ" id="flH-PB-evt"/>
+                        <outletCollection property="labelsController" destination="FCm-T6-SAj" id="HiY-pa-ZVy"/>
+                        <outletCollection property="labelsController" destination="MOz-Mo-JnQ" id="D63-Gd-gY4"/>
+                        <outletCollection property="labelsController" destination="DB7-hG-yUg" id="MFP-j3-i74"/>
+                        <outletCollection property="labelsController" destination="5V4-XZ-aUx" id="0bK-6G-2sW"/>
+                        <outletCollection property="labelsController" destination="ZVq-D5-PgT" id="DZ6-Zj-mJl"/>
+                        <outletCollection property="labelsController" destination="kzO-Sg-SYX" id="uG8-U3-6cc"/>
+                        <outletCollection property="labelsController" destination="AoI-2y-Upt" id="WPw-3u-PiC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uzv-GZ-nxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3077,8 +3111,15 @@
                         <outlet property="labelCurrency" destination="07R-EH-jBc" id="ZBL-q3-cim"/>
                         <outlet property="labelDate" destination="ZQS-MQ-SDe" id="bVe-Cg-SZ0"/>
                         <outlet property="labelIncomeSource" destination="gIT-Ee-Dos" id="yDA-f7-cdD"/>
+                        <outlet property="labelSum" destination="xAC-aS-7El" id="rtR-gi-9ZR"/>
                         <outlet property="textFieldComment" destination="FtV-Lv-2i7" id="9yR-J3-jbX"/>
                         <outlet property="textFieldSum" destination="8Ap-ej-juQ" id="Oj0-MP-FdV"/>
+                        <outletCollection property="labelsController" destination="ZQS-MQ-SDe" id="kb2-HR-plZ"/>
+                        <outletCollection property="labelsController" destination="gIT-Ee-Dos" id="lRK-ba-Q4H"/>
+                        <outletCollection property="labelsController" destination="xAC-aS-7El" id="UKj-vh-Bxg"/>
+                        <outletCollection property="labelsController" destination="07R-EH-jBc" id="5So-eJ-CLo"/>
+                        <outletCollection property="labelsController" destination="tQR-Ct-lPa" id="5k1-nq-Ynw"/>
+                        <outletCollection property="labelsController" destination="13Q-qk-cgV" id="GpP-bD-cON"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7y-ZX-RcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3113,7 +3154,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
-        <segue reference="jqm-Xp-GbA"/>
-        <segue reference="RCi-9n-IWp"/>
+        <segue reference="eja-KG-Lzi"/>
+        <segue reference="Ou7-RZ-gc3"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,8 +10,9 @@
 #import "YGEntityManager.h"
 #import "YGCategoryManager.h"
 #import "YGCurrencyChoiceController.h"
+#import "YGTools.h"
 
-@interface YGAccountEditController () {
+@interface YGAccountEditController () <UITextFieldDelegate> {
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
@@ -26,15 +27,30 @@
     
     YGCategoryManager *_cm;
     YGEntityManager *_em;
+    
+    BOOL p_canDelete;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelSort;
+@property (weak, nonatomic) IBOutlet UILabel *labelComment;
+@property (weak, nonatomic) IBOutlet UILabel *labelIsDefault;
+@property (weak, nonatomic) IBOutlet UILabel *labelCurrency;
+
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSort;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
-@property (weak, nonatomic) IBOutlet UILabel *labelCurrency;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+
 @property (weak, nonatomic) IBOutlet UISwitch *switchIsDefault;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSelectCurrency;
+
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellActivate;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
 
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender;
@@ -66,48 +82,33 @@
         self.textFieldSort.text = @"100";
         self.switchIsDefault.on = NO;
         
+        // hide button activate
         self.buttonActivate.enabled = NO;
-        self.buttonActivate.titleLabel.text = @"Deactivate";
-        [self.buttonActivate setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+        self.buttonActivate.hidden = YES;
         
+        // hide button delete
         self.buttonDelete.enabled = NO;
-        [self.buttonDelete setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+        self.buttonDelete.hidden = YES;
         
         self.labelCurrency.text = @"Select currency";
+        self.labelCurrency.textColor = [UIColor redColor];
     }
     else{
         self.textFieldName.text = self.account.name;
-        self.textFieldSort.text = [NSString stringWithFormat:@"%ld",self.account.sort];
+        self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.account.sort];
         self.textFieldComment.text = self.account.comment;
         
         self.switchIsDefault.on = self.account.attach;
         
         self.buttonActivate.enabled = YES;
-        
         if(self.account.active)
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
         else
             [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
         
-        // get currency object by currencyId
-        //self.currency = [_cm categoryById:self.account.currencyId];
         self.currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
         self.labelCurrency.text = self.currency.name;
-        
-        // question - is account have linked operations?
-        if([_em isExistLinkedOperationsForEntity:self.account]){
-            self.buttonDelete.enabled = NO;
-            [self.buttonDelete setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-        }
-        else{
-            self.buttonDelete.enabled = YES;
-            [self.buttonDelete setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        }
-        
-        
-        
     }
-    
 
     // init state for user changes
     _isNameChanged = NO;
@@ -122,11 +123,90 @@
     _initCommentValue = self.textFieldComment.text;
     _initCurrencyValue = [self.currency copy];
     _initIsDefaultValue = self.switchIsDefault.isOn;
+    
+    for(UILabel *label in self.labelsOfController){
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        
+        label.attributedText = attributed;
+    }
+    
+    // set delegate to self for validators
+    self.textFieldName.delegate = self;
+    self.textFieldSort.delegate = self;
+    self.textFieldComment.delegate = self;
+    
+    [self updateUI];
+    
+    // focus
+    [self.textFieldName becomeFirstResponder];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if(!self.isNewAccount)
+        [self updateUI];
+}
+
+- (void)updateUI {
+    
+    if(self.isNewAccount){
+        ;
+    }
+    else{
+        p_canDelete = YES;
+        
+        
+        if([_em isExistLinkedOperationsForEntity:self.account]){
+            
+            // set unselectable currency choice
+            self.cellSelectCurrency.accessoryType = UITableViewCellAccessoryNone;
+            self.cellSelectCurrency.userInteractionEnabled = NO;
+            self.labelCurrency.textColor = [UIColor grayColor];
+            
+            self.buttonDelete.enabled = NO;
+            self.buttonDelete.hidden = YES;
+            
+            // set flag for [tableView reloadData]
+            p_canDelete = NO;
+        }
+        else{
+            
+            // set selectable currency choice
+            self.cellSelectCurrency.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            self.cellSelectCurrency.userInteractionEnabled = YES;
+            self.labelCurrency.textColor = [UIColor blackColor];
+
+            self.buttonDelete.enabled = YES;
+            self.buttonDelete.hidden = NO;
+        }
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if([textField isEqual:self.textFieldName])
+        return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldSort])
+        return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldComment])
+        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
 }
 
 #pragma mark - Has account linked operations?
@@ -153,6 +233,7 @@
     
     // update UI
     self.labelCurrency.text = currency.name;
+    self.labelCurrency.textColor = [UIColor blackColor];
     
     // equal to init currency value and set flag of changes
     if([currency isEqual:_initCurrencyValue])
@@ -217,6 +298,7 @@
 
 
 - (BOOL)isEditControlsChanged{
+    
     if(_isNameChanged)
         return YES;
     if(_isSortChanged)
@@ -231,12 +313,24 @@
     return NO;
 }
 
+- (BOOL)isDataReadyForSave {
+    
+    if(!self.textFieldName.text)
+        return NO;
+    if(!self.textFieldSort.text)
+        return NO;
+    if(!self.currency)
+        return NO;
+    
+    return YES;
+}
+
 #pragma mark - Change save button enable
 
 - (void) changeSaveButtonEnable{
     
     if(!self.isNewAccount){
-        if([self isEditControlsChanged]){
+        if([self isEditControlsChanged] && [self isDataReadyForSave]){
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }
         else{
@@ -245,7 +339,7 @@
     }
     else{
         
-        if([self isEditControlsChanged]){
+        if([self isEditControlsChanged] && [self isDataReadyForSave]){
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }
         else{
@@ -359,4 +453,35 @@
     
     vc.sourceCurrency = self.currency;
 }
+
+#pragma mark - Data source methods to show/hide action cells
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if(self.isNewAccount && indexPath.section == 3)
+        height = 0;
+    
+    if(!self.isNewAccount
+       && indexPath.section == 3
+       && indexPath.row == 1
+       && !p_canDelete)
+        height = 0;
+    
+    return height;
+}
+
+/*
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSInteger count = [super tableView:tableView numberOfRowsInSection:section];
+    
+    if (self.isNewAccount && section == 3)
+        count = 0;
+    
+    return count;
+}
+ */
+
 @end

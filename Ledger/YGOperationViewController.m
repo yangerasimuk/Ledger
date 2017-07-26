@@ -42,6 +42,7 @@ static NSString *const kOperationAccountActualCellId = @"OperationAccountActualC
 static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 @interface YGOperationViewController (){
+    
     YGOperationSections *_sections;
     
     NSArray <YGCategory *> *_currencies;
@@ -56,7 +57,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     YGCategoryManager *_cm;
     YGEntityManager *_em;
     
-    //BOOL _isHideDecimalFraction;
     BOOL _isPullRefreshToAddElement;
     
     UIRefreshControl *_refresh;
@@ -92,7 +92,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self.tableView registerClass:[YGOperationOneRowCell class] forCellReuseIdentifier:kOperationOneRowCellId];
     [self.tableView registerClass:[YGOperationTwoRowCell class] forCellReuseIdentifier:kOperationTwoRowCellId];
     [self.tableView registerClass:[YGOperationExpenseCell class] forCellReuseIdentifier:kOperationExpenseCellId];
-    
     [self.tableView registerClass:[YGOperationIncomeCell class] forCellReuseIdentifier:kOperationIncomeCellId];
     [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kOperationAccountActualCellId];
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];

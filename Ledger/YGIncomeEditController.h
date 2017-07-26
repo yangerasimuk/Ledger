@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YGOperation.h"
 
-@interface YGIncomeEditController : UITableViewController <UITextFieldDelegate>
+@interface YGIncomeEditController : UITableViewController 
 
 @property (copy, nonatomic) YGOperation *income;
 @property (assign, nonatomic) BOOL isNewIncome;

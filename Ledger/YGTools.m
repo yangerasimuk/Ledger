@@ -542,11 +542,84 @@
     }
     
     // check for leading zero
-    if([resultString characterAtIndex:0] == '0')
+    if([resultString length] > 0 && [resultString characterAtIndex:0] == '0')
         return NO;
     
     return YES;
+}
 
++ (BOOL)isValidSumWithZeroInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
+    
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 13)
+        return NO;
+    
+    // check if every symbol is valid
+    static NSString *charactersValid = @"0123456789.,";
+    
+    for(int i = 0; i < [replacementString length]; i++){
+        
+        unichar ch = [replacementString characterAtIndex:i];
+        
+        BOOL isCharValid = NO;
+        
+        for(int j = 0; j < [charactersValid length]; j++){
+            unichar chValid = [charactersValid characterAtIndex:j];
+            if(ch == chValid)
+                isCharValid = YES;
+        }
+        
+        if(!isCharValid)
+            return NO;
+    }
+    
+    // check dot and comma, divider must by only one
+    
+    int countDivider = 0;
+    for(int i = 0; i < [resultString length]; i++){
+        if([resultString characterAtIndex:i] == '.')
+            countDivider += 1;
+    }
+    
+    if(countDivider > 1)
+        return NO;
+    
+    // check comma must by only one
+    
+    for(int i = 0; i < [resultString length]; i++){
+        if([resultString characterAtIndex:i] == ',')
+            countDivider += 1;
+    }
+    
+    if(countDivider > 1)
+        return NO;
+    
+    // define divider
+    NSRange rangeDivider = [resultString rangeOfString:@"."];
+    if(rangeDivider.location == NSNotFound)
+        rangeDivider = [resultString rangeOfString:@","];
+    
+    
+    // check how much digit must be after divider
+    if(rangeDivider.location != NSNotFound){
+        
+        if([resultString length] - (rangeDivider.location + 1) > 2)
+            return NO;
+    }
+    
+    // check for leading zero
+    if([resultString length] >= 2
+       && [resultString characterAtIndex:0] == '0'
+       && [resultString characterAtIndex:1] == '0')
+        return NO;
+    
+    return YES;
 }
 
 
@@ -581,34 +654,98 @@
             return NO;
     }
     
-    // check dot must by only one
-    
-    int countDot = 0;
-    for(int i = 0; i < [resultString length]; i++){
-        if([resultString characterAtIndex:i] == '.')
-            countDot += 1;
-    }
-    
-    if(countDot > 1)
+    // chek for int value
+    int intValue = [resultString intValue];
+    if(intValue < 1 || intValue > 999)
         return NO;
     
-    
-    // check how much digit must be after dot
-    
-    NSRange rangeDot = [resultString rangeOfString:@"."];
-    
-    if(rangeDot.location != NSNotFound){
-        
-        if([resultString length] - (rangeDot.location + 1) > 2)
-            return NO;
-    }
-    
     // check for leading zero
-    if([resultString characterAtIndex:0] == '0')
+    if([resultString length] > 0 && [resultString characterAtIndex:0] == '0')
         return NO;
     
     return YES;
+}
+
++ (BOOL)isValidNoteInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
     
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 100)
+        return NO;
+
+    return YES;
+}
+
++ (BOOL)isValidNameInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
+    
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 25)
+        return NO;
+    
+    return YES;
+}
+
++ (BOOL)isValidShortNameInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
+    
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 5)
+        return NO;
+    
+    return YES;
+}
+
++ (BOOL)isValidSymbolInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
+    
+    // get result string
+    NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
+    
+    if(!resultString || [resultString length] == 0)
+        return YES;
+    
+    // length of result string
+    if([resultString length] > 1)
+        return NO;
+    
+    return YES;
+}
+
+
+#pragma mark - Attributed string tor labels
+
+/**
+ Attributed string with default font size. Uses for labels text.
+ 
+ @text String with text.
+ 
+ @color Color of text.
+ 
+ @return Attributed string with defined text, color and default font size.
+
+ */
++ (NSAttributedString *)attributedStringWithText:(NSString *)text color:(UIColor *)color {
+    
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
+                                 NSForegroundColorAttributeName:color
+                                 };
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
 @end

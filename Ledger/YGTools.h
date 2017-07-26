@@ -58,7 +58,15 @@
 + (NSString *)languageCodeApplication;
 
 + (BOOL)isValidSumInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
++ (BOOL)isValidSumWithZeroInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
 + (BOOL)isValidSortInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
++ (BOOL)isValidNoteInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
++ (BOOL)isValidNameInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
++ (BOOL)isValidShortNameInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
++ (BOOL)isValidSymbolInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range;
+
++ (NSAttributedString *)attributedStringWithText:(NSString *)text color:(UIColor *)color;
+
 
 
 @end

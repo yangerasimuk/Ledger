@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YGOperation.h"
 
-@interface YGAccountActualEditController : UITableViewController <UITextFieldDelegate>
+@interface YGAccountActualEditController : UITableViewController 
 
 @property (copy, nonatomic) YGOperation *accountActual;
 @property (assign, nonatomic) BOOL isNewAccountAcutal;

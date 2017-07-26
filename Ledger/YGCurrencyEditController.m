@@ -10,7 +10,7 @@
 #import "YGCategoryManager.h"
 #import "YGTools.h"
 
-@interface YGCurrencyEditController (){
+@interface YGCurrencyEditController () <UITextFieldDelegate> {
     BOOL _isNameChanged;
     BOOL _isShortNameChanged;
     BOOL _isSymbolChanged;
@@ -115,12 +115,35 @@
     [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-
+    
+    self.currencyName.delegate = self;
+    self.currencyShortName.delegate = self;
+    self.currencySymbol.delegate = self;
+    self.currencySort.delegate = self;
+    self.currencyComment.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if([textField isEqual:self.currencyName])
+        return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.currencyShortName])
+        return [YGTools isValidShortNameInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.currencySymbol])
+        return [YGTools isValidSymbolInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.currencySort])
+        return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.currencyComment])
+        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
 }
 
 #pragma mark - Monitoring of control value changed

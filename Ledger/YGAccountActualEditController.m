@@ -14,7 +14,7 @@
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
 
-@interface YGAccountActualEditController (){
+@interface YGAccountActualEditController () <UITextFieldDelegate> {
     NSDate *_date;
     YGEntity *_account;
     YGCategory *_currency;
@@ -28,16 +28,21 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelAccount;
 @property (weak, nonatomic) IBOutlet UILabel *labelActualTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
 @property (weak, nonatomic) IBOutlet UILabel *labelCommentTitle;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsController;
+
+
 @property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
-@property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
 
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
+
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
 
@@ -67,8 +72,11 @@
         
         // set account if one sets as default
         _account = [_em entityAttachedForType:YGEntityTypeAccount];
+        
+        /*
         if(!_account)
             _account = [_em entityOnTopForType:YGEntityTypeAccount];
+         */
         if(_account){
             
             YGCategory *currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
@@ -78,11 +86,13 @@
             self.labelTargetCurrency.text = [_currency shorterName];
         }
         else{
-            self.labelAccount.text = @"No account";
-            self.labelTargetCurrency.text = @"?";
+            self.labelAccount.text = @"Select account";
+            self.labelAccount.textColor = [UIColor redColor];
         }
-
         
+        // set label sum red
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+
         // button save
         UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
         
@@ -108,10 +118,6 @@
         // set date
         _date = self.accountActual.date;
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
-        self.labelDate.textColor = [UIColor grayColor];
-        self.cellDate.accessoryType = UITableViewCellAccessoryNone;
-        self.cellDate.textLabel.textColor = [UIColor grayColor]; // light?
-        self.cellDate.userInteractionEnabled = NO;
         
         // set account
         _account = [_em entityById:self.accountActual.sourceId type:YGEntityTypeAccount];
@@ -143,13 +149,34 @@
         self.cellSaveAndAddNew.hidden = YES;
         self.buttonSaveAndAddNew.enabled = NO;
         self.buttonSaveAndAddNew.hidden = YES;
+        
+        // delete button
+        self.cellDelete.hidden = NO;
+        self.buttonDelete.enabled = YES;
+        self.buttonDelete.hidden = NO;
+        self.buttonDelete.backgroundColor = [YGTools colorForActionDelete];
     }
     
     // title
     self.navigationItem.title = @"Balance";
     
+    // set font size of labels
+    for(UILabel *label in self.labelsController){
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // disable date select
+    self.labelDate.textColor = [UIColor grayColor];
+    self.cellDate.accessoryType = UITableViewCellAccessoryNone;
+    self.cellDate.textLabel.textColor = [UIColor grayColor]; // light?
+    self.cellDate.userInteractionEnabled = NO;
+    
     //
     self.textFieldTargetSum.delegate = self;
+    self.textFieldComment.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,13 +184,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
+    if([textField isEqual:self.textFieldTargetSum])
+        return [YGTools isValidSumWithZeroInSourceString:textField.text replacementString:string range:range];
+    else if([textField isEqual:self.textFieldComment])
+        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
 }
-
 
 
 #pragma mark - Come back from account choice controller
@@ -173,11 +205,13 @@
     YGAccountChoiceController *vc = unwindSegue.sourceViewController;
     
     _account = vc.targetAccount;
-    self.labelAccount.text = _account.name;
+    //self.labelAccount.text = _account.name;
+    self.labelAccount.attributedText = [YGTools attributedStringWithText:_account.name color:[UIColor blackColor]];
     
     _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
 
-    self.labelTargetCurrency.text = [_currency shorterName];
+    //self.labelTargetCurrency.text = [_currency shorterName];
+    self.labelTargetCurrency.attributedText = [YGTools attributedStringWithText:[_currency shorterName] color:[UIColor blackColor]];
     
 }
 
@@ -190,18 +224,23 @@
         
         double sum = [self.textFieldTargetSum.text doubleValue];
         
-        if(self.isNewAccountAcutal && sum > 0){
+        if(self.isNewAccountAcutal && sum >= 0){
+            
             self.navigationItem.rightBarButtonItem.enabled = YES;
             
             self.buttonSaveAndAddNew.enabled = YES;
             self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
         }
+        
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
     }
     else{
         self.navigationItem.rightBarButtonItem.enabled = NO;
         
         self.buttonSaveAndAddNew.enabled = NO;
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+        
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
     }
 }
 
