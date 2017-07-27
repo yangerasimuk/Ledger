@@ -124,6 +124,9 @@
         self.buttonSaveAndAddNew.enabled = NO;
         self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+        
+        // set focus on sum only for all modes
+        [self.textFieldSum becomeFirstResponder];
 
     }
     else{
@@ -148,7 +151,8 @@
         
         // set sum
         _sum = self.expense.sourceSum;
-        self.textFieldSum.text = [NSString stringWithFormat:@"%.2f", self.expense.sourceSum];
+        //self.textFieldSum.text = [NSString stringWithFormat:@"%.2f", self.expense.sourceSum];
+        self.textFieldSum.text = [YGTools stringCurrencyFromDouble:self.expense.sourceSum];
         
         // set comment
         _comment = self.expense.comment;
@@ -201,9 +205,6 @@
     
     self.textFieldSum.delegate = self;
     self.textFieldComment.delegate = self;
-    
-    // set focus on sum only for all modes
-    [self.textFieldSum becomeFirstResponder];
     
 }
 
@@ -273,7 +274,7 @@
     YGExpenseCategoryChoiceController *vc = unwindSegue.sourceViewController;
     
     _category = vc.targetCategory;
-    self.labelCategory.attributedText = [YGTools attributedStringWithText:self.labelCategory.text color:[UIColor blackColor]];
+    self.labelCategory.attributedText = [YGTools attributedStringWithText:_category.name color:[UIColor blackColor]];
     
     if([_category isEqual:_initCategoryValue])
         _isCategoryChanged = NO;
@@ -346,7 +347,7 @@
 
 - (IBAction)textFieldSumEditingChanged:(UITextField *)sender {
     
-    self.sum = [self.textFieldSum.text doubleValue];
+    self.sum = [YGTools doubleFromStringCurrency:self.textFieldSum.text];
     
     if(_initSumValue == _sum){
         _isSumChanged = NO;
@@ -444,9 +445,7 @@
                                                 targetCurrencyId:_account.currencyId
                                                             date:_date
                                                          comment:_comment];
-        
-        //NSLog(@"New expense. %@", [expense description]);
-        
+                
         NSInteger operationId = [_om addOperation:expense];
         
         // crutch

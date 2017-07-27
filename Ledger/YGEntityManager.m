@@ -11,6 +11,8 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 
+#import "YYGSQLiteDouble.h"
+
 @interface YGEntityManager (){
     YGSQLite *_sqlite;
 }
@@ -67,7 +69,7 @@
                         [NSNumber class],   // entity_type_id
                         [NSString class],   // name
                         [NSNumber class],   // owner_id
-                        [NSNumber class],   // sum
+                        [YYGSQLiteDouble class],   // sum
                         [NSNumber class],   // currency_id
                         [NSNumber class],   // active
                         [NSString class],   // active_from
@@ -161,7 +163,8 @@
                               [NSNumber numberWithInteger:entity.type], // entity_type_id
                               entity.name ? entity.name : [NSNull null], // name
                               entity.ownerId != -1 ? [NSNumber numberWithInteger:entity.ownerId] : [NSNull null], // owner_id
-                              [NSNumber numberWithDouble:entity.sum], // sum
+                              [YYGSQLiteDouble objectWithDouble:entity.sum],
+                              //[NSNumber numberWithDouble:entity.sum], // sum
                               [NSNumber numberWithInteger:entity.currencyId], //currencyId
                               [NSNumber numberWithBool:entity.isActive], // active
                               [YGTools stringFromDate:entity.activeFrom], // active_from,
@@ -196,6 +199,11 @@
     // add entity to memory cache
     [[self.entities valueForKey:NSStringFromEntityType(newEntity.type)] addObject:newEntity];
     [self sortEntitiesInArray:[self.entities valueForKey:NSStringFromEntityType(newEntity.type)]];
+    
+    // generate event
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 
@@ -231,6 +239,11 @@
                            [YGTools sqlStringForIntOrNull:entity.rowId]];
     
     [_sqlite execSQL:updateSQL];
+    
+    // generate event
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 
@@ -251,6 +264,11 @@
     
     // sort memory cache
     [self sortEntitiesInArray:entitiesByType];
+    
+    // generate event
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 - (void)activateEntity:(YGEntity *)entity{
@@ -267,6 +285,11 @@
     updateEntity.activeTo = nil;
     
     [self sortEntitiesInArray:entitiesByType];
+    
+    // generate event
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 - (void)removeEntity:(YGEntity *)entity{
@@ -279,6 +302,11 @@
     // update memory cache
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     [entitiesByType removeObject:entity];
+    
+    // generate event
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 
@@ -403,7 +431,7 @@
     }
     
     // get source sum
-    double targetSum = 0.0;
+    double targetSum = 0.00f;
     
     if(lastActualAccount)
         targetSum = lastActualAccount.targetSum;
@@ -449,12 +477,19 @@
                                [YGTools sqlStringForDecimal:targetSum],
                                [YGTools sqlStringForIntOrNull:account.rowId]];
         
+        NSLog(@"updateSQL for set account sum: %@", updateSQL);
+        
         [_sqlite execSQL:updateSQL];
         
         // update memory cache
         NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
         YGEntity *updateAccount = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:account]];
         updateAccount.sum = targetSum;
+        
+        // generate event
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                              object:nil];
     }
 }
 

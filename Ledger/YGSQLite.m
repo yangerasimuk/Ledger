@@ -16,6 +16,8 @@
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
 
+#import "YYGSQLiteDouble.h"
+
 
 // fill database with common and test or release data
 #import "YYGDataCommon.h"
@@ -203,6 +205,11 @@
                     NSLog(@"Can not bind int");
                 }
             }
+            else if([field isKindOfClass:[YYGSQLiteDouble class]]){
+                if(sqlite3_bind_double(stmt, i+1, [field doubleValue]) != SQLITE_OK){
+                    NSLog(@"Can not bind text");
+                }
+            }
             else if([field isKindOfClass:[NSString class]]){
                 if(sqlite3_bind_text(stmt, i+1, [field UTF8String], -1, NULL) != SQLITE_OK){
                     NSLog(@"Can not bind text");
@@ -357,6 +364,10 @@
                 if([classes[i] isEqual:[NSNumber class]]){
                     int intVal = sqlite3_column_int(statement, i);
                     [row addObject:[NSNumber numberWithInt:intVal]];
+                }
+                else if([classes[i] isEqual:[YYGSQLiteDouble class]]){
+                    double doubleVal = sqlite3_column_double(statement, i);
+                    [row addObject:[YYGSQLiteDouble objectWithDouble:doubleVal]];
                 }
                 else if([classes[i] isEqual:[NSString class]]){
                     const char *charValue = (char *)sqlite3_column_text(statement, i);

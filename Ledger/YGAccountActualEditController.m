@@ -133,7 +133,9 @@
         self.labelTargetCurrency.textColor = [UIColor grayColor];
         
         // set sum
-        self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", self.accountActual.targetSum];
+        //self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", self.accountActual.targetSum];
+        self.textFieldTargetSum.text = [YGTools stringCurrencyFromDouble:self.accountActual.targetSum];
+        
         self.textFieldTargetSum.enabled = NO;
         self.textFieldTargetSum.textColor = [UIColor grayColor];
         self.labelActualTitle.textColor = [UIColor grayColor];
@@ -222,9 +224,9 @@
     
     if(![self.textFieldTargetSum.text isEqualToString:@""]){
         
-        double sum = [self.textFieldTargetSum.text doubleValue];
+        double sum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
         
-        if(self.isNewAccountAcutal && sum >= 0){
+        if(self.isNewAccountAcutal && sum >= 0.00f){
             
             self.navigationItem.rightBarButtonItem.enabled = YES;
             

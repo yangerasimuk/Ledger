@@ -748,4 +748,97 @@
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
+
+#pragma mark - Currency methods
+
+/**
+ Currency string from double, with or without fraction.
+ 
+ */
++ (NSString *)stringCurrencyFromDouble:(double)sum hideDecimalFraction:(BOOL)hideDecimalFraction {
+    
+    sum = round(sum * 100)/100; // 1234.5600
+    NSString *string = [NSString stringWithFormat:@"%.2f", sum]; // @"1234.56"
+    
+    // split string on integer and fraction parts
+    NSArray *array = [string componentsSeparatedByString:@"."];
+    NSMutableString *integerString = [array[0] mutableCopy];
+    NSString *fractionString = [array[1] mutableCopy];
+    
+    // get current locale separators
+    NSString *decimalSeparator = [[NSLocale currentLocale] decimalSeparator];
+    NSString *groupingSeparator = [[NSLocale currentLocale] groupingSeparator];
+    
+    // work with integer part
+    if([integerString length] > 3){
+        
+        for(int c = 0, i = 3; i < ([integerString length] - c); i += 3, c++){
+            [integerString insertString:groupingSeparator atIndex:([integerString length] - i - c)];
+        }
+        
+    }
+    
+    // in depends on fraction part
+    if(hideDecimalFraction || [fractionString isEqualToString:@"00"]){
+        string = integerString;
+    }
+    else{
+        string = [NSString stringWithFormat:@"%@%@%@", integerString, decimalSeparator, fractionString];
+    }
+
+    return string;
+}
+
+/**
+ Currency string for view/edit controllers, set in textFields.
+ */
++ (NSString *)stringCurrencyFromDouble:(double)sum {
+    
+    NSString *string = [NSString stringWithFormat:@"%.2f", sum];
+    
+    // split string on integer and fraction parts
+    NSArray *array = [string componentsSeparatedByString:@"."];
+    NSString *integerString = array[0];
+    NSString *fractionString = array[1];
+    
+    // get current locale separators
+    NSString *decimalSeparator = [[NSLocale currentLocale] decimalSeparator];
+    
+    if([fractionString isEqualToString:@"00"]){
+        string = integerString;
+    }
+    else{
+        string = [NSString stringWithFormat:@"%@%@%@", integerString, decimalSeparator, fractionString];
+    }
+    
+    return string;
+}
+
++ (double)doubleFromStringCurrency:(NSString *)string {
+    
+    NSLog(@"+[YGTools doubleFromStringCurrency]...");
+    NSLog(@"raw double string: %@", string);
+    
+    // get current locale separators
+    NSString *localSeparator = [[NSLocale currentLocale] decimalSeparator];
+    NSString *standartSeparator = @".";
+    
+    if([string length] > 1){
+        
+        for(int i = ([string length]-1); i >= 0; i--){
+            
+            NSString *s = [string substringWithRange:NSMakeRange(i, 1)];
+            
+            if([s isEqualToString:localSeparator]){
+                
+                string = [string stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:standartSeparator];
+            }
+        }
+    }
+    
+    NSLog(@"result double: %f", [string doubleValue]);
+    
+    return [string doubleValue];
+}
+
 @end

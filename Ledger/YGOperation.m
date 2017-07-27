@@ -52,4 +52,37 @@
     return newOperation;
 }
 
+#pragma mark - Override system methods: Description, isEqual, hash
+
+- (BOOL)isEqual:(id)object {
+    
+    if(self == object) return YES;
+    
+    if([self class] != [object class]) return NO;
+    
+    YGOperation *otherOperation = (YGOperation *)object;
+    if(self.rowId != otherOperation.rowId)
+        return NO;
+    if(self.type != otherOperation.type)
+        return NO;
+    if(self.sourceId != otherOperation.sourceId)
+        return NO;
+    if(self.targetId != otherOperation.targetId)
+        return NO;
+    if(self.sourceSum != otherOperation.sourceSum)
+        return NO;
+    if(self.targetSum != otherOperation.targetSum)
+        return NO;
+
+    return YES;
+}
+
+-(NSUInteger)hash {
+    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%ld:%f:%ld:%f:%@", _type, _rowId, _sourceId, _sourceSum, _targetId, _targetSum, _date];
+    
+    return [hashString hash];
+    
+}
+
+
 @end

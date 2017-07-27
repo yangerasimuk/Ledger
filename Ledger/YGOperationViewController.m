@@ -99,7 +99,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
     // fill table from cache - p_sections;
-    [self buildSectionsCache];
     [self reloadDataFromSectionsCache];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -120,7 +119,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self reloadDataFromSectionsCache];
+    //[self reloadDataFromSectionsCache];
     
     [self updateUI];
     
@@ -145,6 +144,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 
 - (void)reloadDataFromSectionsCache {
+    
+    [self buildSectionsCache];
     
     [self.tableView reloadData];
 }

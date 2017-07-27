@@ -22,7 +22,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     YGEntityManager *_em;
     YGCategoryManager *_cm;
     
-    BOOL _isHideDecimalFraction;
+    BOOL p_hideDecimalFraction;
 }
 
 @property (strong, nonatomic) NSArray <YGEntity *> *entities;
@@ -52,7 +52,9 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
     
-    [self updateUI];
+    YGConfig *config = [YGTools config];
+    
+    p_hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
     
     [self.tableView reloadData];
     
@@ -63,7 +65,45 @@ static NSString *const kEntityCellId = @"EntityCellId";
     self.navigationItem.title = @"Accounts";
     
 
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(reloadDataFromCache)
+                   name:@"EntityManagerCacheUpdateEvent"
+                 object:nil];
     
+    [center addObserver:self
+               selector:@selector(reloadDataAfterDecimalFractionChange)
+                   name:@"HideDecimalFractionInListsChangedEvent"
+                 object:nil];
+    
+}
+
+- (void)reloadDataFromCache {
+    
+    //self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
+    
+    //[self updateUI];
+    
+    [self.tableView reloadData];
+    
+}
+
+- (void) reloadDataAfterDecimalFractionChange {
+    
+    YGConfig *config = [YGTools config];
+    
+    p_hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
+    
+    [self.tableView reloadData];
+}
+
+- (void) reloadData {
+    
+    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
+    
+    [self updateUI];
+    
+    [self.tableView reloadData];
     
 }
 
@@ -76,19 +116,32 @@ static NSString *const kEntityCellId = @"EntityCellId";
     NSPredicate *typePredicate = [NSPredicate predicateWithFormat:@"type = %ld", _type];
     self.entities = [_em.entities filteredArrayUsingPredicate:typePredicate];
 
-  */  
+  */
+    /*
     [self updateUI];
     
     [self.tableView reloadData];
+     */
 }
 
 - (void)updateUI {
+    /*
     YGConfig *config = [YGTools config];
     
     if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"Y"])
         _isHideDecimalFraction = YES;
     else
         _isHideDecimalFraction = NO;
+     */
+}
+
+/**
+ Dealloc of object. Remove all notifications.
+ */
+-(void)dealloc {
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,11 +194,13 @@ static NSString *const kEntityCellId = @"EntityCellId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    /*
     static NSString *formatForNumbers;
     if(_isHideDecimalFraction)
         formatForNumbers = @"%.f %@";
     else
         formatForNumbers = @"%.2f %@";
+     */
     
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kEntityCellId];
@@ -180,7 +235,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     NSDictionary *sumAttributes =  @{
                                      NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
                                      };
-    NSAttributedString *sumAttributed = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:formatForNumbers, entity.sum, [currency shorterName]] attributes:sumAttributes];
+    NSAttributedString *sumAttributed = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", [YGTools stringCurrencyFromDouble:entity.sum hideDecimalFraction:p_hideDecimalFraction], [currency shorterName]] attributes:sumAttributes];
     cell.detailTextLabel.attributedText = sumAttributed;
     cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
     

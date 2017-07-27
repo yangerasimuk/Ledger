@@ -92,6 +92,9 @@
         
         self.labelCurrency.text = @"Select currency";
         self.labelCurrency.textColor = [UIColor redColor];
+        
+        // focus
+        [self.textFieldName becomeFirstResponder];
     }
     else{
         self.textFieldName.text = self.account.name;
@@ -140,8 +143,7 @@
     
     [self updateUI];
     
-    // focus
-    [self.textFieldName becomeFirstResponder];
+
     
 }
 

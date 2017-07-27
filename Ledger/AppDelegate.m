@@ -24,6 +24,7 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
     // Check for first launch
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     

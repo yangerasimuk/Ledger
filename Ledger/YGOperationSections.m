@@ -18,6 +18,7 @@
 #import "YGTools.h"
 #import "YGConfig.h"
 
+
 @interface YGOperationSections(){
     /// YGExpenses *_expenses;
     NSArray <YGOperation *> *_operations;
@@ -29,9 +30,9 @@
     YGEntityManager *_em;
     YGOperationManager *_om;
     YGConfig *_config;
+    
+    BOOL p_hideDecimalFraction;
 }
--(NSArray <YGOperationSection*>*)sectionsFromOperations;
-+(NSDate *)dayOfDate:(NSDate *)date;
 @end
 
 @implementation YGOperationSections
@@ -55,6 +56,9 @@
 
 
 - (NSArray <YGOperationSection*>*)sectionsFromOperations {
+    
+    YGConfig *config = [YGTools config];
+    p_hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
@@ -138,32 +142,12 @@
 #pragma mark - Prepare cache for operation row
 
 - (void)cacheRow:(YGOperationRow *)row {
-
-    YGConfig *config = [YGTools config];
-    BOOL hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
-    
-    static NSString *formatForIncomeNumbers;
-    static NSString *formatForExpenseNumbers;
-    static NSString *formatForEqualNumbers;
-    
-    if(hideDecimalFraction){
-        formatForIncomeNumbers = @"+ %.f %@";
-        formatForExpenseNumbers = @"- %.f %@";
-        formatForEqualNumbers = @"= %.f %@";
-    }
-    else{
-        formatForIncomeNumbers = @"+ %.2f %@";
-        formatForExpenseNumbers = @"- %.2f %@";
-        formatForEqualNumbers = @"= %.2f %@";
-    }
-    
     
     if(row.operation.type == YGOperationTypeExpense){
         
-        //YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId];
         YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId type:YGCategoryTypeCurrency];
         
-        row.sourceSum = [NSString stringWithFormat:formatForExpenseNumbers, row.operation.sourceSum, [sourceCurrency shorterName]];
+        row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];
         
         YGCategory *expenseCateogry = [_cm categoryById:row.operation.targetId type:YGCategoryTypeExpense];
         
@@ -172,13 +156,11 @@
     }
     else if(row.operation.type == YGOperationTypeIncome){
         
-        //YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId];
         YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId type:YGCategoryTypeIncome];
         row.source = incomeSource.name;
         
-        //YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
-        row.targetSum = [NSString stringWithFormat:formatForIncomeNumbers, row.operation.targetSum, [targetCurrency shorterName]];
+        row.targetSum = [NSString stringWithFormat:@"+ %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
                           
     }
     else if(row.operation.type == YGOperationTypeAccountActual){
@@ -186,25 +168,24 @@
         YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
         
         row.target = targetAccount.name;
-        //YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
+
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
-        row.targetSum = [NSString stringWithFormat:formatForEqualNumbers, row.operation.targetSum, [targetCurrency shorterName]];
+        row.targetSum = [NSString stringWithFormat:@"= %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
         
     }
     else if(row.operation.type == YGOperationTypeTransfer){
         
         YGEntity *sourceAccount = [_em entityById:row.operation.sourceId type:YGEntityTypeAccount];
         row.source = sourceAccount.name;
-        //YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId];
+
         YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId type:YGCategoryTypeCurrency];
-        row.sourceSum = [NSString stringWithFormat:formatForExpenseNumbers, row.operation.sourceSum, [sourceCurrency shorterName]];;
+        row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];;
         
         YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
         row.target = targetAccount.name;
 
-        //YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId];
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
-        row.targetSum = [NSString stringWithFormat:formatForIncomeNumbers, row.operation.targetSum, [targetCurrency shorterName]];
+        row.targetSum = [NSString stringWithFormat:@"+ %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
     }
 }
 

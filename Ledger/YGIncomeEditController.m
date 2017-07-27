@@ -134,6 +134,9 @@
         self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
+        // set focus on sum only for all modes
+        [self.textFieldSum becomeFirstResponder];
+        
     }
     else{
         // set date
@@ -156,7 +159,8 @@
         
         // set sum
         _sum = self.income.targetSum;
-        self.textFieldSum.text = [NSString stringWithFormat:@"%.2f", self.income.targetSum];
+        //self.textFieldSum.text = [NSString stringWithFormat:@"%.2f", self.income.targetSum];
+        self.textFieldSum.text = [YGTools stringCurrencyFromDouble:self.income.targetSum];
         
         // set comment
         _comment = self.income.comment;
@@ -208,9 +212,7 @@
     
     self.textFieldSum.delegate = self;
     self.textFieldComment.delegate = self;
-    
-    // set focus on sum only for all modes
-    [self.textFieldSum becomeFirstResponder];
+
     
 }
 
@@ -354,7 +356,8 @@
 
 - (IBAction)textFieldSumEditingChanged:(UITextField *)sender {
     
-    self.sum =  [self.textFieldSum.text doubleValue];
+    //self.sum =  [self.textFieldSum.text doubleValue];
+    self.sum = [YGTools doubleFromStringCurrency:self.textFieldSum.text];
     
     if(_initSumValue == self.sum){
         _isSumChanged = NO;

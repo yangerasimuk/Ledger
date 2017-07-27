@@ -67,6 +67,10 @@
 
 + (NSAttributedString *)attributedStringWithText:(NSString *)text color:(UIColor *)color;
 
++ (NSString *)stringCurrencyFromDouble:(double)sum hideDecimalFraction:(BOOL)hideDecimalFraction;
++ (NSString *)stringCurrencyFromDouble:(double)sum;
++ (double)doubleFromStringCurrency:(NSString *)string;
+
 
 
 @end

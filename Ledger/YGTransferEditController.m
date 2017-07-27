@@ -171,7 +171,8 @@
         
         // set source sum
         _sourceSum = self.transfer.sourceSum;
-        self.textFieldSourceSum.text = [NSString stringWithFormat:@"%.2f", _sourceSum];
+        //self.textFieldSourceSum.text = [NSString stringWithFormat:@"%.2f", _sourceSum];
+        self.textFieldSourceSum.text = [YGTools stringCurrencyFromDouble:self.transfer.sourceSum];
         
         // set source currency
         //_sourceCurrency = [_cm categoryById:self.transfer.sourceCurrencyId];
@@ -184,7 +185,8 @@
         
         // set target sum
         _targetSum = self.transfer.targetSum;
-        self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", _targetSum];
+        //self.textFieldTargetSum.text = [NSString stringWithFormat:@"%.2f", _targetSum];
+        self.textFieldTargetSum.text = [YGTools stringCurrencyFromDouble:self.transfer.targetSum];
         
         // set target currency
         //_targetCurrency = [_cm categoryById:self.transfer.targetCurrencyId];
@@ -410,7 +412,8 @@
 
 - (IBAction)textFieldSourceSumEditingChanged:(UITextField *)sender {
     
-    self.sourceSum =  [self.textFieldSourceSum.text doubleValue];
+    //self.sourceSum =  [self.textFieldSourceSum.text doubleValue];
+    self.sourceSum = [YGTools doubleFromStringCurrency:self.textFieldSourceSum.text];
     
     if(_initSourceSumValue == self.sourceSum){
         _isSourceSumChanged = NO;
@@ -429,7 +432,8 @@
 
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender {
     
-    self.targetSum =  [self.textFieldTargetSum.text doubleValue];
+    //self.targetSum =  [self.textFieldTargetSum.text doubleValue];
+    self.targetSum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
     
     if(_initTargetSumValue == self.targetSum){
         _isTargetSumChanged = NO;

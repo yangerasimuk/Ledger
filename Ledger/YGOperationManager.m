@@ -12,6 +12,9 @@
 #import "YGEntityManager.h"
 #import "YGConfig.h"
 
+#import "YYGSQLiteDouble.h"
+
+
 @interface YGOperationManager (){
     YGSQLite *_sqlite;
 }
@@ -86,9 +89,9 @@
     NSNumber *operation_type_id = [NSNumber numberWithInteger:operation.type];
     NSNumber *source_id = [NSNumber numberWithInteger:operation.sourceId];
     NSNumber *target_id = [NSNumber numberWithInteger:operation.targetId];
-    NSNumber *source_sum = [NSNumber numberWithDouble:operation.sourceSum];
+    YYGSQLiteDouble *source_sum = [YYGSQLiteDouble objectWithDouble:operation.sourceSum];
     NSNumber *source_currency_id = [NSNumber numberWithInteger:operation.sourceCurrencyId];
-    NSNumber *target_sum = [NSNumber numberWithDouble:operation.targetSum];
+    YYGSQLiteDouble *target_sum = [YYGSQLiteDouble objectWithDouble:operation.targetSum];
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
     
     NSDate *timestamp = operation.date; //[NSDate date];
@@ -198,13 +201,12 @@
 
 - (void)removeOperation:(YGOperation *)operation{
     
-    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM operation WHERE operation_id = %ld;", operation.rowId];
+    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM operation WHERE operation_id = %ld;", (long)operation.rowId];
     
     [_sqlite removeRecordWithSQL:deleteSQL];
     
     // update memory cache
-    NSUInteger index = [self.operations indexOfObject:operation];
-    [self.operations removeObjectAtIndex:index];
+    [self.operations removeObject:operation];
     
     // sort don't needed
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -215,7 +217,7 @@
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, date, comment FROM operation WHERE (operation_type_id=2 AND source_id=%ld) OR (operation_type_id=1 AND target_id=%ld) OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld)) ORDER BY date_unix DESC;", accountId, accountId, accountId, accountId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, date, comment FROM operation WHERE (operation_type_id=2 AND source_id=%ld) OR (operation_type_id=1 AND target_id=%ld) OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld)) ORDER BY date_unix DESC;", (long)accountId, (long)accountId, (long)accountId, (long)accountId];
     
     return [self operationsBySqlQuery:sqlQuery];
 }
@@ -265,9 +267,9 @@
                         [NSNumber class],   // operation_type_id
                         [NSNumber class],   // source_id
                         [NSNumber class],   // target_id
-                        [NSNumber class],   // source_sum
+                        [YYGSQLiteDouble class],   // source_sum
                         [NSNumber class],   // source_currency_id
-                        [NSNumber class],   // target_sum
+                        [YYGSQLiteDouble class],   // target_sum
                         [NSNumber class],   // target_currency_id
                         [NSString class],     // date
                         [NSString class],   // comment
@@ -322,9 +324,9 @@
                         [NSNumber class],   // operation_type_id
                         [NSNumber class],   // source_id
                         [NSNumber class],   // target_id
-                        [NSNumber class],   // source_sum
+                        [YYGSQLiteDouble class],   // source_sum
                         [NSNumber class],   // source_currency_id
-                        [NSNumber class],   // target_sum
+                        [YYGSQLiteDouble class],   // target_sum
                         [NSNumber class],   // target_currency_id
                         [NSString class],     // date
                         [NSString class],   // comment
