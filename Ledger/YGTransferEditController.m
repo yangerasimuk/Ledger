@@ -571,6 +571,15 @@
 
         [_em recalcSumOfAccount:_sourceAccount forOperation:self.transfer];
         [_em recalcSumOfAccount:_targetAccount forOperation:self.transfer];
+        
+        // recalc of old account
+        if(![_sourceAccount isEqual:_initSourceAccountValue] && _initSourceAccountValue)
+            [_em recalcSumOfAccount:[_initSourceAccountValue copy] forOperation:[self.transfer copy]];
+        
+        // recalc of old account
+        if(![_targetAccount isEqual:_initTargetAccountValue] && _initTargetAccountValue)
+            [_em recalcSumOfAccount:[_initTargetAccountValue copy] forOperation:[self.transfer copy]];
+
     }
 }
 

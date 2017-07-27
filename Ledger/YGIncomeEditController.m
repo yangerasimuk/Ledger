@@ -485,6 +485,10 @@
         // update sum of account
         [_em recalcSumOfAccount:[_account copy] forOperation:[self.income copy]];
         
+        // recalc of old account
+        if(![_account isEqual:_initAccountValue] && _initAccountValue)
+            [_em recalcSumOfAccount:[_initAccountValue copy] forOperation:[self.income copy]];
+        
     }
 }
 
