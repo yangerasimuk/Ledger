@@ -17,7 +17,10 @@
 
 //static NSString *const kDateTimeFormat = @"yyyy-MM-dd HH:mm:ss Z";
 
-@interface YGBackupLocalViewController ()
+@interface YGBackupLocalViewController (){
+    UIActivityIndicatorView *p_indicator;
+    BOOL p_isBackupExist;
+}
 
 //@property (copy, nonatomic) YGBackup *backup;
 
@@ -29,6 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonBackup;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRestore;
+
+
 
 - (IBAction)buttonBackupPressed:(UIButton *)sender;
 - (IBAction)buttonRestorePressed:(UIButton *)sender;
@@ -70,20 +75,33 @@
         backup = [backups firstObject];
     
     if(backup){
-        self.labelBackupDate.text = [YGTools humanViewShortWithTodayOfDateString:backup.backupDate];
-        self.labelBackupLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:backup.lastOperation];
+        
+        p_isBackupExist = YES;
+
+        
+        [self showBackupSectionOfTableView];
+        
+        if(backup.backupDate)
+            self.labelBackupDate.text = [YGTools humanViewShortWithTodayOfDateString:backup.backupDate];
+        if(backup.lastOperation)
+            self.labelBackupLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:backup.lastOperation];
+        
+        if(backup.dbSize)
         self.labelBackupDBSize.text = backup.dbSize;
         
         self.buttonRestore.enabled = YES;
     }
     else{
-        self.labelBackupDate.text = @"No backup";
-        self.labelBackupLastOperation.text = @"No backup";
-        self.labelBackupDBSize.text = @"0 B";
         
-        self.buttonRestore.enabled = NO;
-        self.buttonRestore.titleLabel.textColor = [UIColor grayColor];
+        p_isBackupExist = NO;
+
+        [self hideBackupSectionOfTableView];
+        
+        
     }
+    
+    [self updateUI];
+    
     
     // load info about work db
     NSString *lastOperation = [dm lastOperation];
@@ -99,20 +117,47 @@
 
 }
 
+#pragma mark - Show/hide backup secion of tableView
+
+- (void)showBackupSectionOfTableView {
+    
+}
+
+- (void)hideBackupSectionOfTableView {
+    
+}
+
+- (void)updateUI {
+    
+    if(p_isBackupExist) {
+        self.buttonRestore.enabled = YES;
+        self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
+    }
+    else{
+        self.buttonRestore.enabled = NO;
+        self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
+    }
+    
+    [self.tableView reloadData];
+}
+
+
 #pragma mark - Buttons actions
 
 - (IBAction)buttonBackupPressed:(UIButton *)sender {
+    
+    // start activity indicator
+    [self startActivityIndicatorWithColor:[YGTools colorForActionBackup]];
     
     // begin ignoring user actions
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     // disable buttonBackup to prevent new user backup action
     self.buttonBackup.enabled = NO;
-    self.buttonBackup.titleLabel.textColor = [UIColor grayColor];
-    UIColor *enabledColor = self.buttonBackup.titleLabel.textColor;
+    self.buttonBackup.backgroundColor = [YGTools colorForActionDisable];
     
-    BOOL isButtonRestoreEnable = self.buttonRestore.enabled;
     self.buttonRestore.enabled = NO;
+    self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
     
     YGDBManager *dm = [YGDBManager sharedInstance];
     
@@ -121,34 +166,40 @@
     [storage backupDb];
     
     // make some delay for prevent new user actions
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
         // enable buttonBackup
         self.buttonBackup.enabled = YES;
-        self.buttonBackup.titleLabel.textColor = enabledColor;
+        self.buttonBackup.backgroundColor = [YGTools colorForActionBackup];
         
-        if(isButtonRestoreEnable)
-            self.buttonRestore.enabled = YES;
+        self.buttonRestore.enabled = YES;
+        self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
         
         // update UI
         [self loadBackupInfo];
         
         // end ignoring user actions
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        // end animation
+        [self stopActivityIndicator];   
     });
 }
 
 - (IBAction)buttonRestorePressed:(UIButton *)sender {
+    
+    // start activity indicator
+    [self startActivityIndicatorWithColor:[YGTools colorForActionRestore]];
     
     // begin ignoring user actions
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     // disable buttonRestore to prevent new user backup action
     self.buttonRestore.enabled = NO;
-    self.buttonRestore.titleLabel.textColor = [UIColor grayColor];
-    UIColor *enabledColor = self.buttonBackup.titleLabel.textColor;
+    self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
     
-    BOOL isButtonBackupEnabled = self.buttonBackup.enabled;
     self.buttonBackup.enabled = NO;
+    self.buttonBackup.backgroundColor = [YGTools colorForActionDisable];
     
     YGDBManager *dm = [YGDBManager sharedInstance];
     YGStorageLocal *storage = [dm storageByType:YGStorageTypeLocal];
@@ -159,33 +210,116 @@
     [storage restoreDb:backup];
     
     // make some delay for prevent new user actions
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         // enable buttonRestore
-        self.buttonRestore.enabled = YES;
-        self.buttonRestore.titleLabel.textColor = enabledColor;
+        self.buttonBackup.enabled = YES;
+        self.buttonBackup.backgroundColor = [YGTools colorForActionBackup];
         
-        if(isButtonBackupEnabled)
-            self.buttonBackup.enabled = YES;
+        self.buttonRestore.enabled = YES;
+        self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
         
         // update UI
         [self loadBackupInfo];
         
         // end ignoring user actions
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        // end animation
+        [self stopActivityIndicator];
     });
 }
 
 
-/*
-#pragma mark - Navigation
+#pragma mark - Data source methods to show/hide action cells
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 1 && !p_isBackupExist) {
+        height = 0.0;
+    }
+    else if(indexPath.section == 2 && indexPath.row == 1 && !p_isBackupExist){
+        height = 0.0;
+    }
+    
+    return height;
 }
-*/
+
+/**
+ @warning Set height in 0.0 is not work.
+ */
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    CGFloat height = [super tableView:tableView heightForHeaderInSection:section];
+    
+    if(section == 1 && !p_isBackupExist)
+        height = 1.0;
+    
+    return height;
+}
+
+/**
+ @warning Set height in 0.0 is not work.
+ */
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    CGFloat height = [super tableView:tableView heightForHeaderInSection:section];
+ 
+    if(section == 1 && !p_isBackupExist)
+        height = 1.0;
+ 
+    return height;
+}
+
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    NSString *title = [super tableView:tableView titleForHeaderInSection:section];
+    
+    if(section == 1 && !p_isBackupExist)
+        title = @"";
+
+    return title;
+}
+
+
+#pragma mark - Start and stop activity indicator
+
+- (void)startActivityIndicatorWithColor:(UIColor *)color {
+    
+    p_indicator = [[UIActivityIndicatorView alloc]
+                   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    p_indicator.color = color;
+    p_indicator.hidesWhenStopped = YES;
+    
+    // this is not work
+    //indicator.center = [self.view superview].center;
+    
+    // but this is a crutch
+    CGFloat navigationBarHeight = [self.navigationController navigationBar].frame.size.height;
+    
+    //tabBarHeight = [self.tabBarController tabBar].frame.size.height;
+    //tabBarHeight = [[[super tabBarController] tabBar] frame].size.height;
+    
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    // wtf?
+    p_indicator.center = CGPointMake(self.view.bounds.size.width/2.0, (self.view.bounds.size.height - navigationBarHeight)/2.0 + statusBarHeight);
+    
+    [self.view addSubview:p_indicator];
+    
+    [p_indicator startAnimating];
+}
+
+- (void)stopActivityIndicator {
+    
+    [p_indicator stopAnimating];
+    
+    // needed?
+    [p_indicator removeFromSuperview];
+}
 
 
 @end

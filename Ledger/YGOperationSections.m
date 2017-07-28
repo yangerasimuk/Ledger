@@ -64,6 +64,8 @@
     
     [_operations enumerateObjectsUsingBlock:^(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
+        //@autoreleasepool {
+        
         NSDate *dayOfDate = [YGOperationSections dayOfDate:obj.date];
         
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date = %@", dayOfDate];
@@ -108,6 +110,8 @@
             YGOperationSection *s = [[YGOperationSection alloc] initWithDate:dayOfDate operationRows:arr];
             [result addObject:s];
         }
+            
+        //}// delete
     }];
     
     return result;

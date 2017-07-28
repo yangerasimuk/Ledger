@@ -149,7 +149,7 @@
     NSString *resultDateString = nil;
     
     // 2017-07-07 20:53:23 +0300 -> 2017-07-07 20:53:23 +0000
-    dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(20,5) withString:@"+0000"];
+    //dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(20,5) withString:@"+0000"];
 
     // get nsdate object
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

@@ -82,7 +82,6 @@
 		13D9D8921F19FE17001F46B1 /* YYGCategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */; };
 		13D9D8961F1A4773001F46B1 /* YYGCategorySection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */; };
 		13D9D8991F1A5573001F46B1 /* YYGExpenseParentChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */; };
-		13E0D3121F229E6300B0C578 /* YYGDataTestYanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D3111F229E6300B0C578 /* YYGDataTestYanger.m */; };
 		13E0D3161F22A83500B0C578 /* YYGDataCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D3151F22A83500B0C578 /* YYGDataCommon.m */; };
 		13E0D3191F22A84D00B0C578 /* YYGDataRelease.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D3181F22A84D00B0C578 /* YYGDataRelease.m */; };
 		13E0D31C1F22ABC800B0C578 /* YYGDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */; };
@@ -257,8 +256,6 @@
 		13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGCategorySection.m; sourceTree = "<group>"; };
 		13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGExpenseParentChoiceController.h; sourceTree = "<group>"; };
 		13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGExpenseParentChoiceController.m; sourceTree = "<group>"; };
-		13E0D3101F229E6300B0C578 /* YYGDataTestYanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDataTestYanger.h; sourceTree = "<group>"; };
-		13E0D3111F229E6300B0C578 /* YYGDataTestYanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDataTestYanger.m; sourceTree = "<group>"; };
 		13E0D3141F22A83500B0C578 /* YYGDataCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDataCommon.h; sourceTree = "<group>"; };
 		13E0D3151F22A83500B0C578 /* YYGDataCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDataCommon.m; sourceTree = "<group>"; };
 		13E0D3171F22A84D00B0C578 /* YYGDataRelease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDataRelease.h; sourceTree = "<group>"; };
@@ -631,8 +628,6 @@
 				13E0D3181F22A84D00B0C578 /* YYGDataRelease.m */,
 				13E0D31A1F22ABC800B0C578 /* YYGDataTest.h */,
 				13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */,
-				13E0D3101F229E6300B0C578 /* YYGDataTestYanger.h */,
-				13E0D3111F229E6300B0C578 /* YYGDataTestYanger.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -777,7 +772,6 @@
 				13CCF8751F16861400EAB928 /* YGSearchRuleHasPrefix.m in Sources */,
 				13CCF8731F16861400EAB928 /* YGSearchRuleNameMinLength.m in Sources */,
 				133C001C1F17748200D0CB0E /* YYGLedgerDefine.m in Sources */,
-				13E0D3121F229E6300B0C578 /* YYGDataTestYanger.m in Sources */,
 				1317BF401F0FD8D50039A224 /* YGBackup.m in Sources */,
 				13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */,
 				131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */,

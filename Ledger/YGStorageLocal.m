@@ -45,10 +45,7 @@
     
     YGSearchRuleNameIsRegex *rule3 = [[YGSearchRuleNameIsRegex alloc] initWithPattern:@"^\\d{4}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[+-]\\d{4}\\.ledger\\.db\\.sqlite$"];
     
-    
-    
-    //NSArray <YGConfirmingRule>*rules = [NSArray arrayWithObjects:rule1, rule2, rule3, nil]; //@[rule1, rule2, rule3];
-    NSArray *rules = [NSArray arrayWithObjects:rule1, rule2, rule3, nil];
+    NSArray <YGConfirmingRule> *rules = (NSArray <YGConfirmingRule> *)[NSArray arrayWithObjects:rule1, rule2, rule3, nil];
     
     YGSearchPattern *pattern = [[YGSearchPattern alloc] initWithSearchRules:rules];
     
@@ -184,7 +181,11 @@
     
     NSArray *backups = @[dic];
     
+    // new !
     [config setValue:backups forKey:@"LocalBackup"];
+    
+    // new !
+    [dic writeToFile:[NSString stringWithFormat:@"%@.xml", fullPath] atomically:YES];
 
 }
 
@@ -210,6 +211,16 @@
             NSLog(@"Fail to remove old backup");
             NSLog(@"Error: %@", [error description]);
         }
+        
+        // if exist backup info xml file - delete too
+        NSString *oldBackupInfoFullName = [oldBackupFullName stringByAppendingString:@".xml"];
+        
+        if([fm fileExistsAtPath:oldBackupInfoFullName]){
+            if(![fm removeItemAtPath:oldBackupInfoFullName error:&error]){
+                NSLog(@"Fail to remove old backup info file");
+                NSLog(@"Error: %@", [error description]);
+            }
+        }
     }
 }
 
@@ -223,19 +234,19 @@
 - (void)restoreDb:(YGBackup *)backup {
     
     // 1. get list of old backups for delete
-    NSArray <YGBackup *>*backups = [self backups];
+    //NSArray <YGBackup *>*backups = [self backups];
     
     // 2. Copy current db to new backup
-    NSString *newBackupFileFullName = [self copyWorkDbToBackup];
+    //NSString *newBackupFileFullName = [self copyWorkDbToBackup];
         
     // 3. Save info about backup to app config file
-    [self saveInfoAboutBackup:newBackupFileFullName];
+    //[self saveInfoAboutBackup:newBackupFileFullName];
     
     // 4. Copy from given backup to work db
     [self copyToWorkDbBackup:backup];
     
     // 5. remove old backups
-    [self removeOldBackups:backups];
+    //[self removeOldBackups:backups];
     
 }
 

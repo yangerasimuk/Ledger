@@ -476,9 +476,7 @@
         NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET sum=%@ WHERE entity_id=%@;",
                                [YGTools sqlStringForDecimal:targetSum],
                                [YGTools sqlStringForIntOrNull:account.rowId]];
-        
-        NSLog(@"updateSQL for set account sum: %@", updateSQL);
-        
+                
         [_sqlite execSQL:updateSQL];
         
         // update memory cache
