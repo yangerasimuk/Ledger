@@ -77,9 +77,6 @@
     if(backup){
         
         p_isBackupExist = YES;
-
-        
-        [self showBackupSectionOfTableView];
         
         if(backup.backupDate)
             self.labelBackupDate.text = [YGTools humanViewShortWithTodayOfDateString:backup.backupDate];
@@ -94,14 +91,9 @@
     else{
         
         p_isBackupExist = NO;
-
-        [self hideBackupSectionOfTableView];
-        
-        
     }
     
     [self updateUI];
-    
     
     // load info about work db
     NSString *lastOperation = [dm lastOperation];
@@ -117,15 +109,7 @@
 
 }
 
-#pragma mark - Show/hide backup secion of tableView
-
-- (void)showBackupSectionOfTableView {
-    
-}
-
-- (void)hideBackupSectionOfTableView {
-    
-}
+#pragma mark - Update UI for show/hide backup secion
 
 - (void)updateUI {
     
