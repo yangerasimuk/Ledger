@@ -136,4 +136,16 @@
         [config setValue:@"N" forKey:@"PullRefreshToAddElement"];
 }
 
+#pragma mark - UITableViewDelegate
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if(indexPath.section == 2 && indexPath.row == 0)
+        height = 0.0f;
+    
+    return height;
+}
+
 @end

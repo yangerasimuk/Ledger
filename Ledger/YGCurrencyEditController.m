@@ -380,6 +380,46 @@
     self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
 }
 
+#pragma mark - UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    // action delete
+    if(indexPath.section == 2 && indexPath.row == 1){
+        
+        if(self.currency){
+            if([p_manager hasLinkedObjectsForCategory:_currency]
+               || ![p_manager hasActiveCategoryForTypeExceptCategory:_currency]
+               || [p_manager isJustOneCategory:_currency]){
+                height = 0.0f;
+            }
+        }
+        else{
+            height = 0.0f;
+        }
+    }
+    
+    
+    // action deactivate
+    if(indexPath.section == 2 && indexPath.row == 0){
+        
+        if(self.currency && self.currency.active){
+            
+            if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]){
+                
+                height = 0.0f;
+            }
+        }
+        else if(!self.currency){
+            
+            height = 0.0f;
+        }
+    }
+    
+    return height;
+}
+
 
 #pragma mark - Tools
 

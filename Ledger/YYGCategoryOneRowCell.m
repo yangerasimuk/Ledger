@@ -43,6 +43,8 @@ NSString *const kCategoryOneRowCellId = @"CategoryOneRowCellId";
         
         self.backgroundColor = [UIColor whiteColor];
         
+        //self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
     }
     return self;
 }

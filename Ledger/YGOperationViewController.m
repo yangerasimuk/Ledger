@@ -59,7 +59,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     YGCategoryManager *_cm;
     YGEntityManager *_em;
     
-    BOOL _isPullRefreshToAddElement;
+    // BOOL _isPullRefreshToAddElement;
     
     UIRefreshControl *_refresh;
     
@@ -150,15 +150,15 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self.tableView reloadData];
 }
 
-- (void)pullRefreshSwipe:(UIRefreshControl *)refresh {
-    
-    [refresh beginRefreshing];
-    [refresh endRefreshing];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self addOperation];
-    });
-}
+//- (void)pullRefreshSwipe:(UIRefreshControl *)refresh {
+//    
+//    [refresh beginRefreshing];
+//    [refresh endRefreshing];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self addOperation];
+//    });
+//}
 
 
 #pragma mark - Actions
@@ -225,22 +225,22 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
      */
     
     // Pull refresh add new element
-    _isPullRefreshToAddElement = NO;
-    if([[config valueForKey:@"PullRefreshToAddElement"] isEqualToString:@"Y"]){
-        _isPullRefreshToAddElement = YES;
-        
-        _refresh = [[UIRefreshControl alloc] init];
-        [_refresh addTarget:self action:@selector(pullRefreshSwipe:) forControlEvents:UIControlEventValueChanged];
-        
-        NSAttributedString *attr = [[NSAttributedString alloc] initWithString:@"New operation" attributes:nil];
-        _refresh.attributedTitle = attr;
-        
-        self.refreshControl = _refresh;
-    }
-    else{
-        _refresh = nil;
-        self.refreshControl = nil;
-    }
+//    _isPullRefreshToAddElement = NO;
+//    if([[config valueForKey:@"PullRefreshToAddElement"] isEqualToString:@"Y"]){
+//        _isPullRefreshToAddElement = YES;
+//        
+//        _refresh = [[UIRefreshControl alloc] init];
+//        [_refresh addTarget:self action:@selector(pullRefreshSwipe:) forControlEvents:UIControlEventValueChanged];
+//        
+//        NSAttributedString *attr = [[NSAttributedString alloc] initWithString:@"New operation" attributes:nil];
+//        _refresh.attributedTitle = attr;
+//        
+//        self.refreshControl = _refresh;
+//    }
+//    else{
+//        _refresh = nil;
+//        self.refreshControl = nil;
+//    }
 }
 
 

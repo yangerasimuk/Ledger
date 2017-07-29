@@ -1476,6 +1476,7 @@
                     <connections>
                         <outlet property="buttonActivate" destination="0gF-hk-tmS" id="mbM-ta-YSi"/>
                         <outlet property="buttonDelete" destination="FtB-0b-GR8" id="Loy-zc-LBi"/>
+                        <outlet property="cellParentCategory" destination="jCZ-iu-C9G" id="LP5-dr-qTw"/>
                         <outlet property="labelParent" destination="Ig5-ZJ-NpE" id="Vwr-Lp-IB7"/>
                         <outlet property="textFieldComment" destination="n1I-K7-MUp" id="eFV-zZ-7Ee"/>
                         <outlet property="textFieldName" destination="e7A-Oz-W94" id="ubX-9z-tUM"/>

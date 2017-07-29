@@ -228,6 +228,8 @@
         cellCategory.colorTextLeft = [UIColor blackColor];
     else
         cellCategory.colorTextLeft = [UIColor grayColor];
+    
+    cellCategory.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 

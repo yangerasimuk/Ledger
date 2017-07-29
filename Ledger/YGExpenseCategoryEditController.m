@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UILabel *labelParent;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellParentCategory;
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
@@ -63,13 +64,13 @@
         
         self.buttonDelete.enabled = NO;
         
-        self.labelParent.text = @"No parent";
+        self.labelParent.text = @"Root";
         
         _initParentValue = nil;
     }
     else{
         self.textFieldName.text = self.expenseCategory.name;
-        self.textFieldSort.text = [NSString stringWithFormat:@"%ld",self.expenseCategory.sort];
+        self.textFieldSort.text = [NSString stringWithFormat:@"%ld",(long)self.expenseCategory.sort];
         self.textFieldComment.text = self.expenseCategory.comment;
         
         self.buttonActivate.enabled = YES;
@@ -115,11 +116,36 @@
     self.textFieldName.delegate = self;
     self.textFieldSort.delegate = self;
     self.textFieldComment.delegate = self;
+    
+    [self updateUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updateUI {
+    
+    if([p_manager hasLinkedObjectsForCategory:self.expenseCategory]) {
+        self.cellParentCategory.userInteractionEnabled = NO;
+        ;
+        self.cellParentCategory.accessoryType = UITableViewCellAccessoryNone;
+        self.labelParent.textColor = [YGTools colorForActionDisable];
+        
+    }
+    else{
+        self.cellParentCategory.userInteractionEnabled = YES;
+        self.cellParentCategory.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.labelParent.textColor = [UIColor blackColor];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -401,6 +427,48 @@
     } @finally {
         return result;
     }
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    // action delete
+    if(indexPath.section == 2 && indexPath.row == 1){
+        
+        if(self.expenseCategory){
+            
+            if([p_manager hasLinkedObjectsForCategory:self.expenseCategory]
+               || [p_manager hasChildObjectForCategory:self.expenseCategory]
+               || ![p_manager hasActiveCategoryForTypeExceptCategory:self.expenseCategory]
+               || [p_manager isJustOneCategory:self.expenseCategory]){
+                height = 0.0f;
+            }
+        }
+        else { // for new category
+            height = 0.0f;
+        }
+    }
+    
+    // action deactivate
+    if(indexPath.section == 2 && indexPath.row == 0){
+        
+        if(self.expenseCategory && self.expenseCategory.active){
+            
+            if(![p_manager hasActiveCategoryForTypeExceptCategory:self.expenseCategory]
+               || [p_manager hasChildObjectActiveForCategory:self.expenseCategory]){
+                
+                height = 0.0f;
+            }
+        }
+        else if(!self.expenseCategory){
+            
+            height = 0.0f;
+        }
+    }
+    
+    return height;
 }
 
 

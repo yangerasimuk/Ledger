@@ -314,6 +314,50 @@
 }
 
 
+#pragma mark - UITableViewDelegate
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    // action delete
+    if(indexPath.section == 1 && indexPath.row == 1){
+        if(self.category){
+            
+            if([p_manager hasLinkedObjectsForCategory:self.category]
+               || ![p_manager hasActiveCategoryForTypeExceptCategory:self.category]
+               || [p_manager isJustOneCategory:self.category]){
+                
+                height = 0.0f;
+            }
+        }
+        else{
+            height = 0.0f;
+        }
+    }
+
+    
+    // action deactivate
+    if(indexPath.section == 1 && indexPath.row == 0){
+        
+        if(self.category && self.category.active){
+            
+            if(![p_manager hasActiveCategoryForTypeExceptCategory:self.category]){
+                
+                height = 0.0f;
+            }
+            
+        }
+        else if(!self.category){
+            height = 0.0f;
+        }
+
+    }
+    
+    return height;
+}
+
+
 #pragma mark - Tools
 
 - (NSInteger)sortValueFromString:(NSString *)string{
