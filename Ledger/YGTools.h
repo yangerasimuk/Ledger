@@ -44,6 +44,7 @@
 + (NSInteger)defaultFontSize;
 
 + (NSInteger)deviceScreenWidth;
++ (NSInteger)lengthCharachtersForTableView;
 
 + (UIColor *)colorForActionDisable;
 + (UIColor *)colorForActionDeactivate;

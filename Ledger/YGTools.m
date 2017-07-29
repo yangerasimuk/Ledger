@@ -413,6 +413,28 @@
     return screenWidth;
 }
 
++ (NSInteger)lengthCharachtersForTableView {
+    
+    NSInteger width = [YGTools deviceScreenWidth];
+    
+    switch (width) {
+        case 320:
+            return 26;
+            break;
+        case 375:
+            return 30;
+            break;
+        case 414:
+            return 40;
+            break;
+            
+        default:
+            return 40;
+            break;
+    }
+    
+}
+
 /*
 + (void)sizeClassOfCurrentIPhone {
     UIDevice *device = [UIDevice currentDevice];

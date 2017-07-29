@@ -214,6 +214,25 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     YGCategory *currency = [_cm categoryById:entity.currencyId type:YGCategoryTypeCurrency];
     
+    // define sum and currency symbol first
+    NSString *stringSumAndCurrency = [NSString stringWithFormat:@"%@ %@", [YGTools stringCurrencyFromDouble:entity.sum hideDecimalFraction:p_hideDecimalFraction], [currency shorterName]];
+    
+    NSDictionary *sumAttributes =  @{
+                                     NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
+                                     };
+    NSAttributedString *sumAttributed = [[NSAttributedString alloc] initWithString:stringSumAndCurrency attributes:sumAttributes];
+    cell.detailTextLabel.attributedText = sumAttributed;
+    cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+    
+    // define name of account, trancate if needed
+    NSString *stringName = [entity.name copy];
+    NSInteger lengthNameMax = 28 - [stringSumAndCurrency length];
+    
+    if([entity.name length] > lengthNameMax){
+        
+        stringName = [NSString stringWithFormat:@"%@...", [stringName substringToIndex:lengthNameMax]];
+    }
+    
     NSDictionary *nameAttributes = nil;
     if(!entity.active){
         nameAttributes = @{
@@ -227,19 +246,28 @@ static NSString *const kEntityCellId = @"EntityCellId";
                            };
     }
     
-    NSAttributedString *nameAttributed = [[NSAttributedString alloc] initWithString:entity.name attributes:nameAttributes];
+    NSAttributedString *nameAttributed = [[NSAttributedString alloc] initWithString:stringName attributes:nameAttributes];
     
     cell.textLabel.attributedText = nameAttributed;
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     
-    NSDictionary *sumAttributes =  @{
-                                     NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
-                                     };
-    NSAttributedString *sumAttributed = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", [YGTools stringCurrencyFromDouble:entity.sum hideDecimalFraction:p_hideDecimalFraction], [currency shorterName]] attributes:sumAttributes];
-    cell.detailTextLabel.attributedText = sumAttributed;
-    cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
-    
     return cell;
+}
+
+- (NSString *)trankateNameToContainSum:(NSString *)stringSum {
+    
+    NSInteger countCharacterMax = [YGTools lengthCharachtersForTableView];
+    
+    NSLog(@"max characters in one string: %ld", (long)countCharacterMax);
+    
+    NSInteger lengthStringSum = [stringSum length];
+    
+    NSInteger lengthNamMax = countCharacterMax - lengthStringSum;
+    
+    NSLog(@"max lenght of name: %ld", (long)lengthNamMax);
+    
+    
+    return @"";
 }
 
 
