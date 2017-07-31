@@ -142,7 +142,7 @@
     
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
-    if(indexPath.section == 2 && indexPath.row == 0)
+    if(indexPath.section == 2 && indexPath.row == 1)
         height = 0.0f;
     
     return height;

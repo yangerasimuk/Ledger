@@ -306,8 +306,24 @@
             for(int j = 0; j < [item count]; j++){
                 
                 if([item[j] isKindOfClass:[NSNumber class]]){
-                    if(sqlite3_bind_int(stmt, j+1, [item[j] intValue]) != SQLITE_OK){
-                        NSLog(@"Can not bind int");
+                    
+                    if(strcmp([item[j] objCType], @encode(double)) == 0){
+                        if(sqlite3_bind_double(stmt, j+1, [item[j] doubleValue]) != SQLITE_OK){
+                            NSLog(@"Can not bind double");
+                        }
+                    }
+                    else if(strcmp([item[j] objCType], @encode(int)) == 0){
+                        if(sqlite3_bind_int(stmt, j+1, [item[j] intValue]) != SQLITE_OK){
+                            NSLog(@"Can not bind int");
+                        }
+                    }
+                    else if(strcmp([item[j] objCType], @encode(BOOL)) == 0){ // BOOL as int
+                        if(sqlite3_bind_int(stmt, j+1, [item[j] intValue]) != SQLITE_OK){
+                            NSLog(@"Can not bind bool");
+                        }
+                    }
+                    else{
+                        @throw [NSException exceptionWithName:@"-[YGSQLite fillTable:items:updateSQL]" reason:@"Can not bind NSNumber object" userInfo:nil];
                     }
                 }
                 else if([item[j] isKindOfClass:[NSString class]]){

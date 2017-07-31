@@ -955,6 +955,9 @@ void addTestOperations(){
     NSString *string20170719150013 = @"2017-07-19 15:00:13 +0300";
     NSDate *date20170719150013 = [formatter dateFromString:string20170719150013];
     
+    NSString *string20170719150014 = @"2017-07-19 15:00:14 +0300";
+    NSDate *date20170719150014 = [formatter dateFromString:string20170719150014];
+    
     //
     
     NSString *string20170720150000 = @"2017-07-20 15:00:00 +0300";
@@ -1004,6 +1007,55 @@ void addTestOperations(){
     NSString *string20170721150008 = @"2017-07-21 15:00:08 +0300";
     NSDate *date20170721150008 = [formatter dateFromString:string20170721150008];
     
+    // 24.7
+    NSString *string20170724150000 = @"2017-07-24 15:00:00 +0300";
+    NSDate *date20170724150000 = [formatter dateFromString:string20170724150000];
+    
+    NSString *string20170724150001 = @"2017-07-24 15:00:01 +0300";
+    NSDate *date20170724150001 = [formatter dateFromString:string20170724150001];
+    
+    NSString *string20170724150002 = @"2017-07-24 15:00:02 +0300";
+    NSDate *date20170724150002 = [formatter dateFromString:string20170724150002];
+    
+    NSString *string20170724150003 = @"2017-07-24 15:00:03 +0300";
+    NSDate *date20170724150003 = [formatter dateFromString:string20170724150003];
+    
+    // 25.7
+    NSString *string20170725150000 = @"2017-07-25 15:00:00 +0300";
+    NSDate *date20170725150000 = [formatter dateFromString:string20170725150000];
+    
+    NSString *string20170725150001 = @"2017-07-25 15:00:01 +0300";
+    NSDate *date20170725150001 = [formatter dateFromString:string20170725150001];
+    
+    NSString *string20170725150002 = @"2017-07-25 15:00:02 +0300";
+    NSDate *date20170725150002 = [formatter dateFromString:string20170725150002];
+    
+    // 27.7
+    NSString *string20170727150000 = @"2017-07-27 15:00:00 +0300";
+    NSDate *date20170727150000 = [formatter dateFromString:string20170727150000];
+    
+    NSString *string20170727150001 = @"2017-07-27 15:00:01 +0300";
+    NSDate *date20170727150001 = [formatter dateFromString:string20170727150001];
+    
+    NSString *string20170727150002 = @"2017-07-27 15:00:02 +0300";
+    NSDate *date20170727150002 = [formatter dateFromString:string20170727150002];
+    
+    NSString *string20170727150003 = @"2017-07-27 15:00:03 +0300";
+    NSDate *date20170727150003 = [formatter dateFromString:string20170727150003];
+    
+    // 29.7
+    
+    NSString *string20170729150000 = @"2017-07-29 15:00:00 +0300";
+    NSDate *date20170729150000 = [formatter dateFromString:string20170729150000];
+    
+    NSString *string20170729150001 = @"2017-07-29 15:00:01 +0300";
+    NSDate *date20170729150001 = [formatter dateFromString:string20170729150001];
+    
+    NSString *string20170729150002 = @"2017-07-29 15:00:02 +0300";
+    NSDate *date20170729150002 = [formatter dateFromString:string20170729150002];
+    
+    NSString *string20170729150003 = @"2017-07-29 15:00:03 +0300";
+    NSDate *date20170729150003 = [formatter dateFromString:string20170729150003];
     
 
     
@@ -2285,6 +2337,18 @@ void addTestOperations(){
                             @[ // ян - продукты
                                 @2,         // operation_type_id = expense
                                 @1,         // source_id = account
+                                @17,         // target_id = expenseCategory
+                                @6498.00,           // source_sum = 1500.00
+                                @1,             // source_currency_id = 1
+                                @6498.00,               // target_sum = 1500.00
+                                @1,           // target_currency_id = 1
+                                string20170719150014, // date
+                                [NSNumber numberWithDouble:[date20170719150014 timeIntervalSince1970]],  // date_unix
+                                @""             // comment
+                                ],
+                            @[ // ян - продукты
+                                @2,         // operation_type_id = expense
+                                @1,         // source_id = account
                                 @11,         // target_id = expenseCategory
                                 @497.00,           // source_sum = 1500.00
                                 @1,             // source_currency_id = 1
@@ -2461,6 +2525,186 @@ void addTestOperations(){
                                 string20170721150008, // date
                                 [NSNumber numberWithDouble:[date20170721150008 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
+                                ],
+                            @[ //
+                                @3,         // operation_type_id
+                                @1,         // source_id
+                                @1,         // target_id
+                                @0.00,  // source_sum
+                                @1,         // source_currency_id
+                                @0.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170724150000, // date
+                                [NSNumber numberWithDouble:[date20170724150000 timeIntervalSince1970]],  // date_unix
+                                @""             // comment
+                                ],
+                            @[ //
+                                @4,         // operation_type_id
+                                @4,         // source_id
+                                @1,         // target_id
+                                @3400.00,  // source_sum
+                                @1,         // source_currency_id
+                                @3400.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170724150001, // date
+                                [NSNumber numberWithDouble:[date20170724150001 timeIntervalSince1970]],  // date_unix
+                                @""             // comment
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @18,         // target_id
+                                @2474.00,  // source_sum
+                                @1,         // source_currency_id
+                                @2474.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170724150002, // date
+                                [NSNumber numberWithDouble:[date20170724150002 timeIntervalSince1970]],  // date_unix
+                                @""             // comment
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @11,         // target_id
+                                @538.00,  // source_sum
+                                @1,         // source_currency_id
+                                @538.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170724150003, // date
+                                [NSNumber numberWithDouble:[date20170724150003 timeIntervalSince1970]],  // date_unix
+                                @""             // comment
+                                ],
+                            @[ //
+                                @1,         // operation_type_id
+                                @47,         // source_id
+                                @1,         // target_id
+                                @1100.00,  // source_sum
+                                @1,         // source_currency_id
+                                @1100.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170725150000, // date
+                                [NSNumber numberWithDouble:[date20170725150000 timeIntervalSince1970]],  // date_unix
+                                @"Продажа книг"             // comment
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @3,         // source_id
+                                @11,         // target_id
+                                @139.00,  // source_sum
+                                @1,         // source_currency_id
+                                @139.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170725150001, // date
+                                [NSNumber numberWithDouble:[date20170725150001 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]             // comment
+                                ],
+                            @[ //
+                                @1,         // operation_type_id
+                                @47,         // source_id
+                                @1,         // target_id
+                                @1000.00,  // source_sum
+                                @1,         // source_currency_id
+                                @1000.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170725150002, // date
+                                [NSNumber numberWithDouble:[date20170725150002 timeIntervalSince1970]],  // date_unix
+                                @"Продажа книг"             // comment
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @11,         // target_id
+                                @99.00,  // source_sum
+                                @1,         // source_currency_id
+                                @99.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170727150000, // date
+                                [NSNumber numberWithDouble:[date20170727150000 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @11,         // target_id
+                                @125.00,  // source_sum
+                                @1,         // source_currency_id
+                                @125.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170727150001, // date
+                                [NSNumber numberWithDouble:[date20170727150001 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @11,         // target_id
+                                @24.00,  // source_sum
+                                @1,         // source_currency_id
+                                @24.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170727150002, // date
+                                [NSNumber numberWithDouble:[date20170727150002 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @3,         // source_id
+                                @11,         // target_id
+                                @407.00,  // source_sum
+                                @1,         // source_currency_id
+                                @407.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170727150003, // date
+                                [NSNumber numberWithDouble:[date20170727150003 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @11,         // target_id
+                                @99.00,  // source_sum
+                                @1,         // source_currency_id
+                                @99.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170729150000, // date
+                                [NSNumber numberWithDouble:[date20170729150000 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @3,         // source_id
+                                @11,         // target_id
+                                @552.00,  // source_sum
+                                @1,         // source_currency_id
+                                @552.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170729150001, // date
+                                [NSNumber numberWithDouble:[date20170729150001 timeIntervalSince1970]],  // date_unix
+                                [NSNull null]
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @3,         // source_id
+                                @36,         // target_id
+                                @6064.74,  // source_sum
+                                @1,         // source_currency_id
+                                @6064.74,  // target_sum
+                                @1,         // target_currency_id
+                                string20170729150002, // date
+                                [NSNumber numberWithDouble:[date20170729150002 timeIntervalSince1970]],  // date_unix
+                                @"Оплата подписки как Apple Developer'a."
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @3,         // source_id
+                                @23,         // target_id
+                                @228.00,  // source_sum
+                                @1,         // source_currency_id
+                                @228.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170729150003, // date
+                                [NSNumber numberWithDouble:[date20170729150003 timeIntervalSince1970]],  // date_unix
+                                @""
                                 ],
                             ];
     
