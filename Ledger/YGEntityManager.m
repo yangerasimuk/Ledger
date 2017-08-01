@@ -471,7 +471,13 @@
     }
 }
 
-
+/**
+ Is linked operations for entity exist. When delete entity we must check it.
+ 
+ @entity Entity for check (account, debt, so on).
+ 
+ @return Operation exist.
+ */
 - (BOOL)isExistLinkedOperationsForEntity:(YGEntity *)entity {
     
     if(entity.type == YGEntityTypeAccount){
@@ -490,9 +496,7 @@
         
         if([categories count] > 0)
             return YES;
-        
     }
-    
     return NO;
 }
 

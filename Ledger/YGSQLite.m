@@ -89,7 +89,7 @@
     "name TEXT NOT NULL, "
     "owner_id INTEGER, "
     "sum REAL, "
-    "currency_id INTEGER, "
+    "currency_id INTEGER NON NULL, "
     "active INTEGER NOT NULL, "
     "active_from TEXT NOT NULL, "
     "active_to TEXT, "
@@ -115,7 +115,7 @@
     "target_sum REAL NOT NULL, "
     "target_currency_id INTEGER NOT NULL, "
     "date TEXT NOT NULL,"
-    "date_unix INTEGER ,"
+    "date_unix REAL NOT NULL ,"
     "comment TEXT"
     ");";
     

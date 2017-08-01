@@ -292,9 +292,18 @@
 - (void)saveAccountActual {
     
     double sourceSum = _account.sum;
-    double targetSum = [self.textFieldTargetSum.text doubleValue];
+    double targetSum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
 
-    YGOperation *accountActual = [[YGOperation alloc] initWithType:YGOperationTypeAccountActual sourceId:_account.rowId targetId:_account.rowId sourceSum:sourceSum sourceCurrencyId:_account.currencyId targetSum:targetSum targetCurrencyId:_account.currencyId date:[NSDate date] comment:self.textFieldComment.text];
+    YGOperation *accountActual = [[YGOperation alloc]
+                                  initWithType:YGOperationTypeAccountActual
+                                  sourceId:_account.rowId
+                                  targetId:_account.rowId
+                                  sourceSum:sourceSum
+                                  sourceCurrencyId:_account.currencyId
+                                  targetSum:targetSum
+                                  targetCurrencyId:_account.currencyId
+                                  date:[NSDate date]
+                                  comment:self.textFieldComment.text];
     
 #warning Where is recalc? Are we need it?
     [_om addOperation:accountActual];
