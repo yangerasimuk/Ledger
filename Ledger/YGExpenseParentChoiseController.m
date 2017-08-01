@@ -31,12 +31,11 @@
         YGCategory *category = [[YGCategory alloc]
                                 initWithRowId:-1
                                 categoryType:YGCategoryTypeExpense
-                                name:@"No parent"
+                                name:@"Root"
                                 active:YES
                                 activeFrom:[NSDate date]
                                 activeTo:nil
                                 sort:99
-                                shortName:nil
                                 symbol:nil
                                 attach:NO
                                 parentId:-1
@@ -67,7 +66,6 @@
                                 activeFrom:[NSDate date]
                                 activeTo:nil
                                 sort:99
-                                shortName:nil
                                 symbol:nil
                                 attach:NO
                                 parentId:-1

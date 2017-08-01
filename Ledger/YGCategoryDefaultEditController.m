@@ -208,7 +208,6 @@
                                        initWithType:self.categoryType
                                        name:self.textFieldName.text
                                        sort:[self.textFieldSort.text integerValue]
-                                       shortName:nil
                                        symbol:nil
                                        attach:NO
                                        parentId:-1

@@ -63,7 +63,7 @@
 
 - (NSArray <YGCategory *> *)categoriesFromDb {
     
-    NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, short_name, symbol, attach, parent_id, comment  FROM category ORDER BY active DESC, sort ASC;";
+    NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment  FROM category ORDER BY active DESC, sort ASC;";
     
     NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -78,13 +78,12 @@
         NSDate *activeFrom = [YGTools dateFromString:arr[4]];
         NSDate *activeTo = [arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
         NSInteger sort = [arr[6] integerValue];
-        NSString *shortName = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
-        NSString *symbol = [arr[8] isEqual:[NSNull null]] ? nil : arr[8];
-        BOOL attach = [arr[9] boolValue];
-        NSInteger parentId = [arr[10] isEqual:[NSNull null]] ? -1 : [arr[10] integerValue];
-        NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
+        NSString *symbol = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
+        BOOL attach = [arr[8] boolValue];
+        NSInteger parentId = [arr[9] isEqual:[NSNull null]] ? -1 : [arr[9] integerValue];
+        NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
         
-        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort shortName:shortName symbol:symbol attach:attach parentId:parentId comment:comment];
+        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
         
         [result addObject:category];
     }
@@ -366,14 +365,13 @@
                             [YGTools stringFromDate:category.activeFrom], //active_from,
                             category.activeTo ? [YGTools stringFromDate:category.activeTo] : [NSNull null], //active_to,
                             [NSNumber numberWithInteger:category.sort], //sort,
-                            category.shortName ? category.shortName : [NSNull null], //short_name,
                             category.symbol ? category.symbol : [NSNull null], //symbol,
                             [NSNumber numberWithBool:category.attach], //attach,
                             category.parentId != -1 ? [NSNumber numberWithInteger:category.parentId] : [NSNull null], //parent_id,
                             category.comment ? category.comment : [NSNull null], //comment,
                             nil];
         
-        NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, short_name, symbol, attach, parent_id, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         rowId = [_sqlite addRecord:arrItem insertSQL:insertSQL];
         
@@ -423,13 +421,12 @@
  */
 - (void)updateCategory:(YGCategory *)category{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, active_from=%@, active_to=%@, sort=%@, short_name=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, active_from=%@, active_to=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@;",
                            [YGTools sqlStringForStringOrNull:category.name],
                            [YGTools sqlStringForBool:category.active],
                            [YGTools sqlStringForDateOrNull:category.activeFrom],
                            [YGTools sqlStringForDateOrNull:category.activeTo],
                            [YGTools sqlStringForIntOrNull:category.sort],
-                           [YGTools sqlStringForStringOrNull:category.shortName],
                            [YGTools sqlStringForStringOrNull:category.symbol],
                            [YGTools sqlStringForBool:category.attach],
                            [YGTools sqlStringForIntOrNull:category.parentId],
@@ -605,7 +602,7 @@
         NSInteger parentId = arr[10] > 0 ? [arr[10] integerValue] : -1;
         NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
         
-        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort shortName:shortName symbol:symbol attach:attach parentId:parentId comment:comment];
+        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
         
         [result addObject:category];
     }

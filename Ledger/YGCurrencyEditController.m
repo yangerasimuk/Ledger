@@ -12,14 +12,12 @@
 
 @interface YGCurrencyEditController () <UITextFieldDelegate> {
     BOOL _isNameChanged;
-    BOOL _isShortNameChanged;
     BOOL _isSymbolChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
     BOOL _isDefaultChanged;
     
     NSString *_initNameValue;
-    NSString *_initShortNameValue;
     NSString *_initSymbolValue;
     NSString *_initSortValue;
     BOOL _initDefaultValue;
@@ -31,7 +29,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *currencyName;
 @property (weak, nonatomic) IBOutlet UITextField *currencySymbol;
 @property (weak, nonatomic) IBOutlet UITextField *currencySort;
-@property (weak, nonatomic) IBOutlet UITextField *currencyShortName;
 @property (weak, nonatomic) IBOutlet UITextField *currencyComment;
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
@@ -40,7 +37,6 @@
 - (IBAction)textNameChanged:(id)sender;
 - (IBAction)textSymbolChanged:(id)sender;
 - (IBAction)textSortChanged:(id)sender;
-- (IBAction)textShortNameChanged:(id)sender;
 - (IBAction)textCommentChanged:(id)sender;
 - (IBAction)sliderDefaultChanged:(id)sender;
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
@@ -76,7 +72,6 @@
     else{
 
         self.currencyName.text = self.currency.name;
-        self.currencyShortName.text = self.currency.shortName;
         self.currencySymbol.text = self.currency.symbol;
         self.currencySort.text = [NSString stringWithFormat:@"%ld", self.currency.sort];
         self.currencyComment.text = self.currency.comment;
@@ -98,7 +93,6 @@
     
     _isSortChanged = NO;
     _isNameChanged = NO;
-    _isShortNameChanged = NO;
     _isSymbolChanged = NO;
     _isCommentChanged = NO;
     _isDefaultChanged = NO;
@@ -106,7 +100,6 @@
     _initSortValue = self.currencySort.text;
     _initNameValue = self.currencyName.text;
     _initSymbolValue = self.currencySymbol.text;
-    _initShortNameValue = self.currencyShortName.text;
     _initCommentValue = self.currencyComment.text;
     _initDefaultValue = self.currencyIsDefault.isOn;
 
@@ -117,7 +110,6 @@
 
     
     self.currencyName.delegate = self;
-    self.currencyShortName.delegate = self;
     self.currencySymbol.delegate = self;
     self.currencySort.delegate = self;
     self.currencyComment.delegate = self;
@@ -134,8 +126,6 @@
     
     if([textField isEqual:self.currencyName])
         return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.currencyShortName])
-        return [YGTools isValidShortNameInSourceString:textField.text replacementString:string range:range];
     else if([textField isEqual:self.currencySymbol])
         return [YGTools isValidSymbolInSourceString:textField.text replacementString:string range:range];
     else if([textField isEqual:self.currencySort])
@@ -186,16 +176,6 @@
     
 }
 
-- (IBAction)textShortNameChanged:(id)sender {
-    NSString *newShortName = self.currencyShortName.text;
-    
-    if([_initShortNameValue isEqualToString:newShortName])
-        _isShortNameChanged = NO;
-    else
-        _isShortNameChanged = YES;
-    
-    [self changeSaveButtonEnable];
-}
 
 - (IBAction)textCommentChanged:(id)sender {
     NSString *newComment = self.currencyComment.text;
@@ -222,8 +202,6 @@
 
 - (BOOL)isEditControlsChanged{
     if(_isNameChanged)
-        return YES;
-    if(_isShortNameChanged)
         return YES;
     if(_isSymbolChanged)
         return YES;
@@ -265,7 +243,7 @@
 - (void)saveButtonPressed {
     
     if(_isNewCurrency){
-        YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] shortName:self.currencyShortName.text symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.currencyComment.text];
+        YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.currencyComment.text];
         
         [p_manager addCategory:[currency copy]];
     }
@@ -273,8 +251,6 @@
         
         if(_isNameChanged)
             _currency.name = self.currencyName.text;
-        if(_isShortNameChanged)
-            _currency.shortName = self.currencyShortName.text;
         if(_isSymbolChanged)
             _currency.symbol = self.currencySymbol.text;
         if(_isSortChanged)

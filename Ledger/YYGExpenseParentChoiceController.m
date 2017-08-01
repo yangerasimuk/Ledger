@@ -61,7 +61,6 @@
                                 activeFrom:[NSDate date]
                                 activeTo:nil
                                 sort:99
-                                shortName:nil
                                 symbol:nil
                                 attach:NO
                                 parentId:-1

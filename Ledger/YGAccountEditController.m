@@ -360,7 +360,7 @@
         YGEntity *account = [[YGEntity alloc]
                              initWithType:YGEntityTypeAccount
                              name:self.textFieldName.text
-                             sum:0 //sum:[self.textFieldSort.text integerValue]
+                             sum:0.0f //sum:[self.textFieldSort.text integerValue]
                              currencyId:self.currency.rowId
                              attach:self.switchIsDefault.isOn
                              sort:[self.textFieldSort.text integerValue]

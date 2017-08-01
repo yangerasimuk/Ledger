@@ -17,7 +17,7 @@
 
 @dynamic isSaved;
 
-- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo sort:(NSInteger)sort shortName:(NSString *)shortName symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment{
+- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment{
     
     self = [super init];
     if(self){
@@ -34,7 +34,6 @@
         
         _activeTo = activeTo != nil ? [activeTo copy] : nil;
         _sort = sort > 0 ? sort : 100;
-        _shortName = shortName != nil ? [shortName copy] : nil;
         
         if(symbol && [symbol length] >= 1){
             unichar ch = [symbol characterAtIndex:0];
@@ -51,9 +50,9 @@
     return self;
 }
 
-- (instancetype)initWithType:(YGCategoryType)type name:(NSString *)name sort:(NSInteger)sort shortName:(NSString *)shortName symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment{
+- (instancetype)initWithType:(YGCategoryType)type name:(NSString *)name sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment{
     
-    return [self initWithRowId:-1 categoryType:type name:name active:YES activeFrom:[NSDate date] activeTo:nil sort:sort shortName:shortName symbol:symbol attach:attach parentId:parentId comment:comment];
+    return [self initWithRowId:-1 categoryType:type name:name active:YES activeFrom:[NSDate date] activeTo:nil sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
 }
 
 
@@ -68,9 +67,8 @@
     if(self.type == YGCategoryTypeCurrency){
         if(self.symbol)
             return self.symbol;
-        else if(self.shortName){
-            return self.shortName;
-        }
+        else if(self.name)
+            return [self.name substringToIndex:1];
         else
             return @"?";
     }
@@ -82,7 +80,7 @@
 #pragma mark - NSCopying
 
 -(id)copyWithZone:(NSZone *)zone{
-    YGCategory *newCategory = [[YGCategory alloc] initWithRowId:_rowId categoryType:_type name:_name active:_active activeFrom:_activeFrom activeTo:_activeTo sort:_sort shortName:_shortName symbol:_symbol attach:_attach parentId:_parentId comment:_comment];
+    YGCategory *newCategory = [[YGCategory alloc] initWithRowId:_rowId categoryType:_type name:_name active:_active activeFrom:_activeFrom activeTo:_activeTo sort:_sort symbol:_symbol attach:_attach parentId:_parentId comment:_comment];
     
     return newCategory;
 }

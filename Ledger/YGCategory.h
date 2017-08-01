@@ -23,12 +23,12 @@ NSString *NSStringFromCategoryType(YGCategoryType type);
 /**
  Base init for Category.
  */
-- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo sort:(NSInteger)sort shortName:(NSString *)shortName symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
+- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
 
 /**
  Init for new currency.
  */
-- (instancetype)initWithType:(YGCategoryType)type name:(NSString *)name sort:(NSInteger)sort shortName:(NSString *)shortName symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
+- (instancetype)initWithType:(YGCategoryType)type name:(NSString *)name sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
 
 - (NSString *)shorterName;
 
@@ -39,7 +39,6 @@ NSString *NSStringFromCategoryType(YGCategoryType type);
 @property (copy, nonatomic, readonly) NSDate *activeFrom;
 @property (copy, nonatomic) NSDate *activeTo;
 @property (assign, nonatomic) NSInteger sort;
-@property (copy, nonatomic) NSString *shortName;
 @property (copy, nonatomic) NSString *symbol;
 @property (assign, nonatomic, getter=isAttach) BOOL attach;
 @property (assign, nonatomic) NSInteger parentId;

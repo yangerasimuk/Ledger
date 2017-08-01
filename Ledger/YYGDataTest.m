@@ -1057,6 +1057,14 @@ void addTestOperations(){
     NSString *string20170729150003 = @"2017-07-29 15:00:03 +0300";
     NSDate *date20170729150003 = [formatter dateFromString:string20170729150003];
     
+    // 30.7
+    
+    NSString *string20170730150000 = @"2017-07-30 15:00:00 +0300";
+    NSDate *date20170730150000 = [formatter dateFromString:string20170730150000];
+    
+    NSString *string20170730150001 = @"2017-07-30 15:00:01 +0300";
+    NSDate *date20170730150001 = [formatter dateFromString:string20170730150001];
+    
 
     
     // fill category - income sources
@@ -2704,6 +2712,30 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170729150003, // date
                                 [NSNumber numberWithDouble:[date20170729150003 timeIntervalSince1970]],  // date_unix
+                                @""
+                                ],
+                            @[ //
+                                @1,         // operation_type_id
+                                @47,         // source_id
+                                @1,         // target_id
+                                @600.00,  // source_sum
+                                @1,         // source_currency_id
+                                @600.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170730150000, // date
+                                [NSNumber numberWithDouble:[date20170730150000 timeIntervalSince1970]],  // date_unix
+                                @""
+                                ],
+                            @[ //
+                                @2,         // operation_type_id
+                                @1,         // source_id
+                                @11,         // target_id
+                                @364.00,  // source_sum
+                                @1,         // source_currency_id
+                                @364.00,  // target_sum
+                                @1,         // target_currency_id
+                                string20170730150001, // date
+                                [NSNumber numberWithDouble:[date20170730150001 timeIntervalSince1970]],  // date_unix
                                 @""
                                 ],
                             ];

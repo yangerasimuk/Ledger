@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGCategory.m"
-            timestampString = "519140549.479625"
+            timestampString = "523295852.837016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-initWithRowId:categoryType:name:active:activeFrom:activeTo:sort:shortName:symbol:attach:parentId:comment:"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-initWithRowId:categoryType:name:active:activeFrom:activeTo:sort:symbol:attach:parentId:comment:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -43,11 +43,11 @@
             condition = "rowId==7"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGCategoryManager.m"
-            timestampString = "523215557.373606"
+            timestampString = "523295852.837016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "@implementation YGCategoryManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -187,11 +187,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGCurrencyEditController.m"
-            timestampString = "522757212.607623"
+            timestampString = "523295852.837016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "-saveButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -235,11 +235,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGExpenseParentChoiceController.m"
-            timestampString = "521824105.150447"
+            timestampString = "523295852.837016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-reloadDataFromCache"
             landmarkType = "7">
          </BreakpointContent>
@@ -251,11 +251,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGExpenseParentChoiceController.m"
-            timestampString = "521824299.708478"
+            timestampString = "523295852.837016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "-tableView:willDisplayCell:forRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -316,11 +316,11 @@
             condition = "i=4"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGDataTest.m"
-            timestampString = "523207812.963153"
+            timestampString = "523276190.528111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2723"
-            endingLineNumber = "2723"
+            startingLineNumber = "2755"
+            endingLineNumber = "2755"
             landmarkName = "recalcAllAccounts()"
             landmarkType = "9">
          </BreakpointContent>
