@@ -29,13 +29,14 @@ typedef NS_ENUM(NSInteger, YGOperationType){
 @property NSInteger sourceCurrencyId;
 @property double targetSum;
 @property NSInteger targetCurrencyId;
-@property NSDate *date;
+@property NSDate *created;
+@property NSDate *modified;
 @property NSString *comment;
 
 
-- (instancetype)initWithRowId:(NSInteger)rowId type:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId date:(NSDate *)date comment:(NSString *)comment;
+- (instancetype)initWithRowId:(NSInteger)rowId type:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId created:(NSDate *)created modified:(NSDate *)modified comment:(NSString *)comment;
 
-- (instancetype)initWithType:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId date:(NSDate *)date comment:(NSString *)comment;
+- (instancetype)initWithType:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId created:(NSDate *)created modified:(NSDate *)modified comment:(NSString *)comment;
 
 
 @end

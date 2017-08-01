@@ -15,7 +15,7 @@
 #import "YGOperationManager.h"
 
 @interface YGAccountActualEditController () <UITextFieldDelegate> {
-    NSDate *_date;
+    NSDate *_created;
     YGEntity *_account;
     YGCategory *_currency;
     double _sourceSum;
@@ -67,8 +67,8 @@
     if(self.isNewAccountAcutal){
         
         // set date
-        _date = [NSDate date];
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        _created = [NSDate date];
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
         
         // set account if one sets as default
         _account = [_em entityAttachedForType:YGEntityTypeAccount];
@@ -116,8 +116,8 @@
     else{
         
         // set date
-        _date = self.accountActual.date;
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        _created = self.accountActual.created;
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
         
         // set account
         _account = [_em entityById:self.accountActual.sourceId type:YGEntityTypeAccount];
@@ -293,7 +293,7 @@
     
     double sourceSum = _account.sum;
     double targetSum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
-
+    
     YGOperation *accountActual = [[YGOperation alloc]
                                   initWithType:YGOperationTypeAccountActual
                                   sourceId:_account.rowId
@@ -302,7 +302,8 @@
                                   sourceCurrencyId:_account.currencyId
                                   targetSum:targetSum
                                   targetCurrencyId:_account.currencyId
-                                  date:[NSDate date]
+                                  created:_created
+                                  modified:_created
                                   comment:self.textFieldComment.text];
     
 #warning Where is recalc? Are we need it?

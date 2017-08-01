@@ -17,7 +17,7 @@
 #import "YGOperationManager.h"
 
 @interface YGExpenseEditController () <UITextFieldDelegate> {
-    NSDate *_date;
+    NSDate *_created;
     YGEntity *_account;
     YGCategory *_currency;
     YGCategory *_category;
@@ -81,8 +81,8 @@
     if(self.isNewExpense){
         
         // set date
-        _date = [NSDate date];
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        _created = [NSDate date];
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
         
         // set account if one sets as default
         _account = [_em entityAttachedForType:YGEntityTypeAccount];
@@ -131,8 +131,8 @@
     }
     else{
         // set date
-        _date = self.expense.date;
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        _created = self.expense.created;
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
         
         // set account
         _account = [_em entityById:self.expense.sourceId type:YGEntityTypeAccount];
@@ -160,7 +160,7 @@
             self.textFieldComment.text = _comment;
         
         // init
-        _initDateValue = [_date copy];
+        _initDateValue = [_created copy];
         _initAccountValue = [_account copy];
         _initCategoryValue = [_category copy];
         _initSumValue = _sum;
@@ -238,11 +238,11 @@
     
     YGDateChoiceController *vc = unwindSegue.sourceViewController;
     
-    _date = vc.targetDate;
-    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:_date] color:[UIColor blackColor]];
+    _created = vc.targetDate;
+    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:_created] color:[UIColor blackColor]];
     
     // date changed?
-    if([YGTools isDayOfDate:_date equalsDayOfDate:_initDateValue])
+    if([YGTools isDayOfDate:_created equalsDayOfDate:_initDateValue])
         _isDateChanged = NO;
     else
         _isDateChanged = YES;
@@ -303,7 +303,7 @@
 
 - (BOOL)isDataReadyForSave {
     
-    if(!_date)
+    if(!_created)
         return NO;
     if(!_account)
         return NO;
@@ -408,7 +408,7 @@
     
     
     // init
-    _initDateValue = [_date copy];
+    _initDateValue = [_created copy];
     _initAccountValue = [_account copy];
     _initCategoryValue = [_category copy];
     _initSumValue = 0.0f;
@@ -436,16 +436,18 @@
 - (void)saveExpense {
     if(self.isNewExpense){
         
-        YGOperation *expense = [[YGOperation alloc] initWithType:YGOperationTypeExpense
-                                                        sourceId:_account.rowId
-                                                        targetId:_category.rowId
-                                                       sourceSum:_sum
-                                                sourceCurrencyId:_account.currencyId
-                                                       targetSum:_sum
-                                                targetCurrencyId:_account.currencyId
-                                                            date:_date
-                                                         comment:_comment];
-                
+        YGOperation *expense = [[YGOperation alloc]
+                                initWithType:YGOperationTypeExpense
+                                sourceId:_account.rowId
+                                targetId:_category.rowId
+                                sourceSum:_sum
+                                sourceCurrencyId:_account.currencyId
+                                targetSum:_sum
+                                targetCurrencyId:_account.currencyId
+                                created:_created
+                                modified:[_created copy]
+                                comment:_comment];
+        
         NSInteger operationId = [_om addOperation:expense];
         
         // crutch
@@ -457,7 +459,7 @@
     else{
         
         if(_isDateChanged)
-            self.expense.date = _date;
+            self.expense.created = _created;
         if(_isAccountChanged){
             self.expense.sourceId = _account.rowId;
             self.expense.sourceCurrencyId = _currency.rowId;
@@ -473,6 +475,8 @@
         if(_isCommentChanged){
             self.expense.comment = [_comment copy];
         }
+        
+        self.expense.modified = [NSDate date];
         
         [_om updateOperation:[self.expense copy]];
         
@@ -502,7 +506,7 @@
         
         YGDateChoiceController *vc = segue.destinationViewController;
         
-        vc.sourceDate = _date;
+        vc.sourceDate = _created;
         vc.customer = YGDateChoiceСustomerExpense;
         
     }

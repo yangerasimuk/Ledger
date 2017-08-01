@@ -88,8 +88,6 @@
     "name TEXT NOT NULL, "
     "sum REAL, "
     "currency_id INTEGER NOT NULL, "
-    "sum_modified TEXT NOT NULL, "
-    "sum_modified_unix REAL NOT NULL, "
     "active INTEGER NOT NULL, "
     "active_from TEXT NOT NULL, "
     "active_to TEXT, "
@@ -114,8 +112,10 @@
     "source_currency_id INTEGER NOT NULL, "
     "target_sum REAL NOT NULL, "
     "target_currency_id INTEGER NOT NULL, "
-    "date TEXT NOT NULL,"
-    "date_unix REAL NOT NULL ,"
+    "created TEXT NOT NULL, "
+    "created_unix REAL NOT NULL ,"
+    "modified TEXT NOT NULL, "
+    "modified_unix REAL NOT NULL ,"
     "comment TEXT"
     ");";
     

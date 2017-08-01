@@ -402,7 +402,7 @@
     // check for more near date of actual account operation
     if(operation){
         if(lastActualAccount){
-            if([lastActualAccount.date compare:operation.date] == NSOrderedDescending){
+            if([lastActualAccount.created compare:operation.created] == NSOrderedDescending){
                 NSLog(@"Exist more latest operation of actual for this account, recalc for sum for the account do not need");
                 return;
             }
@@ -419,7 +419,7 @@
     //NSArray <YGOperation *>*operations = [om operationsWithTargetId:account.rowId];
     NSArray <YGOperation *>*operations = nil;
     if(lastActualAccount)
-        operations = [om operationsWithAccountId:account.rowId sinceDate:lastActualAccount.date];
+        operations = [om operationsWithAccountId:account.rowId sinceDate:lastActualAccount.created];
     else
         operations = [om operationsWithAccountId:account.rowId];
     

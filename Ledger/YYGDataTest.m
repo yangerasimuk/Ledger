@@ -22,8 +22,7 @@ void addTestAccounts(){
                           @[
                               @1, // account
                               @"Кошелёк Ян",
-                              [NSNull null],
-                              @0,
+                              @0.0,
                               @1, // rub
                               @1, // active
                               [YGTools stringFromDate:[NSDate date]],
@@ -35,8 +34,7 @@ void addTestAccounts(){
                           @[
                               @1, // account
                               @"Кошелёк Маша",
-                              [NSNull null],
-                              @0,
+                              @0.0,
                               @1, // rub
                               @1, // active
                               [YGTools stringFromDate:[NSDate date]],
@@ -48,8 +46,7 @@ void addTestAccounts(){
                           @[
                               @1, // account
                               @"Карта Сбербанк Виза",
-                              [NSNull null],
-                              @0,
+                              @0.0,
                               @1, // rub
                               @1, // active
                               [YGTools stringFromDate:[NSDate date]],
@@ -61,8 +58,7 @@ void addTestAccounts(){
                           @[
                               @1, // account
                               @"Заначка в рублях",
-                              [NSNull null],
-                              @0,
+                              @0.0,
                               @1, // rub
                               @1, // active
                               [YGTools stringFromDate:[NSDate date]],
@@ -75,8 +71,7 @@ void addTestAccounts(){
                           @[
                               @1, // account
                               @"Заначка в долларах",
-                              [NSNull null],
-                              @0,
+                              @0.0,
                               @5, // usd
                               @1, // active
                               [YGTools stringFromDate:[NSDate date]],
@@ -87,9 +82,8 @@ void addTestAccounts(){
                               ],
                           @[
                               @1, // account
-                              @"Тасины подарочные",
-                              [NSNull null],
-                              @0,
+                              @"Тасины подарочные", // name
+                              @0.0,
                               @1, // rub
                               @1, // active
                               [YGTools stringFromDate:[NSDate date]],
@@ -106,7 +100,7 @@ void addTestAccounts(){
     [sqlite fillTable:@"entity" items:entities updateSQL:insertSQL];
     
 
-    
+    ;
 }
 
 
@@ -1039,6 +1033,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170620154530, // date
                                 [NSNumber numberWithDouble:[date20170620154530 timeIntervalSince1970]],  // date_unix
+                                string20170620154530, // date
+                                [NSNumber numberWithDouble:[date20170620154530 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]             // comment
                                 ],
                             @[// остаток по счету Кошелек Маша
@@ -1049,6 +1045,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @2043.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170620154630, // date
+                                [NSNumber numberWithDouble:[date20170620154630 timeIntervalSince1970]],  // date_unix
                                 string20170620154630, // date
                                 [NSNumber numberWithDouble:[date20170620154630 timeIntervalSince1970]],  // date_unix
                                 @"Test data"             // comment
@@ -1063,6 +1061,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170620164630, // date
                                 [NSNumber numberWithDouble:[date20170620164630 timeIntervalSince1970]],  // date_unix
+                                string20170620164630, // date
+                                [NSNumber numberWithDouble:[date20170620164630 timeIntervalSince1970]],  // date_unix
                                 @"Test data"             // comment
                                 ],
                             @[ // остаток Заначка в рублях
@@ -1073,6 +1073,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @47000.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170620174630, // date
+                                [NSNumber numberWithDouble:[date20170620174630 timeIntervalSince1970]],  // date_unix
                                 string20170620174630, // date
                                 [NSNumber numberWithDouble:[date20170620174630 timeIntervalSince1970]],  // date_unix
                                 @"Test data"             // comment
@@ -1087,6 +1089,8 @@ void addTestOperations(){
                                 @5,           // target_currency_id = 1
                                 string20170620174630, // date
                                 [NSNumber numberWithDouble:[date20170620174630 timeIntervalSince1970]],  // date_unix
+                                string20170620174630, // date
+                                [NSNumber numberWithDouble:[date20170620174630 timeIntervalSince1970]],  // date_unix
                                 @"Test data"             // comment
                                 ],
                             @[ // бензин
@@ -1097,6 +1101,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1000.00,               // target_sum
                                 @1,           // target_currency_id = 1
+                                string20170620174630, // date
+                                [NSNumber numberWithDouble:[date20170620174630 timeIntervalSince1970]],  // date_unix
                                 string20170620174630, // date
                                 [NSNumber numberWithDouble:[date20170620174630 timeIntervalSince1970]],  // date_unix
                                 @"Бензин"             // comment
@@ -1111,6 +1117,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Прием у ветеринара"             // comment
                                 ],
                             @[ // продукты
@@ -1121,6 +1129,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @630.00,               // target_sum =
                                 @1,           // target_currency_id = 1
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Продукты Маша"             // comment
@@ -1135,6 +1145,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Продукты Маша"             // comment
                                 ],
                             @[ // ян -> маша
@@ -1145,6 +1157,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1000.00,               // target_sum
                                 @1,           // target_currency_id = 1
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Ян -> Маша"             // comment
@@ -1159,6 +1173,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Электроэнергия"             // comment
                                 ],
                             @[ // кот
@@ -1169,6 +1185,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @305.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Кот"             // comment
@@ -1183,6 +1201,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id = рубль
                                 string20170621174630, // date
                                 [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
+                                string20170621174630, // date
+                                [NSNumber numberWithDouble:[date20170621174630 timeIntervalSince1970]],  // date_unix
                                 @"Продукты"             // comment
                                 ],
                             @[ // заначка руб -> ян
@@ -1193,6 +1213,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id = рубль
                                 @15000.00,  // target_sum
                                 @1,         // target_currency_id = рубль
+                                string20170622174630, // date
+                                [NSNumber numberWithDouble:[date20170622174630 timeIntervalSince1970]],  // date_unix
                                 string20170622174630, // date
                                 [NSNumber numberWithDouble:[date20170622174630 timeIntervalSince1970]],  // date_unix
                                 @"Заначка в рублях -> Ян"             // comment
@@ -1207,6 +1229,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = рубль
                                 string20170622174630, // date
                                 [NSNumber numberWithDouble:[date20170622174630 timeIntervalSince1970]],  // date_unix
+                                string20170622174630, // date
+                                [NSNumber numberWithDouble:[date20170622174630 timeIntervalSince1970]],  // date_unix
                                 @"Ян -> Карта Сбербанк"             // comment
                                 ],
                             @[ // продукты
@@ -1217,6 +1241,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @339.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170622174630, // date
+                                [NSNumber numberWithDouble:[date20170622174630 timeIntervalSince1970]],  // date_unix
                                 string20170622174630, // date
                                 [NSNumber numberWithDouble:[date20170622174630 timeIntervalSince1970]],  // date_unix
                                 @"Продукты"             // comment
@@ -1231,6 +1257,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170623174630, // date
                                 [NSNumber numberWithDouble:[date20170623174630 timeIntervalSince1970]],  // date_unix
+                                string20170623174630, // date
+                                [NSNumber numberWithDouble:[date20170623174630 timeIntervalSince1970]],  // date_unix
                                 @"Одежда тасе"             // comment
                                 ],
                             @[ // кот
@@ -1241,6 +1269,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1000.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170623174630, // date
+                                [NSNumber numberWithDouble:[date20170623174630 timeIntervalSince1970]],  // date_unix
                                 string20170623174630, // date
                                 [NSNumber numberWithDouble:[date20170623174630 timeIntervalSince1970]],  // date_unix
                                 @"УЗИ Филимону"             // comment
@@ -1255,6 +1285,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170623174630, // date
                                 [NSNumber numberWithDouble:[date20170623174630 timeIntervalSince1970]],  // date_unix
+                                string20170623174630, // date
+                                [NSNumber numberWithDouble:[date20170623174630 timeIntervalSince1970]],  // date_unix
                                 @"Продукты"             // comment
                                 ],
                             @[ // сбербанк - одежда
@@ -1265,6 +1297,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1200.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170624150000, // date
+                                [NSNumber numberWithDouble:[date20170624150000 timeIntervalSince1970]],  // date_unix
                                 string20170624150000, // date
                                 [NSNumber numberWithDouble:[date20170624150000 timeIntervalSince1970]],  // date_unix
                                 @"Платье Маше?"             // comment
@@ -1279,6 +1313,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170624150001, // date
                                 [NSNumber numberWithDouble:[date20170624150001 timeIntervalSince1970]],  // date_unix
+                                string20170624150001, // date
+                                [NSNumber numberWithDouble:[date20170624150001 timeIntervalSince1970]],  // date_unix
                                 @"Ашан?"             // comment
                                 ],
                             @[ // сбербанк - Хозяйство
@@ -1289,6 +1325,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @186.04,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170624150002, // date
+                                [NSNumber numberWithDouble:[date20170624150002 timeIntervalSince1970]],  // date_unix
                                 string20170624150002, // date
                                 [NSNumber numberWithDouble:[date20170624150002 timeIntervalSince1970]],  // date_unix
                                 @"Ашан?"             // comment
@@ -1303,6 +1341,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170624150003, // date
                                 [NSNumber numberWithDouble:[date20170624150003 timeIntervalSince1970]],  // date_unix
+                                string20170624150003, // date
+                                [NSNumber numberWithDouble:[date20170624150003 timeIntervalSince1970]],  // date_unix
                                 @"Ашан?"             // comment
                                 ],
                             @[ // сбербанк - продукты
@@ -1313,6 +1353,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @4857.32,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170624150004, // date
+                                [NSNumber numberWithDouble:[date20170624150004 timeIntervalSince1970]],  // date_unix
                                 string20170624150004, // date
                                 [NSNumber numberWithDouble:[date20170624150004 timeIntervalSince1970]],  // date_unix
                                 @"Ашан?"             // comment
@@ -1327,6 +1369,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170625150004, // date
                                 [NSNumber numberWithDouble:[date20170625150004 timeIntervalSince1970]],  // date_unix
+                                string20170625150004, // date
+                                [NSNumber numberWithDouble:[date20170625150004 timeIntervalSince1970]],  // date_unix
                                 @"Ашан?"             // comment
                                 ],
                             @[ // сбербанк - коммуналка
@@ -1337,6 +1381,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @5164.51,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170626150000, // date
+                                [NSNumber numberWithDouble:[date20170626150000 timeIntervalSince1970]],  // date_unix
                                 string20170626150000, // date
                                 [NSNumber numberWithDouble:[date20170626150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1351,6 +1397,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170626150001, // date
                                 [NSNumber numberWithDouble:[date20170626150001 timeIntervalSince1970]],  // date_unix
+                                string20170626150001, // date
+                                [NSNumber numberWithDouble:[date20170626150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - маша
@@ -1361,6 +1409,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @5000,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170626150002, // date
+                                [NSNumber numberWithDouble:[date20170626150002 timeIntervalSince1970]],  // date_unix
                                 string20170626150002, // date
                                 [NSNumber numberWithDouble:[date20170626150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1375,6 +1425,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170626150003, // date
                                 [NSNumber numberWithDouble:[date20170626150003 timeIntervalSince1970]],  // date_unix
+                                string20170626150003, // date
+                                [NSNumber numberWithDouble:[date20170626150003 timeIntervalSince1970]],  // date_unix
                                 @"Прическа Маша"             // comment
                                 ],
                             @[ // маша - продукты
@@ -1385,6 +1437,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @65.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170627150000, // date
+                                [NSNumber numberWithDouble:[date20170627150000 timeIntervalSince1970]],  // date_unix
                                 string20170627150000, // date
                                 [NSNumber numberWithDouble:[date20170627150000 timeIntervalSince1970]],  // date_unix
                                 @"Прическа Маша"             // comment
@@ -1399,6 +1453,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170627150001, // date
                                 [NSNumber numberWithDouble:[date20170627150001 timeIntervalSince1970]],  // date_unix
+                                string20170627150001, // date
+                                [NSNumber numberWithDouble:[date20170627150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // маша - продукты
@@ -1409,6 +1465,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @115.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170627150001, // date
+                                [NSNumber numberWithDouble:[date20170627150001 timeIntervalSince1970]],  // date_unix
                                 string20170627150001, // date
                                 [NSNumber numberWithDouble:[date20170627150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1423,6 +1481,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170627150002, // date
                                 [NSNumber numberWithDouble:[date20170627150002 timeIntervalSince1970]],  // date_unix
+                                string20170627150002, // date
+                                [NSNumber numberWithDouble:[date20170627150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // маша - продукты
@@ -1433,6 +1493,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @709.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170627150003, // date
+                                [NSNumber numberWithDouble:[date20170627150003 timeIntervalSince1970]],  // date_unix
                                 string20170627150003, // date
                                 [NSNumber numberWithDouble:[date20170627150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1447,6 +1509,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170627150004, // date
                                 [NSNumber numberWithDouble:[date20170627150004 timeIntervalSince1970]],  // date_unix
+                                string20170627150004, // date
+                                [NSNumber numberWithDouble:[date20170627150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // маша - продукты
@@ -1457,6 +1521,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @156.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170627150005, // date
+                                [NSNumber numberWithDouble:[date20170627150005 timeIntervalSince1970]],  // date_unix
                                 string20170627150005, // date
                                 [NSNumber numberWithDouble:[date20170627150005 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1471,6 +1537,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170628150000, // date
                                 [NSNumber numberWithDouble:[date20170628150000 timeIntervalSince1970]],  // date_unix
+                                string20170628150000, // date
+                                [NSNumber numberWithDouble:[date20170628150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // сбербанк - здоровье
@@ -1481,6 +1549,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @38.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170628150001, // date
+                                [NSNumber numberWithDouble:[date20170628150001 timeIntervalSince1970]],  // date_unix
                                 string20170628150001, // date
                                 [NSNumber numberWithDouble:[date20170628150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1495,6 +1565,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170628150002, // date
                                 [NSNumber numberWithDouble:[date20170628150002 timeIntervalSince1970]],  // date_unix
+                                string20170628150002, // date
+                                [NSNumber numberWithDouble:[date20170628150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // маша - продукты
@@ -1505,6 +1577,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @127.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170629150000, // date
+                                [NSNumber numberWithDouble:[date20170629150000 timeIntervalSince1970]],  // date_unix
                                 string20170629150000, // date
                                 [NSNumber numberWithDouble:[date20170629150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1519,6 +1593,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170629150001, // date
                                 [NSNumber numberWithDouble:[date20170629150001 timeIntervalSince1970]],  // date_unix
+                                string20170629150001, // date
+                                [NSNumber numberWithDouble:[date20170629150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // маша - продукты
@@ -1529,6 +1605,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @20.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170630150000, // date
+                                [NSNumber numberWithDouble:[date20170630150000 timeIntervalSince1970]],  // date_unix
                                 string20170630150000, // date
                                 [NSNumber numberWithDouble:[date20170630150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1543,6 +1621,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170630150001, // date
                                 [NSNumber numberWithDouble:[date20170630150001 timeIntervalSince1970]],  // date_unix
+                                string20170630150001, // date
+                                [NSNumber numberWithDouble:[date20170630150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // маша - продукты
@@ -1553,6 +1633,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @350.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170701150000, // date
+                                [NSNumber numberWithDouble:[date20170701150000 timeIntervalSince1970]],  // date_unix
                                 string20170701150000, // date
                                 [NSNumber numberWithDouble:[date20170701150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1567,6 +1649,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170701150001, // date
                                 [NSNumber numberWithDouble:[date20170701150001 timeIntervalSince1970]],  // date_unix
+                                string20170701150001, // date
+                                [NSNumber numberWithDouble:[date20170701150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // заначка - ян
@@ -1577,6 +1661,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @5000,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170701150002, // date
+                                [NSNumber numberWithDouble:[date20170701150002 timeIntervalSince1970]],  // date_unix
                                 string20170701150002, // date
                                 [NSNumber numberWithDouble:[date20170701150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1591,6 +1677,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170701150003, // date
                                 [NSNumber numberWithDouble:[date20170701150003 timeIntervalSince1970]],  // date_unix
+                                string20170701150003, // date
+                                [NSNumber numberWithDouble:[date20170701150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1601,6 +1689,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @428.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170701150004, // date
+                                [NSNumber numberWithDouble:[date20170701150004 timeIntervalSince1970]],  // date_unix
                                 string20170701150004, // date
                                 [NSNumber numberWithDouble:[date20170701150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1615,6 +1705,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170701150005, // date
                                 [NSNumber numberWithDouble:[date20170701150005 timeIntervalSince1970]],  // date_unix
+                                string20170701150005, // date
+                                [NSNumber numberWithDouble:[date20170701150005 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1625,6 +1717,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1084.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170702150000, // date
+                                [NSNumber numberWithDouble:[date20170702150000 timeIntervalSince1970]],  // date_unix
                                 string20170702150000, // date
                                 [NSNumber numberWithDouble:[date20170702150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1639,6 +1733,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170702150001, // date
                                 [NSNumber numberWithDouble:[date20170702150001 timeIntervalSince1970]],  // date_unix
+                                string20170702150001, // date
+                                [NSNumber numberWithDouble:[date20170702150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1649,6 +1745,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @154.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170702150002, // date
+                                [NSNumber numberWithDouble:[date20170702150002 timeIntervalSince1970]],  // date_unix
                                 string20170702150002, // date
                                 [NSNumber numberWithDouble:[date20170702150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1663,6 +1761,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170702150003, // date
                                 [NSNumber numberWithDouble:[date20170702150003 timeIntervalSince1970]],  // date_unix
+                                string20170702150003, // date
+                                [NSNumber numberWithDouble:[date20170702150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1673,6 +1773,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @785.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170702150004, // date
+                                [NSNumber numberWithDouble:[date20170702150004 timeIntervalSince1970]],  // date_unix
                                 string20170702150004, // date
                                 [NSNumber numberWithDouble:[date20170702150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1687,6 +1789,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170703150000, // date
                                 [NSNumber numberWithDouble:[date20170703150000 timeIntervalSince1970]],  // date_unix
+                                string20170703150000, // date
+                                [NSNumber numberWithDouble:[date20170703150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1697,6 +1801,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @482.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170703150001, // date
+                                [NSNumber numberWithDouble:[date20170703150001 timeIntervalSince1970]],  // date_unix
                                 string20170703150001, // date
                                 [NSNumber numberWithDouble:[date20170703150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1711,6 +1817,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170703150002, // date
                                 [NSNumber numberWithDouble:[date20170703150002 timeIntervalSince1970]],  // date_unix
+                                string20170703150002, // date
+                                [NSNumber numberWithDouble:[date20170703150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1721,6 +1829,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @949.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170703150003, // date
+                                [NSNumber numberWithDouble:[date20170703150003 timeIntervalSince1970]],  // date_unix
                                 string20170703150003, // date
                                 [NSNumber numberWithDouble:[date20170703150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1735,6 +1845,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170704150000, // date
                                 [NSNumber numberWithDouble:[date20170704150000 timeIntervalSince1970]],  // date_unix
+                                string20170704150000, // date
+                                [NSNumber numberWithDouble:[date20170704150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // подарок - Тасе
@@ -1745,6 +1857,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @16000.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170704150001, // date
+                                [NSNumber numberWithDouble:[date20170704150001 timeIntervalSince1970]],  // date_unix
                                 string20170704150001, // date
                                 [NSNumber numberWithDouble:[date20170704150001 timeIntervalSince1970]],  // date_unix
                                 @"Подарки Тасе от смолян, в основном от бабы Нади"             // comment
@@ -1759,6 +1873,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170705150000, // date
                                 [NSNumber numberWithDouble:[date20170705150000 timeIntervalSince1970]],  // date_unix
+                                string20170705150000, // date
+                                [NSNumber numberWithDouble:[date20170705150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1769,6 +1885,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @15000.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170705150001, // date
+                                [NSNumber numberWithDouble:[date20170705150001 timeIntervalSince1970]],  // date_unix
                                 string20170705150001, // date
                                 [NSNumber numberWithDouble:[date20170705150001 timeIntervalSince1970]],  // date_unix
                                 @"Заначка - Маша"             // comment
@@ -1783,6 +1901,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170706150000, // date
                                 [NSNumber numberWithDouble:[date20170706150000 timeIntervalSince1970]],  // date_unix
+                                string20170706150000, // date
+                                [NSNumber numberWithDouble:[date20170706150000 timeIntervalSince1970]],  // date_unix
                                 @"Заначка - Маша"             // comment
                                 ],
                             @[ // ян - продукты
@@ -1793,6 +1913,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @514.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170706150001, // date
+                                [NSNumber numberWithDouble:[date20170706150001 timeIntervalSince1970]],  // date_unix
                                 string20170706150001, // date
                                 [NSNumber numberWithDouble:[date20170706150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1807,6 +1929,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170707150000, // date
                                 [NSNumber numberWithDouble:[date20170707150000 timeIntervalSince1970]],  // date_unix
+                                string20170707150000, // date
+                                [NSNumber numberWithDouble:[date20170707150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // сбербанк - спорт
@@ -1817,6 +1941,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @190.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170708150000, // date
+                                [NSNumber numberWithDouble:[date20170708150000 timeIntervalSince1970]],  // date_unix
                                 string20170708150000, // date
                                 [NSNumber numberWithDouble:[date20170708150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1831,6 +1957,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170709150000, // date
                                 [NSNumber numberWithDouble:[date20170709150000 timeIntervalSince1970]],  // date_unix
+                                string20170709150000, // date
+                                [NSNumber numberWithDouble:[date20170709150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1841,6 +1969,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @116.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170709150001, // date
+                                [NSNumber numberWithDouble:[date20170709150001 timeIntervalSince1970]],  // date_unix
                                 string20170709150001, // date
                                 [NSNumber numberWithDouble:[date20170709150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1855,6 +1985,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170710150000, // date
                                 [NSNumber numberWithDouble:[date20170710150000 timeIntervalSince1970]],  // date_unix
+                                string20170710150000, // date
+                                [NSNumber numberWithDouble:[date20170710150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1865,6 +1997,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @569.70,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170710150001, // date
+                                [NSNumber numberWithDouble:[date20170710150001 timeIntervalSince1970]],  // date_unix
                                 string20170710150001, // date
                                 [NSNumber numberWithDouble:[date20170710150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1879,6 +2013,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170710150002, // date
                                 [NSNumber numberWithDouble:[date20170710150002 timeIntervalSince1970]],  // date_unix
+                                string20170710150002, // date
+                                [NSNumber numberWithDouble:[date20170710150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1889,6 +2025,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @327.01,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170710150003, // date
+                                [NSNumber numberWithDouble:[date20170710150003 timeIntervalSince1970]],  // date_unix
                                 string20170710150003, // date
                                 [NSNumber numberWithDouble:[date20170710150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1903,6 +2041,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170711150000, // date
                                 [NSNumber numberWithDouble:[date20170711150000 timeIntervalSince1970]],  // date_unix
+                                string20170711150000, // date
+                                [NSNumber numberWithDouble:[date20170711150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1913,6 +2053,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @386.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170712150000, // date
+                                [NSNumber numberWithDouble:[date20170712150000 timeIntervalSince1970]],  // date_unix
                                 string20170712150000, // date
                                 [NSNumber numberWithDouble:[date20170712150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1927,6 +2069,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170712150001, // date
                                 [NSNumber numberWithDouble:[date20170712150001 timeIntervalSince1970]],  // date_unix
+                                string20170712150001, // date
+                                [NSNumber numberWithDouble:[date20170712150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1937,6 +2081,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @131.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170713150000, // date
+                                [NSNumber numberWithDouble:[date20170713150000 timeIntervalSince1970]],  // date_unix
                                 string20170713150000, // date
                                 [NSNumber numberWithDouble:[date20170713150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1951,6 +2097,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170713150001, // date
                                 [NSNumber numberWithDouble:[date20170713150001 timeIntervalSince1970]],  // date_unix
+                                string20170713150001, // date
+                                [NSNumber numberWithDouble:[date20170713150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1961,6 +2109,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @549.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170714150000, // date
+                                [NSNumber numberWithDouble:[date20170714150000 timeIntervalSince1970]],  // date_unix
                                 string20170714150000, // date
                                 [NSNumber numberWithDouble:[date20170714150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1975,6 +2125,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170714150001, // date
                                 [NSNumber numberWithDouble:[date20170714150001 timeIntervalSince1970]],  // date_unix
+                                string20170714150001, // date
+                                [NSNumber numberWithDouble:[date20170714150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -1985,6 +2137,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @60.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170714150002, // date
+                                [NSNumber numberWithDouble:[date20170714150002 timeIntervalSince1970]],  // date_unix
                                 string20170714150002, // date
                                 [NSNumber numberWithDouble:[date20170714150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -1999,6 +2153,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170716150000, // date
                                 [NSNumber numberWithDouble:[date20170716150000 timeIntervalSince1970]],  // date_unix
+                                string20170716150000, // date
+                                [NSNumber numberWithDouble:[date20170716150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2009,6 +2165,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @109.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170717150000, // date
+                                [NSNumber numberWithDouble:[date20170717150000 timeIntervalSince1970]],  // date_unix
                                 string20170717150000, // date
                                 [NSNumber numberWithDouble:[date20170717150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2023,6 +2181,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170717150001, // date
                                 [NSNumber numberWithDouble:[date20170717150001 timeIntervalSince1970]],  // date_unix
+                                string20170717150001, // date
+                                [NSNumber numberWithDouble:[date20170717150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2033,6 +2193,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1133.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170717150002, // date
+                                [NSNumber numberWithDouble:[date20170717150002 timeIntervalSince1970]],  // date_unix
                                 string20170717150002, // date
                                 [NSNumber numberWithDouble:[date20170717150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2047,6 +2209,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170717150003, // date
                                 [NSNumber numberWithDouble:[date20170717150003 timeIntervalSince1970]],  // date_unix
+                                string20170717150003, // date
+                                [NSNumber numberWithDouble:[date20170717150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2057,6 +2221,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @3000.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170717150004, // date
+                                [NSNumber numberWithDouble:[date20170717150004 timeIntervalSince1970]],  // date_unix
                                 string20170717150004, // date
                                 [NSNumber numberWithDouble:[date20170717150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2071,6 +2237,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170717150005, // date
                                 [NSNumber numberWithDouble:[date20170717150005 timeIntervalSince1970]],  // date_unix
+                                string20170717150005, // date
+                                [NSNumber numberWithDouble:[date20170717150005 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2081,6 +2249,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @626.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170718150000, // date
+                                [NSNumber numberWithDouble:[date20170718150000 timeIntervalSince1970]],  // date_unix
                                 string20170718150000, // date
                                 [NSNumber numberWithDouble:[date20170718150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2095,6 +2265,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170718150001, // date
                                 [NSNumber numberWithDouble:[date20170718150001 timeIntervalSince1970]],  // date_unix
+                                string20170718150001, // date
+                                [NSNumber numberWithDouble:[date20170718150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2105,6 +2277,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1000.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170718150002, // date
+                                [NSNumber numberWithDouble:[date20170718150002 timeIntervalSince1970]],  // date_unix
                                 string20170718150002, // date
                                 [NSNumber numberWithDouble:[date20170718150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2119,6 +2293,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170718150003, // date
                                 [NSNumber numberWithDouble:[date20170718150003 timeIntervalSince1970]],  // date_unix
+                                string20170718150003, // date
+                                [NSNumber numberWithDouble:[date20170718150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2129,6 +2305,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @181.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170718150004, // date
+                                [NSNumber numberWithDouble:[date20170718150004 timeIntervalSince1970]],  // date_unix
                                 string20170718150004, // date
                                 [NSNumber numberWithDouble:[date20170718150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2144,6 +2322,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150000, // date
                                 [NSNumber numberWithDouble:[date20170719150000 timeIntervalSince1970]],  // date_unix
+                                string20170719150000, // date
+                                [NSNumber numberWithDouble:[date20170719150000 timeIntervalSince1970]],  // date_unix
                                 @"Кажет 11623"             // comment
                                 ],
                             @[ // маша - остаток
@@ -2154,6 +2334,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @7850.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150001, // date
+                                [NSNumber numberWithDouble:[date20170719150001 timeIntervalSince1970]],  // date_unix
                                 string20170719150001, // date
                                 [NSNumber numberWithDouble:[date20170719150001 timeIntervalSince1970]],  // date_unix
                                 @"Кажет -6337"             // comment
@@ -2168,6 +2350,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150002, // date
                                 [NSNumber numberWithDouble:[date20170719150002 timeIntervalSince1970]],  // date_unix
+                                string20170719150002, // date
+                                [NSNumber numberWithDouble:[date20170719150002 timeIntervalSince1970]],  // date_unix
                                 @"Кажет 7000"             // comment
                                 ],
                             @[ // Сбербанк - остаток
@@ -2178,6 +2362,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @2856.16,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150003, // date
+                                [NSNumber numberWithDouble:[date20170719150003 timeIntervalSince1970]],  // date_unix
                                 string20170719150003, // date
                                 [NSNumber numberWithDouble:[date20170719150003 timeIntervalSince1970]],  // date_unix
                                 @"Кажет 5844"             // comment
@@ -2192,6 +2378,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150004, // date
                                 [NSNumber numberWithDouble:[date20170719150004 timeIntervalSince1970]],  // date_unix
+                                string20170719150004, // date
+                                [NSNumber numberWithDouble:[date20170719150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // заначка Р - заначка $
@@ -2202,6 +2390,8 @@ void addTestOperations(){
                                 @5,             // source_currency_id = 1
                                 @63476.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150005, // date
+                                [NSNumber numberWithDouble:[date20170719150005 timeIntervalSince1970]],  // date_unix
                                 string20170719150005, // date
                                 [NSNumber numberWithDouble:[date20170719150005 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2216,6 +2406,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150006, // date
                                 [NSNumber numberWithDouble:[date20170719150006 timeIntervalSince1970]],  // date_unix
+                                string20170719150006, // date
+                                [NSNumber numberWithDouble:[date20170719150006 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - одежда
@@ -2226,6 +2418,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @699.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150007, // date
+                                [NSNumber numberWithDouble:[date20170719150007 timeIntervalSince1970]],  // date_unix
                                 string20170719150007, // date
                                 [NSNumber numberWithDouble:[date20170719150007 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2240,6 +2434,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150008, // date
                                 [NSNumber numberWithDouble:[date20170719150008 timeIntervalSince1970]],  // date_unix
+                                string20170719150008, // date
+                                [NSNumber numberWithDouble:[date20170719150008 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - одежда
@@ -2250,6 +2446,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @2197.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150009, // date
+                                [NSNumber numberWithDouble:[date20170719150009 timeIntervalSince1970]],  // date_unix
                                 string20170719150009, // date
                                 [NSNumber numberWithDouble:[date20170719150009 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2264,6 +2462,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150010, // date
                                 [NSNumber numberWithDouble:[date20170719150010 timeIntervalSince1970]],  // date_unix
+                                string20170719150010, // date
+                                [NSNumber numberWithDouble:[date20170719150010 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - одежда
@@ -2274,6 +2474,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @4439.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150011, // date
+                                [NSNumber numberWithDouble:[date20170719150011 timeIntervalSince1970]],  // date_unix
                                 string20170719150011, // date
                                 [NSNumber numberWithDouble:[date20170719150011 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2288,6 +2490,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150012, // date
                                 [NSNumber numberWithDouble:[date20170719150012 timeIntervalSince1970]],  // date_unix
+                                string20170719150012, // date
+                                [NSNumber numberWithDouble:[date20170719150012 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2298,6 +2502,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @47.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170719150013, // date
+                                [NSNumber numberWithDouble:[date20170719150013 timeIntervalSince1970]],  // date_unix
                                 string20170719150013, // date
                                 [NSNumber numberWithDouble:[date20170719150013 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2312,6 +2518,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170719150014, // date
                                 [NSNumber numberWithDouble:[date20170719150014 timeIntervalSince1970]],  // date_unix
+                                string20170719150014, // date
+                                [NSNumber numberWithDouble:[date20170719150014 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2322,6 +2530,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @497.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170720150000, // date
+                                [NSNumber numberWithDouble:[date20170720150000 timeIntervalSince1970]],  // date_unix
                                 string20170720150000, // date
                                 [NSNumber numberWithDouble:[date20170720150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2336,6 +2546,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170720150001, // date
                                 [NSNumber numberWithDouble:[date20170720150001 timeIntervalSince1970]],  // date_unix
+                                string20170720150001, // date
+                                [NSNumber numberWithDouble:[date20170720150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2346,6 +2558,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @1010.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170720150002, // date
+                                [NSNumber numberWithDouble:[date20170720150002 timeIntervalSince1970]],  // date_unix
                                 string20170720150002, // date
                                 [NSNumber numberWithDouble:[date20170720150002 timeIntervalSince1970]],  // date_unix
                                 @"Маникюр"             // comment
@@ -2360,6 +2574,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170720150003, // date
                                 [NSNumber numberWithDouble:[date20170720150003 timeIntervalSince1970]],  // date_unix
+                                string20170720150003, // date
+                                [NSNumber numberWithDouble:[date20170720150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ // ян - продукты
@@ -2370,6 +2586,8 @@ void addTestOperations(){
                                 @1,             // source_currency_id = 1
                                 @744.00,               // target_sum = 1500.00
                                 @1,           // target_currency_id = 1
+                                string20170720150004, // date
+                                [NSNumber numberWithDouble:[date20170720150004 timeIntervalSince1970]],  // date_unix
                                 string20170720150004, // date
                                 [NSNumber numberWithDouble:[date20170720150004 timeIntervalSince1970]],  // date_unix
                                 @"Билет на поезд до Смоленска"             // comment
@@ -2384,6 +2602,8 @@ void addTestOperations(){
                                 @1,           // target_currency_id = 1
                                 string20170720150005, // date
                                 [NSNumber numberWithDouble:[date20170720150005 timeIntervalSince1970]],  // date_unix
+                                string20170720150005, // date
+                                [NSNumber numberWithDouble:[date20170720150005 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2394,6 +2614,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @50.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170721150000, // date
+                                [NSNumber numberWithDouble:[date20170721150000 timeIntervalSince1970]],  // date_unix
                                 string20170721150000, // date
                                 [NSNumber numberWithDouble:[date20170721150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2408,6 +2630,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170721150001, // date
                                 [NSNumber numberWithDouble:[date20170721150001 timeIntervalSince1970]],  // date_unix
+                                string20170721150001, // date
+                                [NSNumber numberWithDouble:[date20170721150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2418,6 +2642,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @410.28,  // target_sum
                                 @1,         // target_currency_id
+                                string20170721150002, // date
+                                [NSNumber numberWithDouble:[date20170721150002 timeIntervalSince1970]],  // date_unix
                                 string20170721150002, // date
                                 [NSNumber numberWithDouble:[date20170721150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2432,6 +2658,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170721150003, // date
                                 [NSNumber numberWithDouble:[date20170721150003 timeIntervalSince1970]],  // date_unix
+                                string20170721150003, // date
+                                [NSNumber numberWithDouble:[date20170721150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2442,6 +2670,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @500.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170721150004, // date
+                                [NSNumber numberWithDouble:[date20170721150004 timeIntervalSince1970]],  // date_unix
                                 string20170721150004, // date
                                 [NSNumber numberWithDouble:[date20170721150004 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2456,6 +2686,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170721150005, // date
                                 [NSNumber numberWithDouble:[date20170721150005 timeIntervalSince1970]],  // date_unix
+                                string20170721150005, // date
+                                [NSNumber numberWithDouble:[date20170721150005 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2466,6 +2698,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @2266.49,  // target_sum
                                 @1,         // target_currency_id
+                                string20170721150006, // date
+                                [NSNumber numberWithDouble:[date20170721150006 timeIntervalSince1970]],  // date_unix
                                 string20170721150006, // date
                                 [NSNumber numberWithDouble:[date20170721150006 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2480,6 +2714,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170721150007, // date
                                 [NSNumber numberWithDouble:[date20170721150007 timeIntervalSince1970]],  // date_unix
+                                string20170721150007, // date
+                                [NSNumber numberWithDouble:[date20170721150007 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2490,6 +2726,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @96.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170721150008, // date
+                                [NSNumber numberWithDouble:[date20170721150008 timeIntervalSince1970]],  // date_unix
                                 string20170721150008, // date
                                 [NSNumber numberWithDouble:[date20170721150008 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2504,6 +2742,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170724150000, // date
                                 [NSNumber numberWithDouble:[date20170724150000 timeIntervalSince1970]],  // date_unix
+                                string20170724150000, // date
+                                [NSNumber numberWithDouble:[date20170724150000 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2514,6 +2754,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @3400.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170724150001, // date
+                                [NSNumber numberWithDouble:[date20170724150001 timeIntervalSince1970]],  // date_unix
                                 string20170724150001, // date
                                 [NSNumber numberWithDouble:[date20170724150001 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2528,6 +2770,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170724150002, // date
                                 [NSNumber numberWithDouble:[date20170724150002 timeIntervalSince1970]],  // date_unix
+                                string20170724150002, // date
+                                [NSNumber numberWithDouble:[date20170724150002 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
                                 ],
                             @[ //
@@ -2538,6 +2782,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @538.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170724150003, // date
+                                [NSNumber numberWithDouble:[date20170724150003 timeIntervalSince1970]],  // date_unix
                                 string20170724150003, // date
                                 [NSNumber numberWithDouble:[date20170724150003 timeIntervalSince1970]],  // date_unix
                                 @""             // comment
@@ -2552,6 +2798,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170725150000, // date
                                 [NSNumber numberWithDouble:[date20170725150000 timeIntervalSince1970]],  // date_unix
+                                string20170725150000, // date
+                                [NSNumber numberWithDouble:[date20170725150000 timeIntervalSince1970]],  // date_unix
                                 @"Продажа книг"             // comment
                                 ],
                             @[ //
@@ -2562,6 +2810,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @139.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170725150001, // date
+                                [NSNumber numberWithDouble:[date20170725150001 timeIntervalSince1970]],  // date_unix
                                 string20170725150001, // date
                                 [NSNumber numberWithDouble:[date20170725150001 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]             // comment
@@ -2576,6 +2826,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170725150002, // date
                                 [NSNumber numberWithDouble:[date20170725150002 timeIntervalSince1970]],  // date_unix
+                                string20170725150002, // date
+                                [NSNumber numberWithDouble:[date20170725150002 timeIntervalSince1970]],  // date_unix
                                 @"Продажа книг"             // comment
                                 ],
                             @[ //
@@ -2586,6 +2838,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @99.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170727150000, // date
+                                [NSNumber numberWithDouble:[date20170727150000 timeIntervalSince1970]],  // date_unix
                                 string20170727150000, // date
                                 [NSNumber numberWithDouble:[date20170727150000 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]
@@ -2600,6 +2854,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170727150001, // date
                                 [NSNumber numberWithDouble:[date20170727150001 timeIntervalSince1970]],  // date_unix
+                                string20170727150001, // date
+                                [NSNumber numberWithDouble:[date20170727150001 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]
                                 ],
                             @[ //
@@ -2610,6 +2866,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @24.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170727150002, // date
+                                [NSNumber numberWithDouble:[date20170727150002 timeIntervalSince1970]],  // date_unix
                                 string20170727150002, // date
                                 [NSNumber numberWithDouble:[date20170727150002 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]
@@ -2624,6 +2882,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170727150003, // date
                                 [NSNumber numberWithDouble:[date20170727150003 timeIntervalSince1970]],  // date_unix
+                                string20170727150003, // date
+                                [NSNumber numberWithDouble:[date20170727150003 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]
                                 ],
                             @[ //
@@ -2634,6 +2894,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @99.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170729150000, // date
+                                [NSNumber numberWithDouble:[date20170729150000 timeIntervalSince1970]],  // date_unix
                                 string20170729150000, // date
                                 [NSNumber numberWithDouble:[date20170729150000 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]
@@ -2648,6 +2910,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170729150001, // date
                                 [NSNumber numberWithDouble:[date20170729150001 timeIntervalSince1970]],  // date_unix
+                                string20170729150001, // date
+                                [NSNumber numberWithDouble:[date20170729150001 timeIntervalSince1970]],  // date_unix
                                 [NSNull null]
                                 ],
                             @[ //
@@ -2658,6 +2922,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @6064.74,  // target_sum
                                 @1,         // target_currency_id
+                                string20170729150002, // date
+                                [NSNumber numberWithDouble:[date20170729150002 timeIntervalSince1970]],  // date_unix
                                 string20170729150002, // date
                                 [NSNumber numberWithDouble:[date20170729150002 timeIntervalSince1970]],  // date_unix
                                 @"Оплата подписки как Apple Developer'a."
@@ -2672,6 +2938,8 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170729150003, // date
                                 [NSNumber numberWithDouble:[date20170729150003 timeIntervalSince1970]],  // date_unix
+                                string20170729150003, // date
+                                [NSNumber numberWithDouble:[date20170729150003 timeIntervalSince1970]],  // date_unix
                                 @""
                                 ],
                             @[ //
@@ -2682,6 +2950,8 @@ void addTestOperations(){
                                 @1,         // source_currency_id
                                 @600.00,  // target_sum
                                 @1,         // target_currency_id
+                                string20170730150000, // date
+                                [NSNumber numberWithDouble:[date20170730150000 timeIntervalSince1970]],  // date_unix
                                 string20170730150000, // date
                                 [NSNumber numberWithDouble:[date20170730150000 timeIntervalSince1970]],  // date_unix
                                 @""
@@ -2696,12 +2966,14 @@ void addTestOperations(){
                                 @1,         // target_currency_id
                                 string20170730150001, // date
                                 [NSNumber numberWithDouble:[date20170730150001 timeIntervalSince1970]],  // date_unix
+                                string20170730150001, // date
+                                [NSNumber numberWithDouble:[date20170730150001 timeIntervalSince1970]],  // date_unix
                                 @""
                                 ],
                             ];
     
-    NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, date, date_unix, comment) "
-    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, created, created_unix, modified, modified_unix, comment) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     [sqlite fillTable:@"operation" items:operations updateSQL:insertSQL];

@@ -15,7 +15,7 @@
 #import "YGTools.h"
 
 @interface YGTransferEditController () <UITextFieldDelegate> {
-    NSDate *_date;
+    NSDate *_created;
     YGEntity *_sourceAccount;
     YGCategory *_sourceCurrency;
     YGEntity *_targetAccount;
@@ -87,8 +87,8 @@
     if(self.isNewTransfer){
         
         // set date
-        _date = [NSDate date];
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        _created = [NSDate date];
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
 
         // try to get last transfer
         YGOperation *lastOperation = [_om lastOperationForType:YGOperationTypeTransfer];
@@ -136,7 +136,7 @@
         self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
         
         // init
-        _initDateValue = [_date copy];
+        _initDateValue = [_created copy];
         _initSourceAccountValue = nil;
         _initSourceSumValue = 0.0f;
         _initSourceCurrencyValue = nil;
@@ -162,8 +162,8 @@
     else{
         
         // set date
-        _date = self.transfer.date;
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_date];
+        _created = self.transfer.created;
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
         
         // set source account
         _sourceAccount = [_em entityById:self.transfer.sourceId type:YGEntityTypeAccount];
@@ -198,7 +198,7 @@
         self.textFieldComment.text = _comment;
         
         // init
-        _initDateValue = [_date copy];
+        _initDateValue = [_created copy];
         _initSourceAccountValue = [_sourceAccount copy];
         _initSourceSumValue = _sourceSum;
         _initSourceCurrencyValue = [_sourceCurrency copy];
@@ -285,11 +285,11 @@
     
     YGDateChoiceController *vc = unwindSegue.sourceViewController;
     
-    _date = vc.targetDate;
-    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:_date] color:[UIColor blackColor]];
+    _created = vc.targetDate;
+    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:_created] color:[UIColor blackColor]];
     
     // date changed?
-    if([YGTools isDayOfDate:_date equalsDayOfDate:_initDateValue])
+    if([YGTools isDayOfDate:_created equalsDayOfDate:_initDateValue])
         _isDateChanged = NO;
     else
         _isDateChanged = YES;
@@ -365,7 +365,7 @@
 }
 
 - (BOOL) isDataReadyForSave {
-    if(!_date)
+    if(!_created)
         return NO;
     if(!_sourceAccount)
         return NO;
@@ -492,7 +492,7 @@
     
     
     // init
-    _initDateValue = [_date copy];
+    _initDateValue = [_created copy];
     
     
     _initSourceAccountValue = [_sourceAccount copy];
@@ -527,17 +527,19 @@
     
     if(self.isNewTransfer){
         
-        YGOperation *transfer = [[YGOperation alloc] initWithType:YGOperationTypeTransfer
-                                                       sourceId:_sourceAccount.rowId
-                                                       targetId:_targetAccount.rowId
-                                                      sourceSum:_sourceSum
-                                               sourceCurrencyId:_sourceAccount.currencyId
-                                                      targetSum:_targetSum
-                                               targetCurrencyId:_targetAccount.currencyId
-                                                           date:_date
-                                                        comment:_comment];
+        YGOperation *transfer = [[YGOperation alloc]
+                                 initWithType:YGOperationTypeTransfer
+                                 sourceId:_sourceAccount.rowId
+                                 targetId:_targetAccount.rowId
+                                 sourceSum:_sourceSum
+                                 sourceCurrencyId:_sourceAccount.currencyId
+                                 targetSum:_targetSum
+                                 targetCurrencyId:_targetAccount.currencyId
+                                 created:_created
+                                 modified:[_created copy]
+                                 comment:_comment];
         
-                
+        
         NSInteger operationId = [_om addOperation:transfer];
         
         transfer.rowId = operationId;
@@ -549,7 +551,7 @@
     else{
         
         if(_isDateChanged)
-            self.transfer.date = _date;
+            self.transfer.created = _created;
         if(_isSourceAccountChanged){
             self.transfer.sourceId = _sourceAccount.rowId;
             self.transfer.sourceCurrencyId = _sourceCurrency.rowId;
@@ -566,6 +568,8 @@
         }
         if(_isCommentChanged)
             self.transfer.comment = [_comment copy];
+        
+        self.transfer.modified = [NSDate date];
         
         [_om updateOperation:[self.transfer copy]];
 
@@ -603,7 +607,7 @@
         
         YGDateChoiceController *vc = segue.destinationViewController;
         
-        vc.sourceDate = _date;
+        vc.sourceDate = _created;
         vc.customer = YGDateChoiceСustomerTransfer;
         
     }

@@ -66,7 +66,7 @@
         
         //@autoreleasepool {
         
-        NSDate *dayOfDate = [YGOperationSections dayOfDate:obj.date];
+        NSDate *dayOfDate = [YGOperationSections dayOfDate:obj.created];
         
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date = %@", dayOfDate];
         
