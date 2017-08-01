@@ -155,7 +155,7 @@
                               entity.comment ? entity.comment : [NSNull null], //comment,
                               nil];
         
-        NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         // db
         rowId = [_sqlite addRecord:entityArr insertSQL:insertSQL];
@@ -343,7 +343,7 @@
 }
 
 /**
- NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment  FROM entity WHERE entity_type_id = %ld AND active = %d ORDER BY sort ASC LIMIT 1;", type, YGBooleanValueYES];
+ NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id, entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment  FROM entity WHERE entity_type_id = %ld AND active = %d ORDER BY sort ASC LIMIT 1;", type, YGBooleanValueYES];
  */
 - (YGEntity *)entityOnTopForType:(YGEntityType)type {
     

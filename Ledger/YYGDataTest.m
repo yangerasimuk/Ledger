@@ -100,8 +100,8 @@ void addTestAccounts(){
                               ],
                           ];
     
-    NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment) "
-    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     [sqlite fillTable:@"entity" items:entities updateSQL:insertSQL];
     
@@ -123,7 +123,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @100,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -135,7 +134,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @100,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @11,
@@ -149,7 +147,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @101,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -161,7 +158,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @100,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @13,
@@ -175,7 +171,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @101,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @13,
                                 [NSNull null],
@@ -187,7 +182,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @102,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @13,
@@ -201,7 +195,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @102,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -213,7 +206,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @103,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -227,7 +219,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @100,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @18,
                                 [NSNull null],
@@ -239,7 +230,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]], // active_from
                                 [NSNull null], // active_to
                                 @101, // sort
-                                [NSNull null], // short_name
                                 [NSNull null],  // symbol
                                 @0, // attach
                                 @18, // parent_id
@@ -253,7 +243,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @104,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -265,7 +254,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @100,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @21,
@@ -279,7 +267,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @105,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -291,7 +278,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @106,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -305,7 +291,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @107,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -317,7 +302,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @100,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @25,
@@ -331,7 +315,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @101,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @25,
                                 [NSNull null],
@@ -343,7 +326,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @102,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @25,
@@ -357,7 +339,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @103,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @25,
                                 [NSNull null],
@@ -369,7 +350,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @104,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @25,
@@ -383,7 +363,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @105,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @25,
                                 [NSNull null],
@@ -395,7 +374,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @108,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -409,7 +387,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @100,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @32,
                                 [NSNull null],
@@ -421,7 +398,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @101,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @32,
@@ -435,7 +411,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @102,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @32,
                                 [NSNull null],
@@ -447,7 +422,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @109,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -461,7 +435,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @100,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @36,
                                 [NSNull null],
@@ -473,7 +446,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @101,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @36,
@@ -487,7 +459,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @102,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @36,
                                 [NSNull null],
@@ -499,7 +470,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @110,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -513,7 +483,6 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @100,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 @40,
                                 [NSNull null],
@@ -525,7 +494,6 @@ void addTestExpenseCategories(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @101,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 @40,
@@ -539,15 +507,14 @@ void addTestExpenseCategories(){
                                 [NSNull null],
                                 @111,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
                                 ],
                             ];
     
-    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, short_name, symbol, attach, parent_id, comment) "
-    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     [sqlite fillTable:@"category" items:сategories updateSQL:insertSQL];
@@ -566,7 +533,6 @@ void addTestIncomeSources(){
                                 [NSNull null],
                                 @100,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -578,7 +544,6 @@ void addTestIncomeSources(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @101,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -592,7 +557,6 @@ void addTestIncomeSources(){
                                 [NSNull null],
                                 @102,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -604,7 +568,6 @@ void addTestIncomeSources(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @103,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -618,7 +581,6 @@ void addTestIncomeSources(){
                                 [NSNull null],
                                 @104,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
@@ -630,7 +592,6 @@ void addTestIncomeSources(){
                                 [YGTools stringFromDate:[NSDate date]],
                                 [NSNull null],
                                 @105,
-                                [NSNull null],
                                 [NSNull null],
                                 @0,
                                 [NSNull null],
@@ -644,15 +605,14 @@ void addTestIncomeSources(){
                                 [NSNull null],
                                 @106,
                                 [NSNull null],
-                                [NSNull null],
                                 @0,
                                 [NSNull null],
                                 [NSNull null],
                                 ],
                             ];
     
-    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, short_name, symbol, attach, parent_id, comment) "
-    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     

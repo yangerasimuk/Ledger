@@ -287,8 +287,8 @@ void addCommonCurrencies(){
         
     }
     
-    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, short_name, symbol, attach, parent_id, comment) "
-    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     [sqlite fillTable:@"category" items:categories updateSQL:insertSQL];
 }
