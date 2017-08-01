@@ -27,3 +27,10 @@ NSString *const kDateTimeFormatOnlyTime = @"HH:mm";
 NSString *const kDateTimeFormatForBackupName = @"yyyy-MM-dd-HH-mm-ssZ";
 
 NSString *const kDateMinimum = @"2001-01-01 01:01:01 +0000";
+
+NSString *const kDatabaseMajorVersionKey = @"DatabaseMajorVersion";
+int kDatabaseMajorVersion = 1;
+
+NSString *const kDatabaseMinorVersionKey = @"DatabaseMinorVersion";
+int kDatabaseMinorVersion = 0;
+

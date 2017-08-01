@@ -53,7 +53,7 @@
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    self.navigationItem.title = @"Expense categories";
+    self.navigationItem.title = @"Expense category";
     
     
     if(self.isNewExpenseCategory){

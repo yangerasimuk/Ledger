@@ -56,6 +56,8 @@
 		1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519B1EDEF09D0031044D /* YGCategoryManager.m */; };
 		1330519F1EDF31A60031044D /* YGTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519E1EDF31A60031044D /* YGTools.m */; };
 		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
+		133A6E821F3117550069AB98 /* YYGDBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 133A6E811F3117550069AB98 /* YYGDBLog.m */; };
+		133A6E851F311D670069AB98 /* YYGDBConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 133A6E841F311D670069AB98 /* YYGDBConfig.m */; };
 		133C001C1F17748200D0CB0E /* YYGLedgerDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */; };
 		133C001F1F17748E00D0CB0E /* YYGLedgerError.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C001E1F17748E00D0CB0E /* YYGLedgerError.m */; };
 		133C00241F1777B400D0CB0E /* YYGFileSystemDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C00211F1777B400D0CB0E /* YYGFileSystemDefine.m */; };
@@ -202,6 +204,10 @@
 		1330519E1EDF31A60031044D /* YGTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTools.m; sourceTree = "<group>"; };
 		133051A91EE054740031044D /* YGCurrencyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyEditController.h; sourceTree = "<group>"; };
 		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
+		133A6E801F3117550069AB98 /* YYGDBLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDBLog.h; sourceTree = "<group>"; };
+		133A6E811F3117550069AB98 /* YYGDBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDBLog.m; sourceTree = "<group>"; };
+		133A6E831F311D670069AB98 /* YYGDBConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDBConfig.h; sourceTree = "<group>"; };
+		133A6E841F311D670069AB98 /* YYGDBConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDBConfig.m; sourceTree = "<group>"; };
 		133C001A1F17748200D0CB0E /* YYGLedgerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGLedgerDefine.h; sourceTree = "<group>"; };
 		133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGLedgerDefine.m; sourceTree = "<group>"; };
 		133C001D1F17748E00D0CB0E /* YYGLedgerError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGLedgerError.h; sourceTree = "<group>"; };
@@ -410,6 +416,10 @@
 				13CCF8791F16861E00EAB928 /* Config */,
 				133050F61EDAE29D0031044D /* AppDelegate.h */,
 				133050F71EDAE29D0031044D /* AppDelegate.m */,
+				133A6E801F3117550069AB98 /* YYGDBLog.h */,
+				133A6E811F3117550069AB98 /* YYGDBLog.m */,
+				133A6E831F311D670069AB98 /* YYGDBConfig.h */,
+				133A6E841F311D670069AB98 /* YYGDBConfig.m */,
 				1330519D1EDF31A60031044D /* YGTools.h */,
 				1330519E1EDF31A60031044D /* YGTools.m */,
 				133C001A1F17748200D0CB0E /* YYGLedgerDefine.h */,
@@ -764,6 +774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13CCF8761F16861400EAB928 /* YGFileSystem.m in Sources */,
+				133A6E851F311D670069AB98 /* YYGDBConfig.m in Sources */,
 				13CCF8751F16861400EAB928 /* YGSearchRuleHasPrefix.m in Sources */,
 				13CCF8731F16861400EAB928 /* YGSearchRuleNameMinLength.m in Sources */,
 				133C001C1F17748200D0CB0E /* YYGLedgerDefine.m in Sources */,
@@ -808,6 +819,7 @@
 				13CCF8771F16861400EAB928 /* YGSearchRule.m in Sources */,
 				135510E91F177096004F10DE /* YYGConfigError.m in Sources */,
 				13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */,
+				133A6E821F3117550069AB98 /* YYGDBLog.m in Sources */,
 				131E1E441EFC094400531F10 /* YGIncomeSourceChoiceController.m in Sources */,
 				1317BEF71F0F72A80039A224 /* YGStorage.m in Sources */,
 				131E1D9F1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m in Sources */,

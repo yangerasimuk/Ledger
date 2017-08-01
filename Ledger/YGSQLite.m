@@ -15,6 +15,7 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
+#import "YYGDBLog.h"
 
 // fill database with common and test or release data
 #import "YYGDataCommon.h"
@@ -56,12 +57,34 @@
 
 - (void)createTables {
     
-    // drop category
-    if([self isTableExist:@"category"])
-        [self dropTable:@"category"];
+    // create log
+    NSString *createSql = @"CREATE TABLE IF NOT EXISTS log "
+    "(log_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "created TEXT NOT NULL, "
+    "created_unix REAL NOT NULL, "
+    "message TEXT NOT NULL"
+    ");";
+    
+    [self createTable:@"log" createSQL:createSql];
+    
+    [YYGDBLog logEvent:@"Table log created"];
+    
+    
+    // create config
+    createSql = @"CREATE TABLE IF NOT EXISTS config "
+    "(config_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "key TEXT NOT NULL, "
+    "type TEXT NOT NULL, "
+    "value TEXT NOT NULL"
+    ");";
+    
+    [self createTable:@"config" createSQL:createSql];
+    
+    [YYGDBLog logEvent:@"Table config created"];
+    
     
     // create category
-    NSString *createSql = @"CREATE TABLE IF NOT EXISTS category "
+    createSql = @"CREATE TABLE IF NOT EXISTS category "
     "(category_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "category_type_id INTEGER NOT NULL, "
     "name TEXT NOT NULL, "
@@ -77,9 +100,7 @@
     
     [self createTable:@"category" createSQL:createSql];
     
-    // drop entity
-    if([self isTableExist:@"entity"])
-        [self dropTable:@"entity"];
+    [YYGDBLog logEvent:@"Table category created"];
     
     // create entity
     createSql = @"CREATE TABLE IF NOT EXISTS entity "
@@ -98,9 +119,7 @@
     
     [self createTable:@"entity" createSQL:createSql];
     
-    // drop operation
-    if([self isTableExist:@"operation"])
-        [self dropTable:@"operation"];
+    [YYGDBLog logEvent:@"Table entity created"];
     
     // create operation
     createSql = @"CREATE TABLE IF NOT EXISTS operation "
@@ -120,6 +139,8 @@
     ");";
     
     [self createTable:@"operation" createSQL:createSql];
+    
+    [YYGDBLog logEvent:@"Table operation created"];
 }
 
 
@@ -152,6 +173,7 @@
     
 #endif
     
+    [YYGDBLog logEvent:@"Database filled by data"];
     
 }
 
@@ -370,9 +392,7 @@
 }
 
 - (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery {
-    
-    NSLog(@"sqlQuery: %@", sqlQuery);
-    
+        
     NSMutableArray *result = [[NSMutableArray alloc] init];
 
     sqlite3 *db = [self database];
@@ -487,6 +507,10 @@
     
     sqlite3 *db = [self database];
     char *errorMsg;
+    
+    // drop category
+    if([self isTableExist:tableName])
+        [self dropTable:tableName];
 
     if (sqlite3_exec (db, [createSQL UTF8String],
                       NULL, NULL, &errorMsg) != SQLITE_OK) {

@@ -41,7 +41,7 @@
             self.navigationItem.title = @"Income sources";
             break;
         case YGCategoryTypeExpense:
-            self.navigationItem.title = @"Expense category";
+            self.navigationItem.title = @"Expense categories";
             break;
         case YGCategoryTypeCurrency:
             self.navigationItem.title = @"Currencies";

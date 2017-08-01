@@ -11,6 +11,8 @@
 #import "YGTools.h"
 #import <YGConfig.h>
 #import "YYGLedgerDefine.h"
+#import "YYGDBLog.h"
+#import "YYGDBConfig.h"
 
 @implementation YGDBManager
 
@@ -90,13 +92,18 @@
     [sqlite createTables];
     
     [sqlite fillDatabase];
+    
+    [YYGDBConfig setValue:@1 forKey:kDatabaseMajorVersionKey];
+    [YYGDBConfig setValue:@0 forKey:kDatabaseMinorVersionKey];
+    
+    NSLog(@"Version of database: %@.%@", [YYGDBConfig valueForKey:kDatabaseMajorVersionKey], [YYGDBConfig valueForKey:kDatabaseMinorVersionKey]);
 }
 
 - (NSString *)lastOperation {
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     
-    NSString *sqlQuery = @"SELECT date FROM operation ORDER BY date_unix DESC LIMIT 1;";
+    NSString *sqlQuery = @"SELECT modified FROM operation ORDER BY modified_unix DESC LIMIT 1;";
         
     NSArray *rawList = [sqlite selectWithSqlQuery:sqlQuery];
     

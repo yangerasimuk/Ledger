@@ -12,6 +12,7 @@
 #import "YGTools.h"
 #import <YGConfig.h>
 #import "YYGLedgerDefine.h"
+#import "YYGDBConfig.h"
 
 static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 

@@ -22,4 +22,10 @@ extern NSString *const kDateTimeFormatForBackupName;
 
 extern NSString *const kDateMinimum;
 
+extern NSString *const kDatabaseMajorVersionKey;
+extern int kDatabaseMajorVersion;
+
+extern NSString *const kDatabaseMinorVersionKey;
+extern int kDatabaseMinorVersion;
+
 
