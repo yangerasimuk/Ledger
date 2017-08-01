@@ -16,9 +16,6 @@
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
 
-#import "YYGSQLiteDouble.h"
-
-
 // fill database with common and test or release data
 #import "YYGDataCommon.h"
 
@@ -91,7 +88,7 @@
     "entity_type_id INTEGER NOT NULL, "
     "name TEXT NOT NULL, "
     "owner_id INTEGER, "
-    "sum NUMERIC, "
+    "sum REAL, "
     "currency_id INTEGER, "
     "active INTEGER NOT NULL, "
     "active_from TEXT NOT NULL, "
@@ -111,14 +108,14 @@
     createSql = @"CREATE TABLE IF NOT EXISTS operation "
     "(operation_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "operation_type_id INTEGER NOT NULL, "
-    "source_id INTEGER, "
-    "target_id INTEGER, "
-    "source_sum NUMERIC, "
-    "source_currency_id INTEGER, "
-    "target_sum NUMERIC, "
-    "target_currency_id INTEGER, "
-    "date TEXT ,"
-    "date_unix NUMERIC ,"
+    "source_id INTEGER NOT NULL, "
+    "target_id INTEGER NOT NULL, "
+    "source_sum REAL NOT NULL, "
+    "source_currency_id INTEGER NOT NULL, "
+    "target_sum REAL NOT NULL, "
+    "target_currency_id INTEGER NOT NULL, "
+    "date TEXT NOT NULL,"
+    "date_unix INTEGER ,"
     "comment TEXT"
     ");";
     
@@ -201,13 +198,26 @@
             id field = fieldsOfItem[i];
             
             if([field isKindOfClass:[NSNumber class]]){
-                if(sqlite3_bind_int(stmt, i+1, [field intValue]) != SQLITE_OK){
-                    NSLog(@"Can not bind int");
+                
+                if(strcmp([field objCType], @encode(double)) == 0){
+                    if(sqlite3_bind_double(stmt, i+1, [field doubleValue]) != SQLITE_OK){
+                        NSLog(@"Can not bind double");
+                    }
                 }
-            }
-            else if([field isKindOfClass:[YYGSQLiteDouble class]]){
-                if(sqlite3_bind_double(stmt, i+1, [field doubleValue]) != SQLITE_OK){
-                    NSLog(@"Can not bind text");
+                
+                else if((strcmp([field objCType], @encode(long)) == 0)
+                        || (strcmp([field objCType], @encode(int)) == 0)){
+                    if(sqlite3_bind_int(stmt, i+1, [field intValue]) != SQLITE_OK){
+                        NSLog(@"Can not bind int");
+                    }
+                }
+                else if(strcmp([field objCType], @encode(BOOL)) == 0){ // BOOL as int
+                    if(sqlite3_bind_int(stmt, i+1, [field intValue]) != SQLITE_OK){
+                        NSLog(@"Can not bind bool");
+                    }
+                }
+                else{
+                    @throw [NSException exceptionWithName:@"-[YGSQLite fillTable:items:updateSQL]" reason:@"Can not bind NSNumber object" userInfo:nil];
                 }
             }
             else if([field isKindOfClass:[NSString class]]){
@@ -359,7 +369,9 @@
     sqlite3_close(db);
 }
 
-- (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery bindClasses:(NSArray*)classes{
+- (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery {
+    
+    NSLog(@"sqlQuery: %@", sqlQuery);
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
 
@@ -373,26 +385,34 @@
             
             NSMutableArray *row = [[NSMutableArray alloc] init];
             
-            for(int i = 0; i < [classes count]; i++){
+            for(int i = 0; i < sqlite3_column_count(statement); i++){
                 
-                //NSLog(@"what is this: %@", classes[i]);
+                int columnType = sqlite3_column_type(statement, i);
                 
-                if([classes[i] isEqual:[NSNumber class]]){
+                if(columnType == 1){ //int
+                    
                     int intVal = sqlite3_column_int(statement, i);
                     [row addObject:[NSNumber numberWithInt:intVal]];
                 }
-                else if([classes[i] isEqual:[YYGSQLiteDouble class]]){
+                else if(columnType == 2){ // double
+                    
                     double doubleVal = sqlite3_column_double(statement, i);
-                    [row addObject:[YYGSQLiteDouble objectWithDouble:doubleVal]];
+                    [row addObject:[NSNumber numberWithDouble:doubleVal]];
                 }
-                else if([classes[i] isEqual:[NSString class]]){
+                else if(columnType == 3){ //text
+                    
                     const char *charValue = (char *)sqlite3_column_text(statement, i);
                     if(charValue != NULL)
                         [row addObject:[[NSString alloc] initWithUTF8String:charValue]];
                     else
                         [row addObject:[NSNull null]];
                 }
-                    
+                else if(columnType == 5){
+                    [row addObject:[NSNull null]];
+                }
+                else {
+                    @throw [NSException exceptionWithName:@"-[YGSQLite selectWithSqlQuery]" reason:@"Can not get value of selected type" userInfo:nil];
+                }
             }
             
             [result addObject:row];

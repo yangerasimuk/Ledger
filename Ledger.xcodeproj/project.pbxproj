@@ -56,7 +56,6 @@
 		1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519B1EDEF09D0031044D /* YGCategoryManager.m */; };
 		1330519F1EDF31A60031044D /* YGTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330519E1EDF31A60031044D /* YGTools.m */; };
 		133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051AA1EE054740031044D /* YGCurrencyEditController.m */; };
-		1335FE481F2A3F56000E4B86 /* YYGSQLiteDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FE471F2A3F55000E4B86 /* YYGSQLiteDouble.m */; };
 		133C001C1F17748200D0CB0E /* YYGLedgerDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */; };
 		133C001F1F17748E00D0CB0E /* YYGLedgerError.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C001E1F17748E00D0CB0E /* YYGLedgerError.m */; };
 		133C00241F1777B400D0CB0E /* YYGFileSystemDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C00211F1777B400D0CB0E /* YYGFileSystemDefine.m */; };
@@ -203,8 +202,6 @@
 		1330519E1EDF31A60031044D /* YGTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTools.m; sourceTree = "<group>"; };
 		133051A91EE054740031044D /* YGCurrencyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCurrencyEditController.h; sourceTree = "<group>"; };
 		133051AA1EE054740031044D /* YGCurrencyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyEditController.m; sourceTree = "<group>"; };
-		1335FE461F2A3F55000E4B86 /* YYGSQLiteDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGSQLiteDouble.h; sourceTree = "<group>"; };
-		1335FE471F2A3F55000E4B86 /* YYGSQLiteDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGSQLiteDouble.m; sourceTree = "<group>"; };
 		133C001A1F17748200D0CB0E /* YYGLedgerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGLedgerDefine.h; sourceTree = "<group>"; };
 		133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGLedgerDefine.m; sourceTree = "<group>"; };
 		133C001D1F17748E00D0CB0E /* YYGLedgerError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGLedgerError.h; sourceTree = "<group>"; };
@@ -543,8 +540,6 @@
 				13E0D3131F229E6800B0C578 /* Data */,
 				1330512C1EDAE60F0031044D /* YGSQLite.h */,
 				1330512D1EDAE60F0031044D /* YGSQLite.m */,
-				1335FE461F2A3F55000E4B86 /* YYGSQLiteDouble.h */,
-				1335FE471F2A3F55000E4B86 /* YYGSQLiteDouble.m */,
 				1317BEF51F0F72A80039A224 /* YGStorage.h */,
 				1317BEF61F0F72A80039A224 /* YGStorage.m */,
 				1317BEFB1F0F7BD10039A224 /* YGStorageLocal.h */,
@@ -809,7 +804,6 @@
 				13CCF8721F16861400EAB928 /* YGSearchRuleDirectoryContainsFileName.m in Sources */,
 				13279D551EEDA27B00BA46AF /* YGEntityManager.m in Sources */,
 				132379EA1F13D24E0051325F /* YGOperationExpenseCell.m in Sources */,
-				1335FE481F2A3F56000E4B86 /* YYGSQLiteDouble.m in Sources */,
 				13CCF8701F16861400EAB928 /* YGFileSystemEnumerator.m in Sources */,
 				13CCF8771F16861400EAB928 /* YGSearchRule.m in Sources */,
 				135510E91F177096004F10DE /* YYGConfigError.m in Sources */,

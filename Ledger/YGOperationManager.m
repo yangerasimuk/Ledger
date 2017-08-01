@@ -12,8 +12,6 @@
 #import "YGEntityManager.h"
 #import "YGConfig.h"
 
-#import "YYGSQLiteDouble.h"
-
 
 @interface YGOperationManager (){
     YGSQLite *_sqlite;
@@ -89,9 +87,9 @@
     NSNumber *operation_type_id = [NSNumber numberWithInteger:operation.type];
     NSNumber *source_id = [NSNumber numberWithInteger:operation.sourceId];
     NSNumber *target_id = [NSNumber numberWithInteger:operation.targetId];
-    YYGSQLiteDouble *source_sum = [YYGSQLiteDouble objectWithDouble:operation.sourceSum];
+    NSNumber *source_sum = [NSNumber numberWithDouble:operation.sourceSum];
     NSNumber *source_currency_id = [NSNumber numberWithInteger:operation.sourceCurrencyId];
-    YYGSQLiteDouble *target_sum = [YYGSQLiteDouble objectWithDouble:operation.targetSum];
+    NSNumber *target_sum = [NSNumber numberWithDouble:operation.targetSum];
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
     
     NSDate *timestamp = operation.date; //[NSDate date];
@@ -262,20 +260,7 @@
 
 - (NSArray <YGOperation *> *)operationsBySqlQuery:(NSString *)sqlQuery {
     
-    NSArray *classes = [NSArray arrayWithObjects:
-                        [NSNumber class],   // operation_id
-                        [NSNumber class],   // operation_type_id
-                        [NSNumber class],   // source_id
-                        [NSNumber class],   // target_id
-                        [YYGSQLiteDouble class],   // source_sum
-                        [NSNumber class],   // source_currency_id
-                        [YYGSQLiteDouble class],   // target_sum
-                        [NSNumber class],   // target_currency_id
-                        [NSString class],     // date
-                        [NSString class],   // comment
-                        nil];
-    
-    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
     NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
     
@@ -319,20 +304,7 @@
 
 - (YGOperation *)operationBySqlQuery:(NSString *)sqlQuery {
     
-    NSArray *classes = [NSArray arrayWithObjects:
-                        [NSNumber class],   // operation_id
-                        [NSNumber class],   // operation_type_id
-                        [NSNumber class],   // source_id
-                        [NSNumber class],   // target_id
-                        [YYGSQLiteDouble class],   // source_sum
-                        [NSNumber class],   // source_currency_id
-                        [YYGSQLiteDouble class],   // target_sum
-                        [NSNumber class],   // target_currency_id
-                        [NSString class],     // date
-                        [NSString class],   // comment
-                        nil];
-    
-    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
     NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
     

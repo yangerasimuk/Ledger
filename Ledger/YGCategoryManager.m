@@ -65,22 +65,7 @@
     
     NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, short_name, symbol, attach, parent_id, comment  FROM category ORDER BY active DESC, sort ASC;";
     
-    NSArray *classes = [NSArray arrayWithObjects:
-                        [NSNumber class], // category_id
-                        [NSNumber class], // category_type_id
-                        [NSString class], // name
-                        [NSNumber class], // active
-                        [NSString class], // active_from
-                        [NSString class], // active_to
-                        [NSNumber class], // sort
-                        [NSString class], // short_name
-                        [NSString class], // symbol
-                        [NSNumber class], // attach
-                        [NSNumber class], // parent_id
-                        [NSString class], // comment
-                        nil];
-    
-    NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery];
     
     NSMutableArray <YGCategory *> *result = [[NSMutableArray alloc] init];
     
@@ -96,7 +81,7 @@
         NSString *shortName = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
         NSString *symbol = [arr[8] isEqual:[NSNull null]] ? nil : arr[8];
         BOOL attach = [arr[9] boolValue];
-        NSInteger parentId = arr[10] > 0 ? [arr[10] integerValue] : -1;
+        NSInteger parentId = [arr[10] isEqual:[NSNull null]] ? -1 : [arr[10] integerValue];
         NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
         
         YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort shortName:shortName symbol:symbol attach:attach parentId:parentId comment:comment];
@@ -255,9 +240,8 @@
     
     // search all categories for the current type
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id = %ld;", category.type];
-    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
     
-    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
     if([categories count] == 1)
         return YES;
@@ -283,18 +267,16 @@
         
         // search currency in operations
         NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE source_currency_id = %ld OR target_currency_id = %ld LIMIT 1;", category.rowId, category.rowId];
-        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
-        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
         if([categories count] > 0)
             return YES;
         
         // in entities
         sqlQuery = [NSString stringWithFormat:@"SELECT entity_id FROM entity WHERE currency_id = %ld LIMIT 1;", category.rowId];
-        classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
-        categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
         if([categories count] > 0)
             return YES;
@@ -303,9 +285,8 @@
         
         // search in operations
         NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND source_id = %ld LIMIT 1;", YGOperationTypeIncome, category.rowId];
-        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
-        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
         if([categories count] > 0)
             return YES;
@@ -314,9 +295,8 @@
         
         // search in operations
         NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGOperationTypeExpense, category.rowId];
-        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
         
-        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
         if([categories count] > 0)
             return YES;
@@ -333,8 +313,8 @@
     
     // search child for category
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld LIMIT 1;", category.rowId];
-    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
-    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
     if([categories count] > 0)
         return YES;
@@ -345,8 +325,8 @@
 - (BOOL)hasChildObjectActiveForCategory:(YGCategory *)category {
     
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld AND active=%d LIMIT 1;", category.rowId, YGBooleanValueYES];
-    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
-    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
     if([categories count] > 0)
         return YES;
@@ -362,9 +342,8 @@
     
     // search currency in operations
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id=%ld AND active=%d AND category_id<>%ld LIMIT 1;", category.type,  YGBooleanValueYES, category.rowId];
-    NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
     
-    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
     if([categories count] > 0)
         return YES;
@@ -609,22 +588,7 @@
 
     NSMutableArray <YGCategory *> *result = [[NSMutableArray alloc] init];
     
-    NSArray *classes = [NSArray arrayWithObjects:
-                        [NSNumber class], // category_id
-                        [NSNumber class], // category_type_id
-                        [NSString class], // name
-                        [NSNumber class], // active
-                        [NSString class], // active_from
-                        [NSString class], // active_to
-                        [NSNumber class], // sort
-                        [NSString class], // short_name
-                        [NSString class], // symbol
-                        [NSNumber class], // attach
-                        [NSNumber class], // parent_id
-                        [NSString class], // comment
-                        nil];
-    
-    NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery];
     
     for(NSArray *arr in rawCategories){
         

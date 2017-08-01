@@ -11,8 +11,6 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 
-#import "YYGSQLiteDouble.h"
-
 @interface YGEntityManager (){
     YGSQLite *_sqlite;
 }
@@ -62,24 +60,9 @@
 
 - (NSArray <YGEntity *> *)entitiesFromDb {
     
-    NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, owner_id, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity ORDER BY active DESC, sort ASC;";
+    NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity ORDER BY active DESC, sort ASC;";
     
-    NSArray *classes = [NSArray arrayWithObjects:
-                        [NSNumber class],   // entity_id
-                        [NSNumber class],   // entity_type_id
-                        [NSString class],   // name
-                        [NSNumber class],   // owner_id
-                        [YYGSQLiteDouble class],   // sum
-                        [NSNumber class],   // currency_id
-                        [NSNumber class],   // active
-                        [NSString class],   // active_from
-                        [NSString class],   // active_to
-                        [NSNumber class],   // attach
-                        [NSNumber class],   // sort
-                        [NSString class],   // comment
-                        nil];
-    
-    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
     NSMutableArray <YGEntity *> *result = [[NSMutableArray alloc] init];
     
@@ -88,17 +71,16 @@
         NSInteger rowId = [arr[0] integerValue];
         YGEntityType type = [arr[1] integerValue];
         NSString *name = [arr[2] isEqual:[NSNull null]] ? nil : arr[2];
-        NSInteger ownerId = [arr[3] integerValue];
-        double sum = [arr[4] doubleValue];
-        NSInteger currencyId = [arr[5] integerValue];
-        BOOL active = [arr[6] boolValue];
-        NSDate *activeFrom = [arr[7] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[7]];
-        NSDate *activeTo = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
-        BOOL attach = [arr[9] boolValue];
-        NSInteger sort = [arr[10] integerValue];
-        NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
+        double sum = [arr[3] doubleValue];
+        NSInteger currencyId = [arr[4] integerValue];
+        BOOL active = [arr[5] boolValue];
+        NSDate *activeFrom = [arr[6] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[6]];
+        NSDate *activeTo = [arr[7] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[7]];
+        BOOL attach = [arr[8] boolValue];
+        NSInteger sort = [arr[9] integerValue];
+        NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
         
-        YGEntity *entity = [[YGEntity alloc] initWithRowId:rowId type:type name:name ownerId:ownerId  sum:sum currencyId:currencyId active:active activeFrom:activeFrom activeTo:activeTo attach:attach sort:sort comment:comment];
+        YGEntity *entity = [[YGEntity alloc] initWithRowId:rowId type:type name:name sum:sum currencyId:currencyId active:active activeFrom:activeFrom activeTo:activeTo attach:attach sort:sort comment:comment];
         
         [result addObject:entity];
     }
@@ -162,8 +144,7 @@
         NSArray *entityArr = [NSArray arrayWithObjects:
                               [NSNumber numberWithInteger:entity.type], // entity_type_id
                               entity.name ? entity.name : [NSNull null], // name
-                              entity.ownerId != -1 ? [NSNumber numberWithInteger:entity.ownerId] : [NSNull null], // owner_id
-                              [YYGSQLiteDouble objectWithDouble:entity.sum],
+                              [NSNumber numberWithDouble:entity.sum],
                               //[NSNumber numberWithDouble:entity.sum], // sum
                               [NSNumber numberWithInteger:entity.currencyId], //currencyId
                               [NSNumber numberWithBool:entity.isActive], // active
@@ -224,10 +205,9 @@
  */
 - (void)updateEntity:(YGEntity *)entity{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, owner_id=%@, sum=%@, currency_id=%@, active=%@, active_from=%@, active_to=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, sum=%@, currency_id=%@, active=%@, active_from=%@, active_to=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
                            [YGTools sqlStringForIntOrNull:entity.type],
                            [YGTools sqlStringForStringOrNull:entity.name],
-                           [YGTools sqlStringForIntOrNull:entity.ownerId],
                             [YGTools sqlStringForDecimal:entity.sum],
                            [YGTools sqlStringForIntOrNull:entity.currencyId],
                            [YGTools sqlStringForBool:entity.isActive],
@@ -506,9 +486,7 @@
                                (long)YGOperationTypeIncome, (long)YGOperationTypeAccountActual, (long)YGOperationTypeTransfer, (long)YGOperationTypeGetCredit, (long)YGOperationTypeReturnDebt, (long)entity.rowId
                                ];
         
-        NSArray *classes = [NSArray arrayWithObjects:[NSNumber class], nil];
-        
-        NSArray *categories = [_sqlite selectWithSqlQuery:selectSql bindClasses:classes];
+        NSArray *categories = [_sqlite selectWithSqlQuery:selectSql];
         
         if([categories count] > 0)
             return YES;

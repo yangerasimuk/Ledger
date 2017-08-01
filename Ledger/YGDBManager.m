@@ -97,10 +97,8 @@
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     
     NSString *sqlQuery = @"SELECT date FROM operation ORDER BY date_unix DESC LIMIT 1;";
-    
-    NSArray *classes = [NSArray arrayWithObjects:[NSString class], nil];
-    
-    NSArray *rawList = [sqlite selectWithSqlQuery:sqlQuery bindClasses:classes];
+        
+    NSArray *rawList = [sqlite selectWithSqlQuery:sqlQuery];
     
     NSArray *operation = [rawList firstObject];
     

@@ -22,7 +22,6 @@ NSString * NSStringFromEntityType(YGEntityType type);
 @property NSInteger rowId;
 @property YGEntityType type;
 @property NSString *name;
-@property NSInteger ownerId;
 @property double sum;
 @property NSInteger currencyId;
 @property (getter=isActive) BOOL active;
@@ -32,7 +31,7 @@ NSString * NSStringFromEntityType(YGEntityType type);
 @property NSInteger sort;
 @property NSString *comment;
 
--(instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name ownerId:(NSInteger)ownerId sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
+-(instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
 
 -(instancetype)initWithType:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
 
