@@ -414,14 +414,12 @@
 				132379DE1F136E8C0051325F /* Controllers */,
 				13CCF8511F16854600EAB928 /* FileSystem */,
 				13CCF8791F16861E00EAB928 /* Config */,
-				133050F61EDAE29D0031044D /* AppDelegate.h */,
-				133050F71EDAE29D0031044D /* AppDelegate.m */,
-				133A6E801F3117550069AB98 /* YYGDBLog.h */,
-				133A6E811F3117550069AB98 /* YYGDBLog.m */,
-				133A6E831F311D670069AB98 /* YYGDBConfig.h */,
-				133A6E841F311D670069AB98 /* YYGDBConfig.m */,
+				132EB8581F31A6990046703E /* DBConfig */,
+				132EB8591F31A6A50046703E /* DBLog */,
 				1330519D1EDF31A60031044D /* YGTools.h */,
 				1330519E1EDF31A60031044D /* YGTools.m */,
+				133050F71EDAE29D0031044D /* AppDelegate.m */,
+				133050F61EDAE29D0031044D /* AppDelegate.h */,
 				133C001A1F17748200D0CB0E /* YYGLedgerDefine.h */,
 				133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */,
 				133C001D1F17748E00D0CB0E /* YYGLedgerError.h */,
@@ -437,6 +435,8 @@
 				132379FB1F14175E0051325F /* YGOperationSectionHeader.m */,
 				132379DF1F136F150051325F /* YGOperationOneRowCell.h */,
 				132379E01F136F150051325F /* YGOperationOneRowCell.m */,
+				132379E21F1383420051325F /* YGOperationTwoRowCell.h */,
+				132379E31F1383420051325F /* YGOperationTwoRowCell.m */,
 				132379EB1F13DFEE0051325F /* YGOperationIncomeCell.h */,
 				132379EC1F13DFEE0051325F /* YGOperationIncomeCell.m */,
 				132379EE1F13E0000051325F /* YGOperationAccountActualCell.h */,
@@ -445,10 +445,26 @@
 				132379F21F13E01C0051325F /* YGOperationTransferCell.m */,
 				132379E81F13D24E0051325F /* YGOperationExpenseCell.h */,
 				132379E91F13D24E0051325F /* YGOperationExpenseCell.m */,
-				132379E21F1383420051325F /* YGOperationTwoRowCell.h */,
-				132379E31F1383420051325F /* YGOperationTwoRowCell.m */,
 			);
 			name = "Header & cells";
+			sourceTree = "<group>";
+		};
+		132EB8581F31A6990046703E /* DBConfig */ = {
+			isa = PBXGroup;
+			children = (
+				133A6E831F311D670069AB98 /* YYGDBConfig.h */,
+				133A6E841F311D670069AB98 /* YYGDBConfig.m */,
+			);
+			name = DBConfig;
+			sourceTree = "<group>";
+		};
+		132EB8591F31A6A50046703E /* DBLog */ = {
+			isa = PBXGroup;
+			children = (
+				133A6E801F3117550069AB98 /* YYGDBLog.h */,
+				133A6E811F3117550069AB98 /* YYGDBLog.m */,
+			);
+			name = DBLog;
 			sourceTree = "<group>";
 		};
 		133050E71EDAE29D0031044D = {

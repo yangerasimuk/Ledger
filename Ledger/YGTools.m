@@ -381,7 +381,7 @@
         defaultSize = 20;
     }
     else if(deviceScreenHeight == 414){
-        defaultSize = 22;
+        defaultSize = 21;
     }
     
     return defaultSize;
@@ -422,17 +422,25 @@
             return 26;
             break;
         case 375:
-            return 30;
+            return 28;
             break;
         case 414:
-            return 40;
+            return 30;
             break;
             
         default:
-            return 40;
+            return 27;
             break;
     }
+}
+
++ (NSString *)stringContainString:(NSString *)string lengthMax:(NSInteger)lengthMax {
     
+    if([string length] <= lengthMax)
+        return string;
+    else{
+        return [NSString stringWithFormat:@"%@...", [string substringToIndex:lengthMax]];
+    }
 }
 
 /*

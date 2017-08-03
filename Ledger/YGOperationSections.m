@@ -153,43 +153,58 @@
         
         row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];
         
-        YGCategory *expenseCateogry = [_cm categoryById:row.operation.targetId type:YGCategoryTypeExpense];
+        // crutch
+        NSInteger lengthMax = [YGTools lengthCharachtersForTableView] - [row.sourceSum length];
         
-        row.target = expenseCateogry.name;
+        YGCategory *expenseCategory = [_cm categoryById:row.operation.targetId type:YGCategoryTypeExpense];
+        
+        row.target = [YGTools stringContainString:expenseCategory.name lengthMax:lengthMax];
 
     }
     else if(row.operation.type == YGOperationTypeIncome){
         
-        YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId type:YGCategoryTypeIncome];
-        row.source = incomeSource.name;
-        
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:@"+ %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
-                          
+        
+        
+        // crutch
+        NSInteger lengthMax = [YGTools lengthCharachtersForTableView] - [row.targetSum length];
+        
+        YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId type:YGCategoryTypeIncome];
+        row.source = [YGTools stringContainString:incomeSource.name lengthMax:lengthMax];
     }
     else if(row.operation.type == YGOperationTypeAccountActual){
         
-        YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
-        
-        row.target = targetAccount.name;
-
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:@"= %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
         
+        // crutch
+        NSInteger lengthMax = [YGTools lengthCharachtersForTableView] - [row.targetSum length];
+        
+        YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
+        row.target = [YGTools stringContainString:targetAccount.name lengthMax:lengthMax];
     }
     else if(row.operation.type == YGOperationTypeTransfer){
         
-        YGEntity *sourceAccount = [_em entityById:row.operation.sourceId type:YGEntityTypeAccount];
-        row.source = sourceAccount.name;
-
         YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId type:YGCategoryTypeCurrency];
         row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];;
         
-        YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
-        row.target = targetAccount.name;
+        // crutch
+        NSInteger lengthMaxSource = [YGTools lengthCharachtersForTableView] - [row.sourceSum length] + 1;
+        
+        YGEntity *sourceAccount = [_em entityById:row.operation.sourceId type:YGEntityTypeAccount];
+        row.source = [YGTools stringContainString:sourceAccount.name lengthMax:lengthMaxSource];
 
+        //
+        
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:@"+ %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
+        
+        // crutch
+        NSInteger lengthMaxTarget = [YGTools lengthCharachtersForTableView] - [row.targetSum length] + 1;
+        
+        YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
+        row.target = [YGTools stringContainString:targetAccount.name lengthMax:lengthMaxTarget];
     }
 }
 

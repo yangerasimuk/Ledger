@@ -11,6 +11,13 @@
 #import "YGTools.h"
 
 @interface YGCurrencyEditController () <UITextFieldDelegate> {
+    
+    NSString *p_name;
+    NSString *p_symbol;
+    NSInteger p_sort;
+    NSString *p_comment;
+    BOOL p_isDefault;
+    
     BOOL _isNameChanged;
     BOOL _isSymbolChanged;
     BOOL _isSortChanged;
@@ -19,12 +26,16 @@
     
     NSString *_initNameValue;
     NSString *_initSymbolValue;
-    NSString *_initSortValue;
+    NSInteger _initSortValue;
     BOOL _initDefaultValue;
     NSString *_initCommentValue;
     
     YGCategoryManager *p_manager;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelSymbol;
+@property (weak, nonatomic) IBOutlet UILabel *labelSort;
 
 @property (weak, nonatomic) IBOutlet UITextField *currencyName;
 @property (weak, nonatomic) IBOutlet UITextField *currencySymbol;
@@ -61,24 +72,42 @@
     if(self.isNewCurrency){
 
         self.currency = nil;
+        p_name = nil;
+        p_sort = 100;
         self.currencySort.text = @"100";
+        p_isDefault = NO;
         self.currencyIsDefault.on = NO;
+        p_comment = nil;
         
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = @"Deactivate";
 
         self.buttonDelete.enabled = NO;
+        
+        self.labelName.textColor = [UIColor redColor];
+        self.labelSymbol.textColor = [UIColor redColor];
     }
     else{
 
         self.currencyName.text = self.currency.name;
+        p_name = self.currency.name;
+        
         self.currencySymbol.text = self.currency.symbol;
+        p_symbol = self.currency.symbol;
+        
         self.currencySort.text = [NSString stringWithFormat:@"%ld", self.currency.sort];
-        self.currencyComment.text = self.currency.comment;
+        p_sort = self.currency.sort;
+        
         self.currencyIsDefault.on = self.currency.isAttach;
+        p_isDefault = self.currency.isAttach;
+        
+        self.currencyComment.text = self.currency.comment;
+        p_comment = self.currency.comment;
         
         self.buttonActivate.enabled = YES;
-        if(_currency.active){
+        self.buttonDelete.enabled = YES;
+        
+        if(self.currency.active){
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
@@ -86,39 +115,37 @@
             [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
-        
-        self.buttonDelete.enabled = YES;
-        self.buttonDelete.backgroundColor = [YGTools colorForActionDelete];
     }
     
-    _isSortChanged = NO;
     _isNameChanged = NO;
     _isSymbolChanged = NO;
-    _isCommentChanged = NO;
+    _isSortChanged = NO;
     _isDefaultChanged = NO;
+    _isCommentChanged = NO;
     
-    _initSortValue = self.currencySort.text;
-    _initNameValue = self.currencyName.text;
-    _initSymbolValue = self.currencySymbol.text;
-    _initCommentValue = self.currencyComment.text;
-    _initDefaultValue = self.currencyIsDefault.isOn;
-
+    _initNameValue = p_name;
+    _initSymbolValue = p_symbol;
+    _initSortValue = p_sort;
+    _initDefaultValue = p_isDefault;
+    _initCommentValue = p_comment;
+    
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-    
     self.currencyName.delegate = self;
     self.currencySymbol.delegate = self;
     self.currencySort.delegate = self;
     self.currencyComment.delegate = self;
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - UITextFieldDelegate
 
@@ -140,12 +167,17 @@
 
 - (IBAction)textNameChanged:(id)sender{
     
-    NSString *newName = self.currencyName.text;
+    p_name = self.currencyName.text;
     
-    if([_initNameValue isEqualToString:newName])
+    if([_initNameValue isEqualToString:p_name])
         _isNameChanged = NO;
     else
         _isNameChanged = YES;
+    
+    if([self.currencyName.text isEqualToString:@""])
+        self.labelName.textColor = [UIColor redColor];
+    else
+        self.labelName.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
     
@@ -153,34 +185,44 @@
 
 - (IBAction)textSymbolChanged:(id)sender{
     
-    NSString *newSymbol = self.currencySymbol.text;
+    p_symbol = self.currencySymbol.text;
     
-    if([_initSymbolValue isEqualToString:newSymbol])
+    if([_initSymbolValue isEqualToString:p_symbol])
         _isSymbolChanged = NO;
     else
         _isSymbolChanged = YES;
+    
+    if([self.currencySymbol.text isEqualToString:@""])
+        self.labelSymbol.textColor = [UIColor redColor];
+    else
+        self.labelSymbol.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
     
 }
 - (IBAction)textSortChanged:(id)sender{
     
-    NSString *newSort = self.currencySort.text;
+    p_sort = [self.currencySort.text integerValue];
     
-    if([_initSortValue isEqualToString:newSort])
+    if(_initSortValue == p_sort)
         _isSortChanged = NO;
     else
         _isSortChanged = YES;
     
-    [self changeSaveButtonEnable];
+    if([self.currencySort.text isEqualToString:@""])
+        self.labelSort.textColor = [UIColor redColor];
+    else
+        self.labelSort.textColor = [UIColor blackColor];
     
+    [self changeSaveButtonEnable];
 }
 
 
 - (IBAction)textCommentChanged:(id)sender {
-    NSString *newComment = self.currencyComment.text;
     
-    if([_initCommentValue isEqualToString:newComment])
+    p_comment = self.currencyComment.text;
+    
+    if([_initCommentValue isEqualToString:p_comment])
         _isCommentChanged = NO;
     else
         _isCommentChanged = YES;
@@ -190,9 +232,9 @@
 
 - (IBAction)sliderDefaultChanged:(id)sender {
     
-    BOOL newValue = self.currencyIsDefault.isOn;
+    p_isDefault = self.currencyIsDefault.isOn;
     
-    if(_initDefaultValue == newValue)
+    if(_initDefaultValue == p_isDefault)
         _isDefaultChanged = NO;
     else
         _isDefaultChanged = YES;
@@ -215,28 +257,33 @@
     return NO;
 }
 
+
+- (BOOL) isDataReadyForSave {
+    if(!p_name || [p_name isEqualToString:@""])
+        return NO;
+    if(!p_symbol || [p_symbol isEqualToString:@""])
+        return NO;
+    if(p_sort < 1 || p_sort > 999)
+        return NO;
+    
+    return YES;
+}
+
+
 #pragma mark - Change save button enable
 
 - (void) changeSaveButtonEnable{
     
-    if(!self.isNewCurrency){
-        if([self isEditControlsChanged]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+    if([self isEditControlsChanged] && [self isDataReadyForSave]){
+        
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     else{
         
-        if([self isEditControlsChanged]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }
 }
+
 
 #pragma mark - Save, activate/deactivate and delete actions
 

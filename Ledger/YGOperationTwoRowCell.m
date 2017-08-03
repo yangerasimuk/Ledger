@@ -54,31 +54,31 @@
         
         
         // First row text
-        self.labelFirstRowText = [[UILabel alloc] initWithFrame:[self rectFirstRowTextLabel]];
+        self.labelFirstRowText = [[UILabel alloc] initWithFrame:[self rectFirstRowLabel]];
         self.labelFirstRowText.textAlignment = NSTextAlignmentLeft;
-        self.labelFirstRowText.backgroundColor = [UIColor whiteColor];
+        self.labelFirstRowText.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:self.labelFirstRowText];
         
         
         // First row detail text
-        self.labelFirstRowDetailText = [[UILabel alloc] initWithFrame:[self rectFirstRowDetailTextLabel]];
+        self.labelFirstRowDetailText = [[UILabel alloc] initWithFrame:[self rectFirstRowLabel]];
         self.labelFirstRowDetailText.textAlignment = NSTextAlignmentRight;
-        self.labelFirstRowDetailText.backgroundColor = [UIColor whiteColor];
-
+        self.labelFirstRowText.backgroundColor = [UIColor clearColor];
+        
         [self.contentView addSubview:self.labelFirstRowDetailText];
         
         // Second row text
-        self.labelSecondRowText = [[UILabel alloc] initWithFrame:[self rectSecondRowTextLabel]];
+        self.labelSecondRowText = [[UILabel alloc] initWithFrame:[self rectSecondRowLabel]];
         self.labelSecondRowText.textAlignment = NSTextAlignmentLeft;
-        self.labelSecondRowText.backgroundColor = [UIColor whiteColor];
+        self.labelFirstRowText.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:self.labelSecondRowText];
         
         // Second row detail text
-        self.labelSecondRowDetailText = [[UILabel alloc] initWithFrame:[self rectSecondRowDetailTextLabel]];
+        self.labelSecondRowDetailText = [[UILabel alloc] initWithFrame:[self rectSecondRowLabel]];
         self.labelSecondRowDetailText.textAlignment = NSTextAlignmentRight;
-        self.labelSecondRowDetailText.backgroundColor = [UIColor whiteColor];
+        self.labelFirstRowText.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:self.labelSecondRowDetailText];
          
@@ -86,86 +86,54 @@
     return self;
 }
 
-- (CGRect)rectFirstRowTextLabel {
+/**
+ Use the same rectangle for leftText and rightDetailText labels.
+ 
+ */
+- (CGRect)rectFirstRowLabel {
     
-    static CGRect rectFirstRowTextLabel;
+    static CGRect rectFirstRowLabel;
     
-    if(rectFirstRowTextLabel.size.width == 0){
+    if(rectFirstRowLabel.size.width == 0){
         
         switch(_width){
             case 320:
-                rectFirstRowTextLabel = CGRectMake(16, 4, 160, 36); // x + width = 160 - 10
+                rectFirstRowLabel = CGRectMake(16, 4, 288, 36); // (16, 4, 160, 36) - (180, 4, 125, 36)
                 break;
             case 375:
-                rectFirstRowTextLabel = CGRectMake(16, 4, 187, 40); // x + width = 187
+                rectFirstRowLabel = CGRectMake(16, 4, 343, 40); // (16, 4, 187, 40) - (210, 6, 150, 40)
                 break;
             case 414:
-                rectFirstRowTextLabel = CGRectMake(20, 6, 207, 42); // x + width = 207
+                rectFirstRowLabel = CGRectMake(20, 6, 374, 42); // (20, 6, 207, 42) - (230, 4, 165, 42)
                 break;
         }
     }
-    return rectFirstRowTextLabel;
+    
+    return rectFirstRowLabel;
 }
 
-- (CGRect)rectFirstRowDetailTextLabel {
+
+- (CGRect)rectSecondRowLabel {
     
-    static CGRect rectFirstRowDetailTextLabel;
+    static CGRect rectSecondRowLabel;
     
-    if(rectFirstRowDetailTextLabel.size.width == 0){
+    if(rectSecondRowLabel.size.width == 0){
         switch(_width){
             case 320:
-                rectFirstRowDetailTextLabel = CGRectMake(180, 4, 125, 36); // x + width = 320
+                rectSecondRowLabel = CGRectMake(16, 40, 288, 36); // x + width = 160
                 break;
             case 375:
-                rectFirstRowDetailTextLabel = CGRectMake(210, 6, 150, 40); // x + width = 375
+                rectSecondRowLabel = CGRectMake(16, 42, 343, 40); // x + width = 187
                 break;
             case 414:
-                rectFirstRowDetailTextLabel = CGRectMake(230, 4, 165, 42);  // x +
+                rectSecondRowLabel = CGRectMake(20, 48, 374, 42); // x + width = 207
                 break;
         }
     }
-    return rectFirstRowDetailTextLabel;
+    
+    return rectSecondRowLabel;
 }
 
-- (CGRect)rectSecondRowTextLabel {
-    
-    static CGRect rectSecondRowTextLabel;
-    
-    if(rectSecondRowTextLabel.size.width == 0){
-        switch(_width){
-            case 320:
-                rectSecondRowTextLabel = CGRectMake(16, 40, 160, 36); // x + width = 160
-                break;
-            case 375:
-                rectSecondRowTextLabel = CGRectMake(16, 42, 187, 40); // x + width = 187
-                break;
-            case 414:
-                rectSecondRowTextLabel = CGRectMake(20, 48, 207, 42); // x + width = 207
-                break;
-        }
-    }
-    return rectSecondRowTextLabel;
-}
-
-- (CGRect)rectSecondRowDetailTextLabel {
-    
-    static CGRect rectSecondRowDetailTextLabel;
-    
-    if(rectSecondRowDetailTextLabel.size.width == 0){
-        switch(_width){
-            case 320:
-                rectSecondRowDetailTextLabel = CGRectMake(180, 40, 125, 36); // x + width = 320
-                break;
-            case 375:
-                rectSecondRowDetailTextLabel = CGRectMake(210, 42, 150, 40); // x + width = 375
-                break;
-            case 414:
-                rectSecondRowDetailTextLabel = CGRectMake(230, 48, 165, 42);  // x +
-                break;
-        }
-    }
-    return rectSecondRowDetailTextLabel;
-}
 
 -(void)setFirstRowText:(NSString *)firstRowText {
     

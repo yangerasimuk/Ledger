@@ -11,18 +11,25 @@
 #import "YGTools.h"
 
 @interface YGCategoryDefaultEditController () <UITextFieldDelegate> {
+    
+    NSString *p_name;
+    NSInteger p_sort;
+    NSString *p_comment;
+    
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
     
     NSString *_initNameValue;
-    NSString *_initSortValue;
+    NSInteger _initSortValue;
     NSString *_initCommentValue;
     
     YGCategoryManager *p_manager;
 }
 
 
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelSort;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSort;
@@ -62,22 +69,31 @@
     }
     
     if(self.isNewCategory){
+        
         self.category = nil;
+        p_name = nil;
+        p_sort = 100;
+        self.textFieldSort.text = @"100";
+        p_comment = nil;
         
         self.buttonActivate.enabled = NO;
-        self.buttonActivate.titleLabel.text = @"Deactivate";
-        
         self.buttonDelete.enabled = NO;
-
+        
+        self.labelName.textColor = [UIColor redColor];
     }
     else{
+        
         self.textFieldName.text = self.category.name;
+        p_name = self.category.name;
+        
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.category.sort];
+        p_sort = self.category.sort;
+        
         self.textFieldComment.text = self.category.comment;
+        p_comment = self.category.comment;
         
         self.buttonActivate.enabled = YES;
         self.buttonDelete.enabled = YES;
-        
         
         if(self.category.active){
             [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
@@ -94,9 +110,9 @@
     _isSortChanged = NO;
     _isCommentChanged = NO;
     
-    _initNameValue = self.textFieldName.text;
-    _initSortValue = self.textFieldSort.text;
-    _initCommentValue = self.textFieldComment.text;
+    _initNameValue = p_name;
+    _initSortValue = p_sort;
+    _initCommentValue = p_comment;
     
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
@@ -123,34 +139,48 @@
         return NO;
 }
 
+
 #pragma mark - Monitoring of control value changed
 
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender {
-    NSString *newName = self.textFieldName.text;
     
-    if([_initNameValue isEqualToString:newName])
+    p_name = self.textFieldName.text;
+    
+    if([_initNameValue isEqualToString:p_name])
         _isNameChanged = NO;
     else
         _isNameChanged = YES;
+    
+    if([self.textFieldName.text isEqualToString:@""])
+        self.labelName.textColor = [UIColor redColor];
+    else
+        self.labelName.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
 }
 
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender {
-    NSString *newSort = self.textFieldSort.text;
     
-    if([_initSortValue isEqualToString:newSort])
+    p_sort = [self.textFieldSort.text integerValue];
+    
+    if(_initSortValue == p_sort)
         _isSortChanged = NO;
     else
         _isSortChanged = YES;
+    
+    if([self.textFieldSort.text isEqualToString:@""])
+        self.labelSort.textColor = [UIColor redColor];
+    else
+        self.labelSort.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
 }
 
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
-    NSString *newComment = self.textFieldComment.text;
     
-    if([_initCommentValue isEqualToString:newComment])
+    p_comment = self.textFieldComment.text;
+    
+    if([_initCommentValue isEqualToString:p_comment])
         _isCommentChanged = NO;
     else
         _isCommentChanged = YES;
@@ -169,28 +199,29 @@
     return NO;
 }
 
+- (BOOL) isDataReadyForSave {
+    if(!p_name || [p_name isEqualToString:@""])
+        return NO;
+    if(p_sort < 1 || p_sort > 999)
+        return NO;
+    
+    return YES;
+}
+
 #pragma mark - Change save button enable
 
 - (void) changeSaveButtonEnable{
     
-    if(!self.isNewCategory){
-        if([self isEditControlsChanged]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+    if([self isEditControlsChanged] && [self isDataReadyForSave]){
+        
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     else{
         
-        if([self isEditControlsChanged]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -202,12 +233,17 @@
 
 - (void)saveButtonPressed {
     
+    NSUInteger sort = [self.textFieldSort.text integerValue];
+    
+    if(sort < 1 || sort > 999)
+        sort = 100;
+    
     if(self.isNewCategory){
         
         YGCategory *expenseCategory = [[YGCategory alloc]
                                        initWithType:self.categoryType
                                        name:self.textFieldName.text
-                                       sort:[self.textFieldSort.text integerValue]
+                                       sort:sort
                                        symbol:nil
                                        attach:NO
                                        parentId:-1
@@ -220,11 +256,10 @@
         if(_isNameChanged)
             self.category.name = self.textFieldName.text;
         if(_isSortChanged)
-            self.category.sort = [self sortValueFromString:self.textFieldSort.text];
+            self.category.sort = sort;
         if(_isCommentChanged)
             self.category.comment = self.textFieldComment.text;
 
-        
         // change db, not instance
         [p_manager updateCategory:[self.category copy]];
     }

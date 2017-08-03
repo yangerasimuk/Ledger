@@ -380,15 +380,12 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    //return [_sections.list[section].operationRows count];
     return [p_sections.list[section].operationRows count];
 }
 
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    //YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
-
     YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
 
     

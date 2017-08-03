@@ -193,16 +193,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    /*
-    static NSString *formatForNumbers;
-    if(_isHideDecimalFraction)
-        formatForNumbers = @"%.f %@";
-    else
-        formatForNumbers = @"%.2f %@";
-     */
-    
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kEntityCellId];
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kEntityCellId];
@@ -226,12 +217,10 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     // define name of account, trancate if needed
     NSString *stringName = [entity.name copy];
-    NSInteger lengthNameMax = 28 - [stringSumAndCurrency length];
+    NSInteger lengthNameMax = [YGTools lengthCharachtersForTableView] - [stringSumAndCurrency length];
     
-    if([entity.name length] > lengthNameMax){
-        
-        stringName = [NSString stringWithFormat:@"%@...", [stringName substringToIndex:lengthNameMax]];
-    }
+
+    stringName = [YGTools stringContainString:[entity.name copy] lengthMax:lengthNameMax-2];
     
     NSDictionary *nameAttributes = nil;
     if(!entity.active){

@@ -45,6 +45,7 @@
 
 + (NSInteger)deviceScreenWidth;
 + (NSInteger)lengthCharachtersForTableView;
++ (NSString *)stringContainString:(NSString *)string lengthMax:(NSInteger)lengthMax;
 
 + (UIColor *)colorForActionDisable;
 + (UIColor *)colorForActionDeactivate;

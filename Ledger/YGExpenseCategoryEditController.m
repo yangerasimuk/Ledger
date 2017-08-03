@@ -12,18 +12,27 @@
 #import "YGTools.h"
 
 @interface YGExpenseCategoryEditController () <UITextFieldDelegate> {
+    
+    NSString *p_name;
+    NSInteger p_sort;
+    NSString *p_comment;
+    
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
     BOOL _isParentChanged;
     
     NSString *_initNameValue;
-    NSString *_initSortValue;
+    NSInteger _initSortValue;
     NSString *_initCommentValue;
     YGCategory *_initParentValue;
     
     YGCategoryManager *p_manager;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelSort;
+
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSort;
@@ -57,7 +66,11 @@
     
     
     if(self.isNewExpenseCategory){
+        
         self.expenseCategory = nil;
+        
+        p_name = nil;
+        p_sort = 0;
         
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = @"Deactivate";
@@ -67,11 +80,19 @@
         self.labelParent.text = @"Root";
         
         _initParentValue = nil;
+        
+        self.labelName.textColor = [UIColor redColor];
     }
     else{
+        
         self.textFieldName.text = self.expenseCategory.name;
+        p_name = self.expenseCategory.name;
+        
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld",(long)self.expenseCategory.sort];
+        p_sort = self.expenseCategory.sort;
+        
         self.textFieldComment.text = self.expenseCategory.comment;
+        p_comment = self.expenseCategory.comment;
         
         self.buttonActivate.enabled = YES;
         self.buttonDelete.enabled = YES;
@@ -94,7 +115,7 @@
             
         }
         else{
-            self.labelParent.text = @"No parent";
+            self.labelParent.text = @"Root";
             _expenseCategoryParent = nil;
             _initParentValue = nil;
         }
@@ -105,9 +126,9 @@
     _isCommentChanged = NO;
     _isParentChanged = NO;
     
-    _initNameValue = self.textFieldName.text;
-    _initSortValue = self.textFieldSort.text;
-    _initCommentValue = self.textFieldComment.text;
+    _initNameValue = p_name;
+    _initSortValue = p_sort;
+    _initCommentValue = p_comment;
     
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
@@ -134,17 +155,19 @@
 
 - (void)updateUI {
     
-    if([p_manager hasLinkedObjectsForCategory:self.expenseCategory]) {
-        self.cellParentCategory.userInteractionEnabled = NO;
-        ;
-        self.cellParentCategory.accessoryType = UITableViewCellAccessoryNone;
-        self.labelParent.textColor = [YGTools colorForActionDisable];
-        
-    }
-    else{
-        self.cellParentCategory.userInteractionEnabled = YES;
-        self.cellParentCategory.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.labelParent.textColor = [UIColor blackColor];
+    if(self.expenseCategory){
+        if([p_manager hasLinkedObjectsForCategory:self.expenseCategory]) {
+            self.cellParentCategory.userInteractionEnabled = NO;
+            ;
+            self.cellParentCategory.accessoryType = UITableViewCellAccessoryNone;
+            self.labelParent.textColor = [YGTools colorForActionDisable];
+            
+        }
+        else{
+            self.cellParentCategory.userInteractionEnabled = YES;
+            self.cellParentCategory.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            self.labelParent.textColor = [UIColor blackColor];
+        }
     }
 }
 
@@ -177,7 +200,7 @@
         _expenseCategoryParent = vc.targetParentCategory;
     }
     else{
-        self.labelParent.text = @"No parent";
+        self.labelParent.text = @"Root";
         _expenseCategoryParent = nil;
     }
     
@@ -192,12 +215,17 @@
 
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender {
     
-    NSString *newName = self.textFieldName.text;
+    p_name = self.textFieldName.text;
     
-    if([_initNameValue isEqualToString:newName])
+    if([_initNameValue isEqualToString:p_name])
         _isNameChanged = NO;
     else
         _isNameChanged = YES;
+    
+    if([self.textFieldName.text isEqualToString:@""])
+        self.labelName.textColor = [UIColor redColor];
+    else
+        self.labelName.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
     
@@ -205,21 +233,26 @@
 
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender {
     
-    NSString *newSort = self.textFieldSort.text;
+    p_sort = [self.textFieldSort.text integerValue];
     
-    if([_initSortValue isEqualToString:newSort])
+    if(_initSortValue == p_sort)
         _isSortChanged = NO;
     else
         _isSortChanged = YES;
+    
+    if([self.textFieldSort.text isEqualToString:@""])
+        self.labelSort.textColor = [UIColor redColor];
+    else
+        self.labelSort.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
 }
 
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
     
-    NSString *newComment = self.textFieldComment.text;
+    p_comment = self.textFieldComment.text;
     
-    if([_initCommentValue isEqualToString:newComment])
+    if([_initCommentValue isEqualToString:p_comment])
         _isCommentChanged = NO;
     else
         _isCommentChanged = YES;
@@ -241,26 +274,28 @@
     return NO;
 }
 
+- (BOOL) isDataReadyForSave {
+    if(!p_name || [p_name isEqualToString:@""])
+        return NO;
+    if(p_sort < 1 || p_sort > 999)
+        return NO;
+    
+    return YES;
+}
+
 #pragma mark - Change save button enable
 
 - (void) changeSaveButtonEnable{
     
-    if(!self.isNewExpenseCategory){
-        if([self isEditControlsChanged]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+    if([self isEditControlsChanged] && [self isDataReadyForSave]){
+        
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
     }
     else{
         
-        if([self isEditControlsChanged]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        
     }
 }
 
