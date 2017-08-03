@@ -73,10 +73,13 @@
 
         self.currency = nil;
         p_name = nil;
-        p_sort = 100;
+        
         self.currencySort.text = @"100";
-        p_isDefault = NO;
+        p_sort = 100;
+        
         self.currencyIsDefault.on = NO;
+        p_isDefault = NO;
+        
         p_comment = nil;
         
         self.buttonActivate.enabled = NO;

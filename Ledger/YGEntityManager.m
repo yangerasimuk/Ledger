@@ -224,6 +224,12 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"EntityManagerCacheUpdateEvent"
                           object:nil];
+    
+    // generate special event if entity has linked operations
+    
+    if([self isExistLinkedOperationsForEntity:entity]){
+        [center postNotificationName:@"EntityManagerEntityWithOperationsUpdateEvent" object:nil];
+    }
 }
 
 

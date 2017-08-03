@@ -109,6 +109,16 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
                  object:nil];
     
     [center addObserver:self
+               selector:@selector(reloadDataFromSectionsCache)
+                   name:@"EntityManagerEntityWithOperationsUpdateEvent"
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(reloadDataFromSectionsCache)
+                   name:@"CategoryManagerCategoryWithObjectsUpdateEvent"
+                 object:nil];
+    
+    [center addObserver:self
                selector:@selector(buildSectionsCache)
                    name:@"HideDecimalFractionInListsChangedEvent"
                  object:nil];

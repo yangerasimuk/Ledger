@@ -13,6 +13,13 @@
 #import "YGTools.h"
 
 @interface YGAccountEditController () <UITextFieldDelegate> {
+    
+    NSString *p_name;
+    NSInteger p_sort;
+    NSString *p_comment;
+    YGCategory *p_currency;
+    BOOL p_isDefault;
+    
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
@@ -20,7 +27,7 @@
     BOOL _isDefaultChanged;
     
     NSString *_initNameValue;
-    NSString *_initSortValue;
+    NSInteger _initSortValue;
     NSString *_initCommentValue;
     YGCategory *_initCurrencyValue;
     BOOL _initIsDefaultValue;
@@ -77,10 +84,21 @@
     self.navigationItem.title = @"Account";
     
     if(self.isNewAccount){
+        
         self.account = nil;
+        p_name = nil;
+        self.labelName.textColor = [UIColor redColor];
+        
         self.currency = nil;
+        p_currency = nil;
+        
         self.textFieldSort.text = @"100";
+        p_sort = 100;
+        
         self.switchIsDefault.on = NO;
+        p_isDefault = NO;
+        
+        p_comment = nil;
         
         // hide button activate
         self.buttonActivate.enabled = NO;
@@ -97,20 +115,33 @@
         [self.textFieldName becomeFirstResponder];
     }
     else{
+        
         self.textFieldName.text = self.account.name;
+        p_name = self.account.name;
+        
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.account.sort];
+        p_sort = self.account.sort;
+        
         self.textFieldComment.text = self.account.comment;
-        
-        self.switchIsDefault.on = self.account.attach;
-        
-        self.buttonActivate.enabled = YES;
-        if(self.account.active)
-            [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
-        else
-            [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+        p_comment = self.account.comment;
         
         self.currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
         self.labelCurrency.text = self.currency.name;
+        p_currency = self.currency;
+        
+        self.switchIsDefault.on = self.account.attach;
+        p_isDefault = self.account.attach;
+        
+        self.buttonActivate.enabled = YES;
+        if(self.account.active){
+            [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
+            self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
+        }
+        else{
+            [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
+        }
+        
     }
 
     // init state for user changes
@@ -121,11 +152,11 @@
     _isDefaultChanged = NO;
     
     // init state of UI
-    _initNameValue = self.textFieldName.text;
-    _initSortValue = self.textFieldSort.text;
-    _initCommentValue = self.textFieldComment.text;
-    _initCurrencyValue = [self.currency copy];
-    _initIsDefaultValue = self.switchIsDefault.isOn;
+    _initNameValue = p_name;
+    _initSortValue = p_sort;
+    _initCommentValue = p_comment;
+    _initCurrencyValue = [p_currency copy];
+    _initIsDefaultValue = p_isDefault;
     
     for(UILabel *label in self.labelsOfController){
         
@@ -142,9 +173,6 @@
     self.textFieldComment.delegate = self;
     
     [self updateUI];
-    
-
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -232,10 +260,12 @@
     // set current currency
     YGCategory *currency = vc.targetCurrency;
     self.currency = [currency copy];
+    p_currency = self.currency;
     
     // update UI
-    self.labelCurrency.text = currency.name;
-    self.labelCurrency.textColor = [UIColor blackColor];
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],};
+    NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:currency.name attributes:attributes];
+    self.labelCurrency.attributedText = attributed;
     
     // equal to init currency value and set flag of changes
     if([currency isEqual:_initCurrencyValue])
@@ -251,12 +281,17 @@
 
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender {
     
-    NSString *newName = self.textFieldName.text;
+    p_name = self.textFieldName.text;
     
-    if([_initNameValue isEqualToString:newName])
+    if([_initNameValue isEqualToString:p_name])
         _isNameChanged = NO;
     else
         _isNameChanged = YES;
+    
+    if([self.textFieldName.text isEqualToString:@""])
+        self.labelName.textColor = [UIColor redColor];
+    else
+        self.labelName.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
     
@@ -264,21 +299,26 @@
 
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender {
     
-    NSString *newSort = self.textFieldSort.text;
+    p_sort = [self.textFieldSort.text integerValue];
     
-    if([_initSortValue isEqualToString:newSort])
+    if(_initSortValue == p_sort)
         _isSortChanged = NO;
     else
         _isSortChanged = YES;
+    
+    if([self.textFieldSort.text isEqualToString:@""])
+        self.labelSort.textColor = [UIColor redColor];
+    else
+        self.labelSort.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
 }
 
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
     
-    NSString *newComment = self.textFieldComment.text;
+    p_comment = self.textFieldComment.text;
     
-    if([_initCommentValue isEqualToString:newComment])
+    if([_initCommentValue isEqualToString:p_comment])
         _isCommentChanged = NO;
     else
         _isCommentChanged = YES;
@@ -288,9 +328,9 @@
 
 - (IBAction)switchIsDefaultValueChanged:(UISwitch *)sender {
     
-    BOOL newValue = self.switchIsDefault.isOn;
+    p_isDefault = self.switchIsDefault.isOn;
     
-    if(_initIsDefaultValue == newValue)
+    if(_initIsDefaultValue == p_isDefault)
         _isDefaultChanged = NO;
     else
         _isDefaultChanged = YES;
@@ -317,11 +357,11 @@
 
 - (BOOL)isDataReadyForSave {
     
-    if(!self.textFieldName.text)
+    if(!p_name || [p_name isEqualToString:@""])
         return NO;
-    if(!self.textFieldSort.text)
+    if(!p_currency)
         return NO;
-    if(!self.currency)
+    if(p_sort < 1 || p_sort > 999)
         return NO;
     
     return YES;
@@ -331,22 +371,13 @@
 
 - (void) changeSaveButtonEnable{
     
-    if(!self.isNewAccount){
-        if([self isEditControlsChanged] && [self isDataReadyForSave]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+    if([self isEditControlsChanged] && [self isDataReadyForSave]){
+        
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     else{
         
-        if([self isEditControlsChanged] && [self isDataReadyForSave]){
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        else{
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }
 }
 

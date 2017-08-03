@@ -350,6 +350,12 @@
     
     // post notification for subscribers
     [self generateChangeCacheEventForType:category.type];
+    
+    // generate special event for category with operations
+    if([self hasLinkedObjectsForCategory:category]){
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"CategoryManagerCategoryWithObjectsUpdateEvent" object:nil];
+    }
 
 }
 

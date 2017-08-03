@@ -68,8 +68,10 @@
     if(self.isNewExpenseCategory){
         
         self.expenseCategory = nil;
-        
         p_name = nil;
+        self.labelName.textColor = [UIColor redColor];
+        
+        self.textFieldSort.text = @"100";
         p_sort = 0;
         
         self.buttonActivate.enabled = NO;
@@ -78,10 +80,8 @@
         self.buttonDelete.enabled = NO;
         
         self.labelParent.text = @"Root";
-        
         _initParentValue = nil;
         
-        self.labelName.textColor = [UIColor redColor];
     }
     else{
         
