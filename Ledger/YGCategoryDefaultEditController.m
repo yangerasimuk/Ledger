@@ -94,11 +94,11 @@
         self.buttonDelete.enabled = YES;
         
         if(self.category.active){
-            [self.buttonActivate setTitle: NSLocalizedString(@"DEACTIVATE_BUTTON_LABEL", @"Label of Deactivate button.") forState:UIControlStateNormal];
+            [self.buttonActivate setTitle: NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Label of Deactivate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
         else{
-            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_LABEL", @"Label of Activate button.") forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_TITLE", @"Label of Activate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
     }

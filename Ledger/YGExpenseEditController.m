@@ -102,11 +102,11 @@
         }
         
         // attention user to select category
-        self.labelCategory.text = NSLocalizedString(@"SELECT_CATEGORY", @"Select category");
+        self.labelCategory.text = NSLocalizedString(@"SELECT_CATEGORY_LABEL", @"Select category");
         self.labelCategory.textColor = [UIColor redColor];
         
         // set label sum red
-        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum.")] color:[UIColor redColor]];
         
         // init
         _initDateValue = [NSDate date];

@@ -1,0 +1,131 @@
+/* Title of About form */
+"ABOUT_FORM_TITLE" = "О программе";
+
+/* Title of Accounts form */
+"ACCOUNTS_FORM_TITLE" = "Счета";
+
+/* Title of Account choice form. */
+"ACCOUNT_CHOICE_FORM_TITLE" = "Выбор счёта";
+
+/* Title of Account view/edit form. */
+"ACCOUNT_EDIT_FORM_TITLE" = "Счёт";
+
+/* Label of Activate button.
+   Title of Activate button. */
+"ACTIVATE_BUTTON_LABEL" = "Активировать";
+
+/* Activate for button title */
+"ACTIVATE_BUTTON_TITLE" = "Активировать";
+
+/* Author of application (Yan Gerasimuk) */
+"APPLICATION_AUTHOR" = "Ян Герасимук";
+
+/* Name of application (Ledger) */
+"APPLICATION_NAME" = "Леджер";
+
+/* Version of application */
+"APPLICATION_VERSION" = "Версия";
+
+/* Balance. */
+"BALANCE_EDIT_FORM_TITLE" = "Остаток по счёту";
+
+/* Title of Currencies form */
+"CURRENCIES_FORM_TITLE" = "Валюты";
+
+/* Title of Currency choice form. */
+"CURRENCY_CHOICE_FORM_TITLE" = "Выбор валюты";
+
+/* Title of currency view/edit form. */
+"CURRENCY_EDIT_FORM_TITLE" = "Валюта";
+
+/* Title of currency form */
+"CURRENCY_FORM_TITLE" = "Валюта";
+
+/* Title of date choice form. */
+"DATE_CHOICE_FORM_TITLE" = "Выбрать дату";
+
+/* Label of Deactivate button.
+   Title of Deactivate button. */
+"DEACTIVATE_BUTTON_LABEL" = "Деактивировать";
+
+/* Deactivate for button title
+   Title of Deactivate button. */
+"DEACTIVATE_BUTTON_TITLE" = "Деактивировать";
+
+/* Title of Expense categories form. */
+"EXPENSE_CATEGORIES_FORM_TITLE" = "Категории расхода";
+
+/* Title of Expense choice form. */
+"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Выбрать Категорию расхода";
+
+/* Title of Expense category view/edit form. */
+"EXPENSE_CATEGORY_EDIT_FORM_TITLE" = "Категория расхода";
+
+/* Title of expense edit form. */
+"EXPENSE_EDIT_FORM_TITLE" = "Категория расхода";
+
+/* Title of expense form */
+"EXPENSE_FORM_TITLE" = "Категории расхода";
+
+/* Title of income form */
+"INCOME_FORM_TITLE" = "Источники дохода";
+
+/* Title of Income sources form. */
+"INCOME_SOURCES_FORM_TITLE" = "Источник дохода";
+
+/* Title of Income source choice form. */
+"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Выбрать Источник дохода";
+
+/* Title of Income source form. */
+"INCOME_SOURCE_EDIT_FORM_TITLE" = "Источник дохода";
+
+/* Title of Local backup form */
+"LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
+
+/* Title of Operations form */
+"OPERATIONS_FORM_TITLE" = "Операции";
+
+/* Title of Options form */
+"OPTIONS_FORM_TITLE" = "Настройки";
+
+/* Name of Root category */
+"ROOT_CATEGORY_NAME" = "Корневая категория";
+
+/* Select account. */
+"SELECT_ACCOUNT" = "Выбрать счет";
+
+/* Select account
+   Select account. */
+"SELECT_ACCOUNT_LABEL" = "Выбрать счет";
+
+/* Select category */
+"SELECT_CATEGORY" = "Выбрать Категорию расхода";
+
+/* Select currency text on label. */
+"SELECT_CURRENCY_LABEL" = "Выбрать валюту";
+
+/* Select source */
+"SELECT_INCOME_SOURCE_LABEL" = "Выбрать Источник дохода";
+
+/* Sum
+   Sum. */
+"SUM" = "Сумма";
+
+/* Title of Tags form. */
+"TAGS_FORM_TITLE" = "Метки";
+
+/* Title of Tag edit form. */
+"TAG_EDIT_FORM_TITLE" = "Метка";
+
+/* Title of Tag form */
+"TAG_FORM_TITLE" = "Метки";
+
+/* Today date */
+"TODAY" = "Сегодня";
+
+/* Title of transfor edit form. */
+"TRANSFER_EDIT_FORM_TITLE" = "Перевод";
+
+/* Yesterday date */
+"YESTERDAY" = "Вчера";
+

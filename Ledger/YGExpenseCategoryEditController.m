@@ -79,7 +79,7 @@
         
         self.buttonDelete.enabled = NO;
         
-        self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_NAME", @"Name of Root category");
+        self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_LABEL", @"Name of Root category");
         _initParentValue = nil;
         
     }
@@ -98,11 +98,11 @@
         self.buttonDelete.enabled = YES;
         
         if(self.expenseCategory.active){
-            [self.buttonActivate setTitle:NSLocalizedString(@"DEACTIVATE_BUTTON_LABEL", @"Title of Deactivate button.") forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Title of Deactivate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
         else{
-            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_LABEL", @"Title of Activate button.") forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_TITLE", @"Title of Activate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
         
@@ -115,7 +115,7 @@
             
         }
         else{
-            self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_NAME", @"Name of Root category");
+            self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_LABEL", @"Name of Root category");
             _expenseCategoryParent = nil;
             _initParentValue = nil;
         }
@@ -198,7 +198,7 @@
         _expenseCategoryParent = vc.targetParentCategory;
     }
     else{
-        self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_NAME", @"Name of Root category");
+        self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_LABEL", @"Name of Root category");
         _expenseCategoryParent = nil;
     }
     

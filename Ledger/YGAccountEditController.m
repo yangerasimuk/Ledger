@@ -432,11 +432,11 @@
     
     if(self.account.active){
         [_em deactivateEntity:self.account];
-        [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
     else{
         [_em activateEntity:self.account];
-        [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
+        //[self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
     }
     
     [self.navigationController popViewControllerAnimated:YES];

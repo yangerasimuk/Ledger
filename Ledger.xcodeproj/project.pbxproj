@@ -64,6 +64,9 @@
 		135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E51F177096004F10DE /* YYGConfigDefine.m */; };
 		135510E91F177096004F10DE /* YYGConfigError.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E71F177096004F10DE /* YYGConfigError.m */; };
 		138662841F3498E600800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 138662861F3498E600800A11 /* InfoPlist.strings */; };
+		1386628A1F34FA0C00800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1386628C1F34FA0C00800A11 /* InfoPlist.strings */; };
+		138662941F34FA0D00800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 138662961F34FA0D00800A11 /* InfoPlist.strings */; };
+		138662991F34FE7F00800A11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1386629B1F34FE7F00800A11 /* Localizable.strings */; };
 		138FDD921F192FD5009C3D2D /* YYGCategoryOneRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
 		13CCF86C1F16861400EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8521F16861400EAB928 /* YGFile.m */; };
@@ -222,6 +225,9 @@
 		138662811F3487A400800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		138662851F3498E600800A11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		138662871F34990500800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1386628B1F34FA0C00800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		138662951F34FA0D00800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1386629A1F34FE7F00800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGCategoryOneRowCell.h; sourceTree = "<group>"; };
 		138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGCategoryOneRowCell.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
@@ -491,6 +497,7 @@
 		133050F21EDAE29D0031044D /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
+				1386629B1F34FE7F00800A11 /* Localizable.strings */,
 				133050FC1EDAE29D0031044D /* Main.storyboard */,
 				13279D511EED990200BA46AF /* Operation */,
 				13279D521EED990C00BA46AF /* Entity */,
@@ -517,6 +524,7 @@
 		1330510C1EDAE29D0031044D /* LedgerTests */ = {
 			isa = PBXGroup;
 			children = (
+				138662961F34FA0D00800A11 /* InfoPlist.strings */,
 				1330510D1EDAE29D0031044D /* LedgerTests.m */,
 				1330510F1EDAE29D0031044D /* Info.plist */,
 			);
@@ -526,6 +534,7 @@
 		133051171EDAE29D0031044D /* LedgerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				1386628C1F34FA0C00800A11 /* InfoPlist.strings */,
 				133051181EDAE29D0031044D /* LedgerUITests.m */,
 				1330511A1EDAE29D0031044D /* Info.plist */,
 			);
@@ -764,6 +773,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				138662991F34FE7F00800A11 /* Localizable.strings in Resources */,
 				133051031EDAE29D0031044D /* LaunchScreen.storyboard in Resources */,
 				138662841F3498E600800A11 /* InfoPlist.strings in Resources */,
 				133051001EDAE29D0031044D /* Assets.xcassets in Resources */,
@@ -775,6 +785,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				138662941F34FA0D00800A11 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +793,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1386628A1F34FA0C00800A11 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,6 +937,30 @@
 				138662871F34990500800A11 /* ru */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1386628C1F34FA0C00800A11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1386628B1F34FA0C00800A11 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		138662961F34FA0D00800A11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				138662951F34FA0D00800A11 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1386629B1F34FE7F00800A11 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1386629A1F34FE7F00800A11 /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -19,10 +19,7 @@
 - (IBAction)switchHideDecimalFractionValueChanged:(UISwitch *)sender;
 - (IBAction)switchPullRefreshAddElementValueChanged:(UISwitch *)sender;
 
-
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOptions;
-
-
 
 @end
 
@@ -40,7 +37,7 @@
         label.attributedText = attributedText;
     }
     
-    self.navigationItem.title = NSLocalizedString(@"OPTIONS_FORM_TITLE", @"Title of Options form");
+    self.navigationItem.title = NSLocalizedString(@"OPTIONS_VIEW_FORM_TITLE", @"Title of Options form");
     
     [self updateUI];
 }
@@ -95,19 +92,19 @@
         
         switch (typeId) {
             case YGCategoryTypeCurrency:
-                vc.title = NSLocalizedString(@"CURRENCY_FORM_TITLE", @"Title of currency form");
+                vc.title = NSLocalizedString(@"CURRENCY_VIEW_FORM_TITLE", @"Title of currency form");
                 break;
             case YGCategoryTypeExpense:
-                vc.title = NSLocalizedString(@"EXPENSE_FORM_TITLE", @"Title of expense form");
+                vc.title = NSLocalizedString(@"EXPENSE_VIEW_FORM_TITLE", @"Title of expense form");
                 break;
             case YGCategoryTypeIncome:
-                vc.title = NSLocalizedString(@"INCOME_FORM_TITLE", @"Title of income form");
+                vc.title = NSLocalizedString(@"INCOME_VIEW_FORM_TITLE", @"Title of income form");
                 break;
             case YGCategoryTypeCreditorOrDebtor:
-                vc.title = NSLocalizedString(@"CREDITOR_DEBTOR_FORM_TITLE", @"Title of Creditor/debtor form");
+                vc.title = NSLocalizedString(@"CREDITOR_VIEW_DEBTOR_FORM_TITLE", @"Title of Creditor/debtor form");
                 break;
             case YGCategoryTypeTag:
-                vc.title = NSLocalizedString(@"TAG_FORM_TITLE", "Title of Tag form");
+                vc.title = NSLocalizedString(@"TAG_VIEW_FORM_TITLE", "Title of Tag form");
                 break;
         }
         

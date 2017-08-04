@@ -84,7 +84,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
     //self.navigationItem.title = @"Operations";
     
-    self.navigationItem.title = NSLocalizedString(@"OPERATIONS_FORM_TITLE", @"Title of Operations form");
+    self.navigationItem.title = NSLocalizedString(@"OPERATIONS_VIEW_FORM_TITLE", @"Title of Operations form");
     
     
     // set heights of sections and rows
@@ -181,29 +181,29 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (void)addOperation {
     
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Choose operation" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"OPERATION_CHOICE_ALERT_SHEET_TITLE", @"Usually: Choose operation") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *addExpenseAction = [UIAlertAction actionWithTitle:@"Expense" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *addExpenseAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"EXPENSE_ALERT_ITEM_TITLE", @"Expense") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddExpense];
     }];
     [controller addAction:addExpenseAction];
     
-    UIAlertAction *addIncomeAction = [UIAlertAction actionWithTitle:@"Income" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *addIncomeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"INCOME_ALERT_ITEM_TITLE", @"Income") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddIncome];
     }];
     [controller addAction:addIncomeAction];
     
-    UIAlertAction *addAccountActualAction = [UIAlertAction actionWithTitle:@"Balance" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *addAccountActualAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BALANCE_ALERT_ITEM_TITLE", @"Balance") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddAccountActual];
     }];
     [controller addAction:addAccountActualAction];
     
-    UIAlertAction *addTransferAction = [UIAlertAction actionWithTitle:@"Transfer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *addTransferAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"TRANSFER_ALERT_ITEM_TITLE", @"Transfer") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddTransfer];
     }];
     [controller addAction:addTransferAction];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL_ALERT_ITEM_TITLE", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
     [controller addAction:cancelAction];
     
     [self presentViewController:controller animated:YES completion:nil];

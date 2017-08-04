@@ -86,7 +86,7 @@
             self.labelTargetCurrency.text = [_currency shorterName];
         }
         else{
-            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT", @"Select account.");
+            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account.");
             self.labelAccount.textColor = [UIColor redColor];
         }
         
@@ -234,7 +234,7 @@
             self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
         }
         
-        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
     }
     else{
         self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -242,7 +242,7 @@
         self.buttonSaveAndAddNew.enabled = NO;
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
-        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
     }
 }
 

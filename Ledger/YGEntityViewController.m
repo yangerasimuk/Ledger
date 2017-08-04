@@ -62,7 +62,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddButtonPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    self.navigationItem.title = NSLocalizedString(@"ACCOUNTS_FORM_TITLE", @"Title of Accounts form");
+    self.navigationItem.title = NSLocalizedString(@"ACCOUNTS_VIEW_FORM_TITLE", @"Title of Accounts form");
     
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -247,13 +247,13 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     NSInteger countCharacterMax = [YGTools lengthCharachtersForTableView];
     
-    NSLog(@"max characters in one string: %ld", (long)countCharacterMax);
+    //NSLog(@"max characters in one string: %ld", (long)countCharacterMax);
     
     NSInteger lengthStringSum = [stringSum length];
     
     NSInteger lengthNamMax = countCharacterMax - lengthStringSum;
     
-    NSLog(@"max lenght of name: %ld", (long)lengthNamMax);
+    //NSLog(@"max lenght of name: %ld", (long)lengthNamMax);
     
     
     return @"";

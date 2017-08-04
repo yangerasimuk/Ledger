@@ -115,7 +115,7 @@
         }
         
         // set label sum red
-        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum.")] color:[UIColor redColor]];
         
         // init
         _initDateValue = [_created copy];
@@ -193,7 +193,7 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     // title
-    self.navigationItem.title = @"Income";
+    self.navigationItem.title = NSLocalizedString(@"INCOME_EDIT_FORM_TITLE", @"Title of Income operation.");
     
     // set font size of labels
     for(UILabel *label in self.labelsController){
