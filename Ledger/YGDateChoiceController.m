@@ -29,7 +29,7 @@
     
     self.navigationItem.rightBarButtonItem = buttonDone;
     
-    self.navigationItem.title = @"Date";
+    self.navigationItem.title = NSLocalizedString(@"DATE_CHOICE_FORM_TITLE", @"Title of date choice form.");
     
     if(self.sourceDate){
         

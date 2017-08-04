@@ -97,16 +97,16 @@
             self.labelCurrency.text = [_currency shorterName];
         }
         else{
-            self.labelAccount.text = @"Select account";
+            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account.");
             self.labelAccount.textColor = [UIColor redColor];
         }
         
         // attention user to select category
-        self.labelCategory.text = @"Select category";
+        self.labelCategory.text = NSLocalizedString(@"SELECT_CATEGORY", @"Select category");
         self.labelCategory.textColor = [UIColor redColor];
         
         // set label sum red
-        self.labelSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
         
         // init
         _initDateValue = [NSDate date];
@@ -186,7 +186,7 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     // title
-    self.navigationItem.title = @"Expense";
+    self.navigationItem.title = NSLocalizedString(@"EXPENSE_EDIT_FORM_TITLE",  @"Title of expense edit form.");
     
     // set font size of labels
     for(UILabel *label in self.labelsController){
@@ -358,9 +358,9 @@
     }
     
     if(self.sum == 0.00f)
-        self.labelSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", "Sum.")] color:[UIColor redColor]];
     else
-        self.labelSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", "Sum.")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }

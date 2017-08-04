@@ -67,7 +67,7 @@
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    self.navigationItem.title = @"Currency";
+    self.navigationItem.title = NSLocalizedString(@"CURRENCY_EDIT_FORM_TITLE", @"Title of currency view/edit form.");
     
     if(self.isNewCurrency){
 
@@ -83,7 +83,7 @@
         p_comment = nil;
         
         self.buttonActivate.enabled = NO;
-        self.buttonActivate.titleLabel.text = @"Deactivate";
+        self.buttonActivate.titleLabel.text = NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Title of Deactivate button.");
 
         self.buttonDelete.enabled = NO;
         
@@ -111,11 +111,11 @@
         self.buttonDelete.enabled = YES;
         
         if(self.currency.active){
-            [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Title of Deactivate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
         else{
-            [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_LABEL", @"Title of Activate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
     }
@@ -327,7 +327,7 @@
         
         if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]){
             
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Деактивировать невозможно" message:@"Для работы программы нужна хотя бы одна активная валюта." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DEACTIVATE_ALERT_TITLE", @"Title of alert Can not deactivate") message:NSLocalizedString(@"CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CURRENCY", @"Message with reason that applicatin must have at least one active currency") preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [controller addAction:actionOk];
             [self presentViewController:controller animated:YES completion:nil];
@@ -353,7 +353,7 @@
     
     if([p_manager hasLinkedObjectsForCategory:_currency]){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной валюты, необходимо удалить все связанные с ней записи (операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE", @"The currency has linked objects (operations, accounts, debts, etc.)") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
@@ -366,7 +366,7 @@
     // check for removed category just one active
     if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна активная валюта." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"REASON_CAN_NOT_DELETE_BECOUSE_ABSENT_ANOTHER_ACTIVE_CATEGORY_FOR_TYPE_MESSAGE", @"Message with reason that category is only one active for type and another is not exists.") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
@@ -379,7 +379,7 @@
     // check for removed category just one
     if([p_manager isJustOneCategory:_currency]){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна валюта." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE", @"Message with reason that category is only one for type and can not be deleted.") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];

@@ -73,7 +73,7 @@
        [today year] == [otherDay year] &&
        [today era] == [otherDay era]) {
         
-        return @"Today";
+        return NSLocalizedString(@"TODAY", @"Today date");
     }
     else
         return [YGTools humanViewOfDate:date];
@@ -98,14 +98,14 @@
        [todayComponents year] == [dayComponents year] &&
        [todayComponents era] == [dayComponents era]) {
         
-        resultDateString = @"Today";
+        resultDateString = NSLocalizedString(@"TODAY", @"Today date");
     }
     else if(([todayComponents day] - [dayComponents day]) == 1 &&
             [todayComponents month] == [dayComponents month] &&
             [todayComponents year] == [dayComponents year] &&
             [todayComponents era] == [dayComponents era]) {
         
-        resultDateString = @"Yesterday";
+        resultDateString = NSLocalizedString(@"YESTERDAY", @"Yesterday date");
     }
     else{
         
@@ -166,14 +166,14 @@
        [today year] == [day year] &&
        [today era] == [day era]) {
         
-        resultDateString = @"Today";
+        resultDateString = NSLocalizedString(@"TODAY", @"Today date");
     }
     else if(([today day] - [day day]) == 1 &&
             [today month] == [day month] &&
             [today year] == [day year] &&
             [today era] == [day era]) {
         
-        resultDateString = @"Yesterday";
+        resultDateString = NSLocalizedString(@"YESTERDAY", @"Yesterday date");
     }
     else{
         
@@ -846,16 +846,13 @@
 
 + (double)doubleFromStringCurrency:(NSString *)string {
     
-    NSLog(@"+[YGTools doubleFromStringCurrency]...");
-    NSLog(@"raw double string: %@", string);
-    
     // get current locale separators
     NSString *localSeparator = [[NSLocale currentLocale] decimalSeparator];
     NSString *standartSeparator = @".";
     
     if([string length] > 1){
         
-        for(int i = ([string length]-1); i >= 0; i--){
+        for(NSInteger i = ([string length] - 1); i >= 0; i--){
             
             NSString *s = [string substringWithRange:NSMakeRange(i, 1)];
             
@@ -865,9 +862,7 @@
             }
         }
     }
-    
-    NSLog(@"result double: %f", [string doubleValue]);
-    
+        
     return [string doubleValue];
 }
 

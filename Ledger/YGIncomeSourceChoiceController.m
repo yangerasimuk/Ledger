@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Income source";
+    self.navigationItem.title = NSLocalizedString(@"INCOME_SOURCE_CHOICE_FORM_TITLE", @"Title of Income source choice form.");
     
     YGCategoryManager *cm = [YGCategoryManager sharedInstance];
     

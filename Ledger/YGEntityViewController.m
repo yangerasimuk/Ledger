@@ -62,7 +62,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddButtonPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    self.navigationItem.title = @"Accounts";
+    self.navigationItem.title = NSLocalizedString(@"ACCOUNTS_FORM_TITLE", @"Title of Accounts form");
     
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

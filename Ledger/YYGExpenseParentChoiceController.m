@@ -56,7 +56,7 @@
         YGCategory *category = [[YGCategory alloc]
                                 initWithRowId:-1
                                 categoryType:YGCategoryTypeExpense
-                                name:@"No parent"
+                                name:NSLocalizedString(@"ROOT_CATEGORY_NAME", @"Name of Root category")
                                 active:YES
                                 activeFrom:[NSDate date]
                                 activeTo:nil

@@ -81,7 +81,7 @@
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    self.navigationItem.title = @"Account";
+    self.navigationItem.title = NSLocalizedString(@"ACCOUNT_EDIT_FORM_TITLE", @"Title of Account view/edit form.");
     
     if(self.isNewAccount){
         
@@ -108,7 +108,7 @@
         self.buttonDelete.enabled = NO;
         self.buttonDelete.hidden = YES;
         
-        self.labelCurrency.text = @"Select currency";
+        self.labelCurrency.text = NSLocalizedString(@"SELECT_CURRENCY_LABEL", @"Select currency text on label.");
         self.labelCurrency.textColor = [UIColor redColor];
         
         // focus
@@ -134,11 +134,11 @@
         
         self.buttonActivate.enabled = YES;
         if(self.account.active){
-            [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
+            [self.buttonActivate setTitle: NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Deactivate for button title") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
         else{
-            [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_TITLE", @"Activate for button title") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
         
@@ -447,7 +447,7 @@
     
     //if(![_em isExistRecordsForEntity:self.account]){
     if([_em isExistLinkedOperationsForEntity:_account]){
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории расхода, необходимо удалить все связанные с ней записи (категории, операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"REASON_CAN_NOT_DELETE_ACCOUNT_WITH_LINKED_MESSAGE", @"Message with reason that current account has linked objects and can not be deleted.") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];

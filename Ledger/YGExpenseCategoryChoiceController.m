@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Expense category";
+    self.navigationItem.title = NSLocalizedString(@"EXPENSE_CATEGORY_CHOICE_FORM_TITLE", @"Title of Expense choice form.");
     
     [self.tableView registerClass:[YYGCategoryOneRowCell class] forCellReuseIdentifier:kCategoryOneRowCellId];
     

@@ -40,7 +40,7 @@
         label.attributedText = attributedText;
     }
     
-    self.navigationItem.title = @"Options";
+    self.navigationItem.title = NSLocalizedString(@"OPTIONS_FORM_TITLE", @"Title of Options form");
     
     [self updateUI];
 }
@@ -95,19 +95,19 @@
         
         switch (typeId) {
             case YGCategoryTypeCurrency:
-                vc.title = @"Currency";
+                vc.title = NSLocalizedString(@"CURRENCY_FORM_TITLE", @"Title of currency form");
                 break;
             case YGCategoryTypeExpense:
-                vc.title = @"Expense";
+                vc.title = NSLocalizedString(@"EXPENSE_FORM_TITLE", @"Title of expense form");
                 break;
             case YGCategoryTypeIncome:
-                vc.title = @"Income";
+                vc.title = NSLocalizedString(@"INCOME_FORM_TITLE", @"Title of income form");
                 break;
             case YGCategoryTypeCreditorOrDebtor:
-                vc.title = @"Creditor/debtor";
+                vc.title = NSLocalizedString(@"CREDITOR_DEBTOR_FORM_TITLE", @"Title of Creditor/debtor form");
                 break;
             case YGCategoryTypeTag:
-                vc.title = @"Tag";
+                vc.title = NSLocalizedString(@"TAG_FORM_TITLE", "Title of Tag form");
                 break;
         }
         

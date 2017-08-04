@@ -66,7 +66,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
 
-
 - (IBAction)textFieldSourceSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
@@ -119,21 +118,21 @@
         else{
             
             _sourceAccount = nil;
-            self.labelSourceAccount.text = @"Select account";
+            self.labelSourceAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL",  @"Select account");
             self.labelSourceAccount.textColor = [UIColor redColor];
             self.sourceSum = 0.0;
             //self.labelSourceCurrency = @"";
             
             _targetAccount = nil;
-            self.labelTargetAccount.text = @"Select account";
+            self.labelTargetAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL",  @"Select account");
             self.labelTargetAccount.textColor = [UIColor redColor];
             self.targetSum = 0.0;
             //self.labelTargetCurrency = @"";
             
         }
         
-        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
-        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[UIColor redColor]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[UIColor redColor]];
         
         // init
         _initDateValue = [_created copy];
@@ -225,7 +224,7 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     // title
-    self.navigationItem.title = @"Transfer";
+    self.navigationItem.title = NSLocalizedString(@"TRANSFER_EDIT_FORM_TITLE", @"Title of transfor edit form.");
     
     // set font size of labels
     for(UILabel *label in self.labelsController){
@@ -319,7 +318,7 @@
     // if choosen sourceAccount == targetAccount unselect target
     if([_sourceAccount isEqual:_targetAccount]){
         _targetAccount = nil;
-        self.labelTargetAccount.attributedText = [YGTools attributedStringWithText:@"Select account" color:[UIColor redColor]];
+        self.labelTargetAccount.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account") color:[UIColor redColor]];
         self.labelTargetCurrency.text = @"";
     }
     
@@ -423,9 +422,9 @@
     }
     
     if(self.sourceSum == 0.00f)
-        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
     else
-        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }
@@ -443,9 +442,9 @@
     }
     
     if(self.targetSum == 0.00f)
-        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
     else
-        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }

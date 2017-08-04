@@ -27,12 +27,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"About Ledger";
+    self.navigationItem.title = NSLocalizedString(@"ABOUT_FORM_TITLE", @"Title of About form");
     
-    self.labelApplicationName.text = @"Ledger";
-    self.labelApplicationVersion.text = [NSString stringWithFormat:@"Version: %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+    self.labelApplicationName.text = NSLocalizedString(@"APPLICATION_NAME", @"Name of application (Ledger)");
+    self.labelApplicationVersion.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"APPLICATION_VERSION", @"Version of application"), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 
-    self.labelCopyright.text = @"© Yan Gerasimuk";
+    self.labelCopyright.text = [NSString stringWithFormat:@"© %@", NSLocalizedString(@"APPLICATION_AUTHOR", @"Author of application (Yan Gerasimuk)")];
     
     // name
     NSDictionary *attributesName = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:[YGTools defaultFontSize]+6]

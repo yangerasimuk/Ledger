@@ -88,7 +88,7 @@
             _incomeSource = [_cm categoryOnTopForType:YGCategoryTypeIncome];
          */
         if(!_incomeSource){
-            self.labelIncomeSource.text = @"Select source";
+            self.labelIncomeSource.text = NSLocalizedString(@"SELECT_INCOME_SOURCE_LABEL", @"Select source");
             self.labelIncomeSource.textColor = [UIColor redColor];
         }
         else
@@ -110,12 +110,12 @@
             
         }
         else{
-            self.labelAccount.text = @"Select account";
+            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account");
             self.labelAccount.textColor = [UIColor redColor];
         }
         
         // set label sum red
-        self.labelSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
         
         // init
         _initDateValue = [_created copy];
@@ -367,9 +367,9 @@
     }
     
     if(self.sum == 0.00f)
-        self.labelSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum.")] color:[UIColor redColor]];
     else
-        self.labelSum.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor blackColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum.")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }

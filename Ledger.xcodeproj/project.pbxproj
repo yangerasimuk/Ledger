@@ -36,7 +36,6 @@
 		13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D5A1EEDE89900BA46AF /* YGOperationViewController.m */; };
 		13279D8C1EEFC14200BA46AF /* YGOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */; };
 		13279D8F1EEFC1B800BA46AF /* YGCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */; };
-		13279DBC1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */; };
 		13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */; };
 		13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC11EF26F6F00BA46AF /* YGEntityViewController.m */; };
 		13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC71EF2816600BA46AF /* YGAccountEditController.m */; };
@@ -64,6 +63,7 @@
 		133C00251F1777B400D0CB0E /* YYGFileSystemError.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C00231F1777B400D0CB0E /* YYGFileSystemError.m */; };
 		135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E51F177096004F10DE /* YYGConfigDefine.m */; };
 		135510E91F177096004F10DE /* YYGConfigError.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E71F177096004F10DE /* YYGConfigError.m */; };
+		138662841F3498E600800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 138662861F3498E600800A11 /* InfoPlist.strings */; };
 		138FDD921F192FD5009C3D2D /* YYGCategoryOneRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
 		13CCF86C1F16861400EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8521F16861400EAB928 /* YGFile.m */; };
@@ -165,8 +165,6 @@
 		13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGOptionViewController.m; sourceTree = "<group>"; };
 		13279D8D1EEFC1B800BA46AF /* YGCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCategoryViewController.h; sourceTree = "<group>"; };
 		13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCategoryViewController.m; sourceTree = "<group>"; };
-		13279DBA1EF13A4E00BA46AF /* YGExpenseParentChoiseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGExpenseParentChoiseController.h; sourceTree = "<group>"; };
-		13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGExpenseParentChoiseController.m; sourceTree = "<group>"; };
 		13279DBD1EF1903B00BA46AF /* YGCategoryDefaultEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGCategoryDefaultEditController.h; sourceTree = "<group>"; };
 		13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCategoryDefaultEditController.m; sourceTree = "<group>"; };
 		13279DC01EF26F6F00BA46AF /* YGEntityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGEntityViewController.h; sourceTree = "<group>"; };
@@ -220,6 +218,10 @@
 		135510E51F177096004F10DE /* YYGConfigDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigDefine.m; sourceTree = "<group>"; };
 		135510E61F177096004F10DE /* YYGConfigError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGConfigError.h; sourceTree = "<group>"; };
 		135510E71F177096004F10DE /* YYGConfigError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigError.m; sourceTree = "<group>"; };
+		138662801F3487A400800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		138662811F3487A400800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		138662851F3498E600800A11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		138662871F34990500800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGCategoryOneRowCell.h; sourceTree = "<group>"; };
 		138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGCategoryOneRowCell.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
@@ -349,8 +351,6 @@
 			children = (
 				13D9D8931F19FE1F001F46B1 /* Rows */,
 				138FDD8F1F192F68009C3D2D /* Cells */,
-				13279DBA1EF13A4E00BA46AF /* YGExpenseParentChoiseController.h */,
-				13279DBB1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m */,
 				13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */,
 				13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */,
 				13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */,
@@ -509,6 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				133050F41EDAE29D0031044D /* main.m */,
+				138662861F3498E600800A11 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -744,6 +745,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 133050E71EDAE29D0031044D;
 			productRefGroup = 133050F11EDAE29D0031044D /* Products */;
@@ -763,6 +765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				133051031EDAE29D0031044D /* LaunchScreen.storyboard in Resources */,
+				138662841F3498E600800A11 /* InfoPlist.strings in Resources */,
 				133051001EDAE29D0031044D /* Assets.xcassets in Resources */,
 				133050FE1EDAE29D0031044D /* Main.storyboard in Resources */,
 			);
@@ -809,7 +812,6 @@
 				132379FC1F14175E0051325F /* YGOperationSectionHeader.m in Sources */,
 				133C00251F1777B400D0CB0E /* YYGFileSystemError.m in Sources */,
 				13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */,
-				13279DBC1EF13A4E00BA46AF /* YGExpenseParentChoiseController.m in Sources */,
 				13CCF8711F16861400EAB928 /* YGSearchPattern.m in Sources */,
 				1317BEF11F0E67920039A224 /* YGDBManager.m in Sources */,
 				132379E71F13D1350051325F /* YGOperationRow.m in Sources */,
@@ -902,6 +904,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				133050FD1EDAE29D0031044D /* Base */,
+				138662801F3487A400800A11 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -910,8 +913,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				133051021EDAE29D0031044D /* Base */,
+				138662811F3487A400800A11 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		138662861F3498E600800A11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				138662851F3498E600800A11 /* Base */,
+				138662871F34990500800A11 /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -921,6 +934,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -978,6 +992,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

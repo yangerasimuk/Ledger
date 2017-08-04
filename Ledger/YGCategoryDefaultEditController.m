@@ -57,15 +57,13 @@
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    if(self.categoryType == YGCategoryTypeIncome){
-        self.navigationItem.title = @"Income source";
-        
-    }
+    if(self.categoryType == YGCategoryTypeIncome)
+        self.navigationItem.title = NSLocalizedString(@"INCOME_SOURCE_EDIT_FORM_TITLE", @"Title of Income source form.");
     else if(self.categoryType == YGCategoryTypeCreditorOrDebtor){
-        self.navigationItem.title = @"Creditor/Debtor";
+        self.navigationItem.title = NSLocalizedString(@"CREDITOR_DEBTOR_EDIT_FORM_TITLE", @"Title of Creditor/Debtor view/edit form.");
     }
     else if(self.categoryType == YGCategoryTypeTag){
-        self.navigationItem.title = @"Tag";
+        self.navigationItem.title = NSLocalizedString(@"TAG_EDIT_FORM_TITLE", @"Title of Tag edit form.");
     }
     
     if(self.isNewCategory){
@@ -96,14 +94,13 @@
         self.buttonDelete.enabled = YES;
         
         if(self.category.active){
-            [self.buttonActivate setTitle:@"Deactivate" forState:UIControlStateNormal];
+            [self.buttonActivate setTitle: NSLocalizedString(@"DEACTIVATE_BUTTON_LABEL", @"Label of Deactivate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionDeactivate];
         }
         else{
-            [self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
+            [self.buttonActivate setTitle:NSLocalizedString(@"ACTIVATE_BUTTON_LABEL", @"Label of Activate button.") forState:UIControlStateNormal];
             self.buttonActivate.backgroundColor = [YGTools colorForActionActivate];
         }
-        
     }
     
     _isNameChanged = NO;
@@ -272,8 +269,10 @@
     if(self.category.active){
         
         if(![p_manager hasActiveCategoryForTypeExceptCategory:self.category]){
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Деактивировать невозможно" message:@"Для работы программы нужна хотя бы одна активная категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DEACTIVATE_ALERT_TITLE", @"Title of alert Can not deactivate") message:NSLocalizedString(@"REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE", @"Message with reason that applicatin must have at least one active category") preferredStyle:UIAlertControllerStyleAlert];
+            
             UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
             [controller addAction:actionOk];
             [self presentViewController:controller animated:YES completion:nil];
             
@@ -283,13 +282,9 @@
         }
         
         [p_manager deactivateCategory:self.category];
-        //[self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
     }
-    else{
+    else
         [p_manager activateCategory:self.category];
-        [self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
-        //[self.buttonActivate setTitleColor:[UIColor ] forState:UIControlStateNormal];
-    }
     
     // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
@@ -298,7 +293,7 @@
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
     if([p_manager hasLinkedObjectsForCategory:self.category]){
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для удаления данной категории, необходимо удалить все связанные с ней записи (операции, счета, долги и т.д)." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"REASON_CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE", @"Message with reason that category has linked objects (operations, accounts, debts, etc.)") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
@@ -309,8 +304,10 @@
     }
     
     if(![p_manager hasActiveCategoryForTypeExceptCategory:self.category]){
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна активная категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"REASON_CAN_NOT_DELETE_BECOUSE_ABSENT_ANOTHER_ACTIVE_CATEGORY_FOR_TYPE_MESSAGE", @"Message with reason that category is only one active for type and another is not exists.") preferredStyle:UIAlertControllerStyleAlert];
+        
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
         
@@ -320,8 +317,10 @@
     }
     
     if([p_manager isJustOneCategory:self.category]){
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Удаление невозможно" message:@"Для работы программы нужна хотя бы одна категория данного типа." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE", @"Message with reason that category is only one for type and can not be deleted.") preferredStyle:UIAlertControllerStyleAlert];
+        
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
         [controller addAction:actionOk];
         [self presentViewController:controller animated:YES completion:nil];
         

@@ -38,19 +38,19 @@
     
     switch(self.categoryType){
         case YGCategoryTypeIncome:
-            self.navigationItem.title = @"Income sources";
+            self.navigationItem.title = NSLocalizedString(@"INCOME_SOURCES_FORM_TITLE", @"Title of Income sources form.");
             break;
         case YGCategoryTypeExpense:
-            self.navigationItem.title = @"Expense categories";
+            self.navigationItem.title = NSLocalizedString(@"EXPENSE_CATEGORIES_FORM_TITLE", @"Title of Expense categories form.");
             break;
         case YGCategoryTypeCurrency:
-            self.navigationItem.title = @"Currencies";
+            self.navigationItem.title = NSLocalizedString(@"CURRENCIES_FORM_TITLE", @"Title of Currencies form");
             break;
         case YGCategoryTypeCreditorOrDebtor:
-            self.navigationItem.title = @"Creditors/Debtors";
+            self.navigationItem.title = NSLocalizedString(@"CREDITORS_DEBTORS_FORM_TITLE", @"Title of Creditors/Debtors form.");
             break;
         case YGCategoryTypeTag:
-            self.navigationItem.title = @"Tags";
+            self.navigationItem.title = NSLocalizedString(@"TAGS_FORM_TITLE", @"Title of Tags form.");
             break;
         default:
             self.navigationItem.title = @"?";

@@ -86,12 +86,12 @@
             self.labelTargetCurrency.text = [_currency shorterName];
         }
         else{
-            self.labelAccount.text = @"Select account";
+            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT", @"Select account.");
             self.labelAccount.textColor = [UIColor redColor];
         }
         
         // set label sum red
-        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:@"Sum:" color:[UIColor redColor]];
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
 
         // button save
         UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
@@ -160,7 +160,7 @@
     }
     
     // title
-    self.navigationItem.title = @"Balance";
+    self.navigationItem.title = NSLocalizedString(@"BALANCE_EDIT_FORM_TITLE", @"Balance.");
     
     // set font size of labels
     for(UILabel *label in self.labelsController){

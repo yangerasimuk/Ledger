@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Account";
+    self.navigationItem.title = NSLocalizedString(@"ACCOUNT_CHOICE_FORM_TITLE", @"Title of Account choice form.");
     
     // get list of accounts
     YGEntityManager *em = [YGEntityManager sharedInstance];

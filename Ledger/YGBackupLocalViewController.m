@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Local backup";
+    self.navigationItem.title = NSLocalizedString(@"LOCAL_BACKUP_FORM_TITLE", @"Title of Local backup form");
     
     [self loadBackupInfo];
 }
