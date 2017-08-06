@@ -15,7 +15,8 @@
 #import "YGOperationManager.h"
 #import "YGTools.h"
 
-@interface YGIncomeEditController () <UITextFieldDelegate> {
+@interface YGIncomeEditController () <UITextFieldDelegate, UITextViewDelegate> {
+    
     NSDate *_created;
     YGCategory *_incomeSource;
     YGEntity *_account;
@@ -50,7 +51,7 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsController;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSum;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
@@ -164,7 +165,7 @@
         
         // set comment
         _comment = self.income.comment;
-        self.textFieldComment.text = _comment;
+        self.textViewComment.text = _comment;
         
         // init
         _initDateValue = [_created copy];
@@ -211,8 +212,24 @@
     _isCommentChanged = NO;
     
     self.textFieldSum.delegate = self;
-    self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
 
+    [self setDefaultFontForControls];
+}
+
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsController){
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // set font size of textField and textView
+    self.textFieldSum.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     
 }
 
@@ -221,14 +238,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if([textField isEqual:self.textFieldSum])
         return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
     else
         return NO;
 }
@@ -374,16 +398,19 @@
     [self changeSaveButtonEnable];
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+- (void)textViewDidChange:(UITextView *)textView {
     
-    _comment = self.textFieldComment.text;
-    
-    if([_initCommentValue isEqualToString:_comment])
-        _isCommentChanged = NO;
-    else
-        _isCommentChanged = YES;
-    
-    [self changeSaveButtonEnable];
+    if([textView isEqual:self.textViewComment]){
+        
+        _comment = textView.text;
+        
+        if([_initCommentValue isEqualToString:_comment])
+            _isCommentChanged = NO;
+        else
+            _isCommentChanged = YES;
+        
+        [self changeSaveButtonEnable];
+    }
 }
 
 #pragma mark - Save and delete actions

@@ -14,7 +14,8 @@
 #import "YGOperationManager.h"
 #import "YGTools.h"
 
-@interface YGTransferEditController () <UITextFieldDelegate> {
+@interface YGTransferEditController () <UITextFieldDelegate, UITextViewDelegate> {
+    
     NSDate *_created;
     YGEntity *_sourceAccount;
     YGCategory *_sourceCurrency;
@@ -49,16 +50,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelSourceAccount;
 @property (weak, nonatomic) IBOutlet UILabel *labelSourceSum;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldSourceSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelSourceCurrency;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldSourceSum;
+
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetAccount;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetSum;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
+
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsController;
-
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
@@ -68,7 +70,6 @@
 
 - (IBAction)textFieldSourceSumEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
 
@@ -194,7 +195,7 @@
         
         // set comment
         _comment = self.transfer.comment;
-        self.textFieldComment.text = _comment;
+        self.textViewComment.text = _comment;
         
         // init
         _initDateValue = [_created copy];
@@ -226,14 +227,6 @@
     // title
     self.navigationItem.title = NSLocalizedString(@"TRANSFER_EDIT_FORM_TITLE", @"Title of transfor edit form.");
     
-    // set font size of labels
-    for(UILabel *label in self.labelsController){
-        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
-                                     };
-        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
-        label.attributedText = attributed;
-    }
-    
     // init state for monitor user changes
     _isDateChanged = NO;
     _isSourceAccountChanged = NO;
@@ -244,7 +237,26 @@
     
     self.textFieldSourceSum.delegate = self;
     self.textFieldTargetSum.delegate = self;
-    self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
+    
+    [self setDefaultFontForControls];
+    
+}
+
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsController){
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // set font size of textField and textView
+    self.textFieldSourceSum.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textFieldTargetSum.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     
 }
 
@@ -253,15 +265,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if([textField isEqual:self.textFieldTargetSum]
        || [textField isEqual:self.textFieldSourceSum])
         return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
     else
         return NO;
 }
@@ -449,16 +468,19 @@
     [self changeSaveButtonEnable];
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+- (void)textViewDidChange:(UITextView *)textView {
     
-    _comment = self.textFieldComment.text;
-    
-    if([_initCommentValue isEqualToString:_comment])
-        _isCommentChanged = NO;
-    else
-        _isCommentChanged = YES;
-    
-    [self changeSaveButtonEnable];
+    if([textView isEqual:self.textViewComment]){
+        
+        _comment = textView.text;
+        
+        if([_initCommentValue isEqualToString:_comment])
+            _isCommentChanged = NO;
+        else
+            _isCommentChanged = YES;
+        
+        [self changeSaveButtonEnable];
+    }
 }
 
 

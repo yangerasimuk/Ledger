@@ -61,7 +61,7 @@
 "EXPENSE_CATEGORIES_VIEW_FORM_TITLE" = "Статьи расходов";
 
 /* Title of Expense choice form. */
-"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Выбор вида расхода";
+"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Выбор статьи расхода";
 
 /* Title of Expense category view/edit form. */
 "EXPENSE_CATEGORY_EDIT_FORM_TITLE" = "Статья расхода";
@@ -70,17 +70,17 @@
 "EXPENSE_EDIT_FORM_TITLE" = "Расход";
 
 /* Income */
-"INCOME_ALERT_ITEM_TITLE" = "Приход";
+"INCOME_ALERT_ITEM_TITLE" = "Доход";
 
 /* Title of Income operation. */
-"INCOME_EDIT_FORM_TITLE" = "Приход";
+"INCOME_EDIT_FORM_TITLE" = "Доход";
 
 /* Title of income form
    Title of Income sources form. */
-"INCOME_SOURCES_VIEW_FORM_TITLE" = "Источники дохода";
+"INCOME_SOURCES_VIEW_FORM_TITLE" = "Статья дохода";
 
 /* Title of Income source choice form. */
-"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Выбор дохода";
+"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Выбор статьи дохода";
 
 /* Title of Income source form. */
 "INCOME_SOURCE_EDIT_FORM_TITLE" = "Статья дохода";
@@ -89,10 +89,13 @@
 "LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
 
 /* Notification about account balance operation throught new account creation. */
-"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "Если остаток по данному счету не равен нулю, установите актуальное значение операцией \"Остаток по счету\" в разделе \"Операции\".";
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "Если остаток по данному счету не равен нулю, установите актуальное значение операцией \"Остаток по счёту\" в разделе \"Операции\".";
 
 /* Notification about account balance operation throught new account creation. */
-"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Остаток по счету";
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Остаток по счёту";
+
+/* No operations in Operations form. */
+"NO_OPERATIONS_LABEL" = "Нет операций";
 
 /* OK */
 "OK_ACTION_TITLE" = "OK";
@@ -114,16 +117,16 @@
 
 /* Select account
    Select account. */
-"SELECT_ACCOUNT_LABEL" = "Выбрать счет";
+"SELECT_ACCOUNT_LABEL" = "Выбрать счёт";
 
 /* Select category */
-"SELECT_CATEGORY_LABEL" = "Выбрать расход";
+"SELECT_CATEGORY_LABEL" = "Выбрать статью расхода";
 
 /* Select currency text on label. */
 "SELECT_CURRENCY_LABEL" = "Выбрать валюту";
 
 /* Select source */
-"SELECT_INCOME_SOURCE_LABEL" = "Выбрать доход";
+"SELECT_INCOME_SOURCE_LABEL" = "Выбрать статью дохода";
 
 /* Sum
    Sum. */

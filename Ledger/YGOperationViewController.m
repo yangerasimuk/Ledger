@@ -68,6 +68,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     CGFloat _heightTwoRowCell;
 }
 
+@property (strong, nonatomic) UIView *noDataView;
+
 @end
 
 @implementation YGOperationViewController
@@ -100,9 +102,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kOperationAccountActualCellId];
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
-    // fill table from cache - p_sections;
-    [self reloadDataFromSectionsCache];
-    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     [center addObserver:self
@@ -125,7 +124,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
                    name:@"HideDecimalFractionInListsChangedEvent"
                  object:nil];
     
-    [self updateUI];
+    // fill table from cache - p_sections;
+    [self reloadDataFromSectionsCache];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -133,10 +133,9 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
     //[self reloadDataFromSectionsCache];
     
-    [self updateUI];
-    
     [self.tableView reloadData];
 
+    [self updateUI];
 }
 
 /**
@@ -160,6 +159,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self buildSectionsCache];
     
     [self.tableView reloadData];
+    
+    [self updateUI];
 }
 
 //- (void)pullRefreshSwipe:(UIRefreshControl *)refresh {
@@ -173,6 +174,58 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 //}
 
 
+#pragma mark - Show/hide No operation view
+
+- (void)showNoDataView {
+    
+    if(!self.noDataView){
+        
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        
+        self.noDataView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        self.noDataView.backgroundColor = [UIColor colorWithRed:0.9647 green:0.9647 blue:0.9647 alpha:1.f];
+        
+        CGFloat navigationBarHeight = [self.navigationController navigationBar].frame.size.height;
+        CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        
+        CGFloat widthNote = self.view.bounds.size.width/2;
+        CGFloat heightNote = 44.f;
+        
+        CGFloat xNote = self.view.bounds.size.width/2 - widthNote/2;
+        CGFloat yNote;
+        
+        if(screenSize.height != self.view.bounds.size.height)
+            yNote = self.view.bounds.size.height/2 - heightNote/2 -  statusBarHeight;
+        else
+            yNote = self.view.bounds.size.height/2 - heightNote/2 - navigationBarHeight -  statusBarHeight;
+        
+        UILabel *labelNote = [[UILabel alloc] initWithFrame:CGRectMake(xNote, yNote, widthNote, heightNote)];
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize] + 2], NSForegroundColorAttributeName:[UIColor grayColor]};
+        
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"NO_OPERATIONS_LABEL", @"No operations in Operations form.") attributes:attributes];
+        
+        labelNote.attributedText = attributed;
+        labelNote.textAlignment = NSTextAlignmentCenter;
+        
+        [self.noDataView addSubview:labelNote];
+        
+        [self.view addSubview:self.noDataView];
+        [self.view bringSubviewToFront:self.noDataView];
+    }
+}
+
+- (void)hideNoDataView {
+    
+    if(self.noDataView){
+        [self.noDataView removeFromSuperview];
+        self.noDataView = nil;
+    }
+    
+}
+
+
 #pragma mark - Actions
 
 - (void)actionAddBarButton {
@@ -180,8 +233,11 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 }
 
 - (void)addOperation {
-    
+    /*
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"OPERATION_CHOICE_ALERT_SHEET_TITLE", @"Usually: Choose operation") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+     */
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *addExpenseAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"EXPENSE_ALERT_ITEM_TITLE", @"Expense") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddExpense];
@@ -193,15 +249,15 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     }];
     [controller addAction:addIncomeAction];
     
-    UIAlertAction *addAccountActualAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BALANCE_ALERT_ITEM_TITLE", @"Balance") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self actionAddAccountActual];
-    }];
-    [controller addAction:addAccountActualAction];
-    
     UIAlertAction *addTransferAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"TRANSFER_ALERT_ITEM_TITLE", @"Transfer") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self actionAddTransfer];
     }];
     [controller addAction:addTransferAction];
+    
+    UIAlertAction *addAccountActualAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BALANCE_ALERT_ITEM_TITLE", @"Balance") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self actionAddAccountActual];
+    }];
+    [controller addAction:addAccountActualAction];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL_ALERT_ITEM_TITLE", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
     [controller addAction:cancelAction];
@@ -226,8 +282,9 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 }
  */
 
+
 - (void)updateUI {
-    YGConfig *config = [YGTools config];
+    //YGConfig *config = [YGTools config];
     
     /*
     // Hide decimal fraction
@@ -253,6 +310,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 //        _refresh = nil;
 //        self.refreshControl = nil;
 //    }
+    
+    
 }
 
 
@@ -358,7 +417,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    //return _sections.list[section].headerView;
+
     return p_sections.list[section].headerView;
 }
 
@@ -368,8 +427,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //YGOperationType type = _sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
     
     YGOperationType type = p_sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
     
@@ -385,7 +442,16 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 #pragma mark - UITableDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    //return [_sections.list count];
+    
+    if([p_sections.list count] == 0){
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self showNoDataView];
+    }
+    else{
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        [self hideNoDataView];
+    }
+
     return [p_sections.list count];
 }
 

@@ -370,26 +370,23 @@
  */
 + (NSInteger)defaultFontSize {
     
-    NSInteger defaultSize = 18;
+    NSInteger defaultFontSize = 18;
     
     NSInteger deviceScreenHeight = [YGTools deviceScreenWidth];
     
-    if(deviceScreenHeight == 320){
-        defaultSize = 18;
-    }
-    else if(deviceScreenHeight == 375){
-        defaultSize = 20;
-    }
-    else if(deviceScreenHeight == 414){
-        defaultSize = 21;
-    }
+    if(deviceScreenHeight == 320)
+        defaultFontSize = 18;
+    else if(deviceScreenHeight == 375)
+        defaultFontSize = 20;
+    else if(deviceScreenHeight == 414)
+        defaultFontSize = 21;
     
-    return defaultSize;
+    return defaultFontSize;
 }
 
 + (NSInteger)deviceScreenWidth {
     
-    NSInteger screenWidth = 750;
+    NSInteger screenWidth = 320;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -415,23 +412,29 @@
 
 + (NSInteger)lengthCharachtersForTableView {
     
-    NSInteger width = [YGTools deviceScreenWidth];
+    static NSInteger lenghtCharactersForTableView = 0;
     
-    switch (width) {
-        case 320:
-            return 26;
-            break;
-        case 375:
-            return 28;
-            break;
-        case 414:
-            return 30;
-            break;
-            
-        default:
-            return 27;
-            break;
+    if(lenghtCharactersForTableView == 0){
+        
+        NSInteger width = [YGTools deviceScreenWidth];
+        
+        switch (width) {
+            case 320:
+                lenghtCharactersForTableView = 26;
+                break;
+            case 375:
+                lenghtCharactersForTableView = 28;
+                break;
+            case 414:
+                lenghtCharactersForTableView = 30;
+                break;
+            default:
+                lenghtCharactersForTableView = 27;
+                break;
+        }
     }
+    
+    return lenghtCharactersForTableView;
 }
 
 + (NSString *)stringContainString:(NSString *)string lengthMax:(NSInteger)lengthMax {
@@ -696,7 +699,7 @@
     return YES;
 }
 
-+ (BOOL)isValidNoteInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
++ (BOOL)isValidCommentInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
     
     // get result string
     NSString *resultString = [sourceString stringByReplacingCharactersInRange:range withString:replacementString];
@@ -705,7 +708,7 @@
         return YES;
     
     // length of result string
-    if([resultString length] > 100)
+    if([resultString length] > 55)
         return NO;
 
     return YES;

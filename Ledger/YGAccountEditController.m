@@ -12,7 +12,7 @@
 #import "YGCurrencyChoiceController.h"
 #import "YGTools.h"
 
-@interface YGAccountEditController () <UITextFieldDelegate> {
+@interface YGAccountEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
     NSString *p_name;
     NSInteger p_sort;
@@ -40,15 +40,13 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelSort;
-@property (weak, nonatomic) IBOutlet UILabel *labelComment;
 @property (weak, nonatomic) IBOutlet UILabel *labelIsDefault;
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrency;
-
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSort;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
@@ -122,7 +120,7 @@
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.account.sort];
         p_sort = self.account.sort;
         
-        self.textFieldComment.text = self.account.comment;
+        self.textViewComment.text = self.account.comment;
         p_comment = self.account.comment;
         
         self.currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
@@ -158,21 +156,31 @@
     _initCurrencyValue = [p_currency copy];
     _initIsDefaultValue = p_isDefault;
     
-    for(UILabel *label in self.labelsOfController){
-        
-        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],
-                                     };
-        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
-        
-        label.attributedText = attributed;
-    }
-    
     // set delegate to self for validators
     self.textFieldName.delegate = self;
     self.textFieldSort.delegate = self;
-    self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
     
     [self updateUI];
+    
+    [self setDefaultFontForControls];
+}
+
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsOfController){
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // set font size of textField and textView
+    self.textFieldName.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textFieldSort.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -188,8 +196,8 @@
         ;
     }
     else{
-        p_canDelete = YES;
         
+        p_canDelete = YES;
         
         if([_em isExistLinkedOperationsForEntity:self.account]){
             
@@ -225,7 +233,7 @@
 }
 
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
@@ -233,8 +241,15 @@
         return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
     else if([textField isEqual:self.textFieldSort])
         return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
     else
         return NO;
 }
@@ -314,16 +329,19 @@
     [self changeSaveButtonEnable];
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+- (void)textViewDidChange:(UITextView *)textView {
     
-    p_comment = self.textFieldComment.text;
-    
-    if([_initCommentValue isEqualToString:p_comment])
-        _isCommentChanged = NO;
-    else
-        _isCommentChanged = YES;
-    
-    [self changeSaveButtonEnable];
+    if([textView isEqual:self.textViewComment]){
+        
+        p_comment = textView.text;
+        
+        if([_initCommentValue isEqualToString:p_comment])
+            _isCommentChanged = NO;
+        else
+            _isCommentChanged = YES;
+        
+        [self changeSaveButtonEnable];
+    }
 }
 
 - (IBAction)switchIsDefaultValueChanged:(UISwitch *)sender {
@@ -395,7 +413,7 @@
                              currencyId:self.currency.rowId
                              attach:self.switchIsDefault.isOn
                              sort:[self.textFieldSort.text integerValue]
-                             comment:self.textFieldComment.text
+                             comment:self.textViewComment.text
                              ];
         
         [_em addEntity:account];
@@ -410,7 +428,7 @@
         if(_isSortChanged)
             self.account.sort = [self sortValueFromString:self.textFieldSort.text];
         if(_isCommentChanged)
-            self.account.comment = self.textFieldComment.text;
+            self.account.comment = self.textViewComment.text;
         if(_isCurrencyChanged)
             self.account.currencyId = self.currency.rowId;
         if(_isDefaultChanged)
@@ -424,20 +442,22 @@
         }
     }
     
-    // Notification about Account balance operation
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE", @"Notification about account balance operation throught new account creation.") message:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE", @"Notification about account balance operation throught new account creation.") preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *alertOk = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK_ACTION_TITLE", @"OK") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    if(self.isNewAccount){
+        // Notification about Account balance operation
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE", @"Notification about account balance operation throught new account creation.") message:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE", @"Notification about account balance operation throught new account creation.") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *alertOk = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK_ACTION_TITLE", @"OK") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popViewControllerAnimated:YES];
-    }];
-    
-    [alertController addAction:alertOk];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+        }];
+        
+        [alertController addAction:alertOk];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
 
-    // don't work
-    //[self.navigationController popoverPresentationController];
-    
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 
@@ -506,28 +526,16 @@
     
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
-    if(self.isNewAccount && indexPath.section == 3)
+    if(self.isNewAccount && indexPath.section == 4)
         height = 0;
     
     if(!self.isNewAccount
-       && indexPath.section == 3
+       && indexPath.section == 4
        && indexPath.row == 1
        && !p_canDelete)
         height = 0;
     
     return height;
 }
-
-/*
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    NSInteger count = [super tableView:tableView numberOfRowsInSection:section];
-    
-    if (self.isNewAccount && section == 3)
-        count = 0;
-    
-    return count;
-}
- */
 
 @end

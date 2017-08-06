@@ -10,7 +10,7 @@
 #import "YGCategoryManager.h"
 #import "YGTools.h"
 
-@interface YGCurrencyEditController () <UITextFieldDelegate> {
+@interface YGCurrencyEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
     NSString *p_name;
     NSString *p_symbol;
@@ -36,11 +36,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelSymbol;
 @property (weak, nonatomic) IBOutlet UILabel *labelSort;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
+
 
 @property (weak, nonatomic) IBOutlet UITextField *currencyName;
 @property (weak, nonatomic) IBOutlet UITextField *currencySymbol;
 @property (weak, nonatomic) IBOutlet UITextField *currencySort;
-@property (weak, nonatomic) IBOutlet UITextField *currencyComment;
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UISwitch *currencyIsDefault;
@@ -104,7 +107,7 @@
         self.currencyIsDefault.on = self.currency.isAttach;
         p_isDefault = self.currency.isAttach;
         
-        self.currencyComment.text = self.currency.comment;
+        self.textViewComment.text = self.currency.comment;
         p_comment = self.currency.comment;
         
         self.buttonActivate.enabled = YES;
@@ -140,7 +143,28 @@
     self.currencyName.delegate = self;
     self.currencySymbol.delegate = self;
     self.currencySort.delegate = self;
-    self.currencyComment.delegate = self;
+    self.textViewComment.delegate = self;
+    
+    [self setDefaultFontForControls];
+}
+
+
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsOfController){
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // set font size of textField and textView
+    self.currencyName.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.currencySort.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.currencySymbol.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
 }
 
 
@@ -150,7 +174,7 @@
 }
 
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
@@ -160,11 +184,20 @@
         return [YGTools isValidSymbolInSourceString:textField.text replacementString:string range:range];
     else if([textField isEqual:self.currencySort])
         return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.currencyComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
     else
         return NO;
 }
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
+    else
+        return NO;
+}
+
 
 #pragma mark - Monitoring of control value changed
 
@@ -221,18 +254,6 @@
 }
 
 
-- (IBAction)textCommentChanged:(id)sender {
-    
-    p_comment = self.currencyComment.text;
-    
-    if([_initCommentValue isEqualToString:p_comment])
-        _isCommentChanged = NO;
-    else
-        _isCommentChanged = YES;
-    
-    [self changeSaveButtonEnable];
-}
-
 - (IBAction)sliderDefaultChanged:(id)sender {
     
     p_isDefault = self.currencyIsDefault.isOn;
@@ -244,6 +265,23 @@
     
     [self changeSaveButtonEnable];
 }
+
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        p_comment = textView.text;
+        
+        if([_initCommentValue isEqualToString:p_comment])
+            _isCommentChanged = NO;
+        else
+            _isCommentChanged = YES;
+        
+        [self changeSaveButtonEnable];
+    }
+}
+
 
 - (BOOL)isEditControlsChanged{
     if(_isNameChanged)
@@ -293,7 +331,7 @@
 - (void)saveButtonPressed {
     
     if(_isNewCurrency){
-        YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.currencyComment.text];
+        YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.textViewComment.text];
         
         [p_manager addCategory:[currency copy]];
     }
@@ -308,7 +346,7 @@
         if(_isDefaultChanged)
             _currency.attach = self.currencyIsDefault.isOn;
         if(_isCommentChanged)
-            _currency.comment = self.currencyComment.text;
+            _currency.comment = self.textViewComment.text;
         
         [p_manager updateCategory:[_currency copy]];
         
@@ -406,13 +444,15 @@
     self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
 }
 
+
 #pragma mark - UITableViewDelegate
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
     // action delete
-    if(indexPath.section == 2 && indexPath.row == 1){
+    if(indexPath.section == 3 && indexPath.row == 1){
         
         if(self.currency){
             if([p_manager hasLinkedObjectsForCategory:_currency]
@@ -428,7 +468,7 @@
     
     
     // action deactivate
-    if(indexPath.section == 2 && indexPath.row == 0){
+    if(indexPath.section == 3 && indexPath.row == 0){
         
         if(self.currency && self.currency.active){
             
@@ -463,15 +503,5 @@
         return result;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

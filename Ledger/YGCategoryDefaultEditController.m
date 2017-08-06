@@ -10,7 +10,7 @@
 #import "YGCategoryManager.h"
 #import "YGTools.h"
 
-@interface YGCategoryDefaultEditController () <UITextFieldDelegate> {
+@interface YGCategoryDefaultEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
     NSString *p_name;
     NSInteger p_sort;
@@ -30,18 +30,18 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelSort;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfControllers;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSort;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
-
 
 @end
 
@@ -87,7 +87,7 @@
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.category.sort];
         p_sort = self.category.sort;
         
-        self.textFieldComment.text = self.category.comment;
+        self.textViewComment.text = self.category.comment;
         p_comment = self.category.comment;
         
         self.buttonActivate.enabled = YES;
@@ -118,11 +118,31 @@
     
     self.textFieldName.delegate = self;
     self.textFieldSort.delegate = self;
-    self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
+    
+    [self setDefaultFontForControls];
 }
 
 
-#pragma mark - UITextFieldDelegate
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsOfControllers){
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // set font size of textField and textView
+    self.textFieldName.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textFieldSort.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+}
+
+
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
@@ -130,8 +150,16 @@
         return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
     else if([textField isEqual:self.textFieldSort])
         return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
     else
         return NO;
 }
@@ -173,16 +201,20 @@
     [self changeSaveButtonEnable];
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+
+- (void)textViewDidChange:(UITextView *)textView {
     
-    p_comment = self.textFieldComment.text;
-    
-    if([_initCommentValue isEqualToString:p_comment])
-        _isCommentChanged = NO;
-    else
-        _isCommentChanged = YES;
-    
-    [self changeSaveButtonEnable];
+    if([textView isEqual:self.textViewComment]){
+        
+        p_comment = textView.text;
+        
+        if([_initCommentValue isEqualToString:p_comment])
+            _isCommentChanged = NO;
+        else
+            _isCommentChanged = YES;
+        
+        [self changeSaveButtonEnable];
+    }
 }
 
 - (BOOL)isEditControlsChanged{
@@ -244,7 +276,7 @@
                                        symbol:nil
                                        attach:NO
                                        parentId:-1
-                                       comment:self.textFieldComment.text];
+                                       comment:self.textViewComment.text];
         
         [p_manager addCategory:expenseCategory];
     }
@@ -255,7 +287,7 @@
         if(_isSortChanged)
             self.category.sort = sort;
         if(_isCommentChanged)
-            self.category.comment = self.textFieldComment.text;
+            self.category.comment = self.textViewComment.text;
 
         // change db, not instance
         [p_manager updateCategory:[self.category copy]];
@@ -354,7 +386,7 @@
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
     // action delete
-    if(indexPath.section == 1 && indexPath.row == 1){
+    if(indexPath.section == 2 && indexPath.row == 1){
         if(self.category){
             
             if([p_manager hasLinkedObjectsForCategory:self.category]
@@ -369,9 +401,8 @@
         }
     }
 
-    
     // action deactivate
-    if(indexPath.section == 1 && indexPath.row == 0){
+    if(indexPath.section == 2 && indexPath.row == 0){
         
         if(self.category && self.category.active){
             
@@ -384,7 +415,6 @@
         else if(!self.category){
             height = 0.0f;
         }
-
     }
     
     return height;

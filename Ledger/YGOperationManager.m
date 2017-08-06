@@ -41,22 +41,9 @@
     if(self){
         _sqlite = [YGSQLite sharedInstance];
         _operations = [[NSMutableArray alloc] init];
+        [[self operationsForCache] mutableCopy];
     }
     return self;
-}
-
-
-#pragma mark - Getter for categories
-
-/**
- @warning All another methods must call property only through self. syntax.
- */
-- (NSMutableArray <YGOperation *> *)operations {
-    
-    if(!_operations || [_operations count] == 0) {
-        _operations = [[self operationsForCache] mutableCopy];
-    }
-    return _operations;
 }
 
 

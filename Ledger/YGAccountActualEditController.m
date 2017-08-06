@@ -14,7 +14,8 @@
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
 
-@interface YGAccountActualEditController () <UITextFieldDelegate> {
+@interface YGAccountActualEditController () <UITextFieldDelegate, UITextViewDelegate> {
+    
     NSDate *_created;
     YGEntity *_account;
     YGCategory *_currency;
@@ -35,13 +36,11 @@
 
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldTargetSum;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
-
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
 
 - (IBAction)textFieldTargetSumEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
@@ -142,8 +141,8 @@
         self.cellActualSum.userInteractionEnabled = NO;
         
         // set comment
-        self.textFieldComment.text = self.accountActual.comment;
-        self.textFieldComment.textColor = [UIColor grayColor];
+        self.textViewComment.text = self.accountActual.comment;
+        self.textViewComment.textColor = [UIColor grayColor];
         self.labelCommentTitle.textColor = [UIColor grayColor];
         self.cellComment.userInteractionEnabled = NO;
         
@@ -178,7 +177,25 @@
     
     //
     self.textFieldTargetSum.delegate = self;
-    self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
+    
+    [self setDefaultFontForControls];
+}
+
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsController){
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    // set font size of textField and textView
+    self.textFieldTargetSum.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -187,14 +204,21 @@
 }
 
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if([textField isEqual:self.textFieldTargetSum])
         return [YGTools isValidSumWithZeroInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
     else
         return NO;
 }
@@ -289,6 +313,9 @@
 }
 
 
+/**
+ @warning Do i need any recalc?
+ */
 - (void)saveAccountActual {
     
     double sourceSum = _account.sum;
@@ -304,9 +331,8 @@
                                   targetCurrencyId:_account.currencyId
                                   created:_created
                                   modified:_created
-                                  comment:self.textFieldComment.text];
+                                  comment:self.textViewComment.text];
     
-#warning Where is recalc? Are we need it?
     [_om addOperation:accountActual];
 }
 

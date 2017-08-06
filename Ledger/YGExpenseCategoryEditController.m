@@ -11,7 +11,7 @@
 #import "YGCategoryManager.h"
 #import "YGTools.h"
 
-@interface YGExpenseCategoryEditController () <UITextFieldDelegate> {
+@interface YGExpenseCategoryEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
     NSString *p_name;
     NSInteger p_sort;
@@ -32,21 +32,21 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelSort;
-
+@property (weak, nonatomic) IBOutlet UILabel *labelParent;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSort;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
-@property (weak, nonatomic) IBOutlet UILabel *labelParent;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellParentCategory;
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 
 @end
 
@@ -91,7 +91,7 @@
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld",(long)self.expenseCategory.sort];
         p_sort = self.expenseCategory.sort;
         
-        self.textFieldComment.text = self.expenseCategory.comment;
+        self.textViewComment.text = self.expenseCategory.comment;
         p_comment = self.expenseCategory.comment;
         
         self.buttonActivate.enabled = YES;
@@ -136,9 +136,32 @@
     //
     self.textFieldName.delegate = self;
     self.textFieldSort.delegate = self;
-    self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
     
     [self updateUI];
+    
+    [self setDefaultFontForControls];
+    
+    NSLog(@"viewDidLoad, %@", self.labelParent.text);
+}
+
+- (void)setDefaultFontForControls {
+    
+    // set font size of labels
+    for(UILabel *label in self.labelsOfController){
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
+                                     };
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
+        label.attributedText = attributed;
+    }
+    
+    NSLog(@"setDefaultFontForControls, %@", self.labelParent.text);
+    
+    // set font size of textField and textView
+    self.textFieldName.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textFieldSort.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -162,6 +185,8 @@
             self.cellParentCategory.accessoryType = UITableViewCellAccessoryNone;
             self.labelParent.textColor = [YGTools colorForActionDisable];
             
+            NSLog(@"UpdateUI, %@", self.labelParent.text);
+            
         }
         else{
             self.cellParentCategory.userInteractionEnabled = YES;
@@ -171,7 +196,8 @@
     }
 }
 
-#pragma mark - UITextFieldDelegate
+
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
@@ -179,11 +205,20 @@
         return [YGTools isValidNameInSourceString:textField.text replacementString:string range:range];
     else if([textField isEqual:self.textFieldSort])
         return [YGTools isValidSortInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
     else
         return NO;
 }
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
+    }
+    else
+        return NO;
+}
+
 
 #pragma mark - Come back from parent category choice
 
@@ -246,16 +281,19 @@
     [self changeSaveButtonEnable];
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+- (void)textViewDidChange:(UITextView *)textView {
     
-    p_comment = self.textFieldComment.text;
-    
-    if([_initCommentValue isEqualToString:p_comment])
-        _isCommentChanged = NO;
-    else
-        _isCommentChanged = YES;
-    
-    [self changeSaveButtonEnable];
+    if([textView isEqual:self.textViewComment]){
+        
+        p_comment = textView.text;
+        
+        if([_initCommentValue isEqualToString:p_comment])
+            _isCommentChanged = NO;
+        else
+            _isCommentChanged = YES;
+        
+        [self changeSaveButtonEnable];
+    }
 }
 
 
@@ -311,7 +349,7 @@
                                        symbol:nil
                                        attach:NO
                                        parentId:self.expenseCategoryParent.rowId
-                                       comment:self.textFieldComment.text];
+                                       comment:self.textViewComment.text];
         
         [p_manager addCategory:expenseCategory];
     }
@@ -322,7 +360,7 @@
         if(_isSortChanged)
             self.expenseCategory.sort = [self sortValueFromString:self.textFieldSort.text];
         if(_isCommentChanged)
-            self.expenseCategory.comment = self.textFieldComment.text;
+            self.expenseCategory.comment = self.textViewComment.text;
         if(_isParentChanged)
             self.expenseCategory.parentId = self.expenseCategoryParent.rowId;
         
@@ -475,7 +513,7 @@
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
     // action delete
-    if(indexPath.section == 2 && indexPath.row == 1){
+    if(indexPath.section == 3 && indexPath.row == 1){
         
         if(self.expenseCategory){
             
@@ -492,7 +530,7 @@
     }
     
     // action deactivate
-    if(indexPath.section == 2 && indexPath.row == 0){
+    if(indexPath.section == 3 && indexPath.row == 0){
         
         if(self.expenseCategory && self.expenseCategory.active){
             
