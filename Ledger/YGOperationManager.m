@@ -80,7 +80,7 @@
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
     
     NSDate *timestamp = operation.created; //[NSDate date];
-    NSString *created = [YGTools stringWithCurrentTimeZoneFromDate:timestamp];
+    NSString *created = [YGTools sqlStringForDateLocalOrNull:timestamp];
     NSNumber *created_unix = [NSNumber numberWithDouble:[timestamp timeIntervalSince1970]];
     NSString *modified = [created copy];
     NSNumber *modified_unix = [created_unix copy];
@@ -160,18 +160,20 @@
 
 - (void)updateOperation:(YGOperation *)operation{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%ld, source_id=%ld, target_id=%ld, source_sum=%.2f, source_currency_id=%ld, target_sum=%.2f, target_currency_id=%ld, created='%@', created_unix=%f, modified='%@', modified_unix=%f,comment='%@' WHERE operation_id=%ld;", operation.type, operation.sourceId,
-                           operation.targetId,
-                           operation.sourceSum,
-                           operation.sourceCurrencyId,
-                           operation.targetSum,
-                           operation.targetCurrencyId,
-                           [YGTools stringWithCurrentTimeZoneFromDate:operation.created],
-                           [operation.created timeIntervalSince1970],
-                           [YGTools stringWithCurrentTimeZoneFromDate:operation.modified],
-                           [operation.modified timeIntervalSince1970],
-                           operation.comment,
-                           operation.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@,comment=%@ WHERE operation_id=%@;",
+                           [YGTools sqlStringForInt:operation.type],
+                           [YGTools sqlStringForInt:operation.sourceId],
+                           [YGTools sqlStringForInt:operation.targetId],
+                           [YGTools sqlStringForDecimal:operation.sourceSum],
+                           [YGTools sqlStringForInt:operation.sourceCurrencyId],
+                           [YGTools sqlStringForDecimal:operation.targetSum],
+                           [YGTools sqlStringForInt:operation.targetCurrencyId],
+                           [YGTools sqlStringForDateLocalOrNull:operation.created],
+                           [YGTools sqlStringForDouble:[operation.created timeIntervalSince1970]],
+                           [YGTools sqlStringForDateLocalOrNull:operation.modified],
+                           [YGTools sqlStringForDouble:[operation.modified timeIntervalSince1970]],
+                           [YGTools sqlStringForStringOrNull:operation.comment],
+                           [YGTools sqlStringForInt:operation.rowId]];
     
     [_sqlite execSQL:updateSQL];
     

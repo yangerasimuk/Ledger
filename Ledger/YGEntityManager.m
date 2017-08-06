@@ -206,13 +206,13 @@
 - (void)updateEntity:(YGEntity *)entity{
     
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, sum=%@, currency_id=%@, active=%@, active_from=%@, active_to=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
-                           [YGTools sqlStringForIntOrNull:entity.type],
+                           [YGTools sqlStringForInt:entity.type],
                            [YGTools sqlStringForStringOrNull:entity.name],
                             [YGTools sqlStringForDecimal:entity.sum],
                            [YGTools sqlStringForIntOrNull:entity.currencyId],
                            [YGTools sqlStringForBool:entity.isActive],
-                           [YGTools sqlStringForDateOrNull:entity.activeFrom],
-                           [YGTools sqlStringForDateOrNull:entity.activeTo],
+                           [YGTools sqlStringForDateLocalOrNull:entity.activeFrom],
+                           [YGTools sqlStringForDateLocalOrNull:entity.activeTo],
                            [YGTools sqlStringForBool:entity.attach],
                             [YGTools sqlStringForIntOrDefault:entity.sort],
                            [YGTools sqlStringForStringOrNull:entity.comment],

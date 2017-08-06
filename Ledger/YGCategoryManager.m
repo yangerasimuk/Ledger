@@ -328,14 +328,14 @@
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, active_from=%@, active_to=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@;",
                            [YGTools sqlStringForStringOrNull:category.name],
                            [YGTools sqlStringForBool:category.active],
-                           [YGTools sqlStringForDateOrNull:category.activeFrom],
-                           [YGTools sqlStringForDateOrNull:category.activeTo],
+                           [YGTools sqlStringForDateLocalOrNull:category.activeFrom],
+                           [YGTools sqlStringForDateLocalOrNull:category.activeTo],
                            [YGTools sqlStringForIntOrNull:category.sort],
                            [YGTools sqlStringForStringOrNull:category.symbol],
                            [YGTools sqlStringForBool:category.attach],
                            [YGTools sqlStringForIntOrNull:category.parentId],
                            [YGTools sqlStringForStringOrNull:category.comment],
-                           [YGTools sqlStringForIntOrNull:category.rowId]];
+                           [YGTools sqlStringForInt:category.rowId]];
     
     [_sqlite execSQL:updateSQL];
     

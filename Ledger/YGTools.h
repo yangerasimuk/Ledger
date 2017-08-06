@@ -18,7 +18,7 @@
 + (NSString *)humanViewOfDate:(NSDate *)date;
 + (NSString *)humanViewWithTodayOfDate:(NSDate *)date;
 + (NSString *)stringFromDate:(NSDate *)date;
-+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
+//+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
 + (NSDate *)dateFromString:(NSString *)string;
 
 + (NSString *)humanViewShortWithTodayOfDateString:(NSString *)dateString;
@@ -26,20 +26,20 @@
 
 + (NSDate *)dateMinimum;
 
-+ (NSString *)sqlStringForDateOrNull:(NSDate *)dateValue;
++ (NSString *)sqlStringForDateLocalOrNull:(NSDate *)dateValue;
 + (NSString *)sqlStringForBool:(BOOL)boolValue;
++ (NSString *)sqlStringForInt:(NSInteger)intValue;
 + (NSString *)sqlStringForIntOrNull:(NSInteger)intValue;
-+ (NSString *)sqlStringForStringOrNull:(NSString *)stringValue;
-+ (NSString *)sqlStringForDecimal:(double)doubleValue;
 + (NSString *)sqlStringForIntOrDefault:(NSInteger)intValue;
++ (NSString *)sqlStringForStringOrNull:(NSString *)stringValue;
++ (NSString *)sqlStringForDouble:(double)doubleValue;
++ (NSString *)sqlStringForDecimal:(double)doubleValue;
 
 + (YGConfig *)config;
 
 + (NSString *)documentsDirectoryPath;
 
 + (NSString *)humanViewStringForByteSize:(NSUInteger)size;
-
-//+ (NSInteger *)sizeClassOfCurrentIPhone;
 
 + (NSInteger)defaultFontSize;
 

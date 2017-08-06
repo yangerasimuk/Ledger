@@ -219,7 +219,11 @@
     return [formatter stringFromDate:date];
 }
 
-+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date {
+/**
+ Using in format sql queries in Manager files.
+ @warning Replaced by sqlStringForDateLocalOrNull
+ */
+/*+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
@@ -228,7 +232,7 @@
     
     return [formatter stringFromDate:date];
     
-}
+}*/
 
 + (NSDate *)dateFromString:(NSString *)string{
     
@@ -249,7 +253,7 @@
 
 #pragma mark - Value/classes to sql string
 
-+ (NSString *)sqlStringForDateOrNull:(NSDate *)dateValue {
++ (NSString *)sqlStringForDateLocalOrNull:(NSDate *)dateValue {
     if(dateValue){
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -269,6 +273,11 @@
         return [NSString stringWithFormat:@"%d", 0];
 }
 
++ (NSString *)sqlStringForInt:(NSInteger)intValue {
+    
+    return [NSString stringWithFormat:@"%ld", intValue];
+}
+
 + (NSString *)sqlStringForIntOrNull:(NSInteger)intValue {
     if(intValue != -1)
         return [NSString stringWithFormat:@"%ld", intValue];
@@ -282,6 +291,12 @@
     else
         return @"NULL";
 }
+
+
++ (NSString *)sqlStringForDouble:(double)doubleValue {
+    return [NSString stringWithFormat:@"%f", doubleValue];
+}
+
 
 + (NSString *)sqlStringForDecimal:(double)doubleValue {
     return [NSString stringWithFormat:@"%.2f", doubleValue];
