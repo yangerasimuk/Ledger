@@ -2,7 +2,7 @@
 "ABOUT_FORM_TITLE" = "О программе";
 
 /* Title of Accounts form */
-"ACCOUNTS_FORM_TITLE" = "Счета";
+"ACCOUNTS_VIEW_FORM_TITLE" = "Счета";
 
 /* Title of Account choice form. */
 "ACCOUNT_CHOICE_FORM_TITLE" = "Выбор счёта";
@@ -10,11 +10,9 @@
 /* Title of Account view/edit form. */
 "ACCOUNT_EDIT_FORM_TITLE" = "Счёт";
 
-/* Label of Activate button.
+/* Activate for button title
+   Label of Activate button.
    Title of Activate button. */
-"ACTIVATE_BUTTON_LABEL" = "Активировать";
-
-/* Activate for button title */
 "ACTIVATE_BUTTON_TITLE" = "Активировать";
 
 /* Author of application (Yan Gerasimuk) */
@@ -26,11 +24,17 @@
 /* Version of application */
 "APPLICATION_VERSION" = "Версия";
 
+/* Balance */
+"BALANCE_ALERT_ITEM_TITLE" = "Остаток по счёту";
+
 /* Balance. */
 "BALANCE_EDIT_FORM_TITLE" = "Остаток по счёту";
 
+/* Cancel */
+"CANCEL_ALERT_ITEM_TITLE" = "Отмена";
+
 /* Title of Currencies form */
-"CURRENCIES_FORM_TITLE" = "Валюты";
+"CURRENCIES_VIEW_FORM_TITLE" = "Валюты";
 
 /* Title of Currency choice form. */
 "CURRENCY_CHOICE_FORM_TITLE" = "Выбор валюты";
@@ -39,89 +43,100 @@
 "CURRENCY_EDIT_FORM_TITLE" = "Валюта";
 
 /* Title of currency form */
-"CURRENCY_FORM_TITLE" = "Валюта";
+"CURRENCY_VIEW_FORM_TITLE" = "Валюты";
 
 /* Title of date choice form. */
-"DATE_CHOICE_FORM_TITLE" = "Выбрать дату";
-
-/* Label of Deactivate button.
-   Title of Deactivate button. */
-"DEACTIVATE_BUTTON_LABEL" = "Деактивировать";
+"DATE_CHOICE_FORM_TITLE" = "Выбор даты";
 
 /* Deactivate for button title
+   Label of Deactivate button.
    Title of Deactivate button. */
 "DEACTIVATE_BUTTON_TITLE" = "Деактивировать";
 
-/* Title of Expense categories form. */
-"EXPENSE_CATEGORIES_FORM_TITLE" = "Категории расхода";
+/* Expense */
+"EXPENSE_ALERT_ITEM_TITLE" = "Расход";
+
+/* Title of Expense categories form.
+   Title of expense form */
+"EXPENSE_CATEGORIES_VIEW_FORM_TITLE" = "Статьи расходов";
 
 /* Title of Expense choice form. */
-"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Выбрать Категорию расхода";
+"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Выбор вида расхода";
 
 /* Title of Expense category view/edit form. */
-"EXPENSE_CATEGORY_EDIT_FORM_TITLE" = "Категория расхода";
+"EXPENSE_CATEGORY_EDIT_FORM_TITLE" = "Статья расхода";
 
 /* Title of expense edit form. */
-"EXPENSE_EDIT_FORM_TITLE" = "Категория расхода";
+"EXPENSE_EDIT_FORM_TITLE" = "Расход";
 
-/* Title of expense form */
-"EXPENSE_FORM_TITLE" = "Категории расхода";
+/* Income */
+"INCOME_ALERT_ITEM_TITLE" = "Приход";
 
-/* Title of income form */
-"INCOME_FORM_TITLE" = "Источники дохода";
+/* Title of Income operation. */
+"INCOME_EDIT_FORM_TITLE" = "Приход";
 
-/* Title of Income sources form. */
-"INCOME_SOURCES_FORM_TITLE" = "Источник дохода";
+/* Title of income form
+   Title of Income sources form. */
+"INCOME_SOURCES_VIEW_FORM_TITLE" = "Источники дохода";
 
 /* Title of Income source choice form. */
-"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Выбрать Источник дохода";
+"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Выбор дохода";
 
 /* Title of Income source form. */
-"INCOME_SOURCE_EDIT_FORM_TITLE" = "Источник дохода";
+"INCOME_SOURCE_EDIT_FORM_TITLE" = "Статья дохода";
 
 /* Title of Local backup form */
 "LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
 
+/* Notification about account balance operation throught new account creation. */
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "Если остаток по данному счету не равен нулю, установите актуальное значение операцией \"Остаток по счету\" в разделе \"Операции\".";
+
+/* Notification about account balance operation throught new account creation. */
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Остаток по счету";
+
+/* OK */
+"OK_ACTION_TITLE" = "OK";
+
 /* Title of Operations form */
-"OPERATIONS_FORM_TITLE" = "Операции";
+"OPERATIONS_VIEW_FORM_TITLE" = "Операции";
+
+/* Usually: Choose operation */
+"OPERATION_CHOICE_ALERT_SHEET_TITLE" = "Выбор операции";
 
 /* Title of Options form */
-"OPTIONS_FORM_TITLE" = "Настройки";
+"OPTIONS_VIEW_FORM_TITLE" = "Настройки";
 
 /* Name of Root category */
-"ROOT_CATEGORY_NAME" = "Корневая категория";
+"ROOT_CATEGORY_LABEL" = "Корневая статья";
 
-/* Select account. */
-"SELECT_ACCOUNT" = "Выбрать счет";
+/* Name of Root category */
+"ROOT_CATEGORY_NAME" = "Корневая статья";
 
 /* Select account
    Select account. */
 "SELECT_ACCOUNT_LABEL" = "Выбрать счет";
 
 /* Select category */
-"SELECT_CATEGORY" = "Выбрать Категорию расхода";
+"SELECT_CATEGORY_LABEL" = "Выбрать расход";
 
 /* Select currency text on label. */
 "SELECT_CURRENCY_LABEL" = "Выбрать валюту";
 
 /* Select source */
-"SELECT_INCOME_SOURCE_LABEL" = "Выбрать Источник дохода";
+"SELECT_INCOME_SOURCE_LABEL" = "Выбрать доход";
 
 /* Sum
    Sum. */
 "SUM" = "Сумма";
 
-/* Title of Tags form. */
-"TAGS_FORM_TITLE" = "Метки";
-
 /* Title of Tag edit form. */
 "TAG_EDIT_FORM_TITLE" = "Метка";
 
-/* Title of Tag form */
-"TAG_FORM_TITLE" = "Метки";
-
 /* Today date */
 "TODAY" = "Сегодня";
+
+/* Transfer */
+"TRANSFER_ALERT_ITEM_TITLE" = "Перевод";
 
 /* Title of transfor edit form. */
 "TRANSFER_EDIT_FORM_TITLE" = "Перевод";

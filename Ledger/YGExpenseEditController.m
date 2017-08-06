@@ -16,7 +16,7 @@
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
 
-@interface YGExpenseEditController () <UITextFieldDelegate> {
+@interface YGExpenseEditController () <UITextFieldDelegate, UITextViewDelegate> {
     NSDate *_created;
     YGEntity *_account;
     YGCategory *_currency;
@@ -52,7 +52,10 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsController;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSum;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
+@property (weak, nonatomic) IBOutlet UITextView *textViewComment;
+
+
+//@property (weak, nonatomic) IBOutlet UITextField *textFieldComment;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 
@@ -63,7 +66,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
 
 - (IBAction)textFieldSumEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
 
@@ -155,9 +157,14 @@
         self.textFieldSum.text = [YGTools stringCurrencyFromDouble:self.expense.sourceSum];
         
         // set comment
+//        _comment = self.expense.comment;
+//        if(self.expense.comment)
+//            self.textFieldComment.text = _comment;
+        
         _comment = self.expense.comment;
-        if(self.expense.comment)
-            self.textFieldComment.text = _comment;
+        if(_comment)
+            self.textViewComment.text = _comment;
+        
         
         // init
         _initDateValue = [_created copy];
@@ -204,7 +211,8 @@
     _isCommentChanged = NO;
     
     self.textFieldSum.delegate = self;
-    self.textFieldComment.delegate = self;
+    //self.textFieldComment.delegate = self;
+    self.textViewComment.delegate = self;
     
 }
 
@@ -213,14 +221,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if([textField isEqual:self.textFieldSum])
         return [YGTools isValidSumInSourceString:textField.text replacementString:string range:range];
-    else if([textField isEqual:self.textFieldComment])
-        return [YGTools isValidNoteInSourceString:textField.text replacementString:string range:range];
+    else
+        return NO;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([textView isEqual:self.textViewComment]){
+        return [YGTools isValidNoteInSourceString:textView.text replacementString:text range:range];
+    }
     else
         return NO;
 }
@@ -365,9 +380,9 @@
     [self changeSaveButtonEnable];
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+- (void)textViewDidChange:(UITextView *)textView {
     
-    _comment = self.textFieldComment.text;
+    _comment = textView.text;
     
     if([_initCommentValue isEqualToString:_comment])
         _isCommentChanged = NO;
@@ -376,6 +391,31 @@
     
     [self changeSaveButtonEnable];
 }
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    _comment = textView.text;
+    
+    if([_initCommentValue isEqualToString:_comment])
+        _isCommentChanged = NO;
+    else
+        _isCommentChanged = YES;
+    
+    [self changeSaveButtonEnable];
+    
+}
+
+//- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
+//    
+//    _comment = self.textFieldComment.text;
+//    
+//    if([_initCommentValue isEqualToString:_comment])
+//        _isCommentChanged = NO;
+//    else
+//        _isCommentChanged = YES;
+//    
+//    [self changeSaveButtonEnable];
+//}
 
 
 #pragma mark - Save and delete actions

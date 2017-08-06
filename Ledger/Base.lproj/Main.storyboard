@@ -620,12 +620,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVG-PO-bjz">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Activate">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonActivatePressed:" destination="RlP-sg-QH4" eventType="touchUpInside" id="h8F-4J-4Jo"/>
                                                     </connections>
@@ -633,7 +638,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="LVG-PO-bjz" firstAttribute="centerY" secondItem="5dJ-0C-vJ0" secondAttribute="centerY" id="1T7-fG-c1c"/>
-                                                <constraint firstItem="LVG-PO-bjz" firstAttribute="leading" secondItem="5dJ-0C-vJ0" secondAttribute="leadingMargin" constant="44" id="HGU-Ye-yQn"/>
+                                                <constraint firstItem="LVG-PO-bjz" firstAttribute="leading" secondItem="5dJ-0C-vJ0" secondAttribute="leadingMargin" constant="8" id="HGU-Ye-yQn"/>
                                                 <constraint firstItem="LVG-PO-bjz" firstAttribute="top" secondItem="5dJ-0C-vJ0" secondAttribute="topMargin" constant="-1" id="kLD-5Y-q4d"/>
                                                 <constraint firstItem="LVG-PO-bjz" firstAttribute="centerX" secondItem="5dJ-0C-vJ0" secondAttribute="centerX" id="z6e-bB-46V"/>
                                             </constraints>
@@ -647,12 +652,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssl-Rq-TcW">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.37089699349999999" blue="0.46661570520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="RlP-sg-QH4" eventType="touchUpInside" id="epn-4T-rid"/>
                                                     </connections>
@@ -660,7 +670,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ssl-Rq-TcW" firstAttribute="top" secondItem="NXT-fy-6I8" secondAttribute="topMargin" constant="-1" id="AOr-TD-OzZ"/>
-                                                <constraint firstItem="ssl-Rq-TcW" firstAttribute="leading" secondItem="NXT-fy-6I8" secondAttribute="leadingMargin" constant="44" id="K5G-cn-HZk"/>
+                                                <constraint firstItem="ssl-Rq-TcW" firstAttribute="leading" secondItem="NXT-fy-6I8" secondAttribute="leadingMargin" constant="8" id="K5G-cn-HZk"/>
                                                 <constraint firstItem="ssl-Rq-TcW" firstAttribute="centerX" secondItem="NXT-fy-6I8" secondAttribute="centerX" id="Li8-4j-T3Q"/>
                                                 <constraint firstItem="ssl-Rq-TcW" firstAttribute="centerY" secondItem="NXT-fy-6I8" secondAttribute="centerY" id="uDO-BK-XZH"/>
                                             </constraints>
@@ -889,12 +899,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aa-ky-kfG">
-                                                    <rect key="frame" x="60" y="7" width="255" height="29.5"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="29.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Backup">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonBackupPressed:" destination="gfz-rO-L88" eventType="touchUpInside" id="l71-66-ICc"/>
                                                     </connections>
@@ -902,7 +917,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="4aa-ky-kfG" firstAttribute="top" secondItem="ph7-qz-K6t" secondAttribute="topMargin" constant="-1" id="9bm-On-4rU"/>
-                                                <constraint firstItem="4aa-ky-kfG" firstAttribute="leading" secondItem="ph7-qz-K6t" secondAttribute="leadingMargin" constant="52" id="LwA-77-pgz"/>
+                                                <constraint firstItem="4aa-ky-kfG" firstAttribute="leading" secondItem="ph7-qz-K6t" secondAttribute="leadingMargin" constant="8" id="LwA-77-pgz"/>
                                                 <constraint firstItem="4aa-ky-kfG" firstAttribute="centerX" secondItem="ph7-qz-K6t" secondAttribute="centerX" id="dvd-vW-5gR"/>
                                                 <constraint firstItem="4aa-ky-kfG" firstAttribute="centerY" secondItem="ph7-qz-K6t" secondAttribute="centerY" id="vFf-EZ-el0"/>
                                             </constraints>
@@ -916,12 +931,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2x-wm-UEf">
-                                                    <rect key="frame" x="60" y="7" width="255" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.44305287240000002" green="0.82765948830000002" blue="0.1908842003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Restore">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonRestorePressed:" destination="gfz-rO-L88" eventType="touchUpInside" id="L84-id-anh"/>
                                                     </connections>
@@ -930,7 +950,7 @@
                                             <constraints>
                                                 <constraint firstItem="x2x-wm-UEf" firstAttribute="centerY" secondItem="sYf-b2-3Ud" secondAttribute="centerY" id="RxP-Da-Rw9"/>
                                                 <constraint firstItem="x2x-wm-UEf" firstAttribute="centerX" secondItem="sYf-b2-3Ud" secondAttribute="centerX" id="UIY-c6-ghu"/>
-                                                <constraint firstItem="x2x-wm-UEf" firstAttribute="leading" secondItem="sYf-b2-3Ud" secondAttribute="leadingMargin" constant="52" id="X6x-yZ-4AV"/>
+                                                <constraint firstItem="x2x-wm-UEf" firstAttribute="leading" secondItem="sYf-b2-3Ud" secondAttribute="leadingMargin" constant="8" id="X6x-yZ-4AV"/>
                                                 <constraint firstItem="x2x-wm-UEf" firstAttribute="top" secondItem="sYf-b2-3Ud" secondAttribute="topMargin" constant="-1" id="nzV-S4-6QT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1154,19 +1174,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OrH-8A-Gf3">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Activate">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonActivatePressed:" destination="rKg-q8-6IA" eventType="touchUpInside" id="Y4W-kF-ZDQ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="OrH-8A-Gf3" firstAttribute="leading" secondItem="WQt-MT-kgT" secondAttribute="leadingMargin" constant="44" id="Du2-6e-i9Q"/>
+                                                <constraint firstItem="OrH-8A-Gf3" firstAttribute="leading" secondItem="WQt-MT-kgT" secondAttribute="leadingMargin" constant="8" id="Du2-6e-i9Q"/>
                                                 <constraint firstItem="OrH-8A-Gf3" firstAttribute="top" secondItem="WQt-MT-kgT" secondAttribute="topMargin" constant="-1" id="J3h-Q1-gWc"/>
                                                 <constraint firstItem="OrH-8A-Gf3" firstAttribute="centerX" secondItem="WQt-MT-kgT" secondAttribute="centerX" id="oCa-k4-9dR"/>
                                                 <constraint firstItem="OrH-8A-Gf3" firstAttribute="centerY" secondItem="WQt-MT-kgT" secondAttribute="centerY" id="q5Y-Uw-L94"/>
@@ -1181,12 +1206,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5X-So-yvY">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.37089699349999999" blue="0.46661570520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="rKg-q8-6IA" eventType="touchUpInside" id="0CM-Sl-0xu"/>
                                                     </connections>
@@ -1196,7 +1226,7 @@
                                                 <constraint firstItem="I5X-So-yvY" firstAttribute="centerY" secondItem="2hc-6y-0eB" secondAttribute="centerY" id="39L-tX-TGl"/>
                                                 <constraint firstItem="I5X-So-yvY" firstAttribute="centerX" secondItem="2hc-6y-0eB" secondAttribute="centerX" id="3sB-gr-1YV"/>
                                                 <constraint firstItem="I5X-So-yvY" firstAttribute="top" secondItem="2hc-6y-0eB" secondAttribute="topMargin" constant="-1" id="GnJ-Nk-cKL"/>
-                                                <constraint firstItem="I5X-So-yvY" firstAttribute="leading" secondItem="2hc-6y-0eB" secondAttribute="leadingMargin" constant="44" id="KRJ-so-rs4"/>
+                                                <constraint firstItem="I5X-So-yvY" firstAttribute="leading" secondItem="2hc-6y-0eB" secondAttribute="leadingMargin" constant="8" id="KRJ-so-rs4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1385,12 +1415,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-hk-tmS">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Activate">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonActivatePressed:" destination="vHt-nn-E1t" eventType="touchUpInside" id="c7z-9P-Tfv"/>
                                                     </connections>
@@ -1399,7 +1434,7 @@
                                             <constraints>
                                                 <constraint firstItem="0gF-hk-tmS" firstAttribute="centerX" secondItem="FBF-pf-XfH" secondAttribute="centerX" id="5Ln-Fu-hmz"/>
                                                 <constraint firstItem="0gF-hk-tmS" firstAttribute="centerY" secondItem="FBF-pf-XfH" secondAttribute="centerY" id="g43-PX-5fQ"/>
-                                                <constraint firstItem="0gF-hk-tmS" firstAttribute="leading" secondItem="FBF-pf-XfH" secondAttribute="leadingMargin" constant="44" id="kbZ-tz-rtc"/>
+                                                <constraint firstItem="0gF-hk-tmS" firstAttribute="leading" secondItem="FBF-pf-XfH" secondAttribute="leadingMargin" constant="8" id="kbZ-tz-rtc"/>
                                                 <constraint firstItem="0gF-hk-tmS" firstAttribute="top" secondItem="FBF-pf-XfH" secondAttribute="topMargin" constant="-1" id="mc1-nR-5jQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1412,12 +1447,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtB-0b-GR8">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.37089699349999999" blue="0.46661570520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="vHt-nn-E1t" eventType="touchUpInside" id="nwm-1t-piD"/>
                                                     </connections>
@@ -1427,7 +1467,7 @@
                                                 <constraint firstItem="FtB-0b-GR8" firstAttribute="centerX" secondItem="OIZ-Ai-0jA" secondAttribute="centerX" id="0QT-aJ-YbR"/>
                                                 <constraint firstItem="FtB-0b-GR8" firstAttribute="top" secondItem="OIZ-Ai-0jA" secondAttribute="topMargin" constant="-1" id="28U-cs-VHm"/>
                                                 <constraint firstItem="FtB-0b-GR8" firstAttribute="centerY" secondItem="OIZ-Ai-0jA" secondAttribute="centerY" id="TfB-5y-AbG"/>
-                                                <constraint firstItem="FtB-0b-GR8" firstAttribute="leading" secondItem="OIZ-Ai-0jA" secondAttribute="leadingMargin" constant="44" id="uq3-j7-Bwi"/>
+                                                <constraint firstItem="FtB-0b-GR8" firstAttribute="leading" secondItem="OIZ-Ai-0jA" secondAttribute="leadingMargin" constant="8" id="uq3-j7-Bwi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1678,12 +1718,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLI-gX-7nw">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="66g-b9-qoX" eventType="touchUpInside" id="scz-lb-4lm"/>
                                                     </connections>
@@ -1692,7 +1737,7 @@
                                             <constraints>
                                                 <constraint firstItem="mLI-gX-7nw" firstAttribute="centerX" secondItem="e3X-rc-4Hl" secondAttribute="centerX" id="1RM-h9-0df"/>
                                                 <constraint firstItem="mLI-gX-7nw" firstAttribute="top" secondItem="e3X-rc-4Hl" secondAttribute="topMargin" constant="-1" id="Rhj-nJ-nMG"/>
-                                                <constraint firstItem="mLI-gX-7nw" firstAttribute="leading" secondItem="e3X-rc-4Hl" secondAttribute="leadingMargin" constant="44" id="Uew-mc-Ff2"/>
+                                                <constraint firstItem="mLI-gX-7nw" firstAttribute="leading" secondItem="e3X-rc-4Hl" secondAttribute="leadingMargin" constant="8" id="Uew-mc-Ff2"/>
                                                 <constraint firstItem="mLI-gX-7nw" firstAttribute="centerY" secondItem="e3X-rc-4Hl" secondAttribute="centerY" id="x0A-Jx-IhL"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1705,12 +1750,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGT-hP-Gwa">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Save &amp; add">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonSaveAndAddNewPressed:" destination="66g-b9-qoX" eventType="touchUpInside" id="7JA-0a-v0a"/>
                                                     </connections>
@@ -1720,7 +1770,7 @@
                                                 <constraint firstItem="gGT-hP-Gwa" firstAttribute="centerX" secondItem="JIC-Cm-CFG" secondAttribute="centerX" id="EAW-S8-IWB"/>
                                                 <constraint firstItem="gGT-hP-Gwa" firstAttribute="centerY" secondItem="JIC-Cm-CFG" secondAttribute="centerY" id="H2w-IP-uRl"/>
                                                 <constraint firstItem="gGT-hP-Gwa" firstAttribute="top" secondItem="JIC-Cm-CFG" secondAttribute="topMargin" constant="-1" id="gQm-Xm-gbO"/>
-                                                <constraint firstItem="gGT-hP-Gwa" firstAttribute="leading" secondItem="JIC-Cm-CFG" secondAttribute="leadingMargin" constant="44" id="vAg-Ro-kG8"/>
+                                                <constraint firstItem="gGT-hP-Gwa" firstAttribute="leading" secondItem="JIC-Cm-CFG" secondAttribute="leadingMargin" constant="8" id="vAg-Ro-kG8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1900,62 +1950,55 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="0ZH-Dq-sCd">
+                            <tableViewSection headerTitle="Comment" id="0ZH-Dq-sCd">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="tXi-GG-cBw">
-                                        <rect key="frame" x="0.0" y="303" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="tXi-GG-cBw">
+                                        <rect key="frame" x="0.0" y="323" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tXi-GG-cBw" id="pLV-9o-38N">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yIl-b0-iSg">
-                                                    <rect key="frame" x="93" y="7" width="268" height="30"/>
-                                                    <nil key="textColor"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bmg-yB-mIT">
+                                                    <rect key="frame" x="16" y="0.0" width="351" height="71"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <connections>
-                                                        <action selector="textFieldCommentEditingChanged:" destination="xEe-Ka-tyJ" eventType="editingChanged" id="IcF-Mj-rBf"/>
-                                                    </connections>
-                                                </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUq-2e-630">
-                                                    <rect key="frame" x="16" y="7" width="74" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="74" id="mhO-iG-c9a"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="yIl-b0-iSg" firstAttribute="leading" secondItem="WUq-2e-630" secondAttribute="trailing" constant="3" id="EeL-1X-dek"/>
-                                                <constraint firstItem="yIl-b0-iSg" firstAttribute="top" secondItem="pLV-9o-38N" secondAttribute="topMargin" constant="-1" id="Mq6-ZT-g96"/>
-                                                <constraint firstItem="WUq-2e-630" firstAttribute="top" secondItem="pLV-9o-38N" secondAttribute="topMargin" constant="-1" id="XDm-n4-k1Z"/>
-                                                <constraint firstItem="WUq-2e-630" firstAttribute="centerY" secondItem="pLV-9o-38N" secondAttribute="centerY" id="Yus-KE-0lz"/>
-                                                <constraint firstItem="WUq-2e-630" firstAttribute="leading" secondItem="pLV-9o-38N" secondAttribute="leadingMargin" constant="8" id="meG-Fo-Mhi"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="yIl-b0-iSg" secondAttribute="trailing" constant="6" id="pJb-j0-dVz"/>
+                                                <constraint firstItem="bmg-yB-mIT" firstAttribute="leading" secondItem="pLV-9o-38N" secondAttribute="leadingMargin" constant="8" id="JjI-pQ-pwd"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="bmg-yB-mIT" firstAttribute="top" secondItem="tXi-GG-cBw" secondAttribute="top" id="b2B-EF-3rJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="bmg-yB-mIT" secondAttribute="trailing" constant="8" id="mX7-z0-e5i"/>
+                                            <constraint firstItem="bmg-yB-mIT" firstAttribute="centerY" secondItem="tXi-GG-cBw" secondAttribute="centerY" id="uFa-CH-p6F"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="NpB-Pg-MSZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellDelete" rowHeight="44" id="wfO-Yf-5Dv">
-                                        <rect key="frame" x="0.0" y="383" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="429" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wfO-Yf-5Dv" id="mbn-1k-Qiy">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6t-PF-xG5">
-                                                    <rect key="frame" x="52" y="7" width="271" height="29.5"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="29.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="xEe-Ka-tyJ" eventType="touchUpInside" id="UD8-wC-pZx"/>
                                                     </connections>
@@ -1965,25 +2008,30 @@
                                                 <constraint firstItem="j6t-PF-xG5" firstAttribute="centerX" secondItem="mbn-1k-Qiy" secondAttribute="centerX" id="95f-5G-oPg"/>
                                                 <constraint firstItem="j6t-PF-xG5" firstAttribute="top" secondItem="mbn-1k-Qiy" secondAttribute="topMargin" constant="-1" id="WV6-C3-4gb"/>
                                                 <constraint firstItem="j6t-PF-xG5" firstAttribute="top" secondItem="mbn-1k-Qiy" secondAttribute="topMargin" constant="-1" id="snQ-rc-gFd"/>
-                                                <constraint firstItem="j6t-PF-xG5" firstAttribute="leading" secondItem="mbn-1k-Qiy" secondAttribute="leadingMargin" constant="44" id="ttp-GJ-JOZ"/>
+                                                <constraint firstItem="j6t-PF-xG5" firstAttribute="leading" secondItem="mbn-1k-Qiy" secondAttribute="leadingMargin" constant="8" id="ttp-GJ-JOZ"/>
                                                 <constraint firstItem="j6t-PF-xG5" firstAttribute="centerY" secondItem="mbn-1k-Qiy" secondAttribute="centerY" id="xYT-Nz-FFd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SaveAndAddNewCell" rowHeight="44" id="txN-0M-lRE">
-                                        <rect key="frame" x="0.0" y="427" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="473" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="txN-0M-lRE" id="QRf-yb-wOZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reu-q0-A6G">
-                                                    <rect key="frame" x="52" y="7" width="271" height="29.5"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="29.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Save &amp; add">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonSaveAndAddNewPressed:" destination="xEe-Ka-tyJ" eventType="touchUpInside" id="iS2-ay-p6W"/>
                                                     </connections>
@@ -1991,7 +2039,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="reu-q0-A6G" firstAttribute="top" secondItem="QRf-yb-wOZ" secondAttribute="topMargin" constant="-1" id="EWS-st-49d"/>
-                                                <constraint firstItem="reu-q0-A6G" firstAttribute="leading" secondItem="QRf-yb-wOZ" secondAttribute="leadingMargin" constant="44" id="HAS-m4-Xpn"/>
+                                                <constraint firstItem="reu-q0-A6G" firstAttribute="leading" secondItem="QRf-yb-wOZ" secondAttribute="leadingMargin" constant="8" id="HAS-m4-Xpn"/>
                                                 <constraint firstItem="reu-q0-A6G" firstAttribute="centerY" secondItem="QRf-yb-wOZ" secondAttribute="centerY" id="Je9-eu-7Mx"/>
                                                 <constraint firstItem="reu-q0-A6G" firstAttribute="centerX" secondItem="QRf-yb-wOZ" secondAttribute="centerX" id="eml-P0-a9K"/>
                                                 <constraint firstItem="reu-q0-A6G" firstAttribute="top" secondItem="QRf-yb-wOZ" secondAttribute="topMargin" constant="-1" id="wgD-QG-dm5"/>
@@ -2016,19 +2064,18 @@
                         <outlet property="labelCurrency" destination="Zk0-K6-RDD" id="YFn-OA-uGw"/>
                         <outlet property="labelDate" destination="vEG-9l-7D1" id="tVg-tK-86m"/>
                         <outlet property="labelSum" destination="sOM-RZ-eVp" id="x7h-7K-oK0"/>
-                        <outlet property="textFieldComment" destination="yIl-b0-iSg" id="mml-Kx-1Hz"/>
                         <outlet property="textFieldSum" destination="7bv-Zf-NLh" id="eNB-MX-oC5"/>
+                        <outlet property="textViewComment" destination="bmg-yB-mIT" id="rdy-Xc-ms8"/>
                         <outletCollection property="labelsController" destination="vEG-9l-7D1" id="I4v-Z6-dNR"/>
                         <outletCollection property="labelsController" destination="JIZ-Wc-P1a" id="0Ma-ri-JhN"/>
                         <outletCollection property="labelsController" destination="r8S-OU-Xsq" id="pFX-78-0S8"/>
                         <outletCollection property="labelsController" destination="sOM-RZ-eVp" id="n9I-2S-qLP"/>
                         <outletCollection property="labelsController" destination="Zk0-K6-RDD" id="miu-rE-fEd"/>
-                        <outletCollection property="labelsController" destination="WUq-2e-630" id="Qu0-Yw-i13"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQZ-yY-db6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3158" y="-1549"/>
+            <point key="canvasLocation" x="3157.5999999999999" y="-1549.4752623688157"/>
         </scene>
         <!--Expense Category Choice Controller-->
         <scene sceneID="VV9-YU-LUD">
@@ -2299,12 +2346,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lo-ZJ-ryX">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Activate">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonActivatePressed:" destination="NB8-kd-XQs" eventType="touchUpInside" id="uPK-i8-N5X"/>
                                                     </connections>
@@ -2314,7 +2366,7 @@
                                                 <constraint firstItem="3Lo-ZJ-ryX" firstAttribute="top" secondItem="yds-CA-jgZ" secondAttribute="topMargin" constant="-1" id="2e1-ta-k6o"/>
                                                 <constraint firstItem="3Lo-ZJ-ryX" firstAttribute="centerX" secondItem="yds-CA-jgZ" secondAttribute="centerX" id="ZUc-XB-bZP"/>
                                                 <constraint firstItem="3Lo-ZJ-ryX" firstAttribute="centerY" secondItem="yds-CA-jgZ" secondAttribute="centerY" id="bux-Dj-lY2"/>
-                                                <constraint firstItem="3Lo-ZJ-ryX" firstAttribute="leading" secondItem="yds-CA-jgZ" secondAttribute="leadingMargin" constant="44" id="w3k-tF-ljj"/>
+                                                <constraint firstItem="3Lo-ZJ-ryX" firstAttribute="leading" secondItem="yds-CA-jgZ" secondAttribute="leadingMargin" constant="8" id="w3k-tF-ljj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2326,12 +2378,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIX-te-ela">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.37089699349999999" blue="0.46661570520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="NB8-kd-XQs" eventType="touchUpInside" id="2OY-7N-ybX"/>
                                                     </connections>
@@ -2339,7 +2396,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="OIX-te-ela" firstAttribute="centerX" secondItem="jYt-kJ-Vxj" secondAttribute="centerX" id="9N9-4u-1hD"/>
-                                                <constraint firstItem="OIX-te-ela" firstAttribute="leading" secondItem="jYt-kJ-Vxj" secondAttribute="leadingMargin" constant="44" id="HGb-eG-mnH"/>
+                                                <constraint firstItem="OIX-te-ela" firstAttribute="leading" secondItem="jYt-kJ-Vxj" secondAttribute="leadingMargin" constant="8" id="HGb-eG-mnH"/>
                                                 <constraint firstItem="OIX-te-ela" firstAttribute="centerY" secondItem="jYt-kJ-Vxj" secondAttribute="centerY" id="MUa-6i-uX6"/>
                                                 <constraint firstItem="OIX-te-ela" firstAttribute="top" secondItem="jYt-kJ-Vxj" secondAttribute="topMargin" constant="-1" id="UWH-q1-p91"/>
                                             </constraints>
@@ -2694,19 +2751,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-OB-9ej">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="Ven-e3-rA0" eventType="touchUpInside" id="CYR-MK-1KQ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="aGe-OB-9ej" firstAttribute="leading" secondItem="HlT-aM-3Ae" secondAttribute="leadingMargin" constant="44" id="4nf-ZW-5KM"/>
+                                                <constraint firstItem="aGe-OB-9ej" firstAttribute="leading" secondItem="HlT-aM-3Ae" secondAttribute="leadingMargin" constant="8" id="4nf-ZW-5KM"/>
                                                 <constraint firstItem="aGe-OB-9ej" firstAttribute="centerX" secondItem="HlT-aM-3Ae" secondAttribute="centerX" id="EfQ-B2-oZ2"/>
                                                 <constraint firstItem="aGe-OB-9ej" firstAttribute="centerY" secondItem="HlT-aM-3Ae" secondAttribute="centerY" id="QAe-ia-Vt3"/>
                                                 <constraint firstItem="aGe-OB-9ej" firstAttribute="top" secondItem="HlT-aM-3Ae" secondAttribute="topMargin" constant="-1" id="weI-EL-p6U"/>
@@ -2721,19 +2783,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blz-hv-5Qg">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Save &amp; add">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonSaveAndAddNewPressed:" destination="Ven-e3-rA0" eventType="touchUpInside" id="6az-aX-dqb"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="blz-hv-5Qg" firstAttribute="leading" secondItem="PFI-N0-bIW" secondAttribute="leadingMargin" constant="44" id="I2L-fY-d9c"/>
+                                                <constraint firstItem="blz-hv-5Qg" firstAttribute="leading" secondItem="PFI-N0-bIW" secondAttribute="leadingMargin" constant="8" id="I2L-fY-d9c"/>
                                                 <constraint firstItem="blz-hv-5Qg" firstAttribute="top" secondItem="PFI-N0-bIW" secondAttribute="topMargin" constant="-1" id="WWZ-Tl-aCc"/>
                                                 <constraint firstItem="blz-hv-5Qg" firstAttribute="centerX" secondItem="PFI-N0-bIW" secondAttribute="centerX" id="dFQ-o2-bwh"/>
                                                 <constraint firstItem="blz-hv-5Qg" firstAttribute="centerY" secondItem="PFI-N0-bIW" secondAttribute="centerY" id="qV8-Av-c6M"/>
@@ -2969,12 +3036,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8e-H2-feU">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonDeletePressed:" destination="26z-eN-1BT" eventType="touchUpInside" id="hbx-gV-83a"/>
                                                     </connections>
@@ -2984,7 +3056,7 @@
                                                 <constraint firstItem="r8e-H2-feU" firstAttribute="centerY" secondItem="jcy-l9-DCz" secondAttribute="centerY" id="Bxp-cY-hqJ"/>
                                                 <constraint firstItem="r8e-H2-feU" firstAttribute="centerX" secondItem="jcy-l9-DCz" secondAttribute="centerX" id="icK-ss-JlW"/>
                                                 <constraint firstItem="r8e-H2-feU" firstAttribute="top" secondItem="jcy-l9-DCz" secondAttribute="topMargin" constant="-1" id="oSX-WE-sRR"/>
-                                                <constraint firstItem="r8e-H2-feU" firstAttribute="leading" secondItem="jcy-l9-DCz" secondAttribute="leadingMargin" constant="44" id="p3i-95-zM1"/>
+                                                <constraint firstItem="r8e-H2-feU" firstAttribute="leading" secondItem="jcy-l9-DCz" secondAttribute="leadingMargin" constant="8" id="p3i-95-zM1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2996,19 +3068,30 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3u-1O-XUK">
-                                                    <rect key="frame" x="52" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Save &amp; add">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="buttonSaveAndAddNewPressed" destination="26z-eN-1BT" eventType="touchUpInside" id="fnW-fW-zPE"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="e3u-1O-XUK" firstAttribute="leading" secondItem="1R8-pw-J2a" secondAttribute="leadingMargin" constant="44" id="2Ce-xI-TyF"/>
+                                                <constraint firstItem="e3u-1O-XUK" firstAttribute="leading" secondItem="1R8-pw-J2a" secondAttribute="leadingMargin" constant="8" id="2Ce-xI-TyF">
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </constraint>
                                                 <constraint firstItem="e3u-1O-XUK" firstAttribute="centerY" secondItem="1R8-pw-J2a" secondAttribute="centerY" id="Akm-YR-XaC"/>
                                                 <constraint firstItem="e3u-1O-XUK" firstAttribute="top" secondItem="1R8-pw-J2a" secondAttribute="topMargin" constant="-1" id="W4b-0q-S7c"/>
                                                 <constraint firstItem="e3u-1O-XUK" firstAttribute="centerX" secondItem="1R8-pw-J2a" secondAttribute="centerX" id="YkD-hZ-ztp"/>

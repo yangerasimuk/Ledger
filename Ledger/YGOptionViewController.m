@@ -95,16 +95,16 @@
                 vc.title = NSLocalizedString(@"CURRENCY_VIEW_FORM_TITLE", @"Title of currency form");
                 break;
             case YGCategoryTypeExpense:
-                vc.title = NSLocalizedString(@"EXPENSE_VIEW_FORM_TITLE", @"Title of expense form");
+                vc.title = NSLocalizedString(@"EXPENSE_CATEGORIES_VIEW_FORM_TITLE", @"Title of expense form");
                 break;
             case YGCategoryTypeIncome:
-                vc.title = NSLocalizedString(@"INCOME_VIEW_FORM_TITLE", @"Title of income form");
+                vc.title = NSLocalizedString(@"INCOME_SOURCES_VIEW_FORM_TITLE", @"Title of income form");
                 break;
             case YGCategoryTypeCreditorOrDebtor:
-                vc.title = NSLocalizedString(@"CREDITOR_VIEW_DEBTOR_FORM_TITLE", @"Title of Creditor/debtor form");
+                vc.title = NSLocalizedString(@"CREDITORS_DEBTORS_VIEW_FORM_TITLE", @"Title of Creditor/debtor form");
                 break;
             case YGCategoryTypeTag:
-                vc.title = NSLocalizedString(@"TAG_VIEW_FORM_TITLE", "Title of Tag form");
+                vc.title = NSLocalizedString(@"TAGS_VIEW_FORM_TITLE", "Title of Tag form");
                 break;
         }
         

@@ -263,7 +263,7 @@
     p_currency = self.currency;
     
     // update UI
-    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],};
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],NSForegroundColorAttributeName:[UIColor blackColor],};
     NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:currency.name attributes:attributes];
     self.labelCurrency.attributedText = attributed;
     
@@ -424,7 +424,20 @@
         }
     }
     
-    [self.navigationController popViewControllerAnimated:YES];
+    // Notification about Account balance operation
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE", @"Notification about account balance operation throught new account creation.") message:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE", @"Notification about account balance operation throught new account creation.") preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *alertOk = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK_ACTION_TITLE", @"OK") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+    [alertController addAction:alertOk];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+
+    // don't work
+    //[self.navigationController popoverPresentationController];
+    
 }
 
 
