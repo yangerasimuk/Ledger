@@ -158,6 +158,12 @@
     [self createTable:@"operation" createSQL:createSql];
     
     [YYGDBLog logEvent:@"Table operation created"];
+    
+#ifdef DEBUG
+#if (TARGET_OS_SIMULATOR)
+    [self debugCopyLinkToDatabaseOnDesktop];
+#endif
+#endif
 }
 
 
@@ -212,103 +218,100 @@
 
     sqlite3_close(db);
     
-#ifdef SIMULATOR_RUN
-    
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSError *error = nil;
-    [fm removeItemAtPath:@"/Users/yanikng/Desktop/ledger.db.sqlite" error:&error];
-    if(error){
-        NSLog(@"Error in remove old symbolic link. Error: %@", [error description]);
-    }
-    [fm createSymbolicLinkAtPath:@"/Users/yanikng/Desktop/ledger.db.sqlite" withDestinationPath:[YGSQLite databaseFullName] error:&error];
-    if(error){
-        NSLog(@"Error in create symbolic link. Error: %@", [error description]);
-    }
-    
+#ifdef DEBUG
+    #if (TARGET_OS_SIMULATOR)
+    [self debugCopyLinkToDatabaseOnDesktop];
+    #endif
 #endif
 }
 
 
 - (NSInteger)addRecord:(NSArray *)fieldsOfItem insertSQL:(NSString *)insertSQL{
     
-    NSInteger resultId = -1;
     sqlite3 *db = [self database];
 
-    //char *errorMsg = NULL;
     sqlite3_stmt *stmt;
-
-    if(sqlite3_prepare_v2(db, [insertSQL UTF8String], -1, &stmt, nil) == SQLITE_OK){
+    
+    NSInteger resultId = -1;
+    
+    @try {
         
-        for(int i = 0; i < [fieldsOfItem count]; i++){
+        NSInteger resultSqlitePrepare = sqlite3_prepare_v2(db, [insertSQL UTF8String], -1, &stmt, nil);
+        
+        if(resultSqlitePrepare == SQLITE_OK){
             
-            id field = fieldsOfItem[i];
-            
-            if([field isKindOfClass:[NSNumber class]]){
+            for(int i = 0; i < [fieldsOfItem count]; i++){
                 
-                if(strcmp([field objCType], @encode(double)) == 0){
-                    if(sqlite3_bind_double(stmt, i+1, [field doubleValue]) != SQLITE_OK){
-                        NSLog(@"Can not bind double");
+                id field = fieldsOfItem[i];
+                
+                if([field isKindOfClass:[NSNumber class]]){
+                    
+                    if(strcmp([field objCType], @encode(double)) == 0){
+                        if(sqlite3_bind_double(stmt, i+1, [field doubleValue]) != SQLITE_OK){
+                            NSLog(@"Can not bind double");
+                        }
+                    }
+                    else if((strcmp([field objCType], @encode(long)) == 0)
+                            || (strcmp([field objCType], @encode(int)) == 0)){
+                        if(sqlite3_bind_int(stmt, i+1, [field intValue]) != SQLITE_OK){
+                            NSLog(@"Can not bind int");
+                        }
+                    }
+                    else if(strcmp([field objCType], @encode(BOOL)) == 0){ // BOOL as int, Do not work, see below
+                        if(sqlite3_bind_int(stmt, i+1, [field boolValue]) != SQLITE_OK){
+                            NSLog(@"Can not bind bool");
+                        }
+                    }
+                    else if(strcmp([field objCType], "c") == 0){ // BOOL as char, crutch!
+                        int intBool = (int)[field boolValue];
+                        if(sqlite3_bind_int(stmt, i+1, intBool) != SQLITE_OK){
+                            NSLog(@"Can not bind bool");
+                        }
+                    }
+                    else{
+                        @throw [NSException exceptionWithName:@"-[YGSQLite fillTable:items:updateSQL]" reason:[NSString stringWithFormat:@"Can not bind NSNumber object. field type: %s, column: %d, class: %@", [field objCType], i+1, NSStringFromClass([field class])] userInfo:nil];
                     }
                 }
-                
-                else if((strcmp([field objCType], @encode(long)) == 0)
-                        || (strcmp([field objCType], @encode(int)) == 0)){
-                    if(sqlite3_bind_int(stmt, i+1, [field intValue]) != SQLITE_OK){
-                        NSLog(@"Can not bind int");
+                else if([field isKindOfClass:[NSString class]]){
+                    if(sqlite3_bind_text(stmt, i+1, [field UTF8String], -1, NULL) != SQLITE_OK){
+                        NSLog(@"Can not bind text");
                     }
                 }
-                else if(strcmp([field objCType], @encode(BOOL)) == 0){ // BOOL as int
-                    if(sqlite3_bind_int(stmt, i+1, [field intValue]) != SQLITE_OK){
-                        NSLog(@"Can not bind bool");
+                else if([field isKindOfClass:[NSNull class]]){
+                    if(sqlite3_bind_null(stmt, i+1) != SQLITE_OK){
+                        NSLog(@"Can not bind null");
                     }
                 }
                 else{
-                    @throw [NSException exceptionWithName:@"-[YGSQLite fillTable:items:updateSQL]" reason:@"Can not bind NSNumber object" userInfo:nil];
+                    NSLog(@"undefined item class: %@, description: %@", [field class], [field description]);
+                    @throw [NSException exceptionWithName:@"-[YGSQLite addRecord:insertSQL" reason:@"Can not choose bind functions to undefined item" userInfo:nil];
                 }
-            }
-            else if([field isKindOfClass:[NSString class]]){
-                if(sqlite3_bind_text(stmt, i+1, [field UTF8String], -1, NULL) != SQLITE_OK){
-                    NSLog(@"Can not bind text");
-                }
-            }
-            else if([field isKindOfClass:[NSNull class]]){
-                if(sqlite3_bind_null(stmt, i+1) != SQLITE_OK){
-                    NSLog(@"Can not bind null");
-                }
-            }
-            else{
-                NSLog(@"undefined item class: %@, description: %@", [field class], [field description]);
-                @throw [NSException exceptionWithName:@"-[YGSQLite addRecord:insertSQL" reason:@"Can not choose bind functions to undefined item" userInfo:nil];
+                
             }
             
-        } //for(int j = 0; j < [item count]; j++){
-        
-        if((long)sqlite3_step(stmt) != SQLITE_DONE){
-            NSString *errorMsg = [NSString stringWithUTF8String:sqlite3_errmsg(db)];
-            NSLog(@"Error message: %@", errorMsg);
+            NSInteger resultSqliteStep = sqlite3_step(stmt);
+            if(resultSqliteStep != SQLITE_DONE)
+                NSLog(@"sqlite_step() fail: Returned code: %@", [NSString stringWithUTF8String:sqlite3_errmsg(db)]);
+            
+            resultId = sqlite3_last_insert_rowid(db);
+        }
+        else{
+            
+            NSLog(@"sqlite_prepare_v2() fail. Returned code: %ld", resultSqlitePrepare);
         }
         
-        NSInteger result = (long)sqlite3_step(stmt);
-        //printf("\nresult of sqlite3_step: %ld", result);
-        
-        resultId = sqlite3_last_insert_rowid(db);
-        
-    } //if(sqlite3_prepare_v2(db, [updateSQL UTF8String], -1, &stmt, nil) == SQLITE_OK){
-    
-    /*
-    if (sqlite3_step(stmt) != SQLITE_DONE) {
-        
-        printf("\n%s", errorMsg);
-        NSAssert(0, @"Error updating table: %s", errorMsg);
-        
+        sqlite3_finalize(stmt);
     }
-     */
-    
-    sqlite3_finalize(stmt);
-
-    sqlite3_close(db);
-    
-    return resultId;
+    @catch(NSException *ex){
+        
+        NSLog(@"Exception in -[YGSQLite addRecord:insertSQL:]. Exception: %@", [ex description]);
+    }
+    @finally {
+        
+        sqlite3_close(db);
+        
+        return resultId;
+    }
 }
 
 /*
@@ -610,6 +613,23 @@
  */
 + (NSString *)databaseName {
     return kDatabaseName;
+}
+
+- (void)debugCopyLinkToDatabaseOnDesktop {
+    
+#ifdef DEBUG
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error = nil;
+    [fm removeItemAtPath:@"/Users/yanikng/Desktop/ledger.db.sqlite" error:&error];
+    if(error){
+        NSLog(@"Error in remove old symbolic link. Error: %@", [error description]);
+    }
+    [fm createSymbolicLinkAtPath:@"/Users/yanikng/Desktop/ledger.db.sqlite" withDestinationPath:[YGSQLite databaseFullName] error:&error];
+    if(error){
+        NSLog(@"Error in create symbolic link. Error: %@", [error description]);
+    }
+#endif
 }
 
 @end

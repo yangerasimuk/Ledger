@@ -48,14 +48,9 @@
     
     if(leftText && ![_leftText isEqualToString:leftText]){
         _leftText = leftText;
-        
-        NSDictionary *textAttributes = @{
-                                         NSFontAttributeName:[UIFont systemFontOfSize:_fontSizeLeftText],
-                                         NSForegroundColorAttributeName:[UIColor blackColor],
-                                         };
-        NSAttributedString *textAttributed = [[NSAttributedString alloc] initWithString:self.leftText attributes:textAttributes];
-        
-        self.textLabel.attributedText = textAttributed;
+
+        self.textLabel.text = self.leftText;
+        self.textLabel.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     }
     
 }

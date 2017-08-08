@@ -46,6 +46,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
+
+
 @property (weak, nonatomic) IBOutlet UISwitch *currencyIsDefault;
 
 - (IBAction)textNameChanged:(id)sender;
@@ -158,6 +162,10 @@
                                      };
         NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
         label.attributedText = attributed;
+    }
+    
+    for(UIButton *button in self.buttonsOfController){
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:[YGTools defaultFontSize]];
     }
     
     // set font size of textField and textView

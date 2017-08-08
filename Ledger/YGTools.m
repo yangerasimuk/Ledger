@@ -387,7 +387,7 @@
  
  @return Font size.
  */
-+ (NSInteger)defaultFontSize {
++ (CGFloat)defaultFontSize {
     
     NSInteger defaultFontSize = 18;
     
@@ -508,6 +508,9 @@
     return [UIColor colorWithRed:255/255.f green:95/255.f blue:119/255.f alpha:1.f];
 }
 
+
+#pragma mark - Localization
+
 + (NSString *)languageCodeSystem{
     
     NSString *languageCode = [[NSLocale preferredLanguages] objectAtIndex:0];
@@ -518,8 +521,6 @@
 + (NSString *)languageCodeApplication{
     
     NSString *languageCode = [self languageCodeSystem];
-    
-    NSLog(@"language code system: %@", languageCode);
     
     if([languageCode hasPrefix:@"ru"])
         return @"ru";

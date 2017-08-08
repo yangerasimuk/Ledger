@@ -155,7 +155,6 @@
                               [NSNumber numberWithInteger:entity.type], // entity_type_id
                               entity.name ? entity.name : [NSNull null], // name
                               [NSNumber numberWithDouble:entity.sum],
-                              //[NSNumber numberWithDouble:entity.sum], // sum
                               [NSNumber numberWithInteger:entity.currencyId], //currencyId
                               [NSNumber numberWithBool:entity.isActive], // active
                               [YGTools stringFromDate:entity.activeFrom], // active_from,

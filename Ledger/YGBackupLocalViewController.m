@@ -22,18 +22,18 @@
     BOOL p_isBackupExist;
 }
 
-//@property (copy, nonatomic) YGBackup *backup;
-
 @property (weak, nonatomic) IBOutlet UILabel *labelBackupDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelBackupLastOperation;
 @property (weak, nonatomic) IBOutlet UILabel *labelBackupDBSize;
 @property (weak, nonatomic) IBOutlet UILabel *labelWorkDBLastOperation;
 @property (weak, nonatomic) IBOutlet UILabel *labelWorkDBSize;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
+
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonBackup;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRestore;
-
-
 
 - (IBAction)buttonBackupPressed:(UIButton *)sender;
 - (IBAction)buttonRestorePressed:(UIButton *)sender;
@@ -46,6 +46,17 @@
     [super viewDidLoad];
     
     self.navigationItem.title = NSLocalizedString(@"LOCAL_BACKUP_FORM_TITLE", @"Title of Local backup form");
+    
+    
+    for(UILabel *label in self.labelsOfController){
+        
+        label.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
+    }
+    
+    for(UIButton *button in self.buttonsOfController){
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:[YGTools defaultFontSize]];
+    }
+    
     
     [self loadBackupInfo];
 }

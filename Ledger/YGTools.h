@@ -41,7 +41,7 @@
 
 + (NSString *)humanViewStringForByteSize:(NSUInteger)size;
 
-+ (NSInteger)defaultFontSize;
++ (CGFloat)defaultFontSize;
 
 + (NSInteger)deviceScreenWidth;
 + (NSInteger)lengthCharachtersForTableView;

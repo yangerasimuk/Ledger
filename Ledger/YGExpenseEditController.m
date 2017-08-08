@@ -59,6 +59,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveAndAddNew;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
 
 - (IBAction)textFieldSumEditingChanged:(UITextField *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
@@ -213,6 +214,10 @@
                                      };
         NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
         label.attributedText = attributed;
+    }
+    
+    for(UIButton *button in self.buttonsOfController){
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:[YGTools defaultFontSize]];
     }
     
     // set font size of textField and textView

@@ -41,6 +41,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
+
+
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellParentCategory;
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
@@ -142,7 +145,6 @@
     
     [self setDefaultFontForControls];
     
-    NSLog(@"viewDidLoad, %@", self.labelParent.text);
 }
 
 - (void)setDefaultFontForControls {
@@ -156,8 +158,10 @@
         label.attributedText = attributed;
     }
     
-    NSLog(@"setDefaultFontForControls, %@", self.labelParent.text);
-    
+    for(UIButton *button in self.buttonsOfController){
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:[YGTools defaultFontSize]];
+    }
+        
     // set font size of textField and textView
     self.textFieldName.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     self.textFieldSort.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];

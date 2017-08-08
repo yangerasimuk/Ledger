@@ -44,6 +44,7 @@
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDate;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellAccount;
@@ -191,6 +192,10 @@
         label.attributedText = attributed;
     }
     
+    for(UIButton *button in self.buttonsOfController){
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:[YGTools defaultFontSize]];
+    }
+    
     // set font size of textField and textView
     self.textFieldTargetSum.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
@@ -324,6 +329,7 @@
  */
 - (void)saveAccountActual {
     
+    NSDate *now = [NSDate date];
     double sourceSum = _account.sum;
     double targetSum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
     
@@ -335,8 +341,8 @@
                                   sourceCurrencyId:_account.currencyId
                                   targetSum:targetSum
                                   targetCurrencyId:_account.currencyId
-                                  created:_created
-                                  modified:_created
+                                  created:[now copy]
+                                  modified:[now copy]
                                   comment:_comment];
     
     [_om addOperation:accountActual];

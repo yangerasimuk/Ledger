@@ -188,6 +188,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return [self.entities count];
 }
 

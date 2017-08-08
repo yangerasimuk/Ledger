@@ -690,6 +690,8 @@
                         <outletCollection property="labelsOfController" destination="fOc-gt-H7Y" id="CIX-ss-I0V"/>
                         <outletCollection property="labelsOfController" destination="K3s-mm-yHZ" id="AK4-Xi-czK"/>
                         <outletCollection property="labelsOfController" destination="RUi-Oh-Gkt" id="AQj-xM-eIc"/>
+                        <outletCollection property="buttonsOfController" destination="LVG-PO-bjz" id="pVb-CW-5ZH"/>
+                        <outletCollection property="buttonsOfController" destination="ssl-Rq-TcW" id="NaX-6e-KJM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ug4-gk-CZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -966,6 +968,19 @@
                         <outlet property="labelBackupLastOperation" destination="vJc-oV-XBT" id="rK7-8r-2aq"/>
                         <outlet property="labelWorkDBLastOperation" destination="Kq8-A5-yTe" id="t09-cI-fPX"/>
                         <outlet property="labelWorkDBSize" destination="26Y-Yk-OaY" id="ZqP-CE-eHG"/>
+                        <outletCollection property="labelsOfController" destination="hyQ-eX-vOL" id="wSA-1d-VBr"/>
+                        <outletCollection property="labelsOfController" destination="hyQ-eX-vOL" id="ZGP-qZ-qaM"/>
+                        <outletCollection property="labelsOfController" destination="Hj2-NW-R9M" id="HpJ-SA-b3F"/>
+                        <outletCollection property="labelsOfController" destination="doG-gw-5XT" id="40J-KB-TfE"/>
+                        <outletCollection property="labelsOfController" destination="f2B-bq-zaU" id="a23-FF-DBe"/>
+                        <outletCollection property="labelsOfController" destination="lsa-R2-aaR" id="8It-nK-eIj"/>
+                        <outletCollection property="labelsOfController" destination="Kq8-A5-yTe" id="Ubh-OL-BMl"/>
+                        <outletCollection property="labelsOfController" destination="26Y-Yk-OaY" id="Zn6-cv-qhb"/>
+                        <outletCollection property="labelsOfController" destination="vJc-oV-XBT" id="QCf-sw-KTm"/>
+                        <outletCollection property="labelsOfController" destination="sd1-DV-y0G" id="Bbb-EP-0Mp"/>
+                        <outletCollection property="labelsOfController" destination="bOu-ZF-JUU" id="pCX-dB-rHs"/>
+                        <outletCollection property="buttonsOfController" destination="4aa-ky-kfG" id="JNQ-x0-y6R"/>
+                        <outletCollection property="buttonsOfController" destination="x2x-wm-UEf" id="mbI-k0-UwV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RqZ-dR-TZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1232,6 +1247,8 @@
                         <outlet property="textViewComment" destination="AbV-jv-Z1C" id="ar1-ph-ss8"/>
                         <outletCollection property="labelsOfControllers" destination="UiG-md-rzq" id="soN-LG-LmN"/>
                         <outletCollection property="labelsOfControllers" destination="vc0-0a-yde" id="K9g-0t-JVu"/>
+                        <outletCollection property="buttonsOfController" destination="OrH-8A-Gf3" id="9t2-bF-Thd"/>
+                        <outletCollection property="buttonsOfController" destination="I5X-So-yvY" id="A27-wf-8Bu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="06n-V5-6cE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1469,6 +1486,8 @@
                         <outletCollection property="labelsOfController" destination="MG1-g4-MIz" id="vlt-Dx-IGs"/>
                         <outletCollection property="labelsOfController" destination="Ig5-ZJ-NpE" id="W80-zf-0Az"/>
                         <outletCollection property="labelsOfController" destination="IqF-UX-hiA" id="P3d-9n-zZX"/>
+                        <outletCollection property="buttonsOfController" destination="0gF-hk-tmS" id="K1f-G9-OVl"/>
+                        <outletCollection property="buttonsOfController" destination="FtB-0b-GR8" id="412-Zm-w5o"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J84-Hz-jRI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1553,7 +1572,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2SC-if-AoQ">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1579,7 +1598,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OtN-ph-K8P">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1768,6 +1787,8 @@
                         <outletCollection property="labelsController" destination="OtN-ph-K8P" id="CLi-4w-6qc"/>
                         <outletCollection property="labelsController" destination="0Ce-YM-T4K" id="Tpq-rG-YkT"/>
                         <outletCollection property="labelsController" destination="XNb-Zt-ZuK" id="oPe-4t-8uW"/>
+                        <outletCollection property="buttonsOfController" destination="mLI-gX-7nw" id="hNg-o2-FQo"/>
+                        <outletCollection property="buttonsOfController" destination="gGT-hP-Gwa" id="NmM-19-JCN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wzE-Uw-KQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1793,7 +1814,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEG-9l-7D1">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1822,7 +1843,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIZ-Wc-P1a">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1847,7 +1868,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8S-OU-Xsq">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2036,6 +2057,8 @@
                         <outletCollection property="labelsController" destination="r8S-OU-Xsq" id="pFX-78-0S8"/>
                         <outletCollection property="labelsController" destination="sOM-RZ-eVp" id="n9I-2S-qLP"/>
                         <outletCollection property="labelsController" destination="Zk0-K6-RDD" id="miu-rE-fEd"/>
+                        <outletCollection property="buttonsOfController" destination="j6t-PF-xG5" id="CFD-zq-7vz"/>
+                        <outletCollection property="buttonsOfController" destination="reu-q0-A6G" id="omv-3w-FWg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQZ-yY-db6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2384,6 +2407,8 @@
                         <outletCollection property="labelsOfController" destination="wEL-gH-SXk" id="v0f-vC-9J9"/>
                         <outletCollection property="labelsOfController" destination="mEx-I8-Oey" id="UPk-eB-9f3"/>
                         <outletCollection property="labelsOfController" destination="z0y-Fm-Toj" id="cRj-LJ-g0b"/>
+                        <outletCollection property="buttonsOfController" destination="3Lo-ZJ-ryX" id="Zxl-0J-CnB"/>
+                        <outletCollection property="buttonsOfController" destination="OIX-te-ela" id="fe8-kn-UEP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyJ-MD-0FA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2481,7 +2506,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7Q-p6-fkQ">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2510,7 +2535,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCm-T6-SAj">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2586,7 +2611,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoI-2y-Upt">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2778,6 +2803,8 @@
                         <outletCollection property="labelsController" destination="5V4-XZ-aUx" id="0bK-6G-2sW"/>
                         <outletCollection property="labelsController" destination="ZVq-D5-PgT" id="DZ6-Zj-mJl"/>
                         <outletCollection property="labelsController" destination="AoI-2y-Upt" id="WPw-3u-PiC"/>
+                        <outletCollection property="buttonsOfController" destination="aGe-OB-9ej" id="eLX-Gb-dUP"/>
+                        <outletCollection property="buttonsOfController" destination="blz-hv-5Qg" id="dDo-Ki-IRM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uzv-GZ-nxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2803,7 +2830,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-MQ-SDe">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2832,7 +2859,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIT-Ee-Dos">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2857,7 +2884,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13Q-qk-cgV">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3050,6 +3077,8 @@
                         <outletCollection property="labelsController" destination="xAC-aS-7El" id="UKj-vh-Bxg"/>
                         <outletCollection property="labelsController" destination="07R-EH-jBc" id="5So-eJ-CLo"/>
                         <outletCollection property="labelsController" destination="13Q-qk-cgV" id="GpP-bD-cON"/>
+                        <outletCollection property="buttonsOfController" destination="r8e-H2-feU" id="xVq-Fv-N8f"/>
+                        <outletCollection property="buttonsOfController" destination="e3u-1O-XUK" id="A3U-vG-eUy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7y-ZX-RcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3084,7 +3113,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
-        <segue reference="kys-8f-Pdc"/>
-        <segue reference="Sf0-xa-35Y"/>
+        <segue reference="mcF-KB-89Z"/>
+        <segue reference="eja-KG-Lzi"/>
     </inferredMetricsTieBreakers>
 </document>

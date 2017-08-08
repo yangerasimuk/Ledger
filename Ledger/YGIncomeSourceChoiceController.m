@@ -9,6 +9,7 @@
 #import "YGIncomeSourceChoiceController.h"
 #import "YGCategoryManager.h"
 #import "YGCategory.h"
+#import "YGTools.h"
 
 @interface YGIncomeSourceChoiceController (){
     NSArray <YGCategory *> *_incomes;
@@ -66,6 +67,7 @@
     }
     
     cell.textLabel.text = _incomes[indexPath.row].name;
+    cell.textLabel.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     
     return cell;
     

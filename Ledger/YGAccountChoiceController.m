@@ -11,6 +11,7 @@
 #import "YGEntityManager.h"
 #import "YGCategory.h"
 #import "YGCategoryManager.h"
+#import "YGTools.h"
 
 @interface YGAccountChoiceController (){
     NSArray <YGEntity *> *_accounts;
@@ -77,6 +78,7 @@
     
     YGEntity *account = _accounts[indexPath.row];
     cell.textLabel.text = account.name;
+    cell.textLabel.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     
     YGCategory *currency = nil;
     for(YGCategory *c in _currencies){
@@ -85,10 +87,9 @@
             break;
         }
     }
-    cell.detailTextLabel.text =[currency shorterName];
     
-    //cell.st
-    
+    cell.detailTextLabel.text = [currency shorterName];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
     
     return cell;
 }

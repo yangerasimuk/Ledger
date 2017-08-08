@@ -50,6 +50,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonActivate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchIsDefault;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSelectCurrency;
@@ -184,6 +185,10 @@
                                      };
         NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
         label.attributedText = attributed;
+    }
+    
+    for(UIButton *button in self.buttonsOfController){
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:[YGTools defaultFontSize]];
     }
     
     // set font size of textField and textView
@@ -451,6 +456,7 @@
         }
     }
     
+    /*
     if(self.isNewAccount){
         // Notification about Account balance operation
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE", @"Notification about account balance operation throught new account creation.") message:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE", @"Notification about account balance operation throught new account creation.") preferredStyle:UIAlertControllerStyleAlert];
@@ -467,6 +473,9 @@
     else{
         [self.navigationController popViewControllerAnimated:YES];
     }
+     */
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
