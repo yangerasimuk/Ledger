@@ -27,7 +27,7 @@
 
 #pragma mark - Singleton, init & accessors
 
-+(instancetype)sharedInstance{
++ (instancetype)sharedInstance{
     static YGCategoryManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -41,20 +41,29 @@
     if(self){
         _sqlite = [YGSQLite sharedInstance];
         _categories = [[NSMutableDictionary alloc] init];
+        [self getCategoriesForCache];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self
+                   selector:@selector(getCategoriesForCache)
+                       name:@"DatabaseRestoredEvent"
+                     object:nil];
     }
     return self;
 }
 
 
-#pragma mark - Getter for categories
-/**
- @warning All another methods must call property only through self. syntax.
- */
-- (NSMutableDictionary <NSString *, NSMutableArray <YGCategory *> *> *)categories {
+- (void)dealloc {
     
-    if(!_categories || [_categories count] == 0) {
-        _categories = [self categoriesForCache];
-    }
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
+
+
+-(NSMutableDictionary<NSString *,NSMutableArray<YGCategory *> *> *)categories {
+    
+    if(!_categories)
+        [self getCategoriesForCache];
     return _categories;
 }
 
@@ -93,7 +102,7 @@
 }
 
 
-- (NSMutableDictionary <NSString *, NSMutableArray <YGCategory *> *> *)categoriesForCache {
+- (void)getCategoriesForCache {
     
     NSArray *categoriesRaw = [self categoriesFromDb];
     
@@ -118,7 +127,12 @@
     for(NSString *type in types)
         [self sortCategoriesInArray:categoriesResult[type]];
     
-    return categoriesResult;
+    _categories = categoriesResult;
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"CategoryManagerCurrencyCacheUpdateEvent" object:nil];
+    [center postNotificationName:@"CategoryManagerExpenseCacheUpdateEvent" object:nil];
+    [center postNotificationName:@"CategoryManagerIncomeCacheUpdateEvent" object:nil];
 }
 
 - (void)sortCategoriesInArray:(NSMutableArray <YGCategory *>*)array {
@@ -475,7 +489,7 @@
  */
 - (YGCategory *)categoryAttachedForType:(YGCategoryType)type {
 
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment  FROM category WHERE category_type_id=%ld AND active=%d AND attach=%d;", type, YGBooleanValueYES, YGBooleanValueYES];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment  FROM category WHERE category_type_id=%ld AND active=%d AND attach=%d;", (long)type, YGBooleanValueYES, YGBooleanValueYES];
 
     return [self categoryBySqlQuery:sqlQuery];
 }
@@ -497,31 +511,35 @@
     
     NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery];
     
-    for(NSArray *arr in rawCategories){
+    if(rawCategories){
+        for(NSArray *arr in rawCategories){
+            
+            NSInteger rowId = [arr[0] integerValue];
+            YGCategoryType type = [arr[1] integerValue];
+            NSString *name = arr[2];
+            BOOL active = [arr[3] boolValue];
+            NSDate *activeFrom = [YGTools dateFromString:arr[4]];
+            NSDate *activeTo = [arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
+            NSInteger sort = [arr[6] integerValue];
+            NSString *symbol = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
+            BOOL attach = [arr[8] boolValue];
+            NSInteger parentId = [arr[9] isEqual:[NSNull null]] ? -1 : [arr[9] integerValue];
+            NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+            
+            YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
+            
+            [result addObject:category];
+        }
         
-        NSInteger rowId = [arr[0] integerValue];
-        YGCategoryType type = [arr[1] integerValue];
-        NSString *name = arr[2];
-        BOOL active = [arr[3] boolValue];
-        NSDate *activeFrom = [YGTools dateFromString:arr[4]];
-        NSDate *activeTo = [arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
-        NSInteger sort = [arr[6] integerValue];
-        NSString *symbol = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
-        BOOL attach = [arr[8] boolValue];
-        NSInteger parentId = arr[9] > 0 ? [arr[9] integerValue] : -1;
-        NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
-        
-        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
-        
-        [result addObject:category];
+        if([result count] == 0)
+            return nil;
+        else if([result count] > 1)
+            @throw [NSException exceptionWithName:@"-[YGCategoryManager categoryBySqlQuery:]" reason:[NSString stringWithFormat:@"Undefined choice for category. Sql query: %@", sqlQuery]  userInfo:nil];
+        else
+            return [result objectAtIndex:0];
     }
-    
-    if([result count] == 0)
-        return nil;
-    else if([result count] > 1)
-        @throw [NSException exceptionWithName:@"-[YGCategoryManager categoryBySqlQuery:]" reason:[NSString stringWithFormat:@"Undefined choice for category. Sql query: %@", sqlQuery]  userInfo:nil];
     else
-        return [result objectAtIndex:0];
+        return nil;
 }
 
 

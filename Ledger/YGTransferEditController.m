@@ -341,6 +341,8 @@
         self.labelTargetCurrency.text = @"";
     }
     
+    [self.textFieldSourceSum becomeFirstResponder];
+    
     [self changeSaveButtonEnable];
 }
 
@@ -360,6 +362,16 @@
         _isTargetAccountChanged = NO;
     else
         _isTargetAccountChanged = YES;
+    
+    if(_sourceAccount.currencyId == _targetAccount.currencyId && _sourceSum > 0.0 && _targetSum == 0.0){
+        self.textFieldTargetSum.text = [self.textFieldSourceSum.text copy];
+        //self.labelTargetSum.textColor = [UIColor blueColor];
+        [self textFieldTargetSumEditingChanged:self.textFieldTargetSum];
+        
+    }
+    
+    
+    [self.textFieldTargetSum becomeFirstResponder];
     
     [self changeSaveButtonEnable];
 }

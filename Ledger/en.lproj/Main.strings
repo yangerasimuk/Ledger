@@ -172,7 +172,7 @@
 /* Class = "UITableViewSection"; headerTitle = "Income source -> Account"; ObjectID = "rhd-ec-LVu"; */
 "rhd-ec-LVu.headerTitle" = "Income source -> Account";
 
-/* Class = "UILabel"; text = "Sum:"; ObjectID = "sOM-RZ-eVp"; */
+/* Class = "UILabel"; text = "Sum"; ObjectID = "sOM-RZ-eVp"; */
 "sOM-RZ-eVp.text" = "Sum";
 
 /* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "ssl-Rq-TcW"; */

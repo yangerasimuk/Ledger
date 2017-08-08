@@ -221,9 +221,9 @@
 
 /**
  Using in format sql queries in Manager files.
- @warning Replaced by sqlStringForDateLocalOrNull
+ @warning Return string without quotes!
  */
-/*+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date {
++ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
@@ -232,7 +232,7 @@
     
     return [formatter stringFromDate:date];
     
-}*/
+}
 
 + (NSDate *)dateFromString:(NSString *)string{
     
@@ -253,6 +253,10 @@
 
 #pragma mark - Value/classes to sql string
 
+/**
+ Return quoted string for update operations.
+ @warning In insert operation we need unquoted strings! Don't use this method!
+ */
 + (NSString *)sqlStringForDateLocalOrNull:(NSDate *)dateValue {
     if(dateValue){
         
@@ -515,7 +519,9 @@
     
     NSString *languageCode = [self languageCodeSystem];
     
-    if([languageCode isEqualToString:@"ru"])
+    NSLog(@"language code system: %@", languageCode);
+    
+    if([languageCode hasPrefix:@"ru"])
         return @"ru";
     else
         return @"en";
@@ -811,6 +817,10 @@
     // split string on integer and fraction parts
     NSArray *array = [string componentsSeparatedByString:@"."];
     NSMutableString *integerString = [array[0] mutableCopy];
+    
+    if(sum < 0)
+        integerString = [[integerString substringFromIndex:1] mutableCopy];
+    
     NSString *fractionString = [array[1] mutableCopy];
     
     // get current locale separators
@@ -825,6 +835,9 @@
         }
         
     }
+    
+    if(sum < 0)
+        [integerString insertString:@"- " atIndex:0];
     
     // in depends on fraction part
     if(hideDecimalFraction || [fractionString isEqualToString:@"00"]){

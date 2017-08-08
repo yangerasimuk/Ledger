@@ -13,15 +13,14 @@
 void addReleaseAccounts(){
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
-    
+        
     NSArray *entities = nil;
     if([[YGTools languageCodeApplication] isEqualToString:@"ru"]){
         entities = @[
                      @[
                          @1, // account
                          @"Кошелёк",
-                         [NSNull null],
-                         @0,
+                         @0.0,
                          @1, // rub
                          @1, // active
                          [YGTools stringFromDate:[NSDate date]],
@@ -33,8 +32,7 @@ void addReleaseAccounts(){
                      @[
                          @1, // account
                          @"Карта",
-                         [NSNull null],
-                         @0,
+                         @0.0,
                          @1, // rub
                          @1, // active
                          [YGTools stringFromDate:[NSDate date]],
@@ -46,8 +44,7 @@ void addReleaseAccounts(){
                      @[
                          @1, // account
                          @"Заначка",
-                         [NSNull null],
-                         @0,
+                         @0.0,
                          @1, // rub
                          @1, // active
                          [YGTools stringFromDate:[NSDate date]],
@@ -64,8 +61,7 @@ void addReleaseAccounts(){
                      @[
                          @1, // account
                          @"Pocket",
-                         [NSNull null],
-                         @0,
+                         @0.0,
                          @1, // rub
                          @1, // active
                          [YGTools stringFromDate:[NSDate date]],
@@ -77,8 +73,7 @@ void addReleaseAccounts(){
                      @[
                          @1, // account
                          @"Card",
-                         [NSNull null],
-                         @0,
+                         @0.0,
                          @1, // rub
                          @1, // active
                          [YGTools stringFromDate:[NSDate date]],
@@ -90,8 +85,7 @@ void addReleaseAccounts(){
                      @[
                          @1, // account
                          @"Stash",
-                         [NSNull null],
-                         @0,
+                         @0.0,
                          @1, // rub
                          @1, // active
                          [YGTools stringFromDate:[NSDate date]],

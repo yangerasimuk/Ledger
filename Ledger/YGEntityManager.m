@@ -14,10 +14,7 @@
 @interface YGEntityManager (){
     YGSQLite *_sqlite;
 }
-- (NSArray <YGEntity *> *)entitiesFromDb;
-- (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entitiesForCache;
-- (void)sortEntitiesInArray:(NSMutableArray <YGEntity *>*)array;
-- (NSInteger)idAddEntity:(YGEntity *)entity;
+
 @end
 
 @implementation YGEntityManager
@@ -40,20 +37,28 @@
     if(self){
         _sqlite = [YGSQLite sharedInstance];
         _entities = [[NSMutableDictionary alloc] init];
+        [self getEntitiesForCache];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self
+                   selector:@selector(getEntitiesForCache)
+                       name:@"DatabaseRestoredEvent"
+                     object:nil];
     }
     return self;
 }
 
+-(void)dealloc {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
 
-#pragma mark - Getter for entities
-
-- (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entities {
-
-    if(!_entities || [_entities count] == 0) {
-        _entities = [self entitiesForCache];
-    }
+-(NSMutableDictionary<NSString *,NSMutableArray<YGEntity *> *> *)entities {
+    if(!_entities)
+        [self getEntitiesForCache];
     return _entities;
 }
+
 
 #pragma mark - Inner methods for memory cache process
 
@@ -89,7 +94,7 @@
 }
 
 
-- (NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *)entitiesForCache {
+- (void)getEntitiesForCache {
     
     NSArray *entitiesRaw = [self entitiesFromDb];
     
@@ -115,7 +120,12 @@
     for(NSString *type in types)
         [self sortEntitiesInArray:entitiesResult[type]];
     
-    return entitiesResult;
+    _entities = entitiesResult;
+    
+    // generate event
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"EntityManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 
@@ -219,6 +229,16 @@
                            [YGTools sqlStringForIntOrNull:entity.rowId]];
     
     [_sqlite execSQL:updateSQL];
+    
+    // update memory cache
+    NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
+
+    YGEntity *replaceEntity = [self entityById:entity.rowId type:entity.type];
+    NSUInteger index = [entitiesByType indexOfObject:replaceEntity];
+    entitiesByType[index] = [replaceEntity copy];
+    
+    // sort memory cache
+    [self sortEntitiesInArray:entitiesByType];
     
     // generate event
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

@@ -47,7 +47,7 @@
 #pragma mark - Description
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Operation. RowId: %ld, type: %ld, sourceId: %ld, targetId: %ld, sourceSum: %.f, sourceCurrencyId: %ld, targetSum: %.2f, targetCurrencyId: %ld, created: %@, modified: %@, comment: %@", _rowId, _type, _sourceId, _targetId, _sourceSum, _sourceCurrencyId, _targetSum, _targetCurrencyId, _created, _modified, _comment];
+    return [NSString stringWithFormat:@"Operation. RowId: %ld, type: %ld, sourceId: %ld, targetId: %ld, sourceSum: %.f, sourceCurrencyId: %ld, targetSum: %.2f, targetCurrencyId: %ld, created: %@, modified: %@, comment: %@", (long)_rowId, (long)_type, (long)_sourceId, (long)_targetId, _sourceSum, (long)_sourceCurrencyId, _targetSum, (long)_targetCurrencyId, _created, _modified, _comment];
 }
 
 #pragma mark - NSCopying

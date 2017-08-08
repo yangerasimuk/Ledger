@@ -80,8 +80,11 @@
         
         if(backup.backupDate)
             self.labelBackupDate.text = [YGTools humanViewShortWithTodayOfDateString:backup.backupDate];
-        if(backup.lastOperation)
+        if(backup.lastOperation && ![backup.lastOperation isEqualToString:@""])
             self.labelBackupLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:backup.lastOperation];
+        else
+            self.labelBackupLastOperation.text = NSLocalizedString(@"NO_OPERATIONS_LABEL", @"No operation text in Local backup form");
+        
         
         if(backup.dbSize)
         self.labelBackupDBSize.text = backup.dbSize;
@@ -104,7 +107,10 @@
     
     NSString *workDbFileSize = [YGTools humanViewStringForByteSize:workDbFile.size];
 
-    self.labelWorkDBLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:lastOperation];
+    if(lastOperation)
+        self.labelWorkDBLastOperation.text = [YGTools humanViewShortWithTodayOfDateString:lastOperation];
+    else
+        self.labelWorkDBLastOperation.text = NSLocalizedString(@"NO_OPERATIONS_LABEL", @"No operation text in Local backup form");
     self.labelWorkDBSize.text = workDbFileSize;
 
 }
@@ -192,6 +198,9 @@
     YGBackup *backup = [backups firstObject];
     
     [storage restoreDb:backup];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"DatabaseRestoredEvent" object:nil];
     
     // make some delay for prevent new user actions
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

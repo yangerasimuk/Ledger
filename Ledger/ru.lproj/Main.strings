@@ -181,7 +181,7 @@
 /* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "rqV-Ak-SEU"; */
 "rqV-Ak-SEU.headerTitle" = "Комментарий";
 
-/* Class = "UILabel"; text = "Sum:"; ObjectID = "sOM-RZ-eVp"; */
+/* Class = "UILabel"; text = "Sum"; ObjectID = "sOM-RZ-eVp"; */
 "sOM-RZ-eVp.text" = "Сумма";
 
 /* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "ssl-Rq-TcW"; */

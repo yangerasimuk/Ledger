@@ -72,7 +72,7 @@
         self.labelName.textColor = [UIColor redColor];
         
         self.textFieldSort.text = @"100";
-        p_sort = 0;
+        p_sort = 100;
         
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Title of Deactivate button.");

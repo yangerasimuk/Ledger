@@ -59,7 +59,6 @@
 
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 - (IBAction)switchIsDefaultValueChanged:(UISwitch *)sender;
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
@@ -106,8 +105,18 @@
         self.buttonDelete.enabled = NO;
         self.buttonDelete.hidden = YES;
         
-        self.labelCurrency.text = NSLocalizedString(@"SELECT_CURRENCY_LABEL", @"Select currency text on label.");
-        self.labelCurrency.textColor = [UIColor redColor];
+        YGCategory *currencyDefault = [_cm categoryAttachedForType:YGCategoryTypeCurrency];
+        
+        if(currencyDefault){
+            p_currency = currencyDefault;
+            
+            self.currency = p_currency;
+            self.labelCurrency.text = p_currency.name;
+        }
+        else{
+            self.labelCurrency.text = NSLocalizedString(@"SELECT_CURRENCY_LABEL", @"Select currency text on label.");
+            self.labelCurrency.textColor = [UIColor redColor];
+        }
         
         // focus
         [self.textFieldName becomeFirstResponder];

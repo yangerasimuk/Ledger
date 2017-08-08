@@ -21,6 +21,7 @@
     YGCategory *_currency;
     double _sourceSum;
     double _targetSum;
+    NSString *_comment;
     
     YGOperationManager *_om;
     YGCategoryManager *_cm;
@@ -30,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelAccount;
 @property (weak, nonatomic) IBOutlet UILabel *labelActualTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelTargetCurrency;
-@property (weak, nonatomic) IBOutlet UILabel *labelCommentTitle;
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsController;
 
@@ -90,7 +90,7 @@
         }
         
         // set label sum red
-        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
 
         // button save
         UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonPressed)];
@@ -143,7 +143,6 @@
         // set comment
         self.textViewComment.text = self.accountActual.comment;
         self.textViewComment.textColor = [UIColor grayColor];
-        self.labelCommentTitle.textColor = [UIColor grayColor];
         self.cellComment.userInteractionEnabled = NO;
         
         // save and add new button does not need
@@ -258,7 +257,7 @@
             self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionSaveAndAddNew];
         }
         
-        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum") color:[UIColor blackColor]];
     }
     else{
         self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -266,13 +265,20 @@
         self.buttonSaveAndAddNew.enabled = NO;
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
-        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
+        self.labelActualTitle.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum") color:[UIColor redColor]];
     }
 }
 
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender {
-
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && ![textView.text isEqualToString:@""])
+            _comment = textView.text;
+    }
 }
+
+
 
 #pragma mark - Save and delete actions
 
@@ -331,7 +337,7 @@
                                   targetCurrencyId:_account.currencyId
                                   created:_created
                                   modified:_created
-                                  comment:self.textViewComment.text];
+                                  comment:_comment];
     
     [_om addOperation:accountActual];
 }

@@ -18,7 +18,7 @@
 + (NSString *)humanViewOfDate:(NSDate *)date;
 + (NSString *)humanViewWithTodayOfDate:(NSDate *)date;
 + (NSString *)stringFromDate:(NSDate *)date;
-//+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
++ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
 + (NSDate *)dateFromString:(NSString *)string;
 
 + (NSString *)humanViewShortWithTodayOfDateString:(NSString *)dateString;

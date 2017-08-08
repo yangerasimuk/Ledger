@@ -43,8 +43,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 @interface YGOperationViewController (){
     
-    //YGOperationSections *_sections;
-    
     YGOperationSections *p_sections;
     
     NSArray <YGCategory *> *_currencies;
@@ -131,11 +129,11 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    //[self reloadDataFromSectionsCache];
+    [self reloadDataFromSectionsCache];
     
-    [self.tableView reloadData];
-
-    [self updateUI];
+//    [self.tableView reloadData];
+//
+//    [self updateUI];
 }
 
 /**
@@ -158,7 +156,22 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
     [self buildSectionsCache];
     
-    [self.tableView reloadData];
+    if(!p_sections || [p_sections.list count] == 0){
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //self.tableView.hidden = YES;
+        self.tableView.userInteractionEnabled = NO;
+        [self showNoDataView];
+    }
+    else{
+        
+        [self hideNoDataView];
+        //self.tableView.hidden = NO;
+        self.tableView.userInteractionEnabled = YES;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        
+        [self.tableView reloadData];
+    }
     
     [self updateUI];
 }
@@ -196,7 +209,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         CGFloat yNote;
         
         if(screenSize.height != self.view.bounds.size.height)
-            yNote = self.view.bounds.size.height/2 - heightNote/2 -  statusBarHeight;
+            yNote = self.view.bounds.size.height/2 - heightNote/2 - statusBarHeight + 7;
         else
             yNote = self.view.bounds.size.height/2 - heightNote/2 - navigationBarHeight -  statusBarHeight;
         
@@ -443,15 +456,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    if([p_sections.list count] == 0){
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self showNoDataView];
-    }
-    else{
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        [self hideNoDataView];
-    }
-
     return [p_sections.list count];
 }
 

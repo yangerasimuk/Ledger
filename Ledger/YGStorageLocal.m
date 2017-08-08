@@ -174,6 +174,9 @@
     YGDBManager *dm = [YGDBManager sharedInstance];
     NSString *lastOperationString = [dm lastOperation];
     
+    if(!lastOperationString)
+        lastOperationString = @"";
+    
     // 4. save backup info in app config
     YGConfig *config = [YGTools config];
     

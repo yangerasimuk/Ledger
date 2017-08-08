@@ -20,12 +20,14 @@
 // fill database with common and test or release data
 #import "YYGDataCommon.h"
 
+#import "YYGDataRelease.h"
+/*
 #ifdef DEBUG
     #import "YYGDataTest.h"
 #else
     #import "YYGDataRelease.h"
 #endif
-
+*/
 @interface YGSQLite()
 
 - (void)checkDatabase;
@@ -57,6 +59,9 @@
 
 - (void)createTables {
     
+    if([self isTableExist:@"log"])
+        [self dropTable:@"log"];
+    
     // create log
     NSString *createSql = @"CREATE TABLE IF NOT EXISTS log "
     "(log_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -71,6 +76,9 @@
     
     
     // create config
+    if([self isTableExist:@"config"])
+        [self dropTable:@"config"];
+
     createSql = @"CREATE TABLE IF NOT EXISTS config "
     "(config_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "key TEXT NOT NULL, "
@@ -84,6 +92,9 @@
     
     
     // create category
+    if([self isTableExist:@"category"])
+        [self dropTable:@"category"];
+    
     createSql = @"CREATE TABLE IF NOT EXISTS category "
     "(category_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "category_type_id INTEGER NOT NULL, "
@@ -103,6 +114,9 @@
     [YYGDBLog logEvent:@"Table category created"];
     
     // create entity
+    if([self isTableExist:@"entity"])
+        [self dropTable:@"entity"];
+    
     createSql = @"CREATE TABLE IF NOT EXISTS entity "
     "(entity_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "entity_type_id INTEGER NOT NULL, "
@@ -122,6 +136,9 @@
     [YYGDBLog logEvent:@"Table entity created"];
     
     // create operation
+    if([self isTableExist:@"operation"])
+        [self dropTable:@"operation"];
+    
     createSql = @"CREATE TABLE IF NOT EXISTS operation "
     "(operation_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "operation_type_id INTEGER NOT NULL, "
@@ -150,6 +167,14 @@
     
     addCommonCurrencies();
     
+    addReleaseAccounts();
+    
+    addReleaseExpenseCategories();
+    
+    addReleaseIncomeSources();
+    
+    /*
+    
 #ifdef DEBUG
     
     addTestAccounts();
@@ -157,11 +182,6 @@
     addTestExpenseCategories();
     
     addTestIncomeSources();
-    
-#ifdef FILL_TEST_DATA
-    //addTestOperations();
-#endif
-    
     
 #else
     
@@ -173,8 +193,12 @@
     
 #endif
     
-    [YYGDBLog logEvent:@"Database filled by data"];
+#ifdef FILL_TEST_DATA
+    addTestOperations();
+#endif
+     */
     
+    [YYGDBLog logEvent:@"Database filled by data"];
 }
 
 
@@ -188,7 +212,7 @@
 
     sqlite3_close(db);
     
-#ifndef APP_STORE
+#ifdef SIMULATOR_RUN
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
@@ -392,7 +416,7 @@
 }
 
 - (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery {
-        
+            
     NSMutableArray *result = [[NSMutableArray alloc] init];
 
     sqlite3 *db = [self database];
@@ -442,7 +466,10 @@
     
     sqlite3_close(db);
 
-    return [result copy];
+    if([result count] > 0)
+        return [result copy];
+    else
+        return nil;
 }
 
 - (BOOL)isTableExist:(NSString *)tableName{

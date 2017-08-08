@@ -8,7 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#define TEST_YAN_DATA
+//#define APP_STORE 1
+
+//#define FILL_TEST_DATA 1
+
+//#define DEBUG_REBUILD_BASE 1
+
+//#define SIMULATOR_RUN 0
 
 extern NSString *const kDatabaseName;
 extern NSString *const kDateTimeFormat;

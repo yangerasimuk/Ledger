@@ -41,19 +41,44 @@
     if(self){
         _sqlite = [YGSQLite sharedInstance];
         _operations = [[NSMutableArray alloc] init];
-        [[self operationsForCache] mutableCopy];
+        [self getOperationsForCache];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self
+                   selector:@selector(getOperationsForCache)
+                       name:@"DatabaseRestoredEvent"
+                     object:nil];
     }
     return self;
+}
+
+-(void)dealloc {
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+    
+}
+
+- (void)setOperations:(NSMutableArray<YGOperation *> *)operations {
+    
+    if(operations && ![_operations isEqual:operations]){
+        
+        _operations = [operations mutableCopy];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                              object:nil];
+    }
 }
 
 
 #pragma mark - Inner methods for memory cache process
 
-- (NSArray <YGOperation *> *)operationsForCache {
+- (void) getOperationsForCache {
     
     NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, created, modified, comment FROM operation ORDER BY created_unix DESC;";
     
-    return [self operationsBySqlQuery:sqlQuery];
+    self.operations = [[self operationsBySqlQuery:sqlQuery] mutableCopy];
 }
 
 - (void)sortOperationsInArray:(NSMutableArray <YGOperation *> *)array {
@@ -80,7 +105,7 @@
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
     
     NSDate *timestamp = operation.created; //[NSDate date];
-    NSString *created = [YGTools sqlStringForDateLocalOrNull:timestamp];
+    NSString *created = [YGTools stringWithCurrentTimeZoneFromDate:timestamp];
     NSNumber *created_unix = [NSNumber numberWithDouble:[timestamp timeIntervalSince1970]];
     NSString *modified = [created copy];
     NSNumber *modified_unix = [created_unix copy];
@@ -257,28 +282,34 @@
     
     NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
-    NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
-    
-    for(NSArray *arr in rawList){
+    if(rawList){
         
-        NSInteger rowId = [arr[0] integerValue];
-        YGOperationType type = [arr[1] integerValue];
-        NSInteger sourceId = [arr[2] integerValue];
-        NSInteger targetId = [arr[3] integerValue];
-        double sourceSum = [arr[4] doubleValue];
-        NSInteger sourceCurrencyId = [arr[5] integerValue];
-        double targetSum = [arr[6] doubleValue];
-        NSInteger targetCurrencyId= [arr[7] integerValue];
-        NSDate *created = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
-        NSDate *modified = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
-        NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+        NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
         
-        YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId created:created modified:modified comment:comment];
+        for(NSArray *arr in rawList){
+            
+            NSInteger rowId = [arr[0] integerValue];
+            YGOperationType type = [arr[1] integerValue];
+            NSInteger sourceId = [arr[2] integerValue];
+            NSInteger targetId = [arr[3] integerValue];
+            double sourceSum = [arr[4] doubleValue];
+            NSInteger sourceCurrencyId = [arr[5] integerValue];
+            double targetSum = [arr[6] doubleValue];
+            NSInteger targetCurrencyId= [arr[7] integerValue];
+            NSDate *created = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
+            NSDate *modified = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
+            NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+            
+            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId created:created modified:modified comment:comment];
+            
+            [result addObject:operation];
+        }
         
-        [result addObject:operation];
+        return [result copy];
+        
     }
-    
-    return [result copy];
+    else
+        return nil;
 }
 
 /**
@@ -286,14 +317,14 @@
  */
 - (YGOperation *)lastOperationForType:(YGOperationType)type {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, created, modified, comment FROM operation WHERE operation_type_id=%ld ORDER BY created_unix DESC LIMIT 1;", type];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, created, modified, comment FROM operation WHERE operation_type_id=%ld ORDER BY created_unix DESC LIMIT 1;", (long)type];
     
     return [self operationBySqlQuery:sqlQuery];
 }
 
 - (YGOperation *)lastOperationOfType:(YGOperationType)type withTargetId:(NSInteger)targetId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, created, modified, comment FROM operation WHERE operation_type_id=%ld AND target_id=%ld ORDER BY created_unix DESC LIMIT 1;", type, targetId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, created, modified, comment FROM operation WHERE operation_type_id=%ld AND target_id=%ld ORDER BY created_unix DESC LIMIT 1;", (long)type, (long)targetId];
     
     return [self operationBySqlQuery:sqlQuery];
 }
@@ -302,33 +333,38 @@
     
     NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
-    NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
-    
-    for(NSArray *arr in rawList){
+    if(rawList){
+        NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
         
-        NSInteger rowId = [arr[0] integerValue];
-        YGOperationType type = [arr[1] integerValue];
-        NSInteger sourceId = [arr[2] integerValue];
-        NSInteger targetId = [arr[3] integerValue];
-        double sourceSum = [arr[4] doubleValue];
-        NSInteger sourceCurrencyId = [arr[5] integerValue];
-        double targetSum = [arr[6] doubleValue];
-        NSInteger targetCurrencyId= [arr[7] integerValue];
-        NSDate *created = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
-        NSDate *modified = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
-        NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+        for(NSArray *arr in rawList){
+            
+            NSInteger rowId = [arr[0] integerValue];
+            YGOperationType type = [arr[1] integerValue];
+            NSInteger sourceId = [arr[2] integerValue];
+            NSInteger targetId = [arr[3] integerValue];
+            double sourceSum = [arr[4] doubleValue];
+            NSInteger sourceCurrencyId = [arr[5] integerValue];
+            double targetSum = [arr[6] doubleValue];
+            NSInteger targetCurrencyId= [arr[7] integerValue];
+            NSDate *created = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
+            NSDate *modified = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
+            NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+            
+            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId created:created modified:modified comment:comment];
+            
+            [result addObject:operation];
+        }
         
-        YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId created:created modified:modified comment:comment];
-
-        [result addObject:operation];
+        if([result count] == 0)
+            return nil;
+        else if([result count] > 1)
+            @throw [NSException exceptionWithName:@"-[YGOperationManager operationBySqlQuery]" reason:[NSString stringWithFormat:@"Undefined choice for operation. Sql query: %@", sqlQuery]  userInfo:nil];
+        else
+            return [result objectAtIndex:0];
     }
-    
-    if([result count] == 0)
-        return nil;
-    else if([result count] > 1)
-        @throw [NSException exceptionWithName:@"-[YGOperationManager operationBySqlQuery]" reason:[NSString stringWithFormat:@"Undefined choice for operation. Sql query: %@", sqlQuery]  userInfo:nil];
     else
-        return [result objectAtIndex:0];
+        return nil;
+    
 }
 
 @end

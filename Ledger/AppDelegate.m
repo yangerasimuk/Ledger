@@ -25,20 +25,50 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Hello world!");
+    });
+        
+
+    
+#ifdef DEBUG
+    
+    // save screen sizes for default font calc
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    UIScreen *screen = [UIScreen mainScreen];
+    NSInteger width = [screen nativeBounds].size.width;
+    NSInteger height = [screen nativeBounds].size.height;
+    
+    [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
+    [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
+    
+    // create new work db
+    YGDBManager *dm = [YGDBManager sharedInstance];
+    
+#ifdef DEBUG_REBUILD_BASE
+    [dm createDatabase];
+#else
+    if(![dm databaseExists])
+        [dm createDatabase];
+#endif
+    
+    // set config for app
+    YGConfig *config = [YGTools config];
+    
+    NSArray *storageAvailible = @[@"Local"];
+    [config setValue:storageAvailible forKey:@"StoragesAvailible"];
+    
+    [defaults setBool:NO forKey:kIsFirstLaunch];
+    
+#else
     
     // Check for first launch
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-#ifdef DEBUG
-    if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
-#else
-#ifndef APP_STORE
-    if([defaults objectForKey:kIsFirstLaunch] || ![defaults objectForKey:kIsFirstLaunch]){
-#else
     if(![defaults objectForKey:kIsFirstLaunch] || [defaults valueForKey:kIsFirstLaunch] == NO){
-#endif
-#endif
-    
+        
         // save screen sizes for default font calc
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
@@ -51,17 +81,9 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         
         // create new work db
         YGDBManager *dm = [YGDBManager sharedInstance];
-#ifdef DEBUG
-        if([dm databaseExists]){
-#else
-#ifndef APP_STORE
-        if([dm databaseExists]){
-#else
-        if(![dm databaseExists]){
-#endif
-#endif
+        
+        if(![dm databaseExists])
             [dm createDatabase];
-        }
         
         // set config for app
         YGConfig *config = [YGTools config];
@@ -71,7 +93,8 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         
         [defaults setBool:YES forKey:kIsFirstLaunch];
     }
-        
+#endif
+    
     return YES;
 }
 
