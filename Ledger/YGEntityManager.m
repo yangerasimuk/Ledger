@@ -62,7 +62,6 @@
 
 #pragma mark - Inner methods for memory cache process
 
-
 - (NSArray <YGEntity *> *)entitiesFromDb {
     
     NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity ORDER BY active DESC, sort ASC;";

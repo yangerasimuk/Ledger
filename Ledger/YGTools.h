@@ -18,7 +18,9 @@
 + (NSString *)humanViewOfDate:(NSDate *)date;
 + (NSString *)humanViewWithTodayOfDate:(NSDate *)date;
 + (NSString *)stringFromDate:(NSDate *)date;
-+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
++ (NSString *)stringFromAbsoluteDate:(NSDate *)date;
++ (NSString *)stringFromLocalDate:(NSDate *)date;
+//+ (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date;
 + (NSDate *)dateFromString:(NSString *)string;
 
 + (NSString *)humanViewShortWithTodayOfDateString:(NSString *)dateString;
@@ -73,6 +75,8 @@
 + (NSString *)stringCurrencyFromDouble:(double)sum;
 + (double)doubleFromStringCurrency:(NSString *)string;
 
++ (NSString *)stringFromDateDay:(NSDate *)date;
++ (NSDate *)dateFromStringDay:(NSString *)date;
 
 
 @end

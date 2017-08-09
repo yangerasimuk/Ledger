@@ -219,11 +219,33 @@
     return [formatter stringFromDate:date];
 }
 
++ (NSString *)stringFromAbsoluteDate:(NSDate *)date {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    [formatter setDateFormat:kDateTimeFormat];
+    
+    return [formatter stringFromDate:date];
+}
+
++ (NSString *)stringFromLocalDate:(NSDate *)date {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    
+    [formatter setDateFormat:kDateTimeFormat];
+    
+    return [formatter stringFromDate:date];
+}
+
 /**
  Using in format sql queries in Manager files.
  @warning Return string without quotes!
  */
 + (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date {
+    
+    @throw [NSException exceptionWithName:@"[YGTools stringWithCurrentTimeZoneFromDate:]" reason:@"Use another func!" userInfo:nil];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
@@ -897,5 +919,23 @@
         
     return [string doubleValue];
 }
+
+#pragma mark - Date day to string and back
+
++ (NSString *)stringFromDateDay:(NSDate *)date {
+    
+    @throw [NSException exceptionWithName:@"+[YGTools stringFromDateDay]" reason:@"Depricated method" userInfo:nil];
+    
+    return nil;
+    
+}
+
++ (NSDate *)dateFromStringDay:(NSString *)date {
+    
+    @throw [NSException exceptionWithName:@"+[YGTools dateFromStringDay]" reason:@"Depricated method" userInfo:nil];
+
+    return nil;
+}
+
 
 @end

@@ -25,13 +25,6 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"Hello world!");
-    });
-        
-
-    
 #ifdef DEBUG
     
     // save screen sizes for default font calc

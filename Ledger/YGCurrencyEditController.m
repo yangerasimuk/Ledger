@@ -480,10 +480,10 @@
         
         if(self.currency && self.currency.active){
             
-            if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]){
-                
+            if(![p_manager hasActiveCategoryForTypeExceptCategory:_currency]
+               || [p_manager hasLinkedActiveEntityForCurrency:self.currency])
                 height = 0.0f;
-            }
+            
         }
         else if(!self.currency){
             

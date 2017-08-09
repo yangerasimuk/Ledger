@@ -58,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityViewController.m"
-            timestampString = "521311217.172939"
+            timestampString = "523986465.471188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGEntityViewController.m"
-            timestampString = "522860177.977764"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "-viewDidAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -184,22 +168,6 @@
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGAccountActualEditController.m"
-            timestampString = "523896112.620214"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
-            landmarkName = "-buttonDeletePressed:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
             condition = "i=4"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGDataTest.m"
@@ -235,11 +203,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523809736.65486"
+            timestampString = "523992222.960899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "389"
-            endingLineNumber = "389"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,28 +218,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationManager.m"
-            timestampString = "523808861.664491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "-updateOperation:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523809736.65486"
+            timestampString = "523992222.960899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-reloadDataFromSectionsCache"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,28 +298,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGEntityViewController.m"
-            timestampString = "522860177.977764"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "-reloadDataAfterDecimalFractionChange"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523893760.352682"
+            timestampString = "523987196.978691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "-recalcSumOfAccount:forOperation:"
             landmarkType = "7">
          </BreakpointContent>
@@ -379,71 +315,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "523888098.586406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
-            landmarkName = "-saveExpense"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "523888098.586406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
-            landmarkName = "-saveExpense"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523893760.352682"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "-recalcSumOfAccount:forOperation:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "523888098.586406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
-            landmarkName = "-textFieldSumEditingChanged:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "523888098.586406"
+            timestampString = "523984146.536711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "378"
@@ -459,12 +331,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "523888098.586406"
+            timestampString = "523984146.536711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
-            landmarkName = "-saveExpense"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "-textFieldSumEditingChanged:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -475,11 +347,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523807130.141338"
+            timestampString = "523987196.978691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "-entitiesFromDb"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,44 +378,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGIncomeEditController.m"
-            timestampString = "523888098.586406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
-            landmarkName = "-saveIncome"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGIncomeEditController.m"
-            timestampString = "523888098.586406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490"
-            landmarkName = "-saveIncome"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGSQLite.m"
-            timestampString = "523891319.238706"
+            timestampString = "523985126.454019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-fillDatabase"
             landmarkType = "7">
          </BreakpointContent>
@@ -619,11 +459,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityViewController.m"
-            timestampString = "523883610.670732"
+            timestampString = "523986465.471188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -635,11 +475,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGTools.m"
-            timestampString = "523738996.180769"
+            timestampString = "523989128.365111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "+defaultFontSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -651,11 +491,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGTools.m"
-            timestampString = "523738996.180769"
+            timestampString = "523989128.365111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "+defaultFontSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -682,77 +522,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationManager.m"
-            timestampString = "523808861.664491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "-addOperation:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperation.m"
-            timestampString = "523730985.555992"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-isEqual:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGSQLite.m"
-            timestampString = "523895309.382682"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
-            landmarkName = "-selectWithSqlQuery:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523893760.352682"
+            timestampString = "523987196.978691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "-recalcSumOfAccount:forOperation:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationManager.m"
-            timestampString = "523808861.664491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "-operationsBySqlQuery:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -843,11 +619,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGCategoryManager.m"
-            timestampString = "523807130.141338"
+            timestampString = "523992222.960899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "-categoryAttachedForType:"
             landmarkType = "7">
          </BreakpointContent>
@@ -859,11 +635,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGCategoryManager.m"
-            timestampString = "523807130.141338"
+            timestampString = "523992222.960899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "-categoryBySqlQuery:"
             landmarkType = "7">
          </BreakpointContent>
@@ -874,28 +650,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGAccountActualEditController.m"
-            timestampString = "523896112.620214"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
-            landmarkName = "-saveAccountActual"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523807130.141338"
+            timestampString = "523987196.978691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "-idAddEntity:"
             landmarkType = "7">
          </BreakpointContent>
@@ -907,11 +667,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGSQLite.m"
-            timestampString = "523893412.572472"
+            timestampString = "523985126.454019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-addRecord:insertSQL:"
             landmarkType = "7">
          </BreakpointContent>
@@ -922,28 +682,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGAccountActualEditController.m"
-            timestampString = "523896112.620214"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
-            landmarkName = "-saveAccountActual"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGTools.m"
-            timestampString = "523888894.484254"
+            timestampString = "523989128.365111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "524"
-            endingLineNumber = "524"
+            startingLineNumber = "546"
+            endingLineNumber = "546"
             landmarkName = "+languageCodeApplication"
             landmarkType = "7">
          </BreakpointContent>
@@ -1079,38 +823,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523807130.141338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "-getEntitiesForCache"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationManager.m"
-            timestampString = "523808861.664491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-getOperationsForCache"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1121,38 +833,6 @@
             startingLineNumber = "499"
             endingLineNumber = "499"
             landmarkName = "-buttonDeletePressed:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523809657.37929"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "-reloadDataFromSectionsCache"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523806152.929821"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "-reloadDataFromSectionsCache"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1178,28 +858,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationManager.m"
-            timestampString = "523808861.664491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "-operationsBySqlQuery:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523809736.65486"
+            timestampString = "523992222.960899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1211,11 +875,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523809736.65486"
+            timestampString = "523992222.960899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1226,28 +890,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGOperationViewController.m"
-            timestampString = "523809914.126705"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "-showNoDataView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YGSQLite.m"
-            timestampString = "523891319.238706"
+            timestampString = "523985126.454019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "-fillDatabase"
             landmarkType = "7">
          </BreakpointContent>
@@ -1287,15 +935,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "523893760.352682"
+            timestampString = "523987196.978691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "-idAddEntity:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1319,16 +967,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGSQLite.m"
-            timestampString = "523893753.468028"
+            timestampString = "523985126.454019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-addRecord:insertSQL:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGSQLite.m"
+            timestampString = "523985126.454019"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-addRecord:insertSQL:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGOperationSections.m"
+            timestampString = "523901184.558871"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "-sectionsFromOperations"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGEntityViewController.m"
+            timestampString = "523986574.943654"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-reloadDataFromCache"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGEntityViewController.m"
+            timestampString = "523986679.988481"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-loadData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1338,13 +1050,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGSQLite.m"
-            timestampString = "523893930.977484"
+            filePath = "Ledger/YGEntityManager.m"
+            timestampString = "523987196.978691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "-addEntity:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGSQLite.m"
+            timestampString = "523986966.000815"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "-addRecord:insertSQL:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGOperationManager.m"
+            timestampString = "523989128.365111"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-addOperation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YGExpenseEditController.m"
+            timestampString = "523987840.448817"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

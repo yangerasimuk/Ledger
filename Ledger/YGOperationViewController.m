@@ -82,13 +82,10 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddBarButton)];
     self.navigationItem.rightBarButtonItem = addBarButton;
     
-    //self.navigationItem.title = @"Operations";
-    
     self.navigationItem.title = NSLocalizedString(@"OPERATIONS_VIEW_FORM_TITLE", @"Title of Operations form");
     
     
     // set heights of sections and rows
-    //_heightSection = [self heightSectionHeader];
     _heightOneRowCell = [self heightOneRowCell];
     _heightTwoRowCell = [self heightTwoRowCell];
     
@@ -130,10 +127,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [super viewDidAppear:animated];
     
     [self reloadDataFromSectionsCache];
-    
-//    [self.tableView reloadData];
-//
-//    [self updateUI];
 }
 
 /**
@@ -235,7 +228,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         [self.noDataView removeFromSuperview];
         self.noDataView = nil;
     }
-    
 }
 
 

@@ -148,6 +148,7 @@
     "source_currency_id INTEGER NOT NULL, "
     "target_sum REAL NOT NULL, "
     "target_currency_id INTEGER NOT NULL, "
+    "day TEXT NOT NULL, "
     "created TEXT NOT NULL, "
     "created_unix REAL NOT NULL ,"
     "modified TEXT NOT NULL, "
@@ -426,7 +427,9 @@
     
     sqlite3_stmt *statement;
     
-    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+    int resultSqlitePrepare = sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil);
+    
+    if (resultSqlitePrepare == SQLITE_OK) {
         
         while (sqlite3_step(statement) == SQLITE_ROW) {
             
@@ -465,6 +468,9 @@
             [result addObject:row];
         }
         sqlite3_finalize(statement);
+    }
+    else{
+        NSLog(@"sqlite3_prepare_v2() != SQLITE_OK. Result: %d", resultSqlitePrepare);
     }
     
     sqlite3_close(db);

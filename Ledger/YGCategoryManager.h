@@ -36,6 +36,7 @@
 - (BOOL)hasChildObjectActiveForCategory:(YGCategory *)category;
 - (BOOL)isJustOneCategory:(YGCategory *)category;
 - (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category;
+- (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)category;
 
 /*
 - (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type;

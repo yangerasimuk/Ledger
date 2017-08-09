@@ -66,7 +66,7 @@
         
         //@autoreleasepool {
         
-        NSDate *dayOfDate = [YGOperationSections dayOfDate:obj.created];
+        NSDate *dayOfDate = [YGOperationSections dayOfDate:obj.day];
         
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date = %@", dayOfDate];
         
@@ -117,6 +117,7 @@
     return result;
 }
 
+
 + (NSDate *)dayOfDate:(NSDate *)date{
     
     NSDateFormatter *formatterFromDate = [[NSDateFormatter alloc] init];
@@ -129,6 +130,7 @@
     
     return dateFromString;
 }
+
 
 #pragma mark - Sort sections
 

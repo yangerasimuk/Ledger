@@ -545,14 +545,16 @@
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
     if(self.isNewAccount && indexPath.section == 4)
-        height = 0;
+        return 0.0f;
     
-    if(!self.isNewAccount
-       && indexPath.section == 4
-       && indexPath.row == 1
-       && !p_canDelete)
-        height = 0;
+    if(!self.isNewAccount && indexPath.section == 4 && indexPath.row == 1 && !p_canDelete)
+        return 0.0f;
     
+    if(!self.isNewAccount && indexPath.section == 4 && indexPath.row == 0){
+        YGCategory *currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
+        if(!currency.active)
+            return 0.0f;
+    }
     return height;
 }
 

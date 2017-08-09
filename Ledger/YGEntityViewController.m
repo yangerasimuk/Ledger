@@ -26,6 +26,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
 }
 
 @property (strong, nonatomic) NSArray <YGEntity *> *entities;
+@property (strong, nonatomic) UIView *noDataView;
 
 @end
 
@@ -41,22 +42,9 @@ static NSString *const kEntityCellId = @"EntityCellId";
         self.type = YGEntityTypeAccount;
     }
     
-    //[self.tableView registerClass:[YGOperationCell class] forCellReuseIdentifier:kEntityCellId];
-    
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kEntityCellId];
-    
-    //self.entities = [_em listEntitiesByType:self.type];
-    NSPredicate *typePredicate = [NSPredicate predicateWithFormat:@"type = %ld", _type];
-    
-    //self.entities = [[_em.entities valueForKey:NSStringFromEntityType(_type)] filteredArrayUsingPredicate:typePredicate];
-    
-    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
-    
     YGConfig *config = [YGTools config];
     
     p_hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
-    
-    [self.tableView reloadData];
     
     // add button on nav bar
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddButtonPressed)];
@@ -76,16 +64,29 @@ static NSString *const kEntityCellId = @"EntityCellId";
                    name:@"HideDecimalFractionInListsChangedEvent"
                  object:nil];
     
+    [self loadData];
+    
 }
 
 - (void)reloadDataFromCache {
     
-    //self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
-    
-    //[self updateUI];
-    
-    [self.tableView reloadData];
-    
+    if(!_entities || [_entities count] == 0){
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //self.tableView.hidden = YES;
+        self.tableView.userInteractionEnabled = NO;
+        [self showNoDataView];
+    }
+    else{
+        
+        [self hideNoDataView];
+        //self.tableView.hidden = NO;
+        self.tableView.userInteractionEnabled = YES;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        
+        [self.tableView reloadData];
+        
+    }
 }
 
 - (void) reloadDataAfterDecimalFractionChange {
@@ -94,16 +95,16 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     p_hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
     
-    [self.tableView reloadData];
+    [self reloadDataFromCache];
 }
 
-- (void) reloadData {
+- (void) loadData {
     
     self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
     
     [self updateUI];
     
-    [self.tableView reloadData];
+    [self reloadDataFromCache];
     
 }
 
@@ -143,6 +144,58 @@ static NSString *const kEntityCellId = @"EntityCellId";
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
+
+#pragma mark - Show/hide No operation view
+
+- (void)showNoDataView {
+    
+    if(!self.noDataView){
+        
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        
+        self.noDataView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        self.noDataView.backgroundColor = [UIColor colorWithRed:0.9647 green:0.9647 blue:0.9647 alpha:1.f];
+        
+        CGFloat navigationBarHeight = [self.navigationController navigationBar].frame.size.height;
+        CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        
+        CGFloat widthNote = self.view.bounds.size.width/2;
+        CGFloat heightNote = 44.f;
+        
+        CGFloat xNote = self.view.bounds.size.width/2 - widthNote/2;
+        CGFloat yNote;
+        
+        if(screenSize.height != self.view.bounds.size.height)
+            yNote = self.view.bounds.size.height/2 - heightNote/2 - statusBarHeight + 7;
+        else
+            yNote = self.view.bounds.size.height/2 - heightNote/2 - navigationBarHeight -  statusBarHeight;
+        
+        UILabel *labelNote = [[UILabel alloc] initWithFrame:CGRectMake(xNote, yNote, widthNote, heightNote)];
+        
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize] + 2], NSForegroundColorAttributeName:[UIColor grayColor]};
+        
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"NO_OPERATIONS_LABEL", @"No operations in Operations form.") attributes:attributes];
+        
+        labelNote.attributedText = attributed;
+        labelNote.textAlignment = NSTextAlignmentCenter;
+        
+        [self.noDataView addSubview:labelNote];
+        
+        [self.view addSubview:self.noDataView];
+        [self.view bringSubviewToFront:self.noDataView];
+    }
+}
+
+- (void)hideNoDataView {
+    
+    if(self.noDataView){
+        [self.noDataView removeFromSuperview];
+        self.noDataView = nil;
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

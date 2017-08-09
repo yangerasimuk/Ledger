@@ -1209,7 +1209,7 @@
                                                     <color key="backgroundColor" red="1" green="0.37089699349999999" blue="0.46661570520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" red="0.17222186591890123" green="0.73858619398540926" blue="0.16481645901997885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1445,7 +1445,7 @@
                                                     <color key="backgroundColor" red="1" green="0.37089699349999999" blue="0.46661570520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" red="0.86343773868348861" green="0.099446614583333329" blue="0.1565212673611111" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -2753,7 +2753,7 @@
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Save &amp; add">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" red="0.86918860673904419" green="0.13707139756944445" blue="0.077012803819444448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -3113,7 +3113,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
-        <segue reference="mcF-KB-89Z"/>
+        <segue reference="Ou7-RZ-gc3"/>
         <segue reference="eja-KG-Lzi"/>
     </inferredMetricsTieBreakers>
 </document>

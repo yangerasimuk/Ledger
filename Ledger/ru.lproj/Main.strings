@@ -113,7 +113,7 @@
 "e3u-1O-XUK.normalTitle" = "Сохранить и добавить";
 
 /* Class = "UILabel"; text = "Database size:"; ObjectID = "f2B-bq-zaU"; */
-"f2B-bq-zaU.text" = "Размер базы";
+"f2B-bq-zaU.text" = "Размер";
 
 /* Class = "UILabel"; text = "Symbol:"; ObjectID = "fOc-gt-H7Y"; */
 "fOc-gt-H7Y.text" = "Символ";

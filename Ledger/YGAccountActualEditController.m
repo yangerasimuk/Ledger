@@ -16,7 +16,7 @@
 
 @interface YGAccountActualEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
-    NSDate *_created;
+    NSDate *p_day;
     YGEntity *_account;
     YGCategory *_currency;
     double _sourceSum;
@@ -67,8 +67,8 @@
     if(self.isNewAccountAcutal){
         
         // set date
-        _created = [NSDate date];
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
+        p_day = [NSDate date];
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
         // set account if one sets as default
         _account = [_em entityAttachedForType:YGEntityTypeAccount];
@@ -116,8 +116,8 @@
     else{
         
         // set date
-        _created = self.accountActual.created;
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
+        p_day = self.accountActual.day;
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
         // set account
         _account = [_em entityById:self.accountActual.sourceId type:YGEntityTypeAccount];
@@ -341,6 +341,7 @@
                                   sourceCurrencyId:_account.currencyId
                                   targetSum:targetSum
                                   targetCurrencyId:_account.currencyId
+                                  day:[p_day copy]
                                   created:[now copy]
                                   modified:[now copy]
                                   comment:_comment];

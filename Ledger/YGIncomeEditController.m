@@ -17,7 +17,7 @@
 
 @interface YGIncomeEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
-    NSDate *_created;
+    NSDate *p_day;
     YGCategory *_incomeSource;
     YGEntity *_account;
     YGCategory *_currency;
@@ -79,8 +79,8 @@
     if(self.isNewIncome){
         
         // set date
-        _created = [NSDate date];
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
+        p_day = [NSDate date];
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
         // set income source
         _incomeSource = [_cm categoryAttachedForType:YGCategoryTypeIncome];
@@ -120,7 +120,7 @@
         self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum.")] color:[UIColor redColor]];
         
         // init
-        _initDateValue = [_created copy];
+        _initDateValue = [p_day copy];
         _initIncomeSourceValue = nil;
         _initAccountValue = nil;
         _initSumValue = 0.0f;
@@ -138,12 +138,12 @@
         
         // set focus on sum only for all modes
         [self.textFieldSum becomeFirstResponder];
-        
     }
     else{
+        
         // set date
-        _created = self.income.created;
-        self.labelDate.text = [YGTools humanViewWithTodayOfDate:_created];
+        p_day = self.income.day;
+        self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
         // set income source
         //_incomeSource = [_cm categoryById:self.income.sourceId];
@@ -169,7 +169,7 @@
         self.textViewComment.text = _comment;
         
         // init
-        _initDateValue = [_created copy];
+        _initDateValue = [p_day copy];
         _initIncomeSourceValue = [_incomeSource copy];
         _initAccountValue = [_account copy];
         _initSumValue = _sum;
@@ -276,17 +276,16 @@
     
     YGDateChoiceController *vc = unwindSegue.sourceViewController;
     
-    _created = vc.targetDate;
-    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:_created] color:[UIColor blackColor]];
+    p_day = vc.targetDate;
+    self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:p_day] color:[UIColor blackColor]];
     
     // date changed?
-    if([YGTools isDayOfDate:_created equalsDayOfDate:_initDateValue])
+    if([YGTools isDayOfDate:p_day equalsDayOfDate:_initDateValue])
         _isDateChanged = NO;
     else
         _isDateChanged = YES;
     
     [self changeSaveButtonEnable];
-    
 }
 
 - (IBAction)unwindFromIncomeSourceChoiceToIncomeEdit:(UIStoryboardSegue *)unwindSegue {
@@ -342,7 +341,7 @@
 }
 
 - (BOOL) isDataReadyForSave {
-    if(!_created)
+    if(!p_day)
         return NO;
     if(!_incomeSource)
         return NO;
@@ -447,7 +446,7 @@
     
     
     // init
-    _initDateValue = [_created copy];
+    _initDateValue = [p_day copy];
     _initAccountValue = [_account copy];
     _initIncomeSourceValue = [_incomeSource copy];
     _initSumValue = 0.0f;
@@ -473,6 +472,8 @@
 
 - (void)saveIncome {
     
+    NSDate *now = [NSDate date];
+    
     if(self.isNewIncome){
         
         YGOperation *income = [[YGOperation alloc]
@@ -483,8 +484,9 @@
                                sourceCurrencyId:_account.currencyId
                                targetSum:_sum
                                targetCurrencyId:_account.currencyId
-                               created:_created
-                               modified:[_created copy]
+                               day:[p_day copy]
+                               created:[now copy]
+                               modified:[now copy]
                                comment:_comment];
         
         NSInteger operationId = [_om addOperation:income];
@@ -498,7 +500,7 @@
     else{
         
         if(_isDateChanged)
-            self.income.created = _created;
+            self.income.day = p_day;
         if(_isIncomeSourceChanged){
             self.income.sourceId = _incomeSource.rowId;
             self.income.sourceCurrencyId = _currency.rowId;
@@ -546,7 +548,7 @@
         
         YGDateChoiceController *vc = segue.destinationViewController;
         
-        vc.sourceDate = _created;
+        vc.sourceDate = p_day;
         vc.customer = YGDateChoiceСustomerIncome;
         
     }

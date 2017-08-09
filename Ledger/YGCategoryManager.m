@@ -268,6 +268,19 @@
         return NO;
 }
 
+- (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)currency {
+    
+    // search currency in operations
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id FROM entity WHERE active=1 AND currency_id = %ld LIMIT 1;", currency.rowId];
+    
+    NSArray *entities = [_sqlite selectWithSqlQuery:sqlQuery];
+    
+    if(entities && [entities count] > 0)
+        return YES;
+    else
+        return NO;
+}
+
 
 #pragma mark - Actions on category
 
