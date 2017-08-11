@@ -315,10 +315,10 @@
 			children = (
 				132379F71F13F2B90051325F /* YGOperationSections.h */,
 				132379F81F13F2B90051325F /* YGOperationSections.m */,
-				132379E51F13D1350051325F /* YGOperationRow.h */,
-				132379E61F13D1350051325F /* YGOperationRow.m */,
 				132379F41F13F2600051325F /* YGOperationSection.h */,
 				132379F51F13F2600051325F /* YGOperationSection.m */,
+				132379E51F13D1350051325F /* YGOperationRow.h */,
+				132379E61F13D1350051325F /* YGOperationRow.m */,
 			);
 			name = "Sections & rows";
 			sourceTree = "<group>";

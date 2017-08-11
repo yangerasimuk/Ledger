@@ -368,8 +368,8 @@
     
     // update memory cache
     NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
-    YGCategory *replaceCategory = [self categoryById:category.rowId type:category.type];
-    NSUInteger index = [categoriesByType indexOfObject:replaceCategory];
+    YGCategory *replacedCategory = [self categoryById:category.rowId type:category.type];
+    NSUInteger index = [categoriesByType indexOfObject:replacedCategory];
     categoriesByType[index] = [category copy];
     
     // sort memory cache

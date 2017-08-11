@@ -10,6 +10,7 @@
 #import "YGCategoryManager.h"
 #import "YGCategory.h"
 #import "YGAccountEditController.h"
+#import "YGTools.h"
 
 @interface YGCurrencyChoiceController ()
 
@@ -59,16 +60,19 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.currencies count];
@@ -87,15 +91,27 @@
                 reuseIdentifier:kCurrencyCellId];
     }
     
-    cell.textLabel.text = self.currencies[indexPath.row].name;
-    cell.detailTextLabel.text = [self.currencies[indexPath.row] shorterName];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]]};
+    
+    NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:self.currencies[indexPath.row].name attributes:attributes];
+    
+    cell.textLabel.attributedText = attributed;
+    
+    NSDictionary *symbolAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]]};
+    
+    NSAttributedString *symbolAttributed = [[NSAttributedString alloc] initWithString:[self.currencies[indexPath.row] shorterName] attributes:symbolAttributes];
+    
+    cell.detailTextLabel.attributedText = symbolAttributed;
     
     return cell;
 }
 
+
 #pragma mark - didSelectRowAtIndexPath and go to YGAccountEditController
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     YGCategory *currency = self.currencies[indexPath.row];
     

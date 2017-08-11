@@ -266,7 +266,7 @@
     
     YGDateChoiceController *vc = unwindSegue.sourceViewController;
     
-    p_day = vc.targetDate;
+    p_day = [YGTools dayOfDate:vc.targetDate];
     self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:p_day] color:[UIColor blackColor]];
     
     // date changed?
@@ -484,7 +484,7 @@
     else{
         
         if(_isDateChanged)
-            self.expense.day = p_day;
+            self.expense.day = [p_day copy];
         if(_isAccountChanged){
             self.expense.sourceId = _account.rowId;
             self.expense.sourceCurrencyId = _currency.rowId;

@@ -78,5 +78,7 @@
 + (NSString *)stringFromDateDay:(NSDate *)date;
 + (NSDate *)dateFromStringDay:(NSString *)date;
 
++ (NSString *)stringNilIfEmpty:(NSString *)string;
+
 
 @end

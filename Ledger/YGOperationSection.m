@@ -53,8 +53,20 @@
     return _name;
 }
 
+
 - (void)addOperationRow:(YGOperationRow *)operationRow{
+    
     [_operationRows addObject:operationRow];
+    
+    [self sortOperationRows];
+}
+
+
+- (void)sortOperationRows {
+    
+    NSSortDescriptor *sortOnModifiedByDesc = [[NSSortDescriptor alloc] initWithKey:@"operation.modified" ascending:NO];
+    
+    [_operationRows sortUsingDescriptors:@[sortOnModifiedByDesc]];
 }
 
 

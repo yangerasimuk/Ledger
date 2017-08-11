@@ -67,7 +67,7 @@
     if(self.isNewAccountAcutal){
         
         // set date
-        p_day = [NSDate date];
+        p_day = [YGTools dayOfDate:[NSDate date]];
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
         // set account if one sets as default
@@ -303,20 +303,16 @@
 }
 
 - (void)initUIForNewAccountActual {
-    
-    // leave date
-    //_date;
-    
-    // leave account
-    //_account;
-    
-    // leave currency
-    // _currency;
-    
+        
     // deactivate "Add" and "Save & add new" bottons
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.buttonSaveAndAddNew.enabled = NO;
     self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
+    
+    // set nil account
+    _account = nil;
+    self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account.");
+    self.labelAccount.textColor = [UIColor redColor];
     
     // set focus on sum only for new element
     self.textFieldTargetSum.text = @"";
@@ -332,7 +328,7 @@
     NSDate *now = [NSDate date];
     double sourceSum = _account.sum;
     double targetSum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
-    NSString *comment = [_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *comment = [YGTools stringNilIfEmpty:[_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
     YGOperation *accountActual = [[YGOperation alloc]
                                   initWithType:YGOperationTypeAccountActual

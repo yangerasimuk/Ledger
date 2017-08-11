@@ -37,16 +37,6 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
     [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
     
-    // create new work db
-    YGDBManager *dm = [YGDBManager sharedInstance];
-    
-#ifdef DEBUG_REBUILD_BASE
-    [dm createDatabase];
-#else
-    if(![dm databaseExists])
-        [dm createDatabase];
-#endif
-    
     // set config for app
     YGConfig *config = [YGTools config];
     
@@ -72,12 +62,6 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
         [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
         
-        // create new work db
-        YGDBManager *dm = [YGDBManager sharedInstance];
-        
-        if(![dm databaseExists])
-            [dm createDatabase];
-        
         // set config for app
         YGConfig *config = [YGTools config];
         
@@ -86,6 +70,16 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         
         [defaults setBool:YES forKey:kIsFirstLaunch];
     }
+#endif
+    
+    // create new work db
+    YGDBManager *dm = [YGDBManager sharedInstance];
+    
+#ifdef DEBUG_REBUILD_BASE
+    [dm createDatabase];
+#else
+    if(![dm databaseExists])
+        [dm createDatabase];
 #endif
     
     return YES;

@@ -429,11 +429,11 @@
         YGEntity *account = [[YGEntity alloc]
                              initWithType:YGEntityTypeAccount
                              name:self.textFieldName.text
-                             sum:0.0f //sum:[self.textFieldSort.text integerValue]
+                             sum:0.0f
                              currencyId:self.currency.rowId
                              attach:self.switchIsDefault.isOn
                              sort:[self.textFieldSort.text integerValue]
-                             comment:self.textViewComment.text
+                             comment:[YGTools stringNilIfEmpty:self.textViewComment.text]
                              ];
         
         [_em addEntity:account];
@@ -448,7 +448,7 @@
         if(_isSortChanged)
             self.account.sort = [self sortValueFromString:self.textFieldSort.text];
         if(_isCommentChanged)
-            self.account.comment = self.textViewComment.text;
+            self.account.comment = [YGTools stringNilIfEmpty:self.textViewComment.text];
         if(_isCurrencyChanged)
             self.account.currencyId = self.currency.rowId;
         if(_isDefaultChanged)

@@ -91,12 +91,13 @@
     
     [sqlite createTables];
     
-    [sqlite fillDatabase];
+    [sqlite fillTables];
     
+    // Set version of new database
     [YYGDBConfig setValue:@1 forKey:kDatabaseMajorVersionKey];
     [YYGDBConfig setValue:@0 forKey:kDatabaseMinorVersionKey];
     
-    NSLog(@"Version of database: %@.%@", [YYGDBConfig valueForKey:kDatabaseMajorVersionKey], [YYGDBConfig valueForKey:kDatabaseMinorVersionKey]);
+    NSLog(@"Database version: %@.%@", [YYGDBConfig valueForKey:kDatabaseMajorVersionKey], [YYGDBConfig valueForKey:kDatabaseMinorVersionKey]);
 }
 
 - (NSString *)lastOperation {

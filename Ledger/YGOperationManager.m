@@ -211,8 +211,8 @@
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
-    YGOperation *replaceOperation = [self operationById:operation.rowId];
-    NSUInteger index = [self.operations indexOfObject:replaceOperation];
+    YGOperation *replacedOperation = [self operationById:operation.rowId];
+    NSUInteger index = [self.operations indexOfObject:replacedOperation];
     //self.operations set
     self.operations[index] = [operation copy];
     

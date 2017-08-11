@@ -123,6 +123,9 @@
 /* Notification about account balance operation throught new account creation. */
 "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Account balance";
 
+/* No accounts in Accounts form. */
+"NO_ACCOUNTS_LABEL" = "No accounts";
+
 /* No operations in Operations form. */
 "NO_OPERATIONS_LABEL" = "No operations";
 

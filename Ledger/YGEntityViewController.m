@@ -175,7 +175,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
         
         NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize] + 2], NSForegroundColorAttributeName:[UIColor grayColor]};
         
-        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"NO_OPERATIONS_LABEL", @"No operations in Operations form.") attributes:attributes];
+        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"NO_ACCOUNTS_LABEL", @"No accounts in Accounts form.") attributes:attributes];
         
         labelNote.attributedText = attributed;
         labelNote.textAlignment = NSTextAlignmentCenter;

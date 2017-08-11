@@ -78,7 +78,7 @@
     if(self.isNewIncome){
         
         // set date
-        p_day = [NSDate date];
+        p_day = [YGTools dayOfDate:[NSDate date]];
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
         // set income source
@@ -275,7 +275,7 @@
     
     YGDateChoiceController *vc = unwindSegue.sourceViewController;
     
-    p_day = vc.targetDate;
+    p_day = [YGTools dayOfDate:vc.targetDate];
     self.labelDate.attributedText = [YGTools attributedStringWithText:[YGTools humanViewWithTodayOfDate:p_day] color:[UIColor blackColor]];
     
     // date changed?
@@ -500,7 +500,7 @@
     else{
         
         if(_isDateChanged)
-            self.income.day = p_day;
+            self.income.day = [p_day copy];
         if(_isIncomeSourceChanged){
             self.income.sourceId = _incomeSource.rowId;
             self.income.sourceCurrencyId = _currency.rowId;

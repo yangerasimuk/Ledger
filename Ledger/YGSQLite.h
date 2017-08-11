@@ -10,15 +10,12 @@
 
 @interface YGSQLite : NSObject
 
-+ (NSString *)databaseName;
-+ (NSString *)databaseFullName;
-
 - (instancetype) init;
 + (YGSQLite *)sharedInstance;
 
 - (void)createTables;
+- (void)fillTables;
 
-- (void)fillDatabase;
 - (void)fillTable:(NSString *)tableName items:(NSArray *)items updateSQL:(NSString *)updateSQL;
 
 - (NSInteger)addRecord:(NSArray *)fieldsOfItem insertSQL:(NSString *)insertSQL;
@@ -26,6 +23,6 @@
 - (void)removeRecordWithSQL:(NSString *)deleteSQL;
 - (void)execSQL:(NSString *)sqlQuery;
 
-
-
++ (NSString *)databaseName;
++ (NSString *)databaseFullName;
 @end

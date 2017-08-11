@@ -55,6 +55,7 @@
     return sharedInstance;
 }
 
+
 #pragma mark - Create tables
 
 - (void)createTables {
@@ -174,7 +175,7 @@
 
 #pragma mark - Fill category and entity
 
-- (void)fillDatabase {
+- (void)fillTables {
     
     addCommonCurrencies();
     

@@ -113,6 +113,8 @@
         //}// delete
     }];
     
+    [self sortSectionsByDate];
+    
     return result;
 }
 

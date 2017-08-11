@@ -136,9 +136,9 @@
     
     NSSortDescriptor *sortOnActiveByDesc = [[NSSortDescriptor alloc] initWithKey:@"active" ascending:NO];
     NSSortDescriptor *sortOnSortByAsc = [[NSSortDescriptor alloc] initWithKey:@"sort" ascending:YES];
-    NSSortDescriptor *sortOnActiveFromByAsc = [[NSSortDescriptor alloc] initWithKey:@"activeFrom"  ascending:YES];
+    NSSortDescriptor *sortOnCreatedByAsc = [[NSSortDescriptor alloc] initWithKey:@"created"  ascending:YES];
     
-    [array sortUsingDescriptors:@[sortOnActiveByDesc, sortOnSortByAsc, sortOnActiveFromByAsc]];
+    [array sortUsingDescriptors:@[sortOnActiveByDesc, sortOnSortByAsc, sortOnCreatedByAsc]];
 }
 
 
@@ -234,7 +234,7 @@
 
     YGEntity *replaceEntity = [self entityById:entity.rowId type:entity.type];
     NSUInteger index = [entitiesByType indexOfObject:replaceEntity];
-    entitiesByType[index] = [replaceEntity copy];
+    entitiesByType[index] = [entity copy];
     
     // sort memory cache
     [self sortEntitiesInArray:entitiesByType];
@@ -428,12 +428,12 @@
     // check for more near date of actual account operation
     if(operation){
         if(lastActualAccount){
-            if([lastActualAccount.created compare:operation.created] == NSOrderedDescending){
-                NSLog(@"Exist more latest operation of actual for this account, recalc for sum for the account do not need");
+            if([lastActualAccount.day compare:operation.day] == NSOrderedDescending)
                 return;
-            }
+            else if([lastActualAccount.day compare:operation.day] == NSOrderedSame
+                && [lastActualAccount.modified compare:operation.modified] == NSOrderedDescending)
+                return;
         }
-        
     }
     
     // get source sum

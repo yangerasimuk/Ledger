@@ -88,16 +88,20 @@
 /* Title of Local backup form */
 "LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
 
-/* Notification about account balance operation throught new account creation. */
+/* (No Commment) */
 "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "Если остаток по данному счету не равен нулю, установите актуальное значение операцией \"Остаток по счёту\" в разделе \"Операции\".";
 
-/* Notification about account balance operation throught new account creation. */
+/* (No Commment) */
 "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Остаток по счёту";
 
-/* No operations in Operations form. */
+/* No accounts in Accounts form. */
+"NO_ACCOUNTS_LABEL" = "Нет счетов";
+
+/* No operation text in Local backup form
+   No operations in Operations form. */
 "NO_OPERATIONS_LABEL" = "Нет операций";
 
-/* OK */
+/* (No Commment) */
 "OK_ACTION_TITLE" = "OK";
 
 /* Title of Operations form */

@@ -920,7 +920,6 @@
     @throw [NSException exceptionWithName:@"+[YGTools stringFromDateDay]" reason:@"Depricated method" userInfo:nil];
     
     return nil;
-    
 }
 
 + (NSDate *)dateFromStringDay:(NSString *)date {
@@ -928,6 +927,15 @@
     @throw [NSException exceptionWithName:@"+[YGTools dateFromStringDay]" reason:@"Depricated method" userInfo:nil];
 
     return nil;
+}
+
+
++ (NSString *)stringNilIfEmpty:(NSString *)string {
+    
+    if([string isEqualToString:@""])
+        return nil;
+    else
+        return string;
 }
 
 
