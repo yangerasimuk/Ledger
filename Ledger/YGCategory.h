@@ -20,10 +20,22 @@ NSString *NSStringFromCategoryType(YGCategoryType type);
 
 @interface YGCategory : NSObject <NSCopying>
 
+@property (assign, nonatomic) NSInteger rowId;
+@property (assign, nonatomic, readonly) YGCategoryType type;
+@property (copy, nonatomic) NSString *name;
+@property (assign, nonatomic, getter=isActive) BOOL active;
+@property (copy, nonatomic) NSDate *created;
+@property (copy, nonatomic) NSDate *modified;
+@property (assign, nonatomic) NSInteger sort;
+@property (copy, nonatomic) NSString *symbol;
+@property (assign, nonatomic, getter=isAttach) BOOL attach;
+@property (assign, nonatomic) NSInteger parentId;
+@property (copy, nonatomic) NSString *comment;
+
 /**
  Base init for Category.
  */
-- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
+- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
 
 /**
  Init for new currency.
@@ -31,20 +43,5 @@ NSString *NSStringFromCategoryType(YGCategoryType type);
 - (instancetype)initWithType:(YGCategoryType)type name:(NSString *)name sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
 
 - (NSString *)shorterName;
-
-@property (assign, nonatomic) NSInteger rowId;
-@property (assign, nonatomic, readonly) YGCategoryType type;
-@property (copy, nonatomic) NSString *name;
-@property (assign, nonatomic, getter=isActive) BOOL active;
-@property (copy, nonatomic, readonly) NSDate *activeFrom;
-@property (copy, nonatomic) NSDate *activeTo;
-@property (assign, nonatomic) NSInteger sort;
-@property (copy, nonatomic) NSString *symbol;
-@property (assign, nonatomic, getter=isAttach) BOOL attach;
-@property (assign, nonatomic) NSInteger parentId;
-@property (copy, nonatomic) NSString *comment;
-
-/// dynamic
-@property (assign, nonatomic, readonly) BOOL isSaved;
 
 @end

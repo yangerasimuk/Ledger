@@ -564,6 +564,7 @@
 - (void)saveTransfer {
     
     NSDate *now = [NSDate date];
+    NSString *comment = [_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if(self.isNewTransfer){
         
@@ -578,7 +579,7 @@
                                  day:[p_day copy]
                                  created:[now copy]
                                  modified:[now copy]
-                                 comment:[_comment copy]];
+                                 comment:comment];
         
         
         NSInteger operationId = [_om addOperation:transfer];
@@ -608,7 +609,7 @@
             self.transfer.targetSum = _targetSum;
         }
         if(_isCommentChanged)
-            self.transfer.comment = [_comment copy];
+            self.transfer.comment = comment;
         
         self.transfer.modified = now;
         

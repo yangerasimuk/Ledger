@@ -48,10 +48,12 @@
     return self;
 }
 
+
 -(void)dealloc {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
+
 
 -(NSMutableDictionary<NSString *,NSMutableArray<YGEntity *> *> *)entities {
     if(!_entities)
@@ -64,7 +66,7 @@
 
 - (NSArray <YGEntity *> *)entitiesFromDb {
     
-    NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment FROM entity ORDER BY active DESC, sort ASC;";
+    NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment FROM entity ORDER BY active DESC, sort ASC;";
     
     NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -78,13 +80,13 @@
         double sum = [arr[3] doubleValue];
         NSInteger currencyId = [arr[4] integerValue];
         BOOL active = [arr[5] boolValue];
-        NSDate *activeFrom = [arr[6] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[6]];
-        NSDate *activeTo = [arr[7] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[7]];
+        NSDate *created = [YGTools dateFromString:arr[6]];
+        NSDate *modified = [YGTools dateFromString:arr[7]];
         BOOL attach = [arr[8] boolValue];
         NSInteger sort = [arr[9] integerValue];
         NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
         
-        YGEntity *entity = [[YGEntity alloc] initWithRowId:rowId type:type name:name sum:sum currencyId:currencyId active:active activeFrom:activeFrom activeTo:activeTo attach:attach sort:sort comment:comment];
+        YGEntity *entity = [[YGEntity alloc] initWithRowId:rowId type:type name:name sum:sum currencyId:currencyId active:active created:created modified:modified attach:attach sort:sort comment:comment];
         
         [result addObject:entity];
     }
@@ -111,7 +113,6 @@
             [entitiesResult setValue:[[NSMutableArray alloc] init] forKey:typeString];
             [[entitiesResult valueForKey:typeString] addObject:entity];
         }
-        
     }
     
     // sort entities in each inner array
@@ -126,7 +127,6 @@
     [center postNotificationName:@"EntityManagerCacheUpdateEvent"
                           object:nil];
 }
-
 
 
 /**
@@ -156,21 +156,20 @@
                               [NSNumber numberWithDouble:entity.sum],
                               [NSNumber numberWithInteger:entity.currencyId], //currencyId
                               [NSNumber numberWithBool:entity.isActive], // active
-                              [YGTools stringFromDate:entity.activeFrom], // active_from,
-                              entity.activeTo ? [YGTools stringFromDate:entity.activeTo] : [NSNull null], // active_to,
+                              [YGTools stringFromDate:entity.created], // active_from,
+                              entity.modified ? [YGTools stringFromDate:entity.modified] : [NSNull null], // active_to,
                               [NSNumber numberWithBool:entity.isAttach], // attach,
                               [NSNumber numberWithInteger:entity.sort], // sort,
                               entity.comment ? entity.comment : [NSNull null], //comment,
                               nil];
         
-        NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         // db
         rowId = [_sqlite addRecord:entityArr insertSQL:insertSQL];
-        
     }
     @catch (NSException *exception) {
-        NSLog(@"Exception: %@", [exception description]);
+        NSLog(@"Fail in -[YGEntityManager idAddEntity]. Exception: %@", [exception description]);
     }
     @finally {
         return rowId;
@@ -195,8 +194,9 @@
                           object:nil];
 }
 
-
-#warning May be throw exception when return array count > 1?
+/**
+@warning May be throw exception when return array count > 1?
+ */
 - (YGEntity *)entityById:(NSInteger)entityId type:(YGEntityType)type {
     
     NSArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(type)];
@@ -207,25 +207,26 @@
 }
 
 
-#warning Is entity needs to update in inner storage?
+
 /**
+ @warning Is entity needs to update in inner storage?
  @warning It seems entity updated in EditController edit by reference, so...
  */
 - (void)updateEntity:(YGEntity *)entity{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, sum=%@, currency_id=%@, active=%@, active_from=%@, active_to=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, sum=%@, currency_id=%@, active=%@, created=%@, modified=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@;",
                            [YGTools sqlStringForInt:entity.type],
                            [YGTools sqlStringForStringOrNull:entity.name],
-                            [YGTools sqlStringForDecimal:entity.sum],
+                           [YGTools sqlStringForDecimal:entity.sum],
                            [YGTools sqlStringForIntOrNull:entity.currencyId],
                            [YGTools sqlStringForBool:entity.isActive],
-                           [YGTools sqlStringForDateLocalOrNull:entity.activeFrom],
-                           [YGTools sqlStringForDateLocalOrNull:entity.activeTo],
+                           [YGTools sqlStringForDateLocalOrNull:entity.created],
+                           [YGTools sqlStringForDateLocalOrNull:entity.modified],
                            [YGTools sqlStringForBool:entity.attach],
-                            [YGTools sqlStringForIntOrDefault:entity.sort],
+                           [YGTools sqlStringForIntOrDefault:entity.sort],
                            [YGTools sqlStringForStringOrNull:entity.comment],
                            [YGTools sqlStringForIntOrNull:entity.rowId]];
-    
+        
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
@@ -244,7 +245,6 @@
                           object:nil];
     
     // generate special event if entity has linked operations
-    
     if([self isExistLinkedOperationsForEntity:entity]){
         [center postNotificationName:@"EntityManagerEntityWithOperationsUpdateEvent" object:nil];
     }
@@ -253,10 +253,10 @@
 
 - (void)deactivateEntity:(YGEntity *)entity{
     
-    NSString *activeTo = [YGTools stringFromDate:[NSDate date]];
-
+    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, active_to='%@' WHERE entity_id=%ld;", activeTo, (long)entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, modified=%@ WHERE entity_id=%ld;", now, (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
 
@@ -264,7 +264,7 @@
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
     updateEntity.active = NO;
-    updateEntity.activeTo = [YGTools dateFromString:activeTo];
+    updateEntity.modified = [YGTools dateFromString:now];
     
     // sort memory cache
     [self sortEntitiesInArray:entitiesByType];
@@ -277,8 +277,10 @@
 
 - (void)activateEntity:(YGEntity *)entity{
     
+    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, active_to=NULL WHERE entity_id=%ld;", (long)entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, modified=%@ WHERE entity_id=%ld;", now, (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -286,7 +288,7 @@
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
     updateEntity.active = YES;
-    updateEntity.activeTo = nil;
+    updateEntity.modified = [YGTools dateFromString:now];
     
     [self sortEntitiesInArray:entitiesByType];
     
@@ -314,8 +316,6 @@
 }
 
 
-
-
 #pragma mark - Lists of entitites
 
 - (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive exceptEntity:(YGEntity *)exceptEntity {
@@ -335,10 +335,12 @@
     return entitiesResult;
 }
 
+
 - (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type onlyActive:(BOOL)onlyActive {
     
     return [self entitiesByType:type onlyActive:onlyActive exceptEntity:nil];
 }
+
 
 - (NSArray <YGEntity *> *)entitiesByType:(YGEntityType)type {
     
@@ -387,10 +389,10 @@
 
 - (void)setOnlyOneDefaultEntity:(YGEntity *)entity {
     
+    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET attach=0 WHERE entity_type_id = %ld AND entity_id != %ld;",
-                           (long)entity.type,
-                           (long)entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET attach=0, modified=%@ WHERE entity_type_id = %ld AND entity_id != %ld;", now, (long)entity.type, (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -401,9 +403,9 @@
     
     for(YGEntity *ent in updateEntities){
         ent.attach = NO;
+        ent.modified = [YGTools dateFromString:now];
     }
 }
-
 
 
 #pragma mark - Working with Operations: reculc and check of exist operations for entity
@@ -476,24 +478,14 @@
 
     // is account needs to update?
     if(account.sum != targetSum){
-        // update db
-        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET sum=%@ WHERE entity_id=%@;",
-                               [YGTools sqlStringForDecimal:targetSum],
-                               [YGTools sqlStringForIntOrNull:account.rowId]];
-                
-        [_sqlite execSQL:updateSQL];
         
-        // update memory cache
-        NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(YGEntityTypeAccount)];
-        YGEntity *updateAccount = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:account]];
-        updateAccount.sum = targetSum;
+        account.sum = targetSum;
+        account.modified = [NSDate date];
         
-        // generate event
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotificationName:@"EntityManagerCacheUpdateEvent"
-                              object:nil];
+        [self updateEntity:[account copy]];
     }
 }
+
 
 /**
  Is linked operations for entity exist. When delete entity we must check it.

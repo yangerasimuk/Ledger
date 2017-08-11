@@ -70,10 +70,6 @@
         [self includeCategory:category fromCategories:categories toTreeRows:result];
     }
     
-    for(YYGCategoryRow *c in result){
-        //NSLog(@"category: %@, nested level: %ld", c.name, (long)c.nestedLevel);
-    }
-    
     return result;
 }
 

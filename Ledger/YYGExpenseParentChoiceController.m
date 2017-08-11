@@ -52,14 +52,16 @@
 
     p_section = [[YYGCategorySection alloc] initWithCategories:[p_manager categoriesByType:YGCategoryTypeExpense onlyActive:YES]];
     
+    NSDate *now = [NSDate date];
+    
     if(_sourceParentCategory){
         YGCategory *category = [[YGCategory alloc]
                                 initWithRowId:-1
                                 categoryType:YGCategoryTypeExpense
                                 name:NSLocalizedString(@"ROOT_CATEGORY_NAME", @"Name of Root category")
                                 active:YES
-                                activeFrom:[NSDate date]
-                                activeTo:nil
+                                created:now
+                                modified:now
                                 sort:99
                                 symbol:nil
                                 attach:NO

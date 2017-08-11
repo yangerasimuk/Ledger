@@ -332,6 +332,7 @@
     NSDate *now = [NSDate date];
     double sourceSum = _account.sum;
     double targetSum = [YGTools doubleFromStringCurrency:self.textFieldTargetSum.text];
+    NSString *comment = [_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     YGOperation *accountActual = [[YGOperation alloc]
                                   initWithType:YGOperationTypeAccountActual
@@ -344,7 +345,7 @@
                                   day:[p_day copy]
                                   created:[now copy]
                                   modified:[now copy]
-                                  comment:_comment];
+                                  comment:comment];
     
     [_om addOperation:accountActual];
 }

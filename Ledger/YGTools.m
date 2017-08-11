@@ -246,14 +246,6 @@
 + (NSString *)stringWithCurrentTimeZoneFromDate:(NSDate *)date {
     
     @throw [NSException exceptionWithName:@"[YGTools stringWithCurrentTimeZoneFromDate:]" reason:@"Use another func!" userInfo:nil];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    
-    [formatter setDateFormat:kDateTimeFormat];
-    
-    return [formatter stringFromDate:date];
-    
 }
 
 + (NSDate *)dateFromString:(NSString *)string{
@@ -758,6 +750,7 @@
     return YES;
 }
 
+
 + (BOOL)isValidNameInSourceString:(NSString *)sourceString replacementString:replacementString range:(NSRange)range {
     
     // get result string
@@ -769,7 +762,7 @@
     // length of result string
     if([resultString length] > 25)
         return NO;
-    
+        
     return YES;
 }
 

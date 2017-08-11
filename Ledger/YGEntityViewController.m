@@ -297,21 +297,4 @@ static NSString *const kEntityCellId = @"EntityCellId";
     return cell;
 }
 
-- (NSString *)trankateNameToContainSum:(NSString *)stringSum {
-    
-    NSInteger countCharacterMax = [YGTools lengthCharachtersForTableView];
-    
-    //NSLog(@"max characters in one string: %ld", (long)countCharacterMax);
-    
-    NSInteger lengthStringSum = [stringSum length];
-    
-    NSInteger lengthNamMax = countCharacterMax - lengthStringSum;
-    
-    //NSLog(@"max lenght of name: %ld", (long)lengthNamMax);
-    
-    
-    return @"";
-}
-
-
 @end

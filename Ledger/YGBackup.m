@@ -26,26 +26,11 @@
 
 - (instancetype)initWithName:(NSString *)name storage:(id<YGStoraging>)storage {
     
-    NSLog(@"-initWithName:storage:");
-    NSLog(@"name: %@", name);
-    
-    YGConfig *config = [YGTools config];
-    
     NSString *backupStorageKey = nil;
     if([storage type] == YGStorageTypeLocal)
         backupStorageKey = @"LocalBackup";
     else
         @throw [NSException exceptionWithName:@"-[YGDBInfo initWithName:type:storage:]" reason:[NSString stringWithFormat:@"Fail to get type of storage: %@", storage] userInfo:nil];
-    
-    NSArray *localBackups = [config valueForKey:backupStorageKey];
-    
-    /*
-    NSDictionary *backup = [localBackups objectAtIndex:0];
-    
-    NSString *lastOperation = [backup objectForKey:@"LastOperation"];
-    NSString *backupDate = [backup objectForKey:@"BackupDate"];
-    NSString *dbSize = [backup objectForKey:@"BackupDBSize"];
-     */
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *documentDirectory = [YGTools documentsDirectoryPath];

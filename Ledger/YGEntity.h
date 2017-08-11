@@ -25,13 +25,13 @@ NSString * NSStringFromEntityType(YGEntityType type);
 @property double sum;
 @property NSInteger currencyId;
 @property (getter=isActive) BOOL active;
-@property NSDate *activeFrom;
-@property NSDate *activeTo;
+@property NSDate *created;
+@property NSDate *modified;
 @property (assign, nonatomic, getter=isAttach) BOOL attach;
 @property NSInteger sort;
 @property NSString *comment;
 
--(instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
+-(instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
 
 -(instancetype)initWithType:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
 

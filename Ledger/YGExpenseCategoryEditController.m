@@ -67,7 +67,6 @@
     
     self.navigationItem.title = NSLocalizedString(@"EXPENSE_CATEGORY_EDIT_FORM_TITLE", @"Title of Expense category view/edit form.");
     
-    
     if(self.isNewExpenseCategory){
         
         self.expenseCategory = nil;
@@ -136,7 +135,6 @@
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     
-    //
     self.textFieldName.delegate = self;
     self.textFieldSort.delegate = self;
     self.textViewComment.delegate = self;
@@ -144,8 +142,8 @@
     [self updateUI];
     
     [self setDefaultFontForControls];
-    
 }
+
 
 - (void)setDefaultFontForControls {
     
@@ -168,6 +166,7 @@
     self.textViewComment.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -175,10 +174,12 @@
     [self updateUI];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)updateUI {
     
@@ -188,9 +189,6 @@
             ;
             self.cellParentCategory.accessoryType = UITableViewCellAccessoryNone;
             self.labelParent.textColor = [YGTools colorForActionDisable];
-            
-            NSLog(@"UpdateUI, %@", self.labelParent.text);
-            
         }
         else{
             self.cellParentCategory.userInteractionEnabled = YES;
@@ -217,6 +215,12 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && ![textView.text isEqualToString:@""])
+            p_comment = textView.text;
+        else
+            p_comment = nil;
+        
         return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
     }
     else
@@ -248,6 +252,7 @@
     }
 }
 
+
 #pragma mark - Monitoring of control value changed
 
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender {
@@ -268,6 +273,7 @@
     
 }
 
+
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender {
     
     p_sort = [self.textFieldSort.text integerValue];
@@ -284,6 +290,7 @@
     
     [self changeSaveButtonEnable];
 }
+
 
 - (void)textViewDidChange:(UITextView *)textView {
     
@@ -302,6 +309,7 @@
 
 
 - (BOOL)isEditControlsChanged{
+    
     if(_isNameChanged)
         return YES;
     if(_isSortChanged)
@@ -314,7 +322,9 @@
     return NO;
 }
 
+
 - (BOOL) isDataReadyForSave {
+    
     if(!p_name || [p_name isEqualToString:@""])
         return NO;
     if(p_sort < 1 || p_sort > 999)
@@ -322,6 +332,7 @@
     
     return YES;
 }
+
 
 #pragma mark - Change save button enable
 
@@ -353,7 +364,7 @@
                                        symbol:nil
                                        attach:NO
                                        parentId:self.expenseCategoryParent.rowId
-                                       comment:self.textViewComment.text];
+                                       comment:p_comment];
         
         [p_manager addCategory:expenseCategory];
     }
@@ -367,6 +378,8 @@
             self.expenseCategory.comment = self.textViewComment.text;
         if(_isParentChanged)
             self.expenseCategory.parentId = self.expenseCategoryParent.rowId;
+        
+        self.expenseCategory.modified = [NSDate date];
         
         // change db, not instance
         [p_manager updateCategory:[self.expenseCategory copy]];
@@ -417,6 +430,7 @@
     // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
@@ -481,11 +495,13 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 - (void)disableButtonDelete {
     self.buttonDelete.enabled = NO;
     self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
     self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
 }
+
 
 - (void)disableButtonActivate {
     self.buttonActivate.enabled = NO;
@@ -511,7 +527,9 @@
     }
 }
 
+
 #pragma mark - UITableViewDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -554,7 +572,7 @@
 }
 
 
- #pragma mark - Navigation
+#pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -15,6 +15,9 @@ void addReleaseAccounts(){
     YGSQLite *sqlite = [YGSQLite sharedInstance];
         
     NSArray *entities = nil;
+    
+    NSString *now = [YGTools stringFromLocalDate:[NSDate date]];
+    
     if([[YGTools languageCodeApplication] isEqualToString:@"ru"]){
         entities = @[
                      @[
@@ -23,8 +26,8 @@ void addReleaseAccounts(){
                          @0.0,
                          @1, // rub
                          @1, // active
-                         [YGTools stringFromDate:[NSDate date]],
-                         [NSNull null],
+                         now,
+                         now,
                          @1, // attach
                          @100,
                          [NSNull null],
@@ -35,8 +38,8 @@ void addReleaseAccounts(){
                          @0.0,
                          @1, // rub
                          @1, // active
-                         [YGTools stringFromDate:[NSDate date]],
-                         [NSNull null],
+                         now,
+                         now,
                          @0, // attach
                          @101,
                          [NSNull null],
@@ -47,14 +50,13 @@ void addReleaseAccounts(){
                          @0.0,
                          @1, // rub
                          @1, // active
-                         [YGTools stringFromDate:[NSDate date]],
-                         [NSNull null],
+                         now,
+                         now,
                          @0, // attach
                          @103,
                          [NSNull null],
                          ]
                      ];
-
     }
     else{
         entities = @[
@@ -64,8 +66,8 @@ void addReleaseAccounts(){
                          @0.0,
                          @1, // rub
                          @1, // active
-                         [YGTools stringFromDate:[NSDate date]],
-                         [NSNull null],
+                         now,
+                         now,
                          @1, // attach
                          @100,
                          [NSNull null],
@@ -76,8 +78,8 @@ void addReleaseAccounts(){
                          @0.0,
                          @1, // rub
                          @1, // active
-                         [YGTools stringFromDate:[NSDate date]],
-                         [NSNull null],
+                         now,
+                         now,
                          @0, // attach
                          @101,
                          [NSNull null],
@@ -88,8 +90,8 @@ void addReleaseAccounts(){
                          @0.0,
                          @1, // rub
                          @1, // active
-                         [YGTools stringFromDate:[NSDate date]],
-                         [NSNull null],
+                         now,
+                         now,
                          @0, // attach
                          @103,
                          [NSNull null],
@@ -97,19 +99,18 @@ void addReleaseAccounts(){
                      ];
     }
     
-
-    
-    NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, active_from, active_to, attach, sort, comment) "
+    NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment) "
     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     [sqlite fillTable:@"entity" items:entities updateSQL:insertSQL];
-    
 }
 
 
 void addReleaseExpenseCategories(){
     
     NSArray *categories = nil;
+    
+    NSString *now = [YGTools stringFromLocalDate:[NSDate date]];
     
     if([[YGTools languageCodeApplication] isEqualToString:@"ru"]){
         
@@ -118,8 +119,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Продукты",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -130,20 +131,20 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Чревоугодия",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
                            @11,
-                           @"Всякие излишества: алкоголь, курение и т.д.",
+                           @"Алкоголь, курение и т.д.",
                            ],
                        @[
                            @2,
                            @"Хозяйство",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -154,8 +155,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Коммуналка",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -166,8 +167,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Ремонт/Мебель",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -178,8 +179,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Одежда",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -190,8 +191,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Здоровье",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @103,
                            [NSNull null],
                            @0,
@@ -202,8 +203,8 @@ void addReleaseExpenseCategories(){
                            @2, // category_type_id
                            @"Красота", // name
                            @1, // active
-                           [YGTools stringFromDate:[NSDate date]], // active_from
-                           [NSNull null], // active_to
+                           now,
+                           now,
                            @101, // sort
                            [NSNull null],  // symbol
                            @0, // attach
@@ -214,8 +215,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Транспорт",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @104,
                            [NSNull null],
                            @0,
@@ -226,8 +227,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Связь",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @105,
                            [NSNull null],
                            @0,
@@ -238,8 +239,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Образование",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @106,
                            [NSNull null],
                            @0,
@@ -250,8 +251,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Развлечения",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @107,
                            [NSNull null],
                            @0,
@@ -262,8 +263,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Домашние животные",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -274,8 +275,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Спорт",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -286,8 +287,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Рукоделия",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -298,8 +299,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Отдых/путешествия",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @104,
                            [NSNull null],
                            @0,
@@ -310,8 +311,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Книги",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -322,21 +323,20 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Кино/музыка",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @103,
                            [NSNull null],
                            @0,
                            @22,
                            [NSNull null],
                            ],
-
                        @[
                            @2,
                            @"Фото",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @105,
                            [NSNull null],
                            @0,
@@ -347,8 +347,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Семья",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @108,
                            [NSNull null],
                            @0,
@@ -359,8 +359,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Деловое",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @109,
                            [NSNull null],
                            @0,
@@ -371,8 +371,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Компьютерное",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -383,8 +383,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Канцелярия",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -395,8 +395,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Банковские расходы",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -407,8 +407,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Государство",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @110,
                            [NSNull null],
                            @0,
@@ -419,8 +419,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Налоги",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -431,8 +431,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Штрафы",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -443,8 +443,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Потери",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @111,
                            [NSNull null],
                            @0,
@@ -452,7 +452,6 @@ void addReleaseExpenseCategories(){
                            [NSNull null],
                            ],
                        ];
-
     }
     else{
         categories = @[
@@ -460,8 +459,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Foodstuffs",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -472,20 +471,20 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Gluttony",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
                            @11,
-                           @"Excess: alcohol, smoking, glutton...",
+                           @"Alcohol, smoking...",
                            ],
                        @[
                            @2,
                            @"Household expenses",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -496,8 +495,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Utility payments",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -508,8 +507,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Renovation & furniture",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -520,8 +519,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Clothes",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -532,8 +531,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Health",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @103,
                            [NSNull null],
                            @0,
@@ -544,8 +543,8 @@ void addReleaseExpenseCategories(){
                            @2, // category_type_id
                            @"Beauty", // name
                            @1, // active
-                           [YGTools stringFromDate:[NSDate date]], // active_from
-                           [NSNull null], // active_to
+                           now,
+                           now,
                            @101, // sort
                            [NSNull null],  // symbol
                            @0, // attach
@@ -556,8 +555,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Transport",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @104,
                            [NSNull null],
                            @0,
@@ -568,8 +567,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Communications",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @105,
                            [NSNull null],
                            @0,
@@ -580,8 +579,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Education",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @106,
                            [NSNull null],
                            @0,
@@ -592,8 +591,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Entertainment",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @107,
                            [NSNull null],
                            @0,
@@ -604,8 +603,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Pets",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -616,8 +615,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Sport",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -628,8 +627,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Hand made",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -640,8 +639,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Rest & travel",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @104,
                            [NSNull null],
                            @0,
@@ -652,8 +651,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Literature",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -664,21 +663,20 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Movies & music",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @103,
                            [NSNull null],
                            @0,
                            @22,
                            [NSNull null],
                            ],
-
                        @[
                            @2,
                            @"Photo",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @105,
                            [NSNull null],
                            @0,
@@ -689,8 +687,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Family",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @108,
                            [NSNull null],
                            @0,
@@ -701,8 +699,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Business",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @109,
                            [NSNull null],
                            @0,
@@ -713,8 +711,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Computer expenses",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -725,8 +723,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Office expenses",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -737,8 +735,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Bank expenses",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -749,8 +747,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"State",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @110,
                            [NSNull null],
                            @0,
@@ -761,8 +759,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Tax",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -773,8 +771,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Penalty",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -785,8 +783,8 @@ void addReleaseExpenseCategories(){
                            @2,
                            @"Loss",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @111,
                            [NSNull null],
                            @0,
@@ -797,18 +795,19 @@ void addReleaseExpenseCategories(){
         
     }
     
-    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) "
+    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment) "
     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     [sqlite fillTable:@"category" items:categories updateSQL:insertSQL];
-    
 }
 
 
 void addReleaseIncomeSources(){
     
     NSArray *сategories = nil;
+    
+    NSString *now = [YGTools stringFromLocalDate:[NSDate date]];
     
     if([[YGTools languageCodeApplication] isEqualToString:@"ru"]){
         
@@ -817,8 +816,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Зарплата",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -829,8 +828,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Разовый доход",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -841,8 +840,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Подарки",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -853,8 +852,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Продажа имущества",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @103,
                            [NSNull null],
                            @0,
@@ -865,8 +864,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Возврат",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @104,
                            [NSNull null],
                            @0,
@@ -877,8 +876,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Находка",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @105,
                            [NSNull null],
                            @0,
@@ -889,8 +888,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Наследство",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @106,
                            [NSNull null],
                            @0,
@@ -906,8 +905,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Salary",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @100,
                            [NSNull null],
                            @0,
@@ -918,8 +917,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Ad hoc income",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @101,
                            [NSNull null],
                            @0,
@@ -930,8 +929,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Gift",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @102,
                            [NSNull null],
                            @0,
@@ -942,8 +941,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Sale of property",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @103,
                            [NSNull null],
                            @0,
@@ -954,8 +953,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Return",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @104,
                            [NSNull null],
                            @0,
@@ -966,8 +965,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Godsend",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @105,
                            [NSNull null],
                            @0,
@@ -978,8 +977,8 @@ void addReleaseIncomeSources(){
                            @3,
                            @"Inheritance",
                            @1,
-                           [YGTools stringFromDate:[NSDate date]],
-                           [NSNull null],
+                           now,
+                           now,
                            @106,
                            [NSNull null],
                            @0,
@@ -987,13 +986,11 @@ void addReleaseIncomeSources(){
                            [NSNull null],
                            ],
                        ];
-        
     }
     
-    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) "
+    NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment) "
     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     [sqlite fillTable:@"category" items:сategories updateSQL:insertSQL];
 }
-

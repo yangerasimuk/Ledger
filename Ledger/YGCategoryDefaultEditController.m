@@ -164,6 +164,12 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:@""])
+            p_comment = textView.text;
+        else
+            p_comment = nil;
+
         return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
     }
     else
@@ -189,6 +195,7 @@
     
     [self changeSaveButtonEnable];
 }
+
 
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender {
     
@@ -223,6 +230,7 @@
     }
 }
 
+
 - (BOOL)isEditControlsChanged{
     if(_isNameChanged)
         return YES;
@@ -234,6 +242,7 @@
     return NO;
 }
 
+
 - (BOOL) isDataReadyForSave {
     if(!p_name || [p_name isEqualToString:@""])
         return NO;
@@ -242,6 +251,7 @@
     
     return YES;
 }
+
 
 #pragma mark - Change save button enable
 
@@ -282,7 +292,7 @@
                                        symbol:nil
                                        attach:NO
                                        parentId:-1
-                                       comment:self.textViewComment.text];
+                                       comment:p_comment];
         
         [p_manager addCategory:expenseCategory];
     }
@@ -291,9 +301,11 @@
         if(_isNameChanged)
             self.category.name = self.textFieldName.text;
         if(_isSortChanged)
-            self.category.sort = sort;
+            self.category.sort = p_sort;
         if(_isCommentChanged)
-            self.category.comment = self.textViewComment.text;
+            self.category.comment = p_comment;
+        
+        self.category.modified = [NSDate date];
 
         // change db, not instance
         [p_manager updateCategory:[self.category copy]];
@@ -301,6 +313,7 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
@@ -327,6 +340,7 @@
     // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
@@ -372,11 +386,13 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 - (void)disableButtonDelete {
     self.buttonDelete.enabled = NO;
     self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
     self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
 }
+
 
 - (void)disableButtonActivate {
     self.buttonDelete.enabled = NO;
@@ -434,6 +450,7 @@
     NSInteger result = 100;
     
     @try {
+        
         if(string && [string length] > 0){
             result = [string integerValue];
         }

@@ -61,7 +61,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
 
 - (IBAction)textFieldSumEditingChanged:(UITextField *)sender;
-- (IBAction)textFieldCommentEditingChanged:(UITextField *)sender;
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 - (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender;
@@ -426,7 +425,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)buttonSaveAndAddNewPressed {
+- (IBAction)buttonSaveAndAddNewPressed:(UIButton *)sender {
     
     [self saveIncome];
     
@@ -473,6 +472,7 @@
 - (void)saveIncome {
     
     NSDate *now = [NSDate date];
+    NSString *comment = [_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if(self.isNewIncome){
         
@@ -487,7 +487,7 @@
                                day:[p_day copy]
                                created:[now copy]
                                modified:[now copy]
-                               comment:_comment];
+                               comment:comment];
         
         NSInteger operationId = [_om addOperation:income];
         
@@ -514,7 +514,7 @@
             self.income.targetSum = _sum;
         }
         if(_isCommentChanged)
-            self.income.comment = [_comment copy];
+            self.income.comment = comment;
         
         self.income.modified = [NSDate date];
         
@@ -541,7 +541,6 @@
 
 
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"segueFromIncomeEditToDateChoice"]){

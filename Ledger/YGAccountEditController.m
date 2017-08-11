@@ -280,6 +280,7 @@
     return NO;
 }
 
+
 #pragma mark - Come back from currency choice
 
 - (IBAction)unwindToAccountEdit:(UIStoryboardSegue *)unwindSegue {
@@ -326,6 +327,7 @@
     
 }
 
+
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender {
     
     p_sort = [self.textFieldSort.text integerValue];
@@ -343,6 +345,7 @@
     [self changeSaveButtonEnable];
 }
 
+
 - (void)textViewDidChange:(UITextView *)textView {
     
     if([textView isEqual:self.textViewComment]){
@@ -357,6 +360,7 @@
         [self changeSaveButtonEnable];
     }
 }
+
 
 - (IBAction)switchIsDefaultValueChanged:(UISwitch *)sender {
     
@@ -387,6 +391,7 @@
     return NO;
 }
 
+
 - (BOOL)isDataReadyForSave {
     
     if(!p_name || [p_name isEqualToString:@""])
@@ -398,6 +403,7 @@
     
     return YES;
 }
+
 
 #pragma mark - Change save button enable
 
@@ -448,32 +454,15 @@
         if(_isDefaultChanged)
             self.account.attach = self.switchIsDefault.isOn;
         
+        self.account.modified = [NSDate date];
+        
         // change db, not instance
-        [_em updateEntity:self.account];
+        [_em updateEntity:[self.account copy]];
         
         if(_isDefaultChanged && _initIsDefaultValue == NO){
             [_em setOnlyOneDefaultEntity:self.account];
         }
     }
-    
-    /*
-    if(self.isNewAccount){
-        // Notification about Account balance operation
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE", @"Notification about account balance operation throught new account creation.") message:NSLocalizedString(@"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE", @"Notification about account balance operation throught new account creation.") preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *alertOk = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK_ACTION_TITLE", @"OK") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        
-        [alertController addAction:alertOk];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-
-    }
-    else{
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-     */
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -481,14 +470,10 @@
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
-    if(self.account.active){
+    if(self.account.active)
         [_em deactivateEntity:self.account];
-        //[self.buttonActivate setTitle:@"Activate" forState:UIControlStateNormal];
-    }
-    else{
+    else
         [_em activateEntity:self.account];
-        //[self.buttonActivate setTitle:@"Dectivate" forState:UIControlStateNormal];
-    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -496,7 +481,6 @@
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
-    //if(![_em isExistRecordsForEntity:self.account]){
     if([_em isExistLinkedOperationsForEntity:_account]){
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CAN_NOT_DELETE_ALERT_TITLE", @"Title of alert Can not delete") message:NSLocalizedString(@"REASON_CAN_NOT_DELETE_ACCOUNT_WITH_LINKED_MESSAGE", @"Message with reason that current account has linked objects and can not be deleted.") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -509,6 +493,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
 
 #pragma mark - Tools
 

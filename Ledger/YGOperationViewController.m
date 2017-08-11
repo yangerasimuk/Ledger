@@ -499,6 +499,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     }
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];

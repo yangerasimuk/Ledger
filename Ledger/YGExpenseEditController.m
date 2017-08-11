@@ -457,6 +457,7 @@
 - (void)saveExpense {
     
     NSDate *now = [NSDate date];
+    NSString *comment = [_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if(self.isNewExpense){
         
@@ -471,7 +472,7 @@
                                 day:[p_day copy]
                                 created:[now copy]
                                 modified:[now copy]
-                                comment:_comment];
+                                comment:comment];
         
         NSInteger operationId = [_om addOperation:expense];
         
@@ -497,7 +498,7 @@
             self.expense.targetSum = _sum;
         }
         if(_isCommentChanged){
-            self.expense.comment = [_comment copy];
+            self.expense.comment = comment;
         }
         
         self.expense.modified = now;

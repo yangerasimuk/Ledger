@@ -47,7 +47,6 @@
         
         _operations = operations;
         
-#warning Why mutable?
         _list = [[self sectionsFromOperations] mutableCopy];
         
     }

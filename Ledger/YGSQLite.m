@@ -41,10 +41,10 @@
     if(self){
         
         [self checkDatabase];
-        
     }
     return self;
 }
+
 
 + (YGSQLite *)sharedInstance{
     static YGSQLite *sharedInstance;
@@ -59,8 +59,10 @@
 
 - (void)createTables {
     
+#ifdef DEBUG_REBUILD_BASE
     if([self isTableExist:@"log"])
         [self dropTable:@"log"];
+#endif
     
     // create log
     NSString *createSql = @"CREATE TABLE IF NOT EXISTS log "
@@ -74,10 +76,10 @@
     
     [YYGDBLog logEvent:@"Table log created"];
     
-    
-    // create config
+#ifdef DEBUG_REBUILD_BASE
     if([self isTableExist:@"config"])
         [self dropTable:@"config"];
+#endif
 
     createSql = @"CREATE TABLE IF NOT EXISTS config "
     "(config_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -90,18 +92,18 @@
     
     [YYGDBLog logEvent:@"Table config created"];
     
-    
-    // create category
+#ifdef DEBUG_REBUILD_BASE
     if([self isTableExist:@"category"])
         [self dropTable:@"category"];
+#endif
     
     createSql = @"CREATE TABLE IF NOT EXISTS category "
     "(category_id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "category_type_id INTEGER NOT NULL, "
     "name TEXT NOT NULL, "
     "active INTEGER NOT NULL, "
-    "active_from TEXT NOT NULL, "
-    "active_to TEXT, "
+    "created TEXT NOT NULL, "
+    "modified TEXT, "
     "sort INTEGER NOT NULL, "
     "symbol TEXT, "
     "attach INTEGER NOT NULL, "
@@ -113,9 +115,10 @@
     
     [YYGDBLog logEvent:@"Table category created"];
     
-    // create entity
+#ifdef DEBUG_REBUILD_BASE
     if([self isTableExist:@"entity"])
         [self dropTable:@"entity"];
+#endif
     
     createSql = @"CREATE TABLE IF NOT EXISTS entity "
     "(entity_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -124,8 +127,8 @@
     "sum REAL, "
     "currency_id INTEGER NOT NULL, "
     "active INTEGER NOT NULL, "
-    "active_from TEXT NOT NULL, "
-    "active_to TEXT, "
+    "created TEXT NOT NULL, "
+    "modified TEXT, "
     "attach INTEGER NOT NULL, "
     "sort INTEGER NOT NULL, "
     "comment TEXT"
@@ -135,9 +138,10 @@
     
     [YYGDBLog logEvent:@"Table entity created"];
     
-    // create operation
+#ifdef DEBUG_REBUILD_BASE
     if([self isTableExist:@"operation"])
         [self dropTable:@"operation"];
+#endif
     
     createSql = @"CREATE TABLE IF NOT EXISTS operation "
     "(operation_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -305,7 +309,7 @@
     }
     @catch(NSException *ex){
         
-        NSLog(@"Exception in -[YGSQLite addRecord:insertSQL:]. Exception: %@", [ex description]);
+        NSLog(@"Fail in -[YGSQLite addRecord:insertSQL:]. Exception: %@", [ex description]);
     }
     @finally {
         

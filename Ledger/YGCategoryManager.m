@@ -11,9 +11,6 @@
 #import "YGTools.h"
 #import "YGOperation.h"
 
-#define YGBooleanValueNO    0
-#define YGBooleanValueYES   1
-
 @interface YGCategoryManager (){
     YGSQLite *_sqlite;
 }
@@ -28,6 +25,7 @@
 #pragma mark - Singleton, init & accessors
 
 + (instancetype)sharedInstance{
+    
     static YGCategoryManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -37,6 +35,7 @@
 }
 
 - (instancetype)init{
+    
     self = [super init];
     if(self){
         _sqlite = [YGSQLite sharedInstance];
@@ -72,7 +71,7 @@
 
 - (NSArray <YGCategory *> *)categoriesFromDb {
     
-    NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment  FROM category ORDER BY active DESC, sort ASC;";
+    NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment  FROM category ORDER BY active DESC, sort ASC;";
     
     NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -84,21 +83,20 @@
         YGCategoryType type = [arr[1] integerValue];
         NSString *name = arr[2];
         BOOL active = [arr[3] boolValue];
-        NSDate *activeFrom = [YGTools dateFromString:arr[4]];
-        NSDate *activeTo = [arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
+        NSDate *created = [YGTools dateFromString:arr[4]];
+        NSDate *modified = [YGTools dateFromString:arr[5]];// [arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
         NSInteger sort = [arr[6] integerValue];
         NSString *symbol = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
         BOOL attach = [arr[8] boolValue];
         NSInteger parentId = [arr[9] isEqual:[NSNull null]] ? -1 : [arr[9] integerValue];
         NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
         
-        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
+        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active created:created modified:modified sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
         
         [result addObject:category];
     }
     
     return [result copy];
-
 }
 
 
@@ -135,16 +133,14 @@
     [center postNotificationName:@"CategoryManagerIncomeCacheUpdateEvent" object:nil];
 }
 
+
 - (void)sortCategoriesInArray:(NSMutableArray <YGCategory *>*)array {
     
     NSSortDescriptor *sortOnActiveByDesc = [[NSSortDescriptor alloc] initWithKey:@"active" ascending:NO];
     NSSortDescriptor *sortOnSortByAsc = [[NSSortDescriptor alloc] initWithKey:@"sort" ascending:YES];
-    //NSSortDescriptor *sortOnActiveFromByAsc = [[NSSortDescriptor alloc] initWithKey:@"activeFrom"  ascending:YES];
     
     [array sortUsingDescriptors:@[sortOnActiveByDesc, sortOnSortByAsc]];
 }
-
-
 
 
 #pragma mark - Is it possible to delete category? 
@@ -167,7 +163,6 @@
     else
         @throw [NSException exceptionWithName:@"-[YGCategoryManager isJustOneCategory" reason:[NSString stringWithFormat:@"Category is not exist for the type: %ld", category.type] userInfo:nil];
 }
-
 
 
 /**
@@ -217,7 +212,6 @@
         
         if([categories count] > 0)
             return YES;
-                
     }
     else{
         @throw [NSException exceptionWithName:@"-[YGCategoryManager hasLinkedObjectsForCategory]" reason:@"Can not check for this type of category" userInfo:nil];
@@ -225,6 +219,7 @@
     
     return NO;
 }
+
 
 - (BOOL)hasChildObjectForCategory:(YGCategory *)category {
     
@@ -239,9 +234,10 @@
         return NO;
 }
 
+
 - (BOOL)hasChildObjectActiveForCategory:(YGCategory *)category {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld AND active=%d LIMIT 1;", category.rowId, YGBooleanValueYES];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld AND active=1 LIMIT 1;", category.rowId];
     
     NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -258,7 +254,7 @@
 - (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category {
     
     // search currency in operations
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id=%ld AND active=%d AND category_id<>%ld LIMIT 1;", category.type,  YGBooleanValueYES, category.rowId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id=%ld AND active=1 AND category_id<>%ld LIMIT 1;", category.type, category.rowId];
     
     NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -267,6 +263,7 @@
     else
         return NO;
 }
+
 
 - (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)currency {
     
@@ -289,12 +286,13 @@
     NSInteger rowId = -1;
     
     @try {
+        
         NSArray *arrItem = [NSArray arrayWithObjects:
                             [NSNumber numberWithInteger:category.type], //category_type_id,
                             category.name, //name,
                             [NSNumber numberWithBool:category.active], //active,
-                            [YGTools stringFromDate:category.activeFrom], //active_from,
-                            category.activeTo ? [YGTools stringFromDate:category.activeTo] : [NSNull null], //active_to,
+                            [YGTools stringFromDate:category.created], //active_from,
+                            [YGTools stringFromDate:category.modified], //active_to,
                             [NSNumber numberWithInteger:category.sort], //sort,
                             category.symbol ? category.symbol : [NSNull null], //symbol,
                             [NSNumber numberWithBool:category.attach], //attach,
@@ -302,23 +300,24 @@
                             category.comment ? category.comment : [NSNull null], //comment,
                             nil];
         
-        NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         rowId = [_sqlite addRecord:arrItem insertSQL:insertSQL];
         
+        NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+        
         // if set default currency
         if((category.type == YGCategoryTypeCurrency) && (category.attach == YES)){
-            NSString *updateSql = [NSString stringWithFormat:@"UPDATE category SET attach=0 WHERE category_type_id = %ld AND category_id != %ld;", category.type, rowId];
+            NSString *updateSql = [NSString stringWithFormat:@"UPDATE category SET attach=0, modified=%@ WHERE category_type_id = %ld AND category_id != %ld;", now, category.type, rowId];
             [_sqlite execSQL:updateSql];
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"Exception: %@", [exception description]);
+        NSLog(@"Fail in -[YGCategoryManager idAddCategory]. Exception: %@", [exception description]);
     }
     @finally {
         return rowId;
     }
-    
 }
 
 
@@ -334,8 +333,8 @@
     [self sortCategoriesInArray:[self.categories valueForKey:NSStringFromCategoryType(newCategory.type)]];
     
     [self generateChangeCacheEventForType:category.type];
-
 }
+
 
 - (YGCategory *)categoryById:(NSInteger)categoryId type:(YGCategoryType)type {
     
@@ -346,17 +345,18 @@
     return [[categoriesByType filteredArrayUsingPredicate:idPredicate] firstObject];
 }
 
-#warning Is entity needs to update in inner storage?
+
 /**
  @warning It seems entity updated in EditController edit by reference, so... is it true?
+ 
  */
 - (void)updateCategory:(YGCategory *)category{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, active_from=%@, active_to=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, created=%@, modified=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@;",
                            [YGTools sqlStringForStringOrNull:category.name],
                            [YGTools sqlStringForBool:category.active],
-                           [YGTools sqlStringForDateLocalOrNull:category.activeFrom],
-                           [YGTools sqlStringForDateLocalOrNull:category.activeTo],
+                           [YGTools sqlStringForDateLocalOrNull:category.created],
+                           [YGTools sqlStringForDateLocalOrNull:category.modified],
                            [YGTools sqlStringForIntOrNull:category.sort],
                            [YGTools sqlStringForStringOrNull:category.symbol],
                            [YGTools sqlStringForBool:category.attach],
@@ -383,15 +383,15 @@
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center postNotificationName:@"CategoryManagerCategoryWithObjectsUpdateEvent" object:nil];
     }
-
 }
+
 
 - (void)deactivateCategory:(YGCategory *)category{
     
-    NSString *activeTo = [YGTools stringFromDate:[NSDate date]];
+    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=0, active_to='%@' WHERE category_id=%ld;", activeTo, (long)category.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=0, modified=%@ WHERE category_id=%ld;", now, (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -399,21 +399,22 @@
     NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *updateCategory = [categoriesByType objectAtIndex:[categoriesByType indexOfObject:category]];
     updateCategory.active = NO;
-    updateCategory.activeTo = [YGTools dateFromString:activeTo];
+    updateCategory.modified = [YGTools dateFromString:now];
     
     // sort memory cache
     [self sortCategoriesInArray:categoriesByType];
     
     // post notification for subscribers
     [self generateChangeCacheEventForType:category.type];
-
-    
 }
+
 
 - (void)activateCategory:(YGCategory *)category {
     
+    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=1, active_to=NULL WHERE category_id=%ld;", (long)category.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=1, modified=%@ WHERE category_id=%ld;", now, (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -421,7 +422,7 @@
     NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *updateCategory = [categoriesByType objectAtIndex:[categoriesByType indexOfObject:category]];
     updateCategory.active = YES;
-    updateCategory.activeTo = nil;
+    updateCategory.modified = [YGTools dateFromString:now];
     
     [self sortCategoriesInArray:categoriesByType];
     
@@ -429,6 +430,7 @@
     [self generateChangeCacheEventForType:category.type];
 
 }
+
 
 - (void)removeCategory:(YGCategory *)category{
 
@@ -443,26 +445,9 @@
     NSUInteger index = [categoriesByType indexOfObject:category];
     [categoriesByType removeObjectAtIndex:index];
     
-    
     // post notification for subscribers
     [self generateChangeCacheEventForType:category.type];
 }
-
-
-/*
-- (void)removeCategoryWithId:(NSInteger)rowId{
-    
-    NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM category WHERE category_id = %ld;", rowId];
-    
-    [_sqlite removeRecordWithSQL:deleteSQL];
-}
-
-- (void)removeCategory:(YGCategory *)category{
-    [self removeCategoryWithId:category.rowId];
-}
- 
- */
-
 
 
 #pragma mark - Lists of categories
@@ -484,15 +469,18 @@
     return categoriesResult;
 }
 
+
 - (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type onlyActive:(BOOL)onlyActive {
     
     return [self categoriesByType:type onlyActive:onlyActive exceptCategory:nil];
 }
 
+
 - (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type {
     
     return [self categoriesByType:type onlyActive:NO exceptCategory:nil];
 }
+
 
 #pragma mark - Auxiliary methods
 
@@ -502,17 +490,19 @@
  */
 - (YGCategory *)categoryAttachedForType:(YGCategoryType)type {
 
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment  FROM category WHERE category_type_id=%ld AND active=%d AND attach=%d;", (long)type, YGBooleanValueYES, YGBooleanValueYES];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment FROM category WHERE category_type_id=%ld AND active=1 AND attach=1;", (long)type];
 
     return [self categoryBySqlQuery:sqlQuery];
 }
+
 
 - (YGCategory *)categoryOnTopForType:(YGCategoryType)type {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, active_from, active_to, sort, symbol, attach, parent_id, comment  FROM category WHERE category_type_id=%ld AND active=%d ORDER BY sort ASC LIMIT 1;", type, YGBooleanValueYES];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment  FROM category WHERE category_type_id=%ld AND active=1 ORDER BY sort ASC LIMIT 1;", type];
     
     return [self categoryBySqlQuery:sqlQuery];
 }
+
 
 /**
  Inner func for categoryById:, categoryAttachedForType: and categoryOnTopForType:.
@@ -531,15 +521,15 @@
             YGCategoryType type = [arr[1] integerValue];
             NSString *name = arr[2];
             BOOL active = [arr[3] boolValue];
-            NSDate *activeFrom = [YGTools dateFromString:arr[4]];
-            NSDate *activeTo = [arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
+            NSDate *created = [YGTools dateFromString:arr[4]];
+            NSDate *modified = [YGTools dateFromString:arr[5]]; //[arr[5] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[5]];
             NSInteger sort = [arr[6] integerValue];
             NSString *symbol = [arr[7] isEqual:[NSNull null]] ? nil : arr[7];
             BOOL attach = [arr[8] boolValue];
             NSInteger parentId = [arr[9] isEqual:[NSNull null]] ? -1 : [arr[9] integerValue];
             NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
             
-            YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active activeFrom:activeFrom activeTo:activeTo sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
+            YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active created:created modified:modified sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
             
             [result addObject:category];
         }
@@ -559,13 +549,15 @@
 - (void)setOnlyOneDefaultCategory:(YGCategory *)category{
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET attach=0 "
+    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET attach=0, modified=%@ "
                            "WHERE category_type_id = %ld AND category_id != %ld;",
+                           now,
                            category.type,
                            category.rowId];
     
     [_sqlite execSQL:updateSQL];
-    
     
     // update memory cache
     NSPredicate *unAttachedPredicate = [NSPredicate predicateWithFormat:@"type = %ld && rowId != %ld", category.type, category.rowId];

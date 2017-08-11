@@ -55,7 +55,6 @@
 - (IBAction)textNameChanged:(id)sender;
 - (IBAction)textSymbolChanged:(id)sender;
 - (IBAction)textSortChanged:(id)sender;
-- (IBAction)textCommentChanged:(id)sender;
 - (IBAction)sliderDefaultChanged:(id)sender;
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
@@ -133,11 +132,11 @@
     _isDefaultChanged = NO;
     _isCommentChanged = NO;
     
-    _initNameValue = p_name;
-    _initSymbolValue = p_symbol;
+    _initNameValue = [p_name copy];
+    _initSymbolValue = [p_symbol copy];
     _initSortValue = p_sort;
     _initDefaultValue = p_isDefault;
-    _initCommentValue = p_comment;
+    _initCommentValue = [p_comment copy];
     
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.buttonActivate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -200,6 +199,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if([textView isEqual:self.textViewComment]){
+        
         return [YGTools isValidCommentInSourceString:textView.text replacementString:text range:range];
     }
     else
@@ -211,21 +211,27 @@
 
 - (IBAction)textNameChanged:(id)sender{
     
-    p_name = self.currencyName.text;
+    if(self.currencyName.text)
+        p_name = [self.currencyName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    else
+        p_name = nil;
+    
+    if(p_name && [p_name isEqualToString:@""])
+        p_name = nil;
     
     if([_initNameValue isEqualToString:p_name])
         _isNameChanged = NO;
     else
         _isNameChanged = YES;
     
-    if([self.currencyName.text isEqualToString:@""])
+    if(!p_name)
         self.labelName.textColor = [UIColor redColor];
     else
         self.labelName.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
-    
 }
+
 
 - (IBAction)textSymbolChanged:(id)sender{
     
@@ -242,8 +248,9 @@
         self.labelSymbol.textColor = [UIColor blackColor];
     
     [self changeSaveButtonEnable];
-    
 }
+
+
 - (IBAction)textSortChanged:(id)sender{
     
     p_sort = [self.currencySort.text integerValue];
@@ -279,7 +286,13 @@
     
     if([textView isEqual:self.textViewComment]){
         
-        p_comment = textView.text;
+        if(textView.text)
+            p_comment = [textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        else
+            p_comment = nil;
+        
+        if(p_name && [p_name isEqualToString:@""])
+            p_comment = nil;
         
         if([_initCommentValue isEqualToString:p_comment])
             _isCommentChanged = NO;
@@ -292,6 +305,7 @@
 
 
 - (BOOL)isEditControlsChanged{
+    
     if(_isNameChanged)
         return YES;
     if(_isSymbolChanged)
@@ -338,15 +352,26 @@
 
 - (void)saveButtonPressed {
     
+    NSString *name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     if(_isNewCurrency){
-        YGCategory *currency = [[YGCategory alloc] initWithType:YGCategoryTypeCurrency name:self.currencyName.text sort:[self.currencySort.text integerValue] symbol:self.currencySymbol.text attach:self.currencyIsDefault.isOn parentId:-1 comment:self.textViewComment.text];
+        
+        YGCategory *currency = [[YGCategory alloc]
+                                initWithType:YGCategoryTypeCurrency
+                                name:name
+                                sort:[self.currencySort.text integerValue]
+                                symbol:self.currencySymbol.text
+                                attach:self.currencyIsDefault.isOn
+                                parentId:-1
+                                comment:comment];
         
         [p_manager addCategory:[currency copy]];
     }
     else{
         
         if(_isNameChanged)
-            _currency.name = self.currencyName.text;
+            _currency.name = name;
         if(_isSymbolChanged)
             _currency.symbol = self.currencySymbol.text;
         if(_isSortChanged)
@@ -354,7 +379,9 @@
         if(_isDefaultChanged)
             _currency.attach = self.currencyIsDefault.isOn;
         if(_isCommentChanged)
-            _currency.comment = self.textViewComment.text;
+            _currency.comment = comment;
+        
+        _currency.modified = [NSDate date];
         
         [p_manager updateCategory:[_currency copy]];
         
@@ -366,6 +393,7 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (IBAction)buttonActivatePressed:(UIButton *)sender {
     
@@ -394,6 +422,7 @@
     // the best way is return to list of categories
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     
@@ -440,11 +469,13 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 - (void)disableButtonDelete {
     self.buttonDelete.enabled = NO;
     self.buttonDelete.backgroundColor = [UIColor lightGrayColor];
     self.buttonDelete.titleLabel.textColor = [UIColor whiteColor];
 }
+
 
 - (void)disableButtonActivate {
     self.buttonDelete.enabled = NO;
@@ -473,7 +504,6 @@
             height = 0.0f;
         }
     }
-    
     
     // action deactivate
     if(indexPath.section == 3 && indexPath.row == 0){

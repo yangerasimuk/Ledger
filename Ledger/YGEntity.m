@@ -10,7 +10,8 @@
 
 @implementation YGEntity
 
-- (instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active activeFrom:(NSDate *)activeFrom activeTo:(NSDate *)activeTo attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment{
+- (instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment{
+    
     self = [super init];
     if(self){
         _rowId = rowId;
@@ -19,14 +20,14 @@
         _sum = sum;
         _currencyId = currencyId;
         _active = active;
-        if(activeFrom)
-            _activeFrom = [activeFrom copy];
+        if(created)
+            _created = [created copy];
         else
-            _activeFrom = nil;
-        if(activeTo)
-            _activeTo = [activeTo copy];
+            @throw [NSException exceptionWithName:@"-[YGEntity initWithRowId:type:name:sum:currencyId:active:created:modified:attach:sort:comment:]" reason:@"Entity's created date can not be nil" userInfo:nil];
+        if(modified)
+            _modified = [modified copy];
         else
-            _activeTo = nil;
+            @throw [NSException exceptionWithName:@"-[YGEntity initWithRowId:type:name:sum:currencyId:active:created:modified:attach:sort:comment:]" reason:@"Entity's modified date can not be nil" userInfo:nil];
         _attach = attach;
         _sort = sort;
         _comment = [comment copy];
@@ -35,7 +36,10 @@
 }
 
 - (instancetype)initWithType:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment {
-    return [self initWithRowId:-1 type:type name:name sum:sum currencyId:currencyId active:YES activeFrom:[NSDate date] activeTo:nil attach:attach sort:sort comment:comment];
+    
+    NSDate *now = [NSDate date];
+    
+    return [self initWithRowId:-1 type:type name:name sum:sum currencyId:currencyId active:YES created:now modified:now attach:attach sort:sort comment:comment];
 }
 
 #pragma mark - Override system methods: Description, isEqual, hash
@@ -57,21 +61,19 @@
 }
 
 -(NSUInteger)hash {
-    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@", _type, _rowId, _name, _activeFrom];
+    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@", _type, _rowId, _name, _created];
     
     return [hashString hash];
-    
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Entity. RowId:%ld, type:%ld, name:%@, sum:%.2f, currencyId:%ld, active:%ld activeFrom:%@, activeTo:%@, attach:%ld, sort:%ld, comment:%@", _rowId, _type, _name, _sum, _currencyId, (long)_active, _activeFrom, _activeTo, (long)_attach, _sort, _comment];
-    
+    return [NSString stringWithFormat:@"Entity. RowId:%ld, type:%ld, name:%@, sum:%.2f, currencyId:%ld, active:%ld created:%@, modified:%@, attach:%ld, sort:%ld, comment:%@", _rowId, _type, _name, _sum, _currencyId, (long)_active, _created, _modified, (long)_attach, _sort, _comment];
 }
 
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone{
-    YGEntity *newEntity = [[YGEntity alloc] initWithRowId:_rowId type:_type name:_name sum:_sum currencyId:_currencyId active:_active activeFrom:_activeFrom activeTo:_activeTo attach:_attach sort:_sort comment:_comment];
+    YGEntity *newEntity = [[YGEntity alloc] initWithRowId:_rowId type:_type name:_name sum:_sum currencyId:_currencyId active:_active created:_created modified:_modified attach:_attach sort:_sort comment:_comment];
         
     return newEntity;
 }

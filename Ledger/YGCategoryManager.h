@@ -19,7 +19,6 @@
 - (YGCategory *)categoryById:(NSInteger)categoryId type:(YGCategoryType)type;
 - (void)deactivateCategory:(YGCategory *)category;
 - (void)activateCategory:(YGCategory *)category;
-//- (void)removeCategoryWithId:(NSInteger)rowId;
 - (void)removeCategory:(YGCategory *)category;
 
 - (NSArray <YGCategory *> *)categoriesByType:(YGCategoryType)type onlyActive:(BOOL)onlyActive exceptCategory:(YGCategory *)exceptCategory;
@@ -38,8 +37,4 @@
 - (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category;
 - (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)category;
 
-/*
-- (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type;
-- (NSArray <YGCategory *> *)listCategoriesByType:(YGCategoryType)type exceptForId:(NSInteger)categoryId;
-*/
 @end
