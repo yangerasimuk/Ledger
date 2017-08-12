@@ -14,7 +14,7 @@
 
 @implementation YGCategory
 
-- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment{
+- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment uuid:(NSUUID *)uuid {
     
     self = [super init];
     if(self){
@@ -26,11 +26,11 @@
         if(created)
             _created = [created copy];
         else
-            @throw [NSException exceptionWithName:@"-YGCategory initWithRowId:categoryTypeId:parentId:name:active:created:modified:sort:shortName:symbol:attach:comment" reason:@"Category's created date can not be nil" userInfo:nil];
+            @throw [NSException exceptionWithName:@"-YGCategory initWithRowId:categoryTypeId:parentId:name:active:created:modified:sort:shortName:symbol:attach:comment:uuid" reason:@"Category's created date can not be nil" userInfo:nil];
         if(modified)
             _modified = [modified copy];
         else
-            @throw [NSException exceptionWithName:@"-YGCategory initWithRowId:categoryTypeId:parentId:name:active:created:modified:sort:shortName:symbol:attach:comment" reason:@"Category's modified date can not be nil" userInfo:nil];
+            @throw [NSException exceptionWithName:@"-YGCategory initWithRowId:categoryTypeId:parentId:name:active:created:modified:sort:shortName:symbol:attach:comment:uuid" reason:@"Category's modified date can not be nil" userInfo:nil];
         _sort = sort > 0 ? sort : 100;
         if(symbol && [symbol length] >= 1){
             unichar ch = [symbol characterAtIndex:0];
@@ -41,7 +41,10 @@
         _attach = attach;
         _parentId = parentId > 0 ? parentId : -1; // -1 as nil
         _comment = comment != nil ? [comment copy] : nil;
-        
+        if(uuid)
+            _uuid = [uuid copy];
+        else
+            @throw [NSException exceptionWithName:@"-YGCategory initWithRowId:categoryTypeId:parentId:name:active:created:modified:sort:shortName:symbol:attach:comment:uuid" reason:@"Category's UUID can not be nil" userInfo:nil];
     }
     return self;
 }
@@ -51,7 +54,7 @@
     
     NSDate *now = [NSDate date];
     
-    return [self initWithRowId:-1 categoryType:type name:name active:YES created:now modified:now sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
+    return [self initWithRowId:-1 categoryType:type name:name active:YES created:now modified:now sort:sort symbol:symbol attach:attach parentId:parentId comment:comment uuid:[NSUUID UUID]];
 }
 
 
@@ -74,10 +77,11 @@
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone{
-    YGCategory *newCategory = [[YGCategory alloc] initWithRowId:_rowId categoryType:_type name:_name active:_active created:_created modified:_modified sort:_sort symbol:_symbol attach:_attach parentId:_parentId comment:_comment];
+    YGCategory *newCategory = [[YGCategory alloc] initWithRowId:_rowId categoryType:_type name:_name active:_active created:_created modified:_modified sort:_sort symbol:_symbol attach:_attach parentId:_parentId comment:_comment uuid:_uuid];
     
     return newCategory;
 }
+
 
 #pragma mark - Override system methods: isEqual, hash
 
@@ -94,17 +98,22 @@
         return NO;
     if(![self.name isEqualToString:otherCategory.name])
         return NO;
+    if(![self.uuid isEqual:otherCategory.uuid])
+        return NO;
+
     return YES;
 }
 
+
 - (NSUInteger)hash {
     
-    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@", _type, _rowId, _name, _created];
+    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@:%@", _type, _rowId, _name, _created, _uuid];
     
     return [hashString hash];
 }
 
 @end
+
 
 #pragma mark - Category type to string function
 

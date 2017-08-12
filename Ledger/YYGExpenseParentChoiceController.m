@@ -66,7 +66,9 @@
                                 symbol:nil
                                 attach:NO
                                 parentId:-1
-                                comment:nil];
+                                comment:nil
+                                uuid:[NSUUID UUID]];
+        
         YYGCategoryRow *row = [[YYGCategoryRow alloc] initWithCategory:category nestedLevel:0];
         
         NSMutableArray *sectionRows = [p_section.rows mutableCopy];

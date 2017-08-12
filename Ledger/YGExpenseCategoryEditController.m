@@ -84,6 +84,7 @@
         self.labelParent.text = NSLocalizedString(@"ROOT_CATEGORY_LABEL", @"Name of Root category");
         _initParentValue = nil;
         
+        [self.textFieldName becomeFirstResponder];
     }
     else{
         

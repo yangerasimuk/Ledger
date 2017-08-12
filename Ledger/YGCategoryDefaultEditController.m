@@ -80,6 +80,8 @@
         self.buttonDelete.enabled = NO;
         
         self.labelName.textColor = [UIColor redColor];
+        
+        [self.textFieldName becomeFirstResponder];
     }
     else{
         

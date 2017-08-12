@@ -71,7 +71,7 @@
 
 - (NSArray <YGCategory *> *)categoriesFromDb {
     
-    NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment  FROM category ORDER BY active DESC, sort ASC;";
+    NSString *sqlQuery = @"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid  FROM category ORDER BY active DESC, sort ASC;";
     
     NSArray *rawCategories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -90,8 +90,9 @@
         BOOL attach = [arr[8] boolValue];
         NSInteger parentId = [arr[9] isEqual:[NSNull null]] ? -1 : [arr[9] integerValue];
         NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+        NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:arr[11]];
         
-        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active created:created modified:modified sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
+        YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active created:created modified:modified sort:sort symbol:symbol attach:attach parentId:parentId comment:comment uuid:uuid];
         
         [result addObject:category];
     }
@@ -298,9 +299,10 @@
                             [NSNumber numberWithBool:category.attach], //attach,
                             category.parentId != -1 ? [NSNumber numberWithInteger:category.parentId] : [NSNull null], //parent_id,
                             category.comment ? category.comment : [NSNull null], //comment,
+                            [category.uuid UUIDString],
                             nil];
         
-        NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         rowId = [_sqlite addRecord:arrItem insertSQL:insertSQL];
         
@@ -354,7 +356,7 @@
  */
 - (void)updateCategory:(YGCategory *)category{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, created=%@, modified=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, created=%@, modified=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@ AND uuid=%@;",
                            [YGTools sqlStringForStringOrNull:category.name],
                            [YGTools sqlStringForBool:category.active],
                            [YGTools sqlStringForDateLocalOrNull:category.created],
@@ -364,7 +366,8 @@
                            [YGTools sqlStringForBool:category.attach],
                            [YGTools sqlStringForIntOrNull:category.parentId],
                            [YGTools sqlStringForStringOrNull:category.comment],
-                           [YGTools sqlStringForInt:category.rowId]];
+                           [YGTools sqlStringForInt:category.rowId],
+                           [YGTools sqlStringForStringNotNull:category.uuid]];
     
     [_sqlite execSQL:updateSQL];
     
@@ -492,7 +495,7 @@
  */
 - (YGCategory *)categoryAttachedForType:(YGCategoryType)type {
 
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment FROM category WHERE category_type_id=%ld AND active=1 AND attach=1;", (long)type];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid FROM category WHERE category_type_id=%ld AND active=1 AND attach=1;", (long)type];
 
     return [self categoryBySqlQuery:sqlQuery];
 }
@@ -500,7 +503,7 @@
 
 - (YGCategory *)categoryOnTopForType:(YGCategoryType)type {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment  FROM category WHERE category_type_id=%ld AND active=1 ORDER BY sort ASC LIMIT 1;", type];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid  FROM category WHERE category_type_id=%ld AND active=1 ORDER BY sort ASC LIMIT 1;", type];
     
     return [self categoryBySqlQuery:sqlQuery];
 }
@@ -530,8 +533,9 @@
             BOOL attach = [arr[8] boolValue];
             NSInteger parentId = [arr[9] isEqual:[NSNull null]] ? -1 : [arr[9] integerValue];
             NSString *comment = [arr[10] isEqual:[NSNull null]] ? nil : arr[10];
+            NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:arr[11]];
             
-            YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active created:created modified:modified sort:sort symbol:symbol attach:attach parentId:parentId comment:comment];
+            YGCategory *category = [[YGCategory alloc] initWithRowId:rowId categoryType:type name:name active:active created:created modified:modified sort:sort symbol:symbol attach:attach parentId:parentId comment:comment uuid:uuid];
             
             [result addObject:category];
         }

@@ -31,14 +31,15 @@ NSString *NSStringFromCategoryType(YGCategoryType type);
 @property (assign, nonatomic, getter=isAttach) BOOL attach;
 @property (assign, nonatomic) NSInteger parentId;
 @property (copy, nonatomic) NSString *comment;
+@property (copy, nonatomic) NSUUID *uuid;
 
 /**
  Base init for Category.
  */
-- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
+- (instancetype)initWithRowId:(NSInteger)rowId categoryType:(YGCategoryType)type name:(NSString *)name active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment uuid:(NSUUID *)uuid;
 
 /**
- Init for new currency.
+ Convinience init for new currency, not saved in db yet.
  */
 - (instancetype)initWithType:(YGCategoryType)type name:(NSString *)name sort:(NSInteger)sort symbol:(NSString *)symbol attach:(BOOL)attach parentId:(NSInteger)parentId comment:(NSString *)comment;
 

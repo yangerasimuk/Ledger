@@ -95,6 +95,8 @@
         
         self.labelName.textColor = [UIColor redColor];
         self.labelSymbol.textColor = [UIColor redColor];
+        
+        [self.currencyName becomeFirstResponder];
     }
     else{
 

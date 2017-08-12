@@ -34,6 +34,7 @@
 + (NSString *)sqlStringForIntOrNull:(NSInteger)intValue;
 + (NSString *)sqlStringForIntOrDefault:(NSInteger)intValue;
 + (NSString *)sqlStringForStringOrNull:(NSString *)stringValue;
++ (NSString *)sqlStringForStringNotNull:(NSString *)stringValue;
 + (NSString *)sqlStringForDouble:(double)doubleValue;
 + (NSString *)sqlStringForDecimal:(double)doubleValue;
 

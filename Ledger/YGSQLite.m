@@ -109,7 +109,8 @@
     "symbol TEXT, "
     "attach INTEGER NOT NULL, "
     "parent_id INTEGER, "
-    "comment TEXT"
+    "comment TEXT ,"
+    "uuid TEXT NOT NULL"
     ");";
     
     [self createTable:@"category" createSQL:createSql];
@@ -577,6 +578,11 @@
         
         // NSAssert(0, @"Error droping table: %s", errorMsg);
         @throw [NSException exceptionWithName:@"-[YGSQLite dropTable]" reason:[NSString stringWithFormat:@"Can not drop table %@. Error: %@", tableName, [NSString stringWithUTF8String:errorMsg]] userInfo:nil];
+    }
+    else{
+#ifdef DEBUG
+        NSLog(@"Table %@ dropped", tableName);
+#endif
     }
     
     sqlite3_close(db);

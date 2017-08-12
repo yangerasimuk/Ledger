@@ -311,6 +311,15 @@
 }
 
 
++ (NSString *)sqlStringForStringNotNull:(NSString *)stringValue {
+
+    if(stringValue)
+        return [NSString stringWithFormat:@"'%@'", stringValue];
+    else
+        @throw [NSException exceptionWithName:@"+[YGTools sqlStringForStringNotNull" reason:@"The string value can not be nil" userInfo:nil];
+}
+
+
 + (NSString *)sqlStringForDouble:(double)doubleValue {
     return [NSString stringWithFormat:@"%f", doubleValue];
 }
