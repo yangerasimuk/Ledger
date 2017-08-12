@@ -190,6 +190,10 @@
 }
 
 
+/**
+ Update operations in db and memory cache. Write object as is, without any modifications.
+ 
+ */
 - (void)updateOperation:(YGOperation *)operation{
     
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@,comment=%@ WHERE operation_id=%@;",

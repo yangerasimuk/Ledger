@@ -40,6 +40,7 @@
     self.navigationItem.title = NSLocalizedString(@"CURRENCY_CHOICE_FORM_TITLE", @"Title of Currency choice form.");
 }
 
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
@@ -56,8 +57,6 @@
     }
     
     [self.tableView reloadData];
-    
-    
 }
 
 

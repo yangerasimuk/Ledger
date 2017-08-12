@@ -347,6 +347,8 @@
 
 
 /**
+ Update category in db and memory cache. Write object as is, without any modifications.
+ 
  @warning It seems entity updated in EditController edit by reference, so... is it true?
  
  */
@@ -388,10 +390,10 @@
 
 - (void)deactivateCategory:(YGCategory *)category{
     
-    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    NSDate *now = [NSDate date];
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=0, modified=%@ WHERE category_id=%ld;", now, (long)category.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=0, modified=%@ WHERE category_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -399,7 +401,7 @@
     NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *updateCategory = [categoriesByType objectAtIndex:[categoriesByType indexOfObject:category]];
     updateCategory.active = NO;
-    updateCategory.modified = [YGTools dateFromString:now];
+    updateCategory.modified = now;
     
     // sort memory cache
     [self sortCategoriesInArray:categoriesByType];
@@ -411,10 +413,10 @@
 
 - (void)activateCategory:(YGCategory *)category {
     
-    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    NSDate *now = [NSDate date];
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=1, modified=%@ WHERE category_id=%ld;", now, (long)category.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET active=1, modified=%@ WHERE category_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -422,7 +424,7 @@
     NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
     YGCategory *updateCategory = [categoriesByType objectAtIndex:[categoriesByType indexOfObject:category]];
     updateCategory.active = YES;
-    updateCategory.modified = [YGTools dateFromString:now];
+    updateCategory.modified = now;
     
     [self sortCategoriesInArray:categoriesByType];
     

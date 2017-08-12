@@ -209,6 +209,8 @@
 
 
 /**
+ Update entity in db and memory cache. Write object as is, without any modifications.
+ 
  @warning Is entity needs to update in inner storage?
  @warning It seems entity updated in EditController edit by reference, so...
  */
@@ -253,10 +255,10 @@
 
 - (void)deactivateEntity:(YGEntity *)entity{
     
-    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    NSDate *now = [NSDate date];
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, modified=%@ WHERE entity_id=%ld;", now, (long)entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, modified=%@ WHERE entity_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
 
@@ -264,7 +266,7 @@
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
     updateEntity.active = NO;
-    updateEntity.modified = [YGTools dateFromString:now];
+    updateEntity.modified = now;
     
     // sort memory cache
     [self sortEntitiesInArray:entitiesByType];
@@ -275,12 +277,13 @@
                           object:nil];
 }
 
+
 - (void)activateEntity:(YGEntity *)entity{
     
-    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    NSDate *now = [NSDate date];
     
     // update db
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, modified=%@ WHERE entity_id=%ld;", now, (long)entity.rowId];
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, modified=%@ WHERE entity_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)entity.rowId];
     
     [_sqlite execSQL:updateSQL];
     
@@ -288,7 +291,7 @@
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     YGEntity *updateEntity = [entitiesByType objectAtIndex:[entitiesByType indexOfObject:entity]];
     updateEntity.active = YES;
-    updateEntity.modified = [YGTools dateFromString:now];
+    updateEntity.modified = now;
     
     [self sortEntitiesInArray:entitiesByType];
     
@@ -297,6 +300,7 @@
     [center postNotificationName:@"EntityManagerCacheUpdateEvent"
                           object:nil];
 }
+
 
 - (void)removeEntity:(YGEntity *)entity{
     
