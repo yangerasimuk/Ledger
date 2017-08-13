@@ -424,44 +424,43 @@
 
 - (void)saveButtonPressed {
     
+    p_name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    p_comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if(p_sort < 1 || p_sort > 999)
+        p_sort = 100;
+    
     if(self.isNewAccount){
 
         YGEntity *account = [[YGEntity alloc]
                              initWithType:YGEntityTypeAccount
-                             name:self.textFieldName.text
+                             name:p_name
                              sum:0.0f
                              currencyId:self.currency.rowId
-                             attach:self.switchIsDefault.isOn
-                             sort:[self.textFieldSort.text integerValue]
-                             comment:[YGTools stringNilIfEmpty:self.textViewComment.text]
+                             attach:p_isDefault
+                             sort:p_sort
+                             comment:p_comment
                              ];
         
-        [_em addEntity:account];
-        
-        if(self.switchIsDefault.isOn)
-            [_em setOnlyOneDefaultEntity:account];
+        [_em addEntity:[account copy]];
     }
     else{
         
         if(_isNameChanged)
-            self.account.name = self.textFieldName.text;
+            self.account.name = p_name;
         if(_isSortChanged)
-            self.account.sort = [self sortValueFromString:self.textFieldSort.text];
+            self.account.sort = p_sort;
         if(_isCommentChanged)
-            self.account.comment = [YGTools stringNilIfEmpty:self.textViewComment.text];
+            self.account.comment = p_comment;
         if(_isCurrencyChanged)
             self.account.currencyId = self.currency.rowId;
         if(_isDefaultChanged)
-            self.account.attach = self.switchIsDefault.isOn;
+            self.account.attach = p_isDefault;
         
         self.account.modified = [NSDate date];
         
         // change db, not instance
         [_em updateEntity:[self.account copy]];
-        
-        if(_isDefaultChanged && _initIsDefaultValue == NO){
-            [_em setOnlyOneDefaultEntity:self.account];
-        }
     }
     
     [self.navigationController popViewControllerAnimated:YES];

@@ -305,14 +305,7 @@
         NSString *insertSQL = @"INSERT INTO category (category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         rowId = [_sqlite addRecord:arrItem insertSQL:insertSQL];
-        
-        NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
-        
-        // if set default currency
-        if((category.type == YGCategoryTypeCurrency) && (category.attach == YES)){
-            NSString *updateSql = [NSString stringWithFormat:@"UPDATE category SET attach=0, modified=%@ WHERE category_type_id = %ld AND category_id != %ld;", now, category.type, rowId];
-            [_sqlite execSQL:updateSql];
-        }
+
     }
     @catch (NSException *exception) {
         NSLog(@"Fail in -[YGCategoryManager idAddCategory]. Exception: %@", [exception description]);
@@ -330,6 +323,10 @@
     YGCategory *newCategory = [category copy];
     newCategory.rowId = rowId;
     
+    // if set new default unset another ones
+    if(newCategory.attach)
+        [self setOnlyOneDefaultCategory:newCategory];
+
     // add entity to memory cache
     [[self.categories valueForKey:NSStringFromCategoryType(newCategory.type)] addObject:newCategory];
     [self sortCategoriesInArray:[self.categories valueForKey:NSStringFromCategoryType(newCategory.type)]];
@@ -356,6 +353,12 @@
  */
 - (void)updateCategory:(YGCategory *)category{
     
+    // get memory cache
+    NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
+    
+    // get replaced item
+    YGCategory *replacedCategory = [self categoryById:category.rowId type:category.type];
+    
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET name=%@, active=%@, created=%@, modified=%@, sort=%@, symbol=%@, attach=%@, parent_id=%@, comment=%@ WHERE category_id=%@ AND uuid=%@;",
                            [YGTools sqlStringForStringOrNull:category.name],
                            [YGTools sqlStringForBool:category.active],
@@ -367,13 +370,15 @@
                            [YGTools sqlStringForIntOrNull:category.parentId],
                            [YGTools sqlStringForStringOrNull:category.comment],
                            [YGTools sqlStringForInt:category.rowId],
-                           [YGTools sqlStringForStringNotNull:category.uuid]];
+                           [YGTools sqlStringForStringNotNull:[category.uuid UUIDString]]];
     
     [_sqlite execSQL:updateSQL];
     
+    // if set new default unset another one
+    if(!replacedCategory.attach && category.attach)
+        [self setOnlyOneDefaultCategory:category];
+    
     // update memory cache
-    NSMutableArray <YGCategory *> *categoriesByType = [self.categories valueForKey:NSStringFromCategoryType(category.type)];
-    YGCategory *replacedCategory = [self categoryById:category.rowId type:category.type];
     NSUInteger index = [categoriesByType indexOfObject:replacedCategory];
     categoriesByType[index] = [category copy];
     
@@ -555,32 +560,34 @@
 - (void)setOnlyOneDefaultCategory:(YGCategory *)category{
     
     // update db
-    NSString *now = [YGTools sqlStringForDateLocalOrNull:[NSDate date]];
+    NSDate *now = [NSDate date];
     
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET attach=0, modified=%@ "
-                           "WHERE category_type_id = %ld AND category_id != %ld;",
-                           now,
+                           "WHERE category_type_id = %ld AND category_id != %ld AND attach<>0;",
+                           [YGTools sqlStringForDateLocalOrNull:now],
                            category.type,
                            category.rowId];
     
     [_sqlite execSQL:updateSQL];
     
     // update memory cache
-    NSPredicate *unAttachedPredicate = [NSPredicate predicateWithFormat:@"type = %ld && rowId != %ld", category.type, category.rowId];
+    NSPredicate *unAttachedPredicate = [NSPredicate predicateWithFormat:@"type = %ld && rowId != %ld && attach != NO", category.type, category.rowId];
     
     NSArray <YGCategory *> *categoriesByType = [self categoriesByType:category.type];
     
     NSArray <YGCategory *> *updateCategories = [categoriesByType filteredArrayUsingPredicate:unAttachedPredicate];
 
-    if([updateCategories count] > 0)
-        for(YGCategory *c in updateCategories)
+    if([updateCategories count] > 0){
+        for(YGCategory *c in updateCategories){
             c.attach = NO;
+            c.modified = now;
+        }
+    }
 }
 
+
 - (void)generateChangeCacheEventForType:(YGCategoryType)type {
-    
-    NSLog(@"-[YGCategoryMananger generateChangeCacheEventForType]");
-    
+        
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     switch (type) {
@@ -602,6 +609,20 @@
         default:
             break;
     }
+}
+
+- (BOOL)isExistActiveCategoryOfType:(YGCategoryType)type{
+    
+    NSArray *categoriesOfType = [self categoriesByType:type];
+    
+    NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];
+    
+    NSArray *activeCategories = [categoriesOfType filteredArrayUsingPredicate:activePredicate];
+    
+    if([activeCategories count] > 0)
+        return YES;
+    else
+        return NO;
 }
 
 @end

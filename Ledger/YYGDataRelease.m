@@ -31,6 +31,7 @@ void addReleaseAccounts(){
                          @1, // attach
                          @100,
                          [NSNull null],
+                         @"8247354D-8873-4FF6-A794-DD1F276582BE"
                          ],
                      @[
                          @1, // account
@@ -43,6 +44,7 @@ void addReleaseAccounts(){
                          @0, // attach
                          @101,
                          [NSNull null],
+                         @"557FF784-A0E0-4419-B7B4-034FEB205B35"
                          ],
                      @[
                          @1, // account
@@ -55,6 +57,7 @@ void addReleaseAccounts(){
                          @0, // attach
                          @103,
                          [NSNull null],
+                         @"03D63DFF-D1B4-4160-BA48-EF9BFE9D929D"
                          ]
                      ];
     }
@@ -71,6 +74,7 @@ void addReleaseAccounts(){
                          @1, // attach
                          @100,
                          [NSNull null],
+                         @"8A3FE5DB-B49F-4C68-9746-E37E8278CFFF"
                          ],
                      @[
                          @1, // account
@@ -83,6 +87,7 @@ void addReleaseAccounts(){
                          @0, // attach
                          @101,
                          [NSNull null],
+                         @"4EE3445B-73EB-4ED2-9C4A-48A0E0DD5E17"
                          ],
                      @[
                          @1, // account
@@ -95,12 +100,13 @@ void addReleaseAccounts(){
                          @0, // attach
                          @103,
                          [NSNull null],
+                         @"A6BEB1E9-B820-407D-A2A3-7A1886F37C50"
                          ]
                      ];
     }
     
-    NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment) "
-    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment, uuid) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     [sqlite fillTable:@"entity" items:entities updateSQL:insertSQL];
 }

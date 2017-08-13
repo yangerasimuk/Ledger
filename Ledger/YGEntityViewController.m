@@ -227,7 +227,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
         YGAccountEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountEditScene"];
         
         vc.isNewAccount = NO;
-        vc.account = self.entities[indexPath.row];
+        vc.account = [self.entities[indexPath.row] copy];
         
         [self.navigationController pushViewController:vc animated:YES];
     }

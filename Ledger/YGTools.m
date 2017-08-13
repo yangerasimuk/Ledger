@@ -36,17 +36,33 @@
 
 /**
  Problem: NSDate store only absolute time, without timezone.
+ 
+ @"2017-08-13 00:49:33 +0300"
  */
 + (NSDate *) dayOfDate:(NSDate *)date {
     
+    /*
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [calendar components:(NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:date];
+    
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    components.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    
+    NSDate *newDate = [calendar dateFromComponents:components];
+     */
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:kDateTimeFormatOnlyDay];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    [formatter setDateFormat:kDateTimeFormat];
+    
     NSString *stringDate = [formatter stringFromDate:date];
+    stringDate = [stringDate stringByReplacingCharactersInRange:NSMakeRange(11, 14) withString:@"00:00:00 +0000"];
     
-    NSDate *day = [formatter dateFromString:stringDate];
+    return [formatter dateFromString:stringDate];
     
-    return day;
 }
 
 + (NSString *) humanViewOfDate:(NSDate *)date{
@@ -284,6 +300,19 @@
         return @"NULL";
 }
 
++ (NSString *)sqlStringForDateAbsoluteOrNull:(NSDate *)dateValue {
+    if(dateValue){
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        [formatter setDateFormat:kDateTimeFormat];
+        
+        return [NSString stringWithFormat:@"'%@'", [formatter stringFromDate:dateValue]];
+    }
+    else
+        return @"NULL";
+}
+
 + (NSString *)sqlStringForBool:(BOOL)boolValue {
     if(boolValue)
         return [NSString stringWithFormat:@"%d", 1];
@@ -303,8 +332,10 @@
         return @"NULL";
 }
 
+
 + (NSString *)sqlStringForStringOrNull:(NSString *)stringValue {
-    if(stringValue)
+    
+    if(stringValue && ![stringValue isEqualToString:@""])
         return [NSString stringWithFormat:@"'%@'", stringValue];
     else
         return @"NULL";
@@ -313,7 +344,7 @@
 
 + (NSString *)sqlStringForStringNotNull:(NSString *)stringValue {
 
-    if(stringValue)
+    if(stringValue && ![stringValue isEqualToString:@""])
         return [NSString stringWithFormat:@"'%@'", stringValue];
     else
         @throw [NSException exceptionWithName:@"+[YGTools sqlStringForStringNotNull" reason:@"The string value can not be nil" userInfo:nil];

@@ -77,9 +77,9 @@
 
 - (UIColor *)colorForOperationType:(YGOperationType)type {
     
-    UIColor *incomeColor = [UIColor colorWithRed:44/255.f green:188/255.f blue:42/255.f alpha:1.f];
+    UIColor *incomeColor = [UIColor colorWithRed:0/255.f green:132/255.f blue:0/255.f alpha:1.f];
     
-    UIColor *expenseColor = [UIColor colorWithRed:222/255.f green:35/255.f blue:20/255.f alpha:1.f];
+    UIColor *expenseColor = [UIColor colorWithRed:209/255.f green:47/255.f blue:27/255.f alpha:1.f];
     
     switch(type){
         case YGOperationTypeExpense: return expenseColor; //[UIColor redColor];

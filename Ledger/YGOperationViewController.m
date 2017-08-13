@@ -327,45 +327,95 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 - (void)actionAddExpense {
     
-    YGExpenseEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGExpenseEditScene"];
-    
-    vc.isNewExpense = YES;
-    vc.expense = nil;
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]
+       || ![_cm isExistActiveCategoryOfType:YGCategoryTypeExpense]){
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Расход\" необходимо иметь хотя бы один активный Счет и Категорию расхода." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:okAction];
+
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    else{
+        
+        YGExpenseEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGExpenseEditScene"];
+        
+        vc.isNewExpense = YES;
+        vc.expense = nil;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)actionAddIncome {
     
-    YGIncomeEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGIncomeEditScene"];
-    
-    vc.isNewIncome = YES;
-    vc.income = nil;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-    
+    if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]
+       || ![_cm isExistActiveCategoryOfType:YGCategoryTypeIncome]){
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Доход\" необходимо иметь хотя бы один активный Счет и Источник дохода." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:okAction];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    else{
+        
+        YGIncomeEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGIncomeEditScene"];
+        
+        vc.isNewIncome = YES;
+        vc.income = nil;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
+
 - (void)actionAddAccountActual {
-    
-    YGAccountActualEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGAccountActualEditScene"];
-    
-    vc.isNewAccountAcutal = YES;
-    vc.accountActual = nil;
-    
-    [self.navigationController pushViewController:vc animated:YES];
+
+    if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]){
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Остаток по счёту\" необходимо иметь хотя бы один активный Счет." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:okAction];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    else{
+        
+        YGAccountActualEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGAccountActualEditScene"];
+        
+        vc.isNewAccountAcutal = YES;
+        vc.accountActual = nil;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
+
 
 - (void)actionAddTransfer {
     
-    YGTransferEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGTransferEditScene"];
-    
-    vc.isNewTransfer = YES;
-    vc.transfer = nil;
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    if([_em countOfActiveEntitiesOfType:YGEntityTypeAccount] < 2){
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Перевод\" необходимо иметь хотя бы два активных Счета." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:okAction];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    else{
+        
+        YGTransferEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGTransferEditScene"];
+        
+        vc.isNewTransfer = YES;
+        vc.transfer = nil;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -385,7 +435,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         YGExpenseEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGExpenseEditScene"];
         
         vc.isNewExpense = NO;
-        vc.expense = operationRow.operation;
+        vc.expense = [operationRow.operation copy];
         
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -394,7 +444,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         YGAccountActualEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGAccountActualEditScene"];
         
         vc.isNewAccountAcutal = NO;
-        vc.accountActual = operationRow.operation;
+        vc.accountActual = [operationRow.operation copy];
         
         [self.navigationController pushViewController:vc animated:YES];
         
@@ -404,7 +454,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         YGIncomeEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGIncomeEditScene"];
         
         vc.isNewIncome = NO;
-        vc.income = operationRow.operation;
+        vc.income = [operationRow.operation copy];
         
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -413,21 +463,21 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         YGTransferEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"YGTransferEditScene"];
         
         vc.isNewTransfer = NO;
-        vc.transfer = operationRow.operation;
+        vc.transfer = [operationRow.operation copy];
         
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
 }
 
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
     return p_sections.list[section].headerView;
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
     return [YGOperationSectionHeader heightSectionHeader];
 }
 

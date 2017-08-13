@@ -77,10 +77,11 @@
 
 - (void) getOperationsForCache {
     
-    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation ORDER BY created_unix DESC;";
+    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation ORDER BY created_unix DESC;";
     
     self.operations = [[self operationsBySqlQuery:sqlQuery] mutableCopy];
 }
+
 
 /**
  Sort operations in cache array. First sort: day, second: modified.
@@ -109,14 +110,14 @@
     NSNumber *target_sum = [NSNumber numberWithDouble:operation.targetSum];
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
 
-    
     NSString *day = [YGTools stringFromAbsoluteDate:operation.day];
     NSString *created = [YGTools stringFromLocalDate:operation.created];
     NSNumber *created_unix = [NSNumber numberWithDouble:[operation.created timeIntervalSince1970]];
     NSString *modified = [YGTools stringFromLocalDate:operation.modified];
     NSNumber *modified_unix = [NSNumber numberWithDouble:[operation.modified timeIntervalSince1970]];
 
-    NSString *comment = operation.comment;
+    NSString *comment = operation.comment ? operation.comment : [NSNull null];
+    NSString *uuid = [operation.uuid UUIDString];
     
     @try {
         
@@ -133,11 +134,12 @@
                                  created_unix,
                                  modified,
                                  modified_unix,
-                                 comment ? comment : [NSNull null],
+                                 comment,
+                                 uuid,
                                  nil];
         
         // sql string
-        NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, created_unix, modified, modified_unix, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, created_unix, modified, modified_unix, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         // db
         operationId = [_sqlite addRecord:operationArr insertSQL:insertSQL];
@@ -174,7 +176,6 @@
                               object:nil];
         
         return operationId;
-        
     }
     @catch (NSException *exception) {
         NSLog(@"Exception in -[YGOperationManager addOperation]. Description: %@.", [exception description]);
@@ -196,7 +197,7 @@
  */
 - (void)updateOperation:(YGOperation *)operation{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@,comment=%@ WHERE operation_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@, comment=%@, uuid=%@ WHERE operation_id=%@;",
                            [YGTools sqlStringForInt:operation.type],
                            [YGTools sqlStringForInt:operation.sourceId],
                            [YGTools sqlStringForInt:operation.targetId],
@@ -204,13 +205,15 @@
                            [YGTools sqlStringForInt:operation.sourceCurrencyId],
                            [YGTools sqlStringForDecimal:operation.targetSum],
                            [YGTools sqlStringForInt:operation.targetCurrencyId],
-                           [YGTools sqlStringForDateLocalOrNull:operation.day],
+                           [YGTools sqlStringForDateAbsoluteOrNull:operation.day],
                            [YGTools sqlStringForDateLocalOrNull:operation.created],
                            [YGTools sqlStringForDouble:[operation.created timeIntervalSince1970]],
                            [YGTools sqlStringForDateLocalOrNull:operation.modified],
                            [YGTools sqlStringForDouble:[operation.modified timeIntervalSince1970]],
                            [YGTools sqlStringForStringOrNull:operation.comment],
-                           [YGTools sqlStringForInt:operation.rowId]];
+                           [YGTools sqlStringForStringNotNull:[operation.uuid UUIDString]],
+                           [YGTools sqlStringForInt:operation.rowId]
+                           ];
     
     [_sqlite execSQL:updateSQL];
     
@@ -247,17 +250,21 @@
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation WHERE (operation_type_id=2 AND source_id=%ld) OR (operation_type_id=1 AND target_id=%ld) OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld)) ORDER BY created_unix DESC;", (long)accountId, (long)accountId, (long)accountId, (long)accountId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE (operation_type_id=2 AND source_id=%ld) OR (operation_type_id=1 AND target_id=%ld) OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld)) ORDER BY created_unix DESC;", (long)accountId, (long)accountId, (long)accountId, (long)accountId];
     
     return [self operationsBySqlQuery:sqlQuery];
 }
+
+
+
+
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceDate:(NSDate *)startDate {
     
     double startDateUnix = [startDate timeIntervalSince1970];
     
     NSString *sqlQuery = [NSString stringWithFormat:
-        @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment "
+        @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid "
         "FROM operation "
         "WHERE created_unix > %f AND ((operation_type_id=2 AND source_id=%ld) "
                           "OR (operation_type_id=1 AND target_id=%ld) "
@@ -268,16 +275,18 @@
     
 }
 
+
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation WHERE target_id=%ld ORDER BY created_unix DESC;", targetId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE target_id=%ld ORDER BY created_unix DESC;", targetId];
 
     return [self operationsBySqlQuery:sqlQuery];
 }
 
+
 - (NSArray <YGOperation *> *)operationsOfType:(YGOperationType)type withSourceId:(NSInteger)sourceId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation WHERE operation_type_id=%ld AND source_id=%ld ORDER BY created_unix DESC;", type, sourceId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE operation_type_id=%ld AND source_id=%ld ORDER BY created_unix DESC;", type, sourceId];
     
     return [self operationsBySqlQuery:sqlQuery];
 }
@@ -285,7 +294,7 @@
 
 - (NSArray <YGOperation *> *)listOperations{
     
-    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation ORDER BY created_unix DESC;";
+    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation ORDER BY created_unix DESC;";
     
     return [self operationsBySqlQuery:sqlQuery];
 }
@@ -313,8 +322,9 @@
             NSDate *created = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
             NSDate *modified = [arr[10] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[10]];
             NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
+            NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:arr[12]];
             
-            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId day:day created:created modified:modified comment:comment];
+            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId day:day created:created modified:modified comment:comment uuid:uuid];
             
             [result addObject:operation];
         }
@@ -325,22 +335,25 @@
         return nil;
 }
 
+
 /**
  Wrapper on operationBySqlQuery:.
  */
 - (YGOperation *)lastOperationForType:(YGOperationType)type {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation WHERE operation_type_id=%ld ORDER BY created_unix DESC LIMIT 1;", (long)type];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE operation_type_id=%ld ORDER BY created_unix DESC LIMIT 1;", (long)type];
     
     return [self operationBySqlQuery:sqlQuery];
 }
 
+
 - (YGOperation *)lastOperationOfType:(YGOperationType)type withTargetId:(NSInteger)targetId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment FROM operation WHERE operation_type_id=%ld AND target_id=%ld ORDER BY created_unix DESC LIMIT 1;", (long)type, (long)targetId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE operation_type_id=%ld AND target_id=%ld ORDER BY created_unix DESC LIMIT 1;", (long)type, (long)targetId];
     
     return [self operationBySqlQuery:sqlQuery];
 }
+
 
 - (YGOperation *)operationBySqlQuery:(NSString *)sqlQuery {
     
@@ -364,8 +377,9 @@
             NSDate *created = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
             NSDate *modified = [arr[10] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[10]];
             NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
+            NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:arr[12]];
             
-            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId day:day created:created modified:modified comment:comment];
+            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId day:day created:created modified:modified comment:comment uuid:uuid];
             
             [result addObject:operation];
         }

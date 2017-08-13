@@ -37,4 +37,6 @@
 - (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category;
 - (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)category;
 
+- (BOOL)isExistActiveCategoryOfType:(YGCategoryType)type;
+
 @end

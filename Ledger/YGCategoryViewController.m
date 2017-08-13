@@ -156,8 +156,7 @@
         YGCurrencyEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CurrencyDetailScene"];
         
         vc.isNewCurrency = NO;
-        //vc.currency = _categories[indexPath.row];
-        vc.currency = p_section.rows[indexPath.row].category;
+        vc.currency = [p_section.rows[indexPath.row].category copy];
         
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -166,8 +165,7 @@
         YGExpenseCategoryEditController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ExpenseCategoryDetailScene"];
         
         vc.isNewExpenseCategory = NO;
-        //vc.expenseCategory = self.categories[indexPath.row];
-        vc.expenseCategory = p_section.rows[indexPath.row].category;
+        vc.expenseCategory = [p_section.rows[indexPath.row].category copy];
         
         [self.navigationController pushViewController:vc animated:YES];
         
@@ -180,8 +178,7 @@
         
         vc.categoryType = self.categoryType;
         vc.isNewCategory = NO;
-        //vc.category = _categories[indexPath.row];
-        vc.category = p_section.rows[indexPath.row].category;
+        vc.category = [p_section.rows[indexPath.row].category copy];
         
         [self.navigationController pushViewController:vc animated:YES];
     }

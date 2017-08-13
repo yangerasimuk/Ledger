@@ -133,7 +133,8 @@
     "modified TEXT, "
     "attach INTEGER NOT NULL, "
     "sort INTEGER NOT NULL, "
-    "comment TEXT"
+    "comment TEXT, "
+    "uuid TEXT NOT NULL"
     ");";
     
     [self createTable:@"entity" createSQL:createSql];
@@ -159,7 +160,8 @@
     "created_unix REAL NOT NULL ,"
     "modified TEXT NOT NULL, "
     "modified_unix REAL NOT NULL ,"
-    "comment TEXT"
+    "comment TEXT ,"
+    "uuid TEXT NOT NULL"
     ");";
     
     [self createTable:@"operation" createSQL:createSql];
@@ -424,6 +426,7 @@
     
     sqlite3_close(db);
 }
+
 
 - (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery {
             

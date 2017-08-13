@@ -356,12 +356,18 @@
 
 - (void)saveButtonPressed {
     
+    p_name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    p_comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if(p_sort < 1 || p_sort > 999)
+        p_sort = 100;
+    
     if(self.isNewExpenseCategory){
         
         YGCategory *expenseCategory = [[YGCategory alloc]
                                        initWithType:YGCategoryTypeExpense
-                                       name:self.textFieldName.text
-                                       sort:[self.textFieldSort.text integerValue]
+                                       name:p_name
+                                       sort:p_sort
                                        symbol:nil
                                        attach:NO
                                        parentId:self.expenseCategoryParent.rowId
@@ -372,11 +378,11 @@
     else{
         
         if(_isNameChanged)
-            self.expenseCategory.name = self.textFieldName.text;
+            self.expenseCategory.name = p_name;
         if(_isSortChanged)
-            self.expenseCategory.sort = [self sortValueFromString:self.textFieldSort.text];
+            self.expenseCategory.sort = p_sort;
         if(_isCommentChanged)
-            self.expenseCategory.comment = self.textViewComment.text;
+            self.expenseCategory.comment = p_comment;
         if(_isParentChanged)
             self.expenseCategory.parentId = self.expenseCategoryParent.rowId;
         

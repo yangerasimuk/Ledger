@@ -33,9 +33,10 @@ typedef NS_ENUM(NSInteger, YGOperationType){
 @property NSDate *created;
 @property NSDate *modified;
 @property NSString *comment;
+@property NSUUID *uuid;
 
 
-- (instancetype)initWithRowId:(NSInteger)rowId type:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId day:(NSDate *)day created:(NSDate *)created modified:(NSDate *)modified comment:(NSString *)comment;
+- (instancetype)initWithRowId:(NSInteger)rowId type:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId day:(NSDate *)day created:(NSDate *)created modified:(NSDate *)modified comment:(NSString *)comment uuid:(NSUUID *)uuid;
 
 - (instancetype)initWithType:(YGOperationType)type sourceId:(NSInteger)sourceId targetId:(NSInteger)targetId sourceSum:(double)sourceSum sourceCurrencyId:(NSInteger)sourceCurrencyId targetSum:(double)targetSum targetCurrencyId:(NSInteger)targetCurrencyId day:(NSDate *)day created:(NSDate *)created modified:(NSDate *)modified comment:(NSString *)comment;
 

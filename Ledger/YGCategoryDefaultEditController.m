@@ -280,17 +280,18 @@
 
 - (void)saveButtonPressed {
     
-    NSUInteger sort = [self.textFieldSort.text integerValue];
+    p_name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    p_comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    if(sort < 1 || sort > 999)
-        sort = 100;
+    if(p_sort < 1 || p_sort > 999)
+        p_sort = 100;
     
     if(self.isNewCategory){
         
         YGCategory *expenseCategory = [[YGCategory alloc]
                                        initWithType:self.categoryType
-                                       name:self.textFieldName.text
-                                       sort:sort
+                                       name:p_name
+                                       sort:p_sort
                                        symbol:nil
                                        attach:NO
                                        parentId:-1
@@ -301,7 +302,7 @@
     else{
         
         if(_isNameChanged)
-            self.category.name = self.textFieldName.text;
+            self.category.name = p_name;
         if(_isSortChanged)
             self.category.sort = p_sort;
         if(_isCommentChanged)

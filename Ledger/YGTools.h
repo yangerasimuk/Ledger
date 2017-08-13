@@ -29,6 +29,7 @@
 + (NSDate *)dateMinimum;
 
 + (NSString *)sqlStringForDateLocalOrNull:(NSDate *)dateValue;
++ (NSString *)sqlStringForDateAbsoluteOrNull:(NSDate *)dateValue;
 + (NSString *)sqlStringForBool:(BOOL)boolValue;
 + (NSString *)sqlStringForInt:(NSInteger)intValue;
 + (NSString *)sqlStringForIntOrNull:(NSInteger)intValue;

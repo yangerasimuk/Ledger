@@ -354,43 +354,38 @@
 
 - (void)saveButtonPressed {
     
-    NSString *name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    p_name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    p_comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if(_isNewCurrency){
         
         YGCategory *currency = [[YGCategory alloc]
                                 initWithType:YGCategoryTypeCurrency
-                                name:name
-                                sort:[self.currencySort.text integerValue]
-                                symbol:self.currencySymbol.text
-                                attach:self.currencyIsDefault.isOn
+                                name:p_name
+                                sort:p_sort
+                                symbol:p_symbol
+                                attach:p_isDefault
                                 parentId:-1
-                                comment:comment];
+                                comment:p_comment];
         
         [p_manager addCategory:[currency copy]];
     }
     else{
         
         if(_isNameChanged)
-            _currency.name = name;
+            _currency.name = p_name;
         if(_isSymbolChanged)
-            _currency.symbol = self.currencySymbol.text;
+            _currency.symbol = p_symbol;
         if(_isSortChanged)
-            _currency.sort = [self sortValueFromString:self.currencySort.text];
+            _currency.sort = p_sort;
         if(_isDefaultChanged)
-            _currency.attach = self.currencyIsDefault.isOn;
+            _currency.attach = p_isDefault;
         if(_isCommentChanged)
-            _currency.comment = comment;
+            _currency.comment = p_comment;
         
         _currency.modified = [NSDate date];
         
         [p_manager updateCategory:[_currency copy]];
-        
-        // if set to default, and early be not default
-        if(_isDefaultChanged && _initDefaultValue == NO){
-            [p_manager setOnlyOneDefaultCategory:[_currency copy]];
-        }
     }
     
     [self.navigationController popViewControllerAnimated:YES];
