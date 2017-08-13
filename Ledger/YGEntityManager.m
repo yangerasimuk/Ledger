@@ -440,24 +440,19 @@
     // check for operation type, if operation is AccountActual recalc does not necessary
     if(operation.type == YGOperationTypeAccountActual)
         return;
-        //@throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation" reason:@"Recalc can not be made for this operation type" userInfo:nil];
-    
     
     YGOperationManager *om = [YGOperationManager sharedInstance];
     YGOperation *lastActualAccount = [om lastOperationOfType:YGOperationTypeAccountActual withTargetId:account.rowId];
     
-    /* this is stupid and complex optimization
     // check for more near date of actual account operation
-    if(operation){
-        if(lastActualAccount){
-            if([lastActualAccount.day compare:operation.day] == NSOrderedDescending)
-                return;
-            else if([lastActualAccount.day compare:operation.day] == NSOrderedSame
+    if(operation && lastActualAccount){
+        
+        if([lastActualAccount.day compare:operation.day] == NSOrderedDescending)
+            return;
+        else if([lastActualAccount.day compare:operation.day] == NSOrderedSame
                 && [lastActualAccount.modified compare:operation.modified] == NSOrderedDescending)
-                return;
-        }
+            return;
     }
-     */
     
     // get source sum
     double targetSum = 0.00f;
@@ -465,19 +460,14 @@
     if(lastActualAccount)
         targetSum = lastActualAccount.targetSum;
     
-    //NSArray <YGOperation *>*operations = [om operationsWithTargetId:account.rowId];
     NSArray <YGOperation *>*operations = nil;
     if(lastActualAccount)
-        operations = [om operationsWithAccountId:account.rowId sinceDate:lastActualAccount.created];
+        operations = [om operationsWithAccountId:account.rowId sinceAccountActual:lastActualAccount];
     else
         operations = [om operationsWithAccountId:account.rowId];
     
     if([operations count] > 0){
         for(YGOperation *oper in operations){
-            
-            // check for updated operations with ealear day
-            if([lastActualAccount.day isEqualToDate:oper.day] == NSOrderedDescending)
-                continue;
             
             if(oper.type == YGOperationTypeIncome){
                 targetSum += oper.targetSum;

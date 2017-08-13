@@ -156,10 +156,11 @@
     "target_sum REAL NOT NULL, "
     "target_currency_id INTEGER NOT NULL, "
     "day TEXT NOT NULL, "
+    "day_unix REAL NOT NULL, "
     "created TEXT NOT NULL, "
-    "created_unix REAL NOT NULL ,"
+    "created_unix REAL NOT NULL, "
     "modified TEXT NOT NULL, "
-    "modified_unix REAL NOT NULL ,"
+    "modified_unix REAL NOT NULL, "
     "comment TEXT ,"
     "uuid TEXT NOT NULL"
     ");";
@@ -306,7 +307,7 @@
         }
         else{
             
-            NSLog(@"sqlite_prepare_v2() fail. Returned code: %ld", resultSqlitePrepare);
+            NSLog(@"-[YGSQLite addRecord:insertSQL:] .. sqlite_prepare_v2() fail. Returned code: %ld", resultSqlitePrepare);
         }
         
         sqlite3_finalize(stmt);
@@ -479,7 +480,7 @@
         sqlite3_finalize(statement);
     }
     else{
-        NSLog(@"sqlite3_prepare_v2() != SQLITE_OK. Result: %d", resultSqlitePrepare);
+        NSLog(@"-[YGSQLite selectWithSqlQuery] .. sqlite3_prepare_v2() != SQLITE_OK. Result: %d", resultSqlitePrepare);
     }
     
     sqlite3_close(db);

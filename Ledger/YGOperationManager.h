@@ -41,6 +41,8 @@
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId;
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceDate:(NSDate *)startDate;
 
+- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)accountActual;
+
 
 
 

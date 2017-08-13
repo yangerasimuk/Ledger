@@ -24,6 +24,9 @@
 /* Version of application */
 "APPLICATION_VERSION" = "Version";
 
+/* Attention title of alert controller */
+"ATTENTION_ALERT_CONTROLLER_TITLE" = "Attention!";
+
 /* Balance */
 "BALANCE_ALERT_ITEM_TITLE" = "Account balance";
 
@@ -185,6 +188,18 @@
 
 /* Title of Tag edit form. */
 "TAG_EDIT_FORM_TITLE" = "TAG_EDIT_FORM_TITLE";
+
+/* Terms for adding operation Account actual */
+"TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE" = "To add an operation \"Account balance\" you must have at least one active Account";
+
+/* Terms for adding operation Expense */
+"TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE" = "To add an operation \"Expense\", you must have at least one active Account and one active Expense category";
+
+/* Terms for adding operation Income */
+"TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE" = "To add an operation \"Income\" you must have at least one active Account and one active Income source";
+
+/* Terms for adding operation Transfer */
+"TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE" = "To add an operation \"Transfer\" you must have at least two active Accounts";
 
 /* Today date */
 "TODAY" = "Today";

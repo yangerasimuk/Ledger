@@ -24,6 +24,9 @@
 /* Version of application */
 "APPLICATION_VERSION" = "Версия";
 
+/* Attention title of alert controller */
+"ATTENTION_ALERT_CONTROLLER_TITLE" = "Внимание!";
+
 /* Balance */
 "BALANCE_ALERT_ITEM_TITLE" = "Остаток по счёту";
 
@@ -138,6 +141,18 @@
 
 /* Title of Tag edit form. */
 "TAG_EDIT_FORM_TITLE" = "Метка";
+
+/* Terms for adding operation Account actual */
+"TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE" = "Для добавления операции \"Остаток по счёту\" необходимо иметь хотя бы один активный Счет";
+
+/* Terms for adding operation Expense */
+"TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE" = "Для добавления операции \"Расход\" необходимо иметь хотя бы один активный Счет и Категорию расхода";
+
+/* Terms for adding operation Income */
+"TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE" = "Для добавления операции \"Доход\" необходимо иметь хотя бы один активный Счет и Источник дохода";
+
+/* Terms for adding operation Transfer */
+"TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE" = "Для добавления операции \"Перевод\" необходимо иметь хотя бы два активных Счета";
 
 /* Today date */
 "TODAY" = "Сегодня";

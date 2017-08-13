@@ -77,7 +77,7 @@
 
 - (void) getOperationsForCache {
     
-    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation ORDER BY created_unix DESC;";
+    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation ORDER BY day_unix DESC, modified_unix DESC;";
     
     self.operations = [[self operationsBySqlQuery:sqlQuery] mutableCopy];
 }
@@ -89,7 +89,7 @@
 - (void)sortOperationsInArray:(NSMutableArray <YGOperation *> *)array {
     
     NSSortDescriptor *sortOnDayByDesc = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
-    NSSortDescriptor *sortOnCreatedByDesc = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
+    NSSortDescriptor *sortOnCreatedByDesc = [[NSSortDescriptor alloc] initWithKey:@"modified" ascending:NO];
 
     [array sortUsingDescriptors:@[sortOnDayByDesc, sortOnCreatedByDesc]];
 }
@@ -111,6 +111,7 @@
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
 
     NSString *day = [YGTools stringFromAbsoluteDate:operation.day];
+    NSNumber *day_unix = [NSNumber numberWithDouble:[operation.day timeIntervalSince1970]];
     NSString *created = [YGTools stringFromLocalDate:operation.created];
     NSNumber *created_unix = [NSNumber numberWithDouble:[operation.created timeIntervalSince1970]];
     NSString *modified = [YGTools stringFromLocalDate:operation.modified];
@@ -130,6 +131,7 @@
                                  target_sum,
                                  target_currency_id,
                                  day,
+                                 day_unix,
                                  created,
                                  created_unix,
                                  modified,
@@ -139,7 +141,7 @@
                                  nil];
         
         // sql string
-        NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, created_unix, modified, modified_unix, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, day_unix, created, created_unix, modified, modified_unix, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         // db
         operationId = [_sqlite addRecord:operationArr insertSQL:insertSQL];
@@ -197,7 +199,7 @@
  */
 - (void)updateOperation:(YGOperation *)operation{
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@, comment=%@, uuid=%@ WHERE operation_id=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, day_unix=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@, comment=%@, uuid=%@ WHERE operation_id=%@;",
                            [YGTools sqlStringForInt:operation.type],
                            [YGTools sqlStringForInt:operation.sourceId],
                            [YGTools sqlStringForInt:operation.targetId],
@@ -206,6 +208,7 @@
                            [YGTools sqlStringForDecimal:operation.targetSum],
                            [YGTools sqlStringForInt:operation.targetCurrencyId],
                            [YGTools sqlStringForDateAbsoluteOrNull:operation.day],
+                           [YGTools sqlStringForDouble:[operation.day timeIntervalSince1970]],
                            [YGTools sqlStringForDateLocalOrNull:operation.created],
                            [YGTools sqlStringForDouble:[operation.created timeIntervalSince1970]],
                            [YGTools sqlStringForDateLocalOrNull:operation.modified],
@@ -249,30 +252,18 @@
 
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId {
+
+    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld))", accountId, accountId, accountId, accountId];
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE (operation_type_id=2 AND source_id=%ld) OR (operation_type_id=1 AND target_id=%ld) OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld)) ORDER BY created_unix DESC;", (long)accountId, (long)accountId, (long)accountId, (long)accountId];
-    
-    return [self operationsBySqlQuery:sqlQuery];
+    return [self.operations filteredArrayUsingPredicate:operPredicate];
 }
 
 
-
-
-
-- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceDate:(NSDate *)startDate {
+- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)operation {
     
-    double startDateUnix = [startDate timeIntervalSince1970];
+    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(day >= %@ AND modified >= %@) AND ((type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld)))", operation.day, operation.modified, accountId, accountId, accountId, accountId];
     
-    NSString *sqlQuery = [NSString stringWithFormat:
-        @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid "
-        "FROM operation "
-        "WHERE created_unix > %f AND ((operation_type_id=2 AND source_id=%ld) "
-                          "OR (operation_type_id=1 AND target_id=%ld) "
-                          "OR (operation_type_id=4 AND (source_id=%ld OR target_id=%ld))) "
-        "ORDER BY created_unix DESC;", startDateUnix, accountId, accountId, accountId, accountId];
-    
-    return [self operationsBySqlQuery:sqlQuery];
-    
+    return [self.operations filteredArrayUsingPredicate:operPredicate];
 }
 
 

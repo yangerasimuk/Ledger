@@ -123,6 +123,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self reloadDataFromSectionsCache];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -330,7 +331,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]
        || ![_cm isExistActiveCategoryOfType:YGCategoryTypeExpense]){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Расход\" необходимо иметь хотя бы один активный Счет и Категорию расхода." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE", @"Terms for adding operation Expense") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:okAction];
@@ -353,7 +354,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]
        || ![_cm isExistActiveCategoryOfType:YGCategoryTypeIncome]){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Доход\" необходимо иметь хотя бы один активный Счет и Источник дохода." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE", @"Terms for adding operation Income") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:okAction];
@@ -376,7 +377,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
     if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Остаток по счёту\" необходимо иметь хотя бы один активный Счет." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE", @"Terms for adding operation Account actual") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:okAction];
@@ -399,7 +400,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
     if([_em countOfActiveEntitiesOfType:YGEntityTypeAccount] < 2){
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Внимание!" message:@"Для добавления операции \"Перевод\" необходимо иметь хотя бы два активных Счета." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE", @"Terms for adding operation Transfer") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [controller addAction:okAction];
@@ -481,6 +482,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     return [YGOperationSectionHeader heightSectionHeader];
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     YGOperationType type = p_sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
@@ -508,7 +510,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 }
 
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
 
