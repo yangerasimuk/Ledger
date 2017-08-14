@@ -117,7 +117,7 @@
     NSString *modified = [YGTools stringFromLocalDate:operation.modified];
     NSNumber *modified_unix = [NSNumber numberWithDouble:[operation.modified timeIntervalSince1970]];
 
-    NSString *comment = operation.comment ? operation.comment : [NSNull null];
+    NSString *comment = operation.comment;
     NSString *uuid = [operation.uuid UUIDString];
     
     @try {
@@ -136,7 +136,7 @@
                                  created_unix,
                                  modified,
                                  modified_unix,
-                                 comment,
+                                 comment ? comment : [NSNull null],
                                  uuid,
                                  nil];
         
@@ -269,7 +269,7 @@
 
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE target_id=%ld ORDER BY created_unix DESC;", targetId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE target_id=%ld ORDER BY created_unix DESC;", (long)targetId];
 
     return [self operationsBySqlQuery:sqlQuery];
 }
@@ -277,7 +277,7 @@
 
 - (NSArray <YGOperation *> *)operationsOfType:(YGOperationType)type withSourceId:(NSInteger)sourceId {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE operation_type_id=%ld AND source_id=%ld ORDER BY created_unix DESC;", type, sourceId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation WHERE operation_type_id=%ld AND source_id=%ld ORDER BY created_unix DESC;", (long)type, (long)sourceId];
     
     return [self operationsBySqlQuery:sqlQuery];
 }

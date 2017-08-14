@@ -39,7 +39,7 @@
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId;
 //- (NSArray <YGOperation *> *)operationsOfType:(YGOperationType)type withSourceId:(NSInteger)sourceId;
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId;
-- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceDate:(NSDate *)startDate;
+
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)accountActual;
 

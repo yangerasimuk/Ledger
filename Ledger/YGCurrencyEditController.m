@@ -106,7 +106,7 @@
         self.currencySymbol.text = self.currency.symbol;
         p_symbol = self.currency.symbol;
         
-        self.currencySort.text = [NSString stringWithFormat:@"%ld", self.currency.sort];
+        self.currencySort.text = [NSString stringWithFormat:@"%ld", (long)self.currency.sort];
         p_sort = self.currency.sort;
         
         self.currencyIsDefault.on = self.currency.isAttach;

@@ -153,7 +153,7 @@
 - (BOOL)isJustOneCategory:(YGCategory *)category {
     
     // search all categories for the current type
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id = %ld;", category.type];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id = %ld;", (long)category.type];
     
     NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -162,7 +162,7 @@
     else if([categories count] > 1)
         return NO;
     else
-        @throw [NSException exceptionWithName:@"-[YGCategoryManager isJustOneCategory" reason:[NSString stringWithFormat:@"Category is not exist for the type: %ld", category.type] userInfo:nil];
+        @throw [NSException exceptionWithName:@"-[YGCategoryManager isJustOneCategory" reason:[NSString stringWithFormat:@"Category is not exist for the type: %ld", (long)category.type] userInfo:nil];
 }
 
 
@@ -179,7 +179,7 @@
     if(category.type == YGCategoryTypeCurrency) {
         
         // search currency in operations
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE source_currency_id = %ld OR target_currency_id = %ld LIMIT 1;", category.rowId, category.rowId];
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE source_currency_id = %ld OR target_currency_id = %ld LIMIT 1;", (long)category.rowId, (long)category.rowId];
         
         NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
@@ -187,7 +187,7 @@
             return YES;
         
         // in entities
-        sqlQuery = [NSString stringWithFormat:@"SELECT entity_id FROM entity WHERE currency_id = %ld LIMIT 1;", category.rowId];
+        sqlQuery = [NSString stringWithFormat:@"SELECT entity_id FROM entity WHERE currency_id = %ld LIMIT 1;", (long)category.rowId];
         
         categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
@@ -197,7 +197,7 @@
     else if(category.type == YGCategoryTypeIncome){
         
         // search in operations
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND source_id = %ld LIMIT 1;", YGOperationTypeIncome, category.rowId];
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND source_id = %ld LIMIT 1;", (long)YGOperationTypeIncome, (long)category.rowId];
         
         NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
@@ -207,7 +207,7 @@
     else if(category.type == YGCategoryTypeExpense){
         
         // search in operations
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", YGOperationTypeExpense, category.rowId];
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT operation_id FROM operation WHERE operation_type_id = %ld AND target_id = %ld LIMIT 1;", (long)YGOperationTypeExpense, (long)category.rowId];
         
         NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
         
@@ -225,7 +225,7 @@
 - (BOOL)hasChildObjectForCategory:(YGCategory *)category {
     
     // search child for category
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld LIMIT 1;", category.rowId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld LIMIT 1;", (long)category.rowId];
 
     NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -238,7 +238,7 @@
 
 - (BOOL)hasChildObjectActiveForCategory:(YGCategory *)category {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld AND active=1 LIMIT 1;", category.rowId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE parent_id=%ld AND active=1 LIMIT 1;", (long)category.rowId];
     
     NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -255,7 +255,7 @@
 - (BOOL)hasActiveCategoryForTypeExceptCategory:(YGCategory *)category {
     
     // search currency in operations
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id=%ld AND active=1 AND category_id<>%ld LIMIT 1;", category.type, category.rowId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id FROM category WHERE category_type_id=%ld AND active=1 AND category_id<>%ld LIMIT 1;", (long)category.type, (long)category.rowId];
     
     NSArray *categories = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -269,7 +269,7 @@
 - (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)currency {
     
     // search currency in operations
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id FROM entity WHERE active=1 AND currency_id = %ld LIMIT 1;", currency.rowId];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT entity_id FROM entity WHERE active=1 AND currency_id = %ld LIMIT 1;", (long)currency.rowId];
     
     NSArray *entities = [_sqlite selectWithSqlQuery:sqlQuery];
     
@@ -565,8 +565,8 @@
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE category SET attach=0, modified=%@ "
                            "WHERE category_type_id = %ld AND category_id != %ld AND attach<>0;",
                            [YGTools sqlStringForDateLocalOrNull:now],
-                           category.type,
-                           category.rowId];
+                           (long)category.type,
+                           (long)category.rowId];
     
     [_sqlite execSQL:updateSQL];
     

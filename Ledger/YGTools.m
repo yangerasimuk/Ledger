@@ -322,12 +322,12 @@
 
 + (NSString *)sqlStringForInt:(NSInteger)intValue {
     
-    return [NSString stringWithFormat:@"%ld", intValue];
+    return [NSString stringWithFormat:@"%ld", (long)intValue];
 }
 
 + (NSString *)sqlStringForIntOrNull:(NSInteger)intValue {
     if(intValue != -1)
-        return [NSString stringWithFormat:@"%ld", intValue];
+        return [NSString stringWithFormat:@"%ld", (long)intValue];
     else
         return @"NULL";
 }
@@ -362,7 +362,7 @@
 
 + (NSString *)sqlStringForIntOrDefault:(NSInteger)intValue {
     if(intValue > 0 && intValue < 1000)
-        return [NSString stringWithFormat:@"%ld", intValue];
+        return [NSString stringWithFormat:@"%ld", (long)intValue];
     else
         return @"100";
 }
@@ -412,7 +412,7 @@
     
     do{
         if(size < 1024 && size != 0){
-            [stringNum insertString:[NSString stringWithFormat:@"%lu %@", size, abbSize[abbIndex]] atIndex:0];
+            [stringNum insertString:[NSString stringWithFormat:@"%lu %@", (long)size, abbSize[abbIndex]] atIndex:0];
             break;
         }
         else{

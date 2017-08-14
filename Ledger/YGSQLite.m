@@ -303,11 +303,12 @@
             if(resultSqliteStep != SQLITE_DONE)
                 NSLog(@"sqlite_step() fail: Returned code: %@", [NSString stringWithUTF8String:sqlite3_errmsg(db)]);
             
-            resultId = sqlite3_last_insert_rowid(db);
+            // 9223372036854775807 not enough?
+            resultId = (NSInteger)sqlite3_last_insert_rowid(db);
         }
         else{
             
-            NSLog(@"-[YGSQLite addRecord:insertSQL:] .. sqlite_prepare_v2() fail. Returned code: %ld", resultSqlitePrepare);
+            NSLog(@"-[YGSQLite addRecord:insertSQL:] .. sqlite_prepare_v2() fail. Returned code: %ld", (long)resultSqlitePrepare);
         }
         
         sqlite3_finalize(stmt);

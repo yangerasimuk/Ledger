@@ -71,14 +71,14 @@
 
 
 -(NSUInteger)hash {
-    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@:%@", _type, _rowId, _name, _created, _uuid];
+    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%@:%@:%@", (long)_type, (long)_rowId, _name, _created, _uuid];
     
     return [hashString hash];
 }
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Entity. RowId:%ld, type:%ld, name:%@, sum:%.2f, currencyId:%ld, active:%ld created:%@, modified:%@, attach:%ld, sort:%ld, comment:%@, uuid:%@", _rowId, _type, _name, _sum, _currencyId, (long)_active, _created, _modified, (long)_attach, _sort, _comment, _uuid];
+    return [NSString stringWithFormat:@"Entity. RowId:%ld, type:%ld, name:%@, sum:%.2f, currencyId:%ld, active:%ld created:%@, modified:%@, attach:%ld, sort:%ld, comment:%@, uuid:%@", (long)_rowId, (long)_type, _name, _sum, (long)_currencyId, (long)_active, _created, _modified, (long)_attach, (long)_sort, _comment, _uuid];
 }
 
 

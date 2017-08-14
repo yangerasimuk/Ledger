@@ -112,7 +112,7 @@
 
 - (NSUInteger)hash {
     
-    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%ld:%f:%ld:%f:%@:%@:%@", _type, _rowId, _sourceId, _sourceSum, _targetId, _targetSum, _day, _created, _uuid];
+    NSString *hashString = [NSString stringWithFormat:@"%ld:%ld:%ld:%f:%ld:%f:%@:%@:%@", (long)_type, (long)_rowId, (long)_sourceId, _sourceSum, (long)_targetId, _targetSum, _day, _created, _uuid];
     
     return [hashString hash];
 }

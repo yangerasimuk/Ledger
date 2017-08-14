@@ -12,7 +12,7 @@
 
 //#define FILL_TEST_DATA 1
 
-#define DEBUG_REBUILD_BASE 1
+//#define DEBUG_REBUILD_BASE 1
 
 extern NSString *const kDatabaseName;
 extern NSString *const kDateTimeFormat;
