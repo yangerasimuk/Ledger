@@ -508,7 +508,7 @@
 
 - (YGCategory *)categoryOnTopForType:(YGCategoryType)type {
     
-    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid  FROM category WHERE category_type_id=%ld AND active=1 ORDER BY sort ASC LIMIT 1;", type];
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT category_id, category_type_id, name, active, created, modified, sort, symbol, attach, parent_id, comment, uuid  FROM category WHERE category_type_id=%ld AND active=1 ORDER BY sort ASC LIMIT 1;", (long)type];
     
     return [self categoryBySqlQuery:sqlQuery];
 }
@@ -611,6 +611,7 @@
     }
 }
 
+
 - (BOOL)isExistActiveCategoryOfType:(YGCategoryType)type{
     
     NSArray *categoriesOfType = [self categoriesByType:type];
@@ -623,6 +624,16 @@
         return YES;
     else
         return NO;
+}
+
+
+- (NSInteger)countOfActiveCategoriesForType:(YGCategoryType)type {
+    
+    NSArray *categoriesOfType = [self categoriesByType:type];
+    
+    NSPredicate *activePredicate = [NSPredicate predicateWithFormat:@"active = YES"];
+    
+    return [[categoriesOfType filteredArrayUsingPredicate:activePredicate] count];
 }
 
 @end

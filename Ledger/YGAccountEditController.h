@@ -13,7 +13,7 @@
 @interface YGAccountEditController : UITableViewController
 
 @property (strong, nonatomic) YGEntity *account;
-@property (copy, nonatomic) YGCategory *currency;
-@property (assign, nonatomic) BOOL isNewAccount;
+//@property (copy, nonatomic) YGCategory *currency;
+//@property (assign, nonatomic) BOOL isNewAccount;
 
 @end

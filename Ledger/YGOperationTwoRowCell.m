@@ -212,8 +212,8 @@
 - (UIColor *)colorForOperationType:(YGOperationType)type {
     
     switch(type){
-        case YGOperationTypeExpense: return [UIColor redColor];
-        case YGOperationTypeIncome: return [UIColor greenColor];
+        case YGOperationTypeExpense: return [YGTools colorRed];
+        case YGOperationTypeIncome: return [YGTools colorGreen];
         case YGOperationTypeAccountActual: return [UIColor grayColor];
         case YGOperationTypeTransfer: return [UIColor grayColor];
         default: return [UIColor blackColor];

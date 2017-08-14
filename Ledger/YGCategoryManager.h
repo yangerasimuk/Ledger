@@ -38,5 +38,6 @@
 - (BOOL)hasLinkedActiveEntityForCurrency:(YGCategory *)category;
 
 - (BOOL)isExistActiveCategoryOfType:(YGCategoryType)type;
+- (NSInteger)countOfActiveCategoriesForType:(YGCategoryType)type;
 
 @end

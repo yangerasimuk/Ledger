@@ -58,6 +58,8 @@
 + (UIColor *)colorForActionBackup;
 + (UIColor *)colorForActionRestore;
 + (UIColor *)colorForActionDelete;
++ (UIColor *)colorRed;
++ (UIColor *)colorGreen;
 
 /// current laguage code
 + (NSString *)languageCodeSystem;

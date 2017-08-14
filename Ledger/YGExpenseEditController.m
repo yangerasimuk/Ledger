@@ -54,6 +54,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldSum;
 @property (weak, nonatomic) IBOutlet UITextView *textViewComment;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellAccount;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellExpenseCategory;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDelete;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSaveAndAddNew;
 
@@ -82,29 +84,58 @@
         p_day = [YGTools dayOfDate:[NSDate date]];
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
         
-        // set account if one sets as default
+        // set default account if it exist
         _account = [_em entityAttachedForType:YGEntityTypeAccount];
-        /*
-        if(!_account)
-            _account = [_em entityOnTopForType:YGEntityTypeAccount];
-         */
         if(_account){
+            
             _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
             
             self.labelAccount.text = _account.name;
             self.labelCurrency.text = [_currency shorterName];
         }
-        else{
-            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account.");
-            self.labelAccount.textColor = [UIColor redColor];
+        
+        if(!_account && [_em countOfActiveEntitiesOfType:YGEntityTypeAccount] == 1){
+            
+            _account = [_em entityOnTopForType:YGEntityTypeAccount];
+            
+            self.labelAccount.text = _account.name;
+            self.labelAccount.textColor = [UIColor grayColor];
+            
+            _currency = [_cm categoryById:_account.currencyId type:YGCategoryTypeCurrency];
+            self.labelCurrency.text = [_currency shorterName];
+            self.labelCurrency.textColor = [UIColor grayColor];
+            
+            self.cellAccount.userInteractionEnabled = NO;
+            self.cellAccount.accessoryType = UITableViewCellAccessoryNone;
         }
         
-        // attention user to select category
-        self.labelCategory.text = NSLocalizedString(@"SELECT_CATEGORY_LABEL", @"Select category");
-        self.labelCategory.textColor = [UIColor redColor];
+        if(!_account){
+            
+            self.labelAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account.");
+            self.labelAccount.textColor = [YGTools colorRed];
+            self.labelCurrency.text = @"?";
+            self.labelCurrency.textColor = [YGTools colorRed];
+        }
+        
+        if([_cm countOfActiveCategoriesForType:YGCategoryTypeExpense] == 1){
+            
+            _category = [_cm categoryOnTopForType:YGCategoryTypeExpense];
+            self.labelCategory.text = _category.name;
+            self.labelCategory.textColor = [UIColor grayColor];
+            
+            self.cellExpenseCategory.userInteractionEnabled = NO;
+            self.cellExpenseCategory.accessoryType = UITableViewCellAccessoryNone;
+        }
+        else{
+            
+            // attention user to select category
+            self.labelCategory.text = NSLocalizedString(@"SELECT_CATEGORY_LABEL", @"Select category");
+            self.labelCategory.textColor = [YGTools colorRed];
+        }
+        
         
         // set label sum red
-        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum.")] color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum.")] color:[YGTools colorRed]];
         
         // init
         _initDateValue = [p_day copy];
@@ -128,6 +159,7 @@
 
     }
     else{
+        
         // set date
         p_day = self.expense.day;
         self.labelDate.text = [YGTools humanViewWithTodayOfDate:p_day];
@@ -136,16 +168,34 @@
         _account = [_em entityById:self.expense.sourceId type:YGEntityTypeAccount];
         self.labelAccount.text = _account.name;
         
+        if([_em countOfActiveEntitiesOfType:YGEntityTypeAccount] == 1){
+            
+            self.labelAccount.textColor = [UIColor grayColor];
+            self.labelCurrency.textColor = [UIColor grayColor];
+            self.cellAccount.userInteractionEnabled = NO;
+            self.cellAccount.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        // set currency
+        _currency = [_cm categoryById:self.expense.sourceCurrencyId type:YGCategoryTypeCurrency];
+        self.labelCurrency.text = [_currency shorterName];
         
         // set expenseCategory
         //_category = [_cm categoryById:self.expense.targetId];
         _category = [_cm categoryById:self.expense.targetId type:YGCategoryTypeExpense];
         self.labelCategory.text = _category.name;
         
-        // set currency
-        //_currency = [_cm categoryById:self.expense.sourceCurrencyId];
-        _currency = [_cm categoryById:self.expense.sourceCurrencyId type:YGCategoryTypeCurrency];
-        self.labelCurrency.text = [_currency shorterName];
+        if([_cm countOfActiveCategoriesForType:YGCategoryTypeExpense] == 1){
+            
+            YGCategory *otherExpenseCategory = [_cm categoryOnTopForType:YGCategoryTypeExpense];
+            
+            if([_category isEqual:otherExpenseCategory]){
+
+                self.labelCategory.textColor = [UIColor grayColor];
+                self.cellExpenseCategory.userInteractionEnabled = NO;
+                self.cellExpenseCategory.accessoryType = UITableViewCellAccessoryNone;
+            }
+        }
         
         // set sum
         _sum = self.expense.sourceSum;
@@ -203,8 +253,8 @@
     self.textViewComment.delegate = self;
     
     [self setDefaultFontForControls];
-    
 }
+
 
 - (void)setDefaultFontForControls {
     
@@ -385,9 +435,9 @@
     }
     
     if(self.sum == 0.00f)
-        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", "Sum.")] color:[UIColor redColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", "Sum.")] color:[YGTools colorRed]];
     else
-        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", "Sum.")] color:[UIColor blackColor]];
+        self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", "Sum.")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }
@@ -447,8 +497,10 @@
     self.buttonSaveAndAddNew.enabled = NO;
     self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
     
+    self.labelSum.textColor = [YGTools colorRed];
+    
     // set focus on sum only for new element
-    self.textFieldSum.text = @"";
+    self.textFieldSum.text = nil;
     [self.textFieldSum becomeFirstResponder];
 
 }

@@ -93,8 +93,8 @@
 
         self.buttonDelete.enabled = NO;
         
-        self.labelName.textColor = [UIColor redColor];
-        self.labelSymbol.textColor = [UIColor redColor];
+        self.labelName.textColor = [YGTools colorRed];
+        self.labelSymbol.textColor = [YGTools colorRed];
         
         [self.currencyName becomeFirstResponder];
     }
@@ -227,7 +227,7 @@
         _isNameChanged = YES;
     
     if(!p_name)
-        self.labelName.textColor = [UIColor redColor];
+        self.labelName.textColor = [YGTools colorRed];
     else
         self.labelName.textColor = [UIColor blackColor];
     
@@ -245,7 +245,7 @@
         _isSymbolChanged = YES;
     
     if([self.currencySymbol.text isEqualToString:@""])
-        self.labelSymbol.textColor = [UIColor redColor];
+        self.labelSymbol.textColor = [YGTools colorRed];
     else
         self.labelSymbol.textColor = [UIColor blackColor];
     
@@ -263,7 +263,7 @@
         _isSortChanged = YES;
     
     if([self.currencySort.text isEqualToString:@""])
-        self.labelSort.textColor = [UIColor redColor];
+        self.labelSort.textColor = [YGTools colorRed];
     else
         self.labelSort.textColor = [UIColor blackColor];
     

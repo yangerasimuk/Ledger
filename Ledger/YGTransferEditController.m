@@ -121,20 +121,20 @@
             
             _sourceAccount = nil;
             self.labelSourceAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL",  @"Select account");
-            self.labelSourceAccount.textColor = [UIColor redColor];
+            self.labelSourceAccount.textColor = [YGTools colorRed];
             self.sourceSum = 0.0;
             //self.labelSourceCurrency = @"";
             
             _targetAccount = nil;
             self.labelTargetAccount.text = NSLocalizedString(@"SELECT_ACCOUNT_LABEL",  @"Select account");
-            self.labelTargetAccount.textColor = [UIColor redColor];
+            self.labelTargetAccount.textColor = [YGTools colorRed];
             self.targetSum = 0.0;
             //self.labelTargetCurrency = @"";
             
         }
         
-        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[UIColor redColor]];
-        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[UIColor redColor]];
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[YGTools colorRed]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[YGTools colorRed]];
         
         // init
         _initDateValue = [p_day copy];
@@ -342,7 +342,7 @@
     // if choosen sourceAccount == targetAccount unselect target
     if([_sourceAccount isEqual:_targetAccount]){
         _targetAccount = nil;
-        self.labelTargetAccount.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account") color:[UIColor redColor]];
+        self.labelTargetAccount.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SELECT_ACCOUNT_LABEL", @"Select account") color:[YGTools colorRed]];
         self.labelTargetCurrency.text = @"";
     }
     
@@ -458,9 +458,9 @@
     }
     
     if(self.sourceSum == 0.00f)
-        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum")] color:[YGTools colorRed]];
     else
-        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
+        self.labelSourceSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }
@@ -478,9 +478,9 @@
     }
     
     if(self.targetSum == 0.00f)
-        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor redColor]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum")] color:[YGTools colorRed]];
     else
-        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
+        self.labelTargetSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum")] color:[UIColor blackColor]];
     
     [self changeSaveButtonEnable];
 }

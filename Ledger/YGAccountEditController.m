@@ -81,13 +81,13 @@
     
     self.navigationItem.title = NSLocalizedString(@"ACCOUNT_EDIT_FORM_TITLE", @"Title of Account view/edit form.");
     
-    if(self.isNewAccount){
+    if(!self.account){
         
         self.account = nil;
         p_name = nil;
-        self.labelName.textColor = [UIColor redColor];
+        self.labelName.textColor = [YGTools colorRed];
         
-        self.currency = nil;
+        //self.currency = nil;
         p_currency = nil;
         
         self.textFieldSort.text = @"100";
@@ -106,17 +106,27 @@
         self.buttonDelete.enabled = NO;
         self.buttonDelete.hidden = YES;
         
-        YGCategory *currencyDefault = [_cm categoryAttachedForType:YGCategoryTypeCurrency];
+        YGCategory *currency = [_cm categoryAttachedForType:YGCategoryTypeCurrency];
         
-        if(currencyDefault){
-            p_currency = currencyDefault;
+        if(currency){
+            p_currency = currency;
             
-            self.currency = p_currency;
             self.labelCurrency.text = p_currency.name;
         }
-        else{
+        
+        if(!currency && [_cm countOfActiveCategoriesForType:YGCategoryTypeCurrency] == 1){
+
+            currency = [_cm categoryOnTopForType:YGCategoryTypeCurrency];
+            
+            if(currency){
+                p_currency = currency;
+                self.labelCurrency.text = p_currency.name;
+            }
+        }
+        
+        if(!currency){
             self.labelCurrency.text = NSLocalizedString(@"SELECT_CURRENCY_LABEL", @"Select currency text on label.");
-            self.labelCurrency.textColor = [UIColor redColor];
+            self.labelCurrency.textColor = [YGTools colorRed];
         }
         
         // focus
@@ -133,9 +143,8 @@
         self.textViewComment.text = self.account.comment;
         p_comment = self.account.comment;
         
-        self.currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
-        self.labelCurrency.text = self.currency.name;
-        p_currency = self.currency;
+        p_currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
+        self.labelCurrency.text = p_currency.name;
         
         self.switchIsDefault.on = self.account.attach;
         p_isDefault = self.account.attach;
@@ -181,8 +190,8 @@
     // set font size of labels
     for(UILabel *label in self.labelsOfController){
         
-        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor,
-                                     };
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]], NSForegroundColorAttributeName:label.textColor};
+        
         NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:label.text attributes:attributes];
         label.attributedText = attributed;
     }
@@ -200,20 +209,21 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if(!self.isNewAccount)
+    if(self.account)
         [self updateUI];
 }
 
 - (void)updateUI {
     
-    if(self.isNewAccount){
+    if(!self.account){
         ;
     }
     else{
         
         p_canDelete = YES;
         
-        if([_em isExistLinkedOperationsForEntity:self.account]){
+        if([_em isExistLinkedOperationsForEntity:self.account]
+           || [_cm countOfActiveCategoriesForType:YGCategoryTypeCurrency] == 1){
             
             // set unselectable currency choice
             self.cellSelectCurrency.accessoryType = UITableViewCellAccessoryNone;
@@ -289,16 +299,15 @@
     
     // set current currency
     YGCategory *currency = vc.targetCurrency;
-    self.currency = [currency copy];
-    p_currency = self.currency;
+    p_currency = [currency copy];
     
     // update UI
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],NSForegroundColorAttributeName:[UIColor blackColor],};
-    NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:currency.name attributes:attributes];
+    NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:p_currency.name attributes:attributes];
     self.labelCurrency.attributedText = attributed;
     
     // equal to init currency value and set flag of changes
-    if([currency isEqual:_initCurrencyValue])
+    if([p_currency isEqual:_initCurrencyValue])
         _isCurrencyChanged = NO;
     else{
         _isCurrencyChanged = YES;
@@ -319,7 +328,7 @@
         _isNameChanged = YES;
     
     if([self.textFieldName.text isEqualToString:@""])
-        self.labelName.textColor = [UIColor redColor];
+        self.labelName.textColor = [YGTools colorRed];
     else
         self.labelName.textColor = [UIColor blackColor];
     
@@ -338,7 +347,7 @@
         _isSortChanged = YES;
     
     if([self.textFieldSort.text isEqualToString:@""])
-        self.labelSort.textColor = [UIColor redColor];
+        self.labelSort.textColor = [YGTools colorRed];
     else
         self.labelSort.textColor = [UIColor blackColor];
     
@@ -430,13 +439,13 @@
     if(p_sort < 1 || p_sort > 999)
         p_sort = 100;
     
-    if(self.isNewAccount){
+    if(!self.account){
 
         YGEntity *account = [[YGEntity alloc]
                              initWithType:YGEntityTypeAccount
                              name:p_name
                              sum:0.0f
-                             currencyId:self.currency.rowId
+                             currencyId:p_currency.rowId
                              attach:p_isDefault
                              sort:p_sort
                              comment:p_comment
@@ -453,7 +462,7 @@
         if(_isCommentChanged)
             self.account.comment = p_comment;
         if(_isCurrencyChanged)
-            self.account.currencyId = self.currency.rowId;
+            self.account.currencyId = p_currency.rowId;
         if(_isDefaultChanged)
             self.account.attach = p_isDefault;
         
@@ -519,7 +528,7 @@
 
     YGCurrencyChoiceController *vc = segue.destinationViewController;
     
-    vc.sourceCurrency = self.currency;
+    vc.sourceCurrency = p_currency;
 }
 
 #pragma mark - Data source methods to show/hide action cells
@@ -528,13 +537,13 @@
     
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
-    if(self.isNewAccount && indexPath.section == 4)
+    if(!self.account && indexPath.section == 4)
         return 0.0f;
     
-    if(!self.isNewAccount && indexPath.section == 4 && indexPath.row == 1 && !p_canDelete)
+    if(self.account && indexPath.section == 4 && indexPath.row == 1 && !p_canDelete)
         return 0.0f;
     
-    if(!self.isNewAccount && indexPath.section == 4 && indexPath.row == 0){
+    if(self.account && indexPath.section == 4 && indexPath.row == 0){
         YGCategory *currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
         if(!currency.active)
             return 0.0f;

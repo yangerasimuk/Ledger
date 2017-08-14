@@ -93,7 +93,7 @@ Dealloc of object. Remove all notifications.
     cellCategory.textLeft = [NSString stringWithFormat:@"%@%@", indent, row.name];
     
     if([self.sourceCategory isEqual:row.category]){
-        cellCategory.colorTextLeft = [UIColor greenColor];
+        cellCategory.colorTextLeft = [YGTools colorGreen];
     }
     else{
         cellCategory.colorTextLeft = [UIColor blackColor];

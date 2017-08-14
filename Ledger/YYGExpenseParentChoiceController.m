@@ -13,6 +13,7 @@
 #import "YYGCategorySection.h"
 #import "YYGCategoryRow.h"
 #import "YYGCategoryOneRowCell.h"
+#import "YGTools.h"
 
 @interface YYGExpenseParentChoiceController (){
     YGCategoryManager *p_manager;
@@ -101,10 +102,10 @@
         cellCategory.colorTextLeft = [UIColor blueColor];
     }
     else if([_expenseCategory isEqual:row.category]){
-        cellCategory.colorTextLeft = [UIColor redColor];
+        cellCategory.colorTextLeft = [YGTools colorRed];
     }
     else if(_sourceParentCategory && [_sourceParentCategory isEqual:row.category]){
-        cellCategory.colorTextLeft = [UIColor greenColor];
+        cellCategory.colorTextLeft = [YGTools colorGreen];
     }
     else
         cellCategory.colorTextLeft = [UIColor blackColor];

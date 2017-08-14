@@ -537,29 +537,45 @@
 
 
 + (UIColor *)colorForActionDeactivate {
+    
     return [UIColor colorWithRed:0/255.f green:122/255.f blue:255/255.f alpha:1.f];
 }
 
 
 + (UIColor *)colorForActionActivate {
+    
     return [UIColor colorWithRed:113/255.f green:211/255.f blue:49/255.f alpha:1.f];
 }
 
 + (UIColor *)colorForActionSaveAndAddNew {
+    
     return [UIColor colorWithRed:0/255.f green:122/255.f blue:255/255.f alpha:1.f];
 }
 
 + (UIColor *)colorForActionBackup {
+    
     return [UIColor colorWithRed:0/255.f green:122/255.f blue:255/255.f alpha:1.f];
 }
 
 + (UIColor *)colorForActionRestore {
+    
     return [UIColor colorWithRed:113/255.f green:211/255.f blue:49/255.f alpha:1.f];
 }
 
 
 + (UIColor *)colorForActionDelete{
+    
     return [UIColor colorWithRed:255/255.f green:95/255.f blue:119/255.f alpha:1.f];
+}
+
++ (UIColor *)colorRed {
+
+    return [UIColor colorWithRed:209/255.f green:47/255.f blue:27/255.f alpha:1.f];
+}
+
++ (UIColor *)colorGreen {
+    
+    return [UIColor colorWithRed:0/255.f green:132/255.f blue:0/255.f alpha:1.f];
 }
 
 

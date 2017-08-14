@@ -79,7 +79,7 @@
         self.buttonActivate.enabled = NO;
         self.buttonDelete.enabled = NO;
         
-        self.labelName.textColor = [UIColor redColor];
+        self.labelName.textColor = [YGTools colorRed];
         
         [self.textFieldName becomeFirstResponder];
     }
@@ -191,7 +191,7 @@
         _isNameChanged = YES;
     
     if([self.textFieldName.text isEqualToString:@""])
-        self.labelName.textColor = [UIColor redColor];
+        self.labelName.textColor = [YGTools colorRed];
     else
         self.labelName.textColor = [UIColor blackColor];
     
@@ -209,7 +209,7 @@
         _isSortChanged = YES;
     
     if([self.textFieldSort.text isEqualToString:@""])
-        self.labelSort.textColor = [UIColor redColor];
+        self.labelSort.textColor = [YGTools colorRed];
     else
         self.labelSort.textColor = [UIColor blackColor];
     
