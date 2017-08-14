@@ -298,8 +298,7 @@
     YGCurrencyChoiceController *vc = unwindSegue.sourceViewController;
     
     // set current currency
-    YGCategory *currency = vc.targetCurrency;
-    p_currency = [currency copy];
+    p_currency = [vc.targetCurrency copy];
     
     // update UI
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize]],NSForegroundColorAttributeName:[UIColor blackColor],};
@@ -322,18 +321,17 @@
     
     p_name = self.textFieldName.text;
     
-    if([_initNameValue isEqualToString:p_name])
-        _isNameChanged = NO;
-    else
-        _isNameChanged = YES;
-    
     if([self.textFieldName.text isEqualToString:@""])
         self.labelName.textColor = [YGTools colorRed];
     else
         self.labelName.textColor = [UIColor blackColor];
     
-    [self changeSaveButtonEnable];
-    
+    if([_initNameValue isEqualToString:p_name])
+        _isNameChanged = NO;
+    else{
+        _isNameChanged = YES;
+        [self changeSaveButtonEnable];
+    }
 }
 
 

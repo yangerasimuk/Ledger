@@ -362,7 +362,7 @@
 		132379DD1F136E7C0051325F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				13D9D8931F19FE1F001F46B1 /* Rows */,
+				13D9D8931F19FE1F001F46B1 /* Section & rows */,
 				138FDD8F1F192F68009C3D2D /* Cells */,
 				13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */,
 				13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */,
@@ -646,7 +646,7 @@
 			name = Config;
 			sourceTree = "<group>";
 		};
-		13D9D8931F19FE1F001F46B1 /* Rows */ = {
+		13D9D8931F19FE1F001F46B1 /* Section & rows */ = {
 			isa = PBXGroup;
 			children = (
 				13D9D8941F1A4773001F46B1 /* YYGCategorySection.h */,
@@ -654,7 +654,7 @@
 				13D9D8901F19FE17001F46B1 /* YYGCategoryRow.h */,
 				13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */,
 			);
-			name = Rows;
+			name = "Section & rows";
 			sourceTree = "<group>";
 		};
 		13E0D3131F229E6800B0C578 /* Data */ = {

@@ -26,6 +26,7 @@
     return self;
 }
 
+
 - (NSArray <YYGCategoryRow *>*)rowsFromCategories:(NSArray <YGCategory *>*)categories {
     
     NSArray *rows = nil;
@@ -67,6 +68,9 @@
     NSPredicate *rootPredicate = [NSPredicate predicateWithFormat:@"parentId < 1"];
     
     for(YGCategory *category in [categories filteredArrayUsingPredicate:rootPredicate]){
+        
+        //NSLog(@"root category: %@", category.name);
+        
         [self includeCategory:category fromCategories:categories toTreeRows:result];
     }
     
@@ -76,6 +80,8 @@
 
 - (void)includeCategory:(YGCategory *)category fromCategories:(NSArray <YGCategory *>*)categories toTreeRows:(NSMutableArray <YYGCategoryRow *>*)result {
     
+    //NSLog(@"includeCategory:fromCategories:toTreeRows:...");
+    
     static NSInteger nestedLevel;
     
     // check if category is root, to init nested level
@@ -84,6 +90,7 @@
     
     YYGCategoryRow *row = [[YYGCategoryRow alloc] initWithCategory:category nestedLevel:nestedLevel];
     [result addObject:row];
+    //NSLog(@"category: %@, nestedLevel: %ld, added as a row", category.name, nestedLevel);
     
     // check if category have child
     NSPredicate *hasChildPredicate = [NSPredicate predicateWithFormat:@"parentId = %ld", category.rowId];
@@ -91,12 +98,16 @@
     
     if([childCategories count] > 0){
         
+        //NSLog(@"category: %@ has a %ld childs", category.name, [childCategories count]);
+        
         nestedLevel += 1;
         
         for(YGCategory *childCategory in childCategories){
             
             [self includeCategory:childCategory fromCategories:categories toTreeRows:result];
         }
+        
+        nestedLevel -= 1;
     }
 }
 

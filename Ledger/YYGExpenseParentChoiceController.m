@@ -51,7 +51,7 @@
     // fill inner db
     p_manager = [YGCategoryManager sharedInstance];
 
-    p_section = [[YYGCategorySection alloc] initWithCategories:[p_manager categoriesByType:YGCategoryTypeExpense onlyActive:YES]];
+    p_section = [[YYGCategorySection alloc] initWithCategories:[p_manager categoriesByType:YGCategoryTypeExpense onlyActive:YES exceptCategory:self.expenseCategory]];
     
     NSDate *now = [NSDate date];
     
@@ -87,9 +87,11 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [p_section.rows count];
 }
+
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -109,6 +111,15 @@
     }
     else
         cellCategory.colorTextLeft = [UIColor blackColor];
+    
+    
+    if(self.sourceParentCategory.parentId == -1
+       && row.category.parentId != -1){
+        cellCategory.colorTextLeft = [YGTools colorRed];
+    }
+    
+    NSLog(@"name: %@, nestedLevel: %ld", row.category.name, row.nestedLevel);
+    
     
     NSString *indent = @"";
     for(NSInteger i = 0; i < row.nestedLevel; i++){

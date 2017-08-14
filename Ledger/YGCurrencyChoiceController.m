@@ -26,11 +26,11 @@
     YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
     if(self.sourceCurrency){
-        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency exceptForId:self.sourceCurrency.rowId];
+
         self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES exceptCategory:self.sourceCurrency];
     }
     else{
-        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
+
         self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES];
         
     }
@@ -47,11 +47,11 @@
     YGCategoryManager *manager = [YGCategoryManager sharedInstance];
     
     if(self.sourceCurrency){
-        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency exceptForId:self.sourceCurrency.rowId];
+
         self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES exceptCategory:self.sourceCurrency];
     }
     else{
-        //self.currencies = [manager listCategoriesByType:YGCategoryTypeCurrency];
+
         self.currencies = [manager categoriesByType:YGCategoryTypeCurrency onlyActive:YES];
         
     }
@@ -112,9 +112,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGCategory *currency = self.currencies[indexPath.row];
-    
-    self.targetCurrency = currency;
+    self.targetCurrency = self.currencies[indexPath.row];
     
     [self performSegueWithIdentifier:@"unwindToAccountEdit" sender:self];
 }
