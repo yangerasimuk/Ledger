@@ -116,6 +116,9 @@
 /* Title of Options form */
 "OPTIONS_VIEW_FORM_TITLE" = "Настройки";
 
+/* Parent expense category choice title */
+"PARENT_CHOICE_TITLE" = "Родительская статья";
+
 /* Name of Root category */
 "ROOT_CATEGORY_LABEL" = "Корневая статья";
 

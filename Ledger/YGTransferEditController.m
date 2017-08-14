@@ -519,16 +519,6 @@
 
 - (void)initUIForNewExpense {
     
-    // leave date
-    //_date;
-    
-    // leave account
-    //_account;
-    
-    // leave currency
-    // _currency;
-    
-    
     // init
     _initDateValue = [p_day copy];
     
@@ -614,18 +604,21 @@
         self.transfer.modified = now;
         
         [_om updateOperation:[self.transfer copy]];
-
-        [_em recalcSumOfAccount:_sourceAccount forOperation:self.transfer];
-        [_em recalcSumOfAccount:_targetAccount forOperation:self.transfer];
         
-        // recalc of old account
-        if(![_sourceAccount isEqual:_initSourceAccountValue] && _initSourceAccountValue)
-            [_em recalcSumOfAccount:[_initSourceAccountValue copy] forOperation:[self.transfer copy]];
-        
-        // recalc of old account
-        if(![_targetAccount isEqual:_initTargetAccountValue] && _initTargetAccountValue)
-            [_em recalcSumOfAccount:[_initTargetAccountValue copy] forOperation:[self.transfer copy]];
-
+        // need to recalc?
+        if(_isDateChanged || _isSourceAccountChanged || _isSourceSumChanged || _isTargetAccountChanged || _isTargetSumChanged){
+            
+            [_em recalcSumOfAccount:_sourceAccount forOperation:nil];
+            [_em recalcSumOfAccount:_targetAccount forOperation:nil];
+            
+            // recalc of old account
+            if(_isSourceAccountChanged)
+                [_em recalcSumOfAccount:[_initSourceAccountValue copy] forOperation:nil];
+            
+            // recalc of old account
+            if(_isTargetAccountChanged)
+                [_em recalcSumOfAccount:[_initTargetAccountValue copy] forOperation:nil];
+        }
     }
 }
 

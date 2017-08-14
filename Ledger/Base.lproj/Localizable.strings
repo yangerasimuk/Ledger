@@ -141,6 +141,9 @@
 /* Title of Options form */
 "OPTIONS_VIEW_FORM_TITLE" = "Options";
 
+/* Parent expense category choice title */
+"PARENT_CHOICE_TITLE" = "Parent category";
+
 /* Message with reason that applicatin must have at least one active category */
 "REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE" = "REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE";
 

@@ -224,7 +224,9 @@
     
     sqlite3 *db = [self database];
     
+#ifdef DEBUG
     NSLog(@"Path to db: %@", [YGSQLite databaseFullName]);
+#endif
 
     sqlite3_close(db);
     

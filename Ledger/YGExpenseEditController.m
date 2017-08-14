@@ -557,13 +557,18 @@
         
         [_om updateOperation:[self.expense copy]];
         
-        [_em recalcSumOfAccount:[_account copy] forOperation:[self.expense copy]];
-        
-        // recalc of old account
-        if(![_account isEqual:_initAccountValue] && _initAccountValue)
-            [_em recalcSumOfAccount:[_initAccountValue copy] forOperation:[self.expense copy]];
+        // need to recalc?
+        if(_isDateChanged || _isAccountChanged || _isSumChanged){
+            
+            [_em recalcSumOfAccount:[_account copy] forOperation:nil];
+            
+            // recalc of old account
+            if(_isAccountChanged)
+                [_em recalcSumOfAccount:[_initAccountValue copy] forOperation:nil];
+        }
     }
 }
+
 
 - (IBAction)buttonDeletePressed:(UIButton *)sender {
     

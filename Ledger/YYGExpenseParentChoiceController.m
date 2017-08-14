@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = NSLocalizedString(@"PARENT_CHOICE_TITLE", @"Parent expense category choice title");
+    
     // cell classes for one and two rows
     [self.tableView registerClass:[YYGCategoryOneRowCell class] forCellReuseIdentifier:kCategoryOneRowCellId];
     
@@ -111,15 +113,6 @@
     }
     else
         cellCategory.colorTextLeft = [UIColor blackColor];
-    
-    
-    if(self.sourceParentCategory.parentId == -1
-       && row.category.parentId != -1){
-        cellCategory.colorTextLeft = [YGTools colorRed];
-    }
-    
-    NSLog(@"name: %@, nestedLevel: %ld", row.category.name, row.nestedLevel);
-    
     
     NSString *indent = @"";
     for(NSInteger i = 0; i < row.nestedLevel; i++){

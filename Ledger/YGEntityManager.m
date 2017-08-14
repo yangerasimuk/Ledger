@@ -430,7 +430,10 @@
 
 
 #pragma mark - Working with Operations: reculc and check of exist operations for entity
-
+/**
+ @warning Parametr forOperation: works only for new operations, for edit operations must by nil;
+ 
+ */
 - (void)recalcSumOfAccount:(YGEntity *)account forOperation:(YGOperation *)operation {
     
     // check for entity type

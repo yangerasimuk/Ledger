@@ -97,7 +97,7 @@
     [YYGDBConfig setValue:@1 forKey:kDatabaseMajorVersionKey];
     [YYGDBConfig setValue:@0 forKey:kDatabaseMinorVersionKey];
     
-    NSLog(@"Database version: %@.%@", [YYGDBConfig valueForKey:kDatabaseMajorVersionKey], [YYGDBConfig valueForKey:kDatabaseMinorVersionKey]);
+    //NSLog(@"Database version: %@.%@", [YYGDBConfig valueForKey:kDatabaseMajorVersionKey], [YYGDBConfig valueForKey:kDatabaseMinorVersionKey]);
 }
 
 - (NSString *)lastOperation {
