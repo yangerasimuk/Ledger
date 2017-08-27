@@ -97,6 +97,10 @@
         p_isDefault = NO;
         
         p_comment = nil;
+        // имитируем placeholder у textView
+        self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        self.textViewComment.textColor = [UIColor lightGrayColor];
+        self.textViewComment.delegate = self;
         
         // hide button activate
         self.buttonActivate.enabled = NO;
@@ -140,8 +144,17 @@
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.account.sort];
         p_sort = self.account.sort;
         
-        self.textViewComment.text = self.account.comment;
         p_comment = self.account.comment;
+        // если комментария нет, то имитируем placeholder
+        if(p_comment && ![p_comment isEqualToString:@""]){
+            self.textViewComment.text = p_comment;
+            self.textViewComment.textColor = [UIColor blackColor];
+        }
+        else{
+            self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            self.textViewComment.textColor = [UIColor lightGrayColor];
+        }
+        self.textViewComment.delegate = self;
         
         p_currency = [_cm categoryById:self.account.currencyId type:YGCategoryTypeCurrency];
         self.labelCurrency.text = p_currency.name;
@@ -288,6 +301,36 @@
             return YES;
     }
     return NO;
+}
+
+
+#pragma mark - UITextViewDelegate for placeholder
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.")]){
+            textView.text = @"";
+            textView.textColor = [UIColor blackColor];
+        }
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(!textView.text || [textView.text isEqualToString:@""]){
+            textView.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            textView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    [textView resignFirstResponder];
 }
 
 

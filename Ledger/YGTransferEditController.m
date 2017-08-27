@@ -136,6 +136,12 @@
         self.labelSourceSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[YGTools colorRed]];
         self.labelTargetSum.attributedText = [YGTools attributedStringWithText:NSLocalizedString(@"SUM", @"Sum.") color:[YGTools colorRed]];
         
+        
+        // имитируем placeholder у textView
+        self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        self.textViewComment.textColor = [UIColor lightGrayColor];
+        self.textViewComment.delegate = self;
+        
         // init
         _initDateValue = [p_day copy];
         _initSourceAccountValue = nil;
@@ -196,7 +202,17 @@
         
         // set comment
         _comment = self.transfer.comment;
-        self.textViewComment.text = _comment;
+
+        // если комментария нет, то имитируем placeholder
+        if(_comment && ![_comment isEqualToString:@""]){
+            self.textViewComment.text = _comment;
+            self.textViewComment.textColor = [UIColor blackColor];
+        }
+        else{
+            self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            self.textViewComment.textColor = [UIColor lightGrayColor];
+        }
+        self.textViewComment.delegate = self;
         
         // init
         _initDateValue = [p_day copy];
@@ -270,6 +286,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - UITextFieldDelegate & UITextViewDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -281,6 +298,7 @@
         return NO;
 }
 
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if([textView isEqual:self.textViewComment]){
@@ -289,6 +307,35 @@
     else
         return NO;
 }
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.")]){
+            textView.text = @"";
+            textView.textColor = [UIColor blackColor];
+        }
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(!textView.text || [textView.text isEqualToString:@""]){
+            textView.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            textView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    [textView resignFirstResponder];
+}
+
 
 #pragma mark - Properties source and target sums setters
 

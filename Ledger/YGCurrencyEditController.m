@@ -49,7 +49,6 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
 
-
 @property (weak, nonatomic) IBOutlet UISwitch *currencyIsDefault;
 
 - (IBAction)textNameChanged:(id)sender;
@@ -87,6 +86,10 @@
         p_isDefault = NO;
         
         p_comment = nil;
+        // имитируем placeholder у textView
+        self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        self.textViewComment.textColor = [UIColor lightGrayColor];
+        self.textViewComment.delegate = self;
         
         self.buttonActivate.enabled = NO;
         self.buttonActivate.titleLabel.text = NSLocalizedString(@"DEACTIVATE_BUTTON_TITLE", @"Title of Deactivate button.");
@@ -112,8 +115,20 @@
         self.currencyIsDefault.on = self.currency.isAttach;
         p_isDefault = self.currency.isAttach;
         
-        self.textViewComment.text = self.currency.comment;
+        
         p_comment = self.currency.comment;
+        
+        // если комментария нет, то имитируем placeholder
+        if(p_comment && ![p_comment isEqualToString:@""]){
+            self.textViewComment.text = p_comment;
+            self.textViewComment.textColor = [UIColor blackColor];
+        }
+        else{
+            self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            self.textViewComment.textColor = [UIColor lightGrayColor];
+        }
+        self.textViewComment.delegate = self;
+        
         
         self.buttonActivate.enabled = YES;
         self.buttonDelete.enabled = YES;
@@ -206,6 +221,34 @@
     }
     else
         return NO;
+}
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.")]){
+            textView.text = @"";
+            textView.textColor = [UIColor blackColor];
+        }
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(!textView.text || [textView.text isEqualToString:@""]){
+            textView.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            textView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    [textView resignFirstResponder];
 }
 
 

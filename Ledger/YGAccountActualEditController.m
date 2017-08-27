@@ -117,6 +117,11 @@
         // set label sum red
         self.labelActualTitle.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum")] color:[YGTools colorRed]];
         
+        // имитируем placeholder у textView
+        self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        self.textViewComment.textColor = [UIColor lightGrayColor];
+        self.textViewComment.delegate = self;
+        
         // init
         _initAccountValue = nil;
         _initSumValue = 0.0f;
@@ -172,9 +177,19 @@
         
         // set comment
         _comment = self.accountActual.comment;
-        self.textViewComment.text = _comment;
-        self.textViewComment.textColor = [UIColor grayColor];
+        
+        // если комментария нет, то имитируем placeholder
+        if(_comment && ![_comment isEqualToString:@""]){
+            self.textViewComment.text = _comment;
+        }
+        else{
+            self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        }
+        self.textViewComment.textColor = [UIColor lightGrayColor];
         self.cellComment.userInteractionEnabled = NO;
+        
+        
+        
         
         // init
         _initAccountValue = [_account copy];
@@ -345,6 +360,8 @@
 }
 
 
+#pragma mark - UITextViewDelegate
+
 - (void)textViewDidChange:(UITextView *)textView {
     
     if([textView isEqual:self.textViewComment]){
@@ -358,6 +375,34 @@
         
         [self changeSaveButtonEnable];
     }
+}
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.")]){
+            textView.text = @"";
+            textView.textColor = [UIColor blackColor];
+        }
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(!textView.text || [textView.text isEqualToString:@""]){
+            textView.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            textView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    [textView resignFirstResponder];
 }
 
 

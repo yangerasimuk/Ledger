@@ -91,11 +91,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGTransferEditController.m"
-            timestampString = "523888098.586406"
+            timestampString = "525536698.613251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "-unwindFromSourceAccountChoiceToTransferEdit:"
             landmarkType = "7">
          </BreakpointContent>
@@ -251,11 +251,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGExpenseCategoryEditController.m"
-            timestampString = "524230801.020948"
+            timestampString = "525539577.29573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -395,11 +395,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGAccountEditController.m"
-            timestampString = "524318430.80444"
+            timestampString = "525541184.068476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "-setDefaultFontForControls"
             landmarkType = "7">
          </BreakpointContent>
@@ -411,11 +411,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "524330369.181106"
+            timestampString = "525536356.158125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "511"
-            endingLineNumber = "511"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "-saveExpense"
             landmarkType = "7">
          </BreakpointContent>
@@ -427,11 +427,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGAccountEditController.m"
-            timestampString = "524391994.697713"
+            timestampString = "525541184.068476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "570"
+            endingLineNumber = "570"
             landmarkName = "-prepareForSegue:sender:"
             landmarkType = "7">
          </BreakpointContent>
@@ -571,11 +571,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGAccountEditController.m"
-            timestampString = "524318430.80444"
+            timestampString = "525541184.068476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "-setDefaultFontForControls"
             landmarkType = "7">
             <Locations>
@@ -619,11 +619,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGAccountEditController.m"
-            timestampString = "524318430.80444"
+            timestampString = "525541184.068476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "-setDefaultFontForControls"
             landmarkType = "7">
          </BreakpointContent>
@@ -635,11 +635,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGAccountEditController.m"
-            timestampString = "524391994.697713"
+            timestampString = "525541184.068476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "-saveButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -715,11 +715,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGIncomeEditController.m"
-            timestampString = "524405629.217595"
+            timestampString = "525540081.850908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
             landmarkName = "-saveIncome"
             landmarkType = "7">
          </BreakpointContent>
@@ -730,13 +730,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGEntityManager.m"
-            timestampString = "524411405.135359"
+            filePath = "Ledger/YYGTextView.m"
+            timestampString = "525528889.479323"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
-            landmarkName = "-recalcSumOfAccount:forOperation:"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-initWithFrame:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ledger/YYGTextView.m"
+            timestampString = "525528891.695737"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "-init"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
