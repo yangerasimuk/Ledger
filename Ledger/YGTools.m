@@ -968,10 +968,7 @@
                                     attributes:attributes
                                        context:nil];
     
-    NSLog(@"Size of string '%@' is %f", string, rect.size.width);
-    
     return (NSInteger)rect.size.width;
-    
 }
 
 
