@@ -1,7 +1,7 @@
 /* Class = "UILabel"; text = "Sum:"; ObjectID = "0Ce-YM-T4K"; */
 "0Ce-YM-T4K.text" = "Сумма";
 
-/* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "0ZH-Dq-sCd"; */
+/* (No Commment) */
 "0ZH-Dq-sCd.headerTitle" = "Комментарий";
 
 /* Class = "UIButton"; normalTitle = "Activate"; ObjectID = "0gF-hk-tmS"; */
@@ -136,9 +136,6 @@
 /* Class = "UILabel"; text = "Name:"; ObjectID = "jLr-4l-kj2"; */
 "jLr-4l-kj2.text" = "Имя";
 
-/* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "jMd-Tv-km0"; */
-"jMd-Tv-km0.headerTitle" = "Комментарий";
-
 /* Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "jwF-uG-onl"; */
 "jwF-uG-onl.headerTitle" = "Архив базы данных";
 
@@ -160,9 +157,6 @@
 /* Class = "UILabel"; text = "Detail"; ObjectID = "nne-ao-GIN"; */
 "nne-ao-GIN.text" = "Детально";
 
-/* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "qUy-mO-nkl"; */
-"qUy-mO-nkl.headerTitle" = "Комментарий";
-
 /* Class = "UITableViewSection"; headerTitle = "Account balance"; ObjectID = "qXG-MO-dDu"; */
 "qXG-MO-dDu.headerTitle" = "Остаток по счёту";
 
@@ -178,9 +172,6 @@
 /* Class = "UITableViewSection"; headerTitle = "Income source -> Account"; ObjectID = "rhd-ec-LVu"; */
 "rhd-ec-LVu.headerTitle" = "Статья дохода -> Счет";
 
-/* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "rqV-Ak-SEU"; */
-"rqV-Ak-SEU.headerTitle" = "Комментарий";
-
 /* Class = "UILabel"; text = "Sum"; ObjectID = "sOM-RZ-eVp"; */
 "sOM-RZ-eVp.text" = "Сумма";
 
@@ -189,9 +180,6 @@
 
 /* (No Commment) */
 "tQR-Ct-lPa.text" = "Заметка";
-
-/* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "tnK-vn-4nT"; */
-"tnK-vn-4nT.headerTitle" = "Комментарий";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ubY-pY-RPP"; */
 "ubY-pY-RPP.text" = "Маркировка";

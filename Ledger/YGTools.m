@@ -483,51 +483,6 @@
     return screenWidth;
 }
 
-+ (NSInteger)lengthCharachtersForTableView {
-    
-    static NSInteger lenghtCharactersForTableView = 0;
-    
-    if(lenghtCharactersForTableView == 0){
-        
-        NSInteger width = [YGTools deviceScreenWidth];
-        
-        switch (width) {
-            case 320:
-                lenghtCharactersForTableView = 26;
-                break;
-            case 375:
-                lenghtCharactersForTableView = 28;
-                break;
-            case 414:
-                lenghtCharactersForTableView = 30;
-                break;
-            default:
-                lenghtCharactersForTableView = 27;
-                break;
-        }
-    }
-    
-    return lenghtCharactersForTableView;
-}
-
-+ (NSString *)stringContainString:(NSString *)string lengthMax:(NSInteger)lengthMax {
-    
-    if([string length] <= lengthMax)
-        return string;
-    else{
-        return [NSString stringWithFormat:@"%@...", [string substringToIndex:lengthMax]];
-    }
-}
-
-/*
-+ (void)sizeClassOfCurrentIPhone {
-    UIDevice *device = [UIDevice currentDevice];
-    
-    UIScreen *screen = [UIScreen mainScreen];
-    
-    //NSLog(@"%@", NSStringFromCGRect([screen nativeBounds]));
-}
- */
 
 #pragma mark - Default colors for actions
 
@@ -816,7 +771,7 @@
         return YES;
     
     // length of result string
-    if([resultString length] > 25)
+    if([resultString length] > 30)
         return NO;
         
     return YES;
@@ -995,6 +950,54 @@
 }
 
 
+#pragma mark - Get visible size of string
 
++ (NSInteger)widthForContentString:(NSString *)string {
+    
+    CGSize sizeMax = CGSizeMake(1000, 1000);
+    
+    NSStringDrawingOptions options = NSStringDrawingUsesFontLeading;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+    
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[self defaultFontSize]],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+    
+    CGRect rect = [string boundingRectWithSize:sizeMax
+                                       options:options
+                                    attributes:attributes
+                                       context:nil];
+    
+    NSLog(@"Size of string '%@' is %f", string, rect.size.width);
+    
+    return (NSInteger)rect.size.width;
+    
+}
+
+
+/**
+ Получаем строку, которая вмещается в заданную ширину.
+ 
+ @holdInWidth максимальная ширина, в которую необходимо вписать строку
+ 
+ @viewWidth Ширина View.
+ 
+ @return Итоговая строка, которая может вместиться в заданную ширину.
+ */
++ (NSString *)stringForContentString:(NSString *)string holdInWidth:(NSInteger)width {
+    
+    NSMutableString *resultString = [string mutableCopy];
+    
+    NSRange range = NSMakeRange([resultString length] - 1, 1);
+    
+    while([self widthForContentString:[NSString stringWithFormat:@"%@...", [resultString copy]]] > width){
+        
+        [resultString deleteCharactersInRange:range];
+        
+        range.location--;
+    }
+    
+    return [NSString stringWithFormat:@"%@...", [resultString copy]];
+}
 
 @end

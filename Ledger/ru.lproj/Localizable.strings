@@ -157,6 +157,9 @@
 /* Terms for adding operation Transfer */
 "TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE" = "Для добавления операции \"Перевод\" необходимо иметь хотя бы два активных Счета";
 
+/* Placeholder for all textView for comments. */
+"TEXT_VIEW_COMMENT_PLACEHOLDER" = "Комментарий";
+
 /* Today date */
 "TODAY" = "Сегодня";
 

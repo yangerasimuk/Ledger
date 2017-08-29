@@ -48,8 +48,6 @@
 + (CGFloat)defaultFontSize;
 
 + (NSInteger)deviceScreenWidth;
-+ (NSInteger)lengthCharachtersForTableView;
-+ (NSString *)stringContainString:(NSString *)string lengthMax:(NSInteger)lengthMax;
 
 + (UIColor *)colorForActionDisable;
 + (UIColor *)colorForActionDeactivate;
@@ -84,5 +82,7 @@
 
 + (NSString *)stringNilIfEmpty:(NSString *)string;
 
++ (NSInteger)widthForContentString:(NSString *)string;
++ (NSString *)stringForContentString:(NSString *)string holdInWidth:(NSInteger)width;
 
 @end

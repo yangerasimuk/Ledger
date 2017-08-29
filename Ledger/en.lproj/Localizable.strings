@@ -204,6 +204,9 @@
 /* Terms for adding operation Transfer */
 "TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE" = "To add an operation \"Transfer\" you must have at least two active Accounts";
 
+/* Placeholder for all textView for comments. */
+"TEXT_VIEW_COMMENT_PLACEHOLDER" = "Comment";
+
 /* Today date */
 "TODAY" = "Today";
 

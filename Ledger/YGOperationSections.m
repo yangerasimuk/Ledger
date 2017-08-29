@@ -18,6 +18,8 @@
 #import "YGTools.h"
 #import "YGConfig.h"
 
+static NSInteger const kWidthOfMarginIndents = 45;
+
 
 @interface YGOperationSections(){
     /// YGExpenses *_expenses;
@@ -31,13 +33,15 @@
     YGOperationManager *_om;
     YGConfig *_config;
     
+    NSInteger p_widthView;
+    
     BOOL p_hideDecimalFraction;
 }
 @end
 
 @implementation YGOperationSections
 
--(instancetype)initWithOperations:(NSArray <YGOperation *> *)operations{
+-(instancetype)initWithOperations:(NSArray <YGOperation *>*)operations forViewWidth:(NSInteger)widthView {
     if(self = [super init]){
         
         _cm = [YGCategoryManager sharedInstance];
@@ -47,7 +51,12 @@
         
         _operations = operations;
         
+        // width of view must be set befor calculate of strings
+        p_widthView = widthView;
+        
         _list = [[self sectionsFromOperations] mutableCopy];
+        
+        
         
     }
     return self;
@@ -156,58 +165,76 @@
         
         row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];
         
-        // crutch
-        NSInteger lengthMax = [YGTools lengthCharachtersForTableView] - [row.sourceSum length];
-        
         YGCategory *expenseCategory = [_cm categoryById:row.operation.targetId type:YGCategoryTypeExpense];
         
-        row.target = [YGTools stringContainString:expenseCategory.name lengthMax:lengthMax];
-
+        NSInteger widthSum = [YGTools widthForContentString:row.sourceSum];
+        NSInteger widthName = [YGTools widthForContentString:expenseCategory.name];
+        
+        if(widthName > (p_widthView - widthSum - kWidthOfMarginIndents))
+            row.target = [YGTools stringForContentString:expenseCategory.name holdInWidth:(p_widthView - widthSum - kWidthOfMarginIndents)];
+        else
+            row.target = expenseCategory.name;
+        
     }
     else if(row.operation.type == YGOperationTypeIncome){
         
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:@"+ %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
         
-        
-        // crutch
-        NSInteger lengthMax = [YGTools lengthCharachtersForTableView] - [row.targetSum length];
-        
         YGCategory *incomeSource = [_cm categoryById:row.operation.sourceId type:YGCategoryTypeIncome];
-        row.source = [YGTools stringContainString:incomeSource.name lengthMax:lengthMax];
+        
+        NSInteger widthSum = [YGTools widthForContentString:row.targetSum];
+        NSInteger widthName = [YGTools widthForContentString:incomeSource.name];
+        
+        if(widthName > (p_widthView - widthSum - kWidthOfMarginIndents))
+            row.source = [YGTools stringForContentString:incomeSource.name holdInWidth:(p_widthView - widthSum - kWidthOfMarginIndents)];
+        else
+            row.source = incomeSource.name;
     }
     else if(row.operation.type == YGOperationTypeAccountActual){
         
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:@"= %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
         
-        // crutch
-        NSInteger lengthMax = [YGTools lengthCharachtersForTableView] - [row.targetSum length];
-        
         YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
-        row.target = [YGTools stringContainString:targetAccount.name lengthMax:lengthMax];
+        
+        NSInteger widthSum = [YGTools widthForContentString:row.targetSum];
+        NSInteger widthName = [YGTools widthForContentString:targetAccount.name];
+        
+        if(widthName > (p_widthView - widthSum - kWidthOfMarginIndents))
+            row.target = [YGTools stringForContentString:targetAccount.name holdInWidth:(p_widthView - widthSum - kWidthOfMarginIndents)];
+        else
+            row.target = targetAccount.name;
     }
     else if(row.operation.type == YGOperationTypeTransfer){
         
+        // source
         YGCategory *sourceCurrency = [_cm categoryById:row.operation.sourceCurrencyId type:YGCategoryTypeCurrency];
-        row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];;
-        
-        // crutch
-        NSInteger lengthMaxSource = [YGTools lengthCharachtersForTableView] - [row.sourceSum length] + 1;
+        row.sourceSum = [NSString stringWithFormat:@"- %@ %@", [YGTools stringCurrencyFromDouble:row.operation.sourceSum hideDecimalFraction:p_hideDecimalFraction], [sourceCurrency shorterName]];
         
         YGEntity *sourceAccount = [_em entityById:row.operation.sourceId type:YGEntityTypeAccount];
-        row.source = [YGTools stringContainString:sourceAccount.name lengthMax:lengthMaxSource];
-
-        //
         
+        NSInteger widthSourceSum = [YGTools widthForContentString:row.sourceSum];
+        NSInteger widthSourceName = [YGTools widthForContentString:sourceAccount.name];
+        
+        if(widthSourceName > (p_widthView - widthSourceSum - kWidthOfMarginIndents))
+            row.source = [YGTools stringForContentString:sourceAccount.name holdInWidth:(p_widthView - widthSourceSum - kWidthOfMarginIndents)];
+        else
+            row.source = sourceAccount.name;
+
+        // target
         YGCategory *targetCurrency = [_cm categoryById:row.operation.targetCurrencyId type:YGCategoryTypeCurrency];
         row.targetSum = [NSString stringWithFormat:@"+ %@ %@", [YGTools stringCurrencyFromDouble:row.operation.targetSum hideDecimalFraction:p_hideDecimalFraction], [targetCurrency shorterName]];
         
-        // crutch
-        NSInteger lengthMaxTarget = [YGTools lengthCharachtersForTableView] - [row.targetSum length] + 1;
-        
         YGEntity *targetAccount = [_em entityById:row.operation.targetId type:YGEntityTypeAccount];
-        row.target = [YGTools stringContainString:targetAccount.name lengthMax:lengthMaxTarget];
+        
+        NSInteger widthTargetSum = [YGTools widthForContentString:row.sourceSum];
+        NSInteger widthTargetName = [YGTools widthForContentString:targetAccount.name];
+        
+        if(widthTargetName > (p_widthView - widthTargetSum - kWidthOfMarginIndents))
+            row.target = [YGTools stringForContentString:targetAccount.name holdInWidth:(p_widthView - widthTargetSum - kWidthOfMarginIndents)];
+        else
+            row.target = targetAccount.name;
     }
 }
 

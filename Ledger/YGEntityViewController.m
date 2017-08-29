@@ -15,6 +15,7 @@
 #import "YGTools.h"
 #import "YGConfig.h"
 
+static NSInteger const kWidthOfMarginIndents = 65;
 static NSString *const kEntityCellId = @"EntityCellId";
 
 @interface YGEntityViewController (){
@@ -269,10 +270,12 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     // define name of account, trancate if needed
     NSString *stringName = [entity.name copy];
-    NSInteger lengthNameMax = [YGTools lengthCharachtersForTableView] - [stringSumAndCurrency length];
     
-
-    stringName = [YGTools stringContainString:[entity.name copy] lengthMax:lengthNameMax-2];
+    NSInteger widthSum = [YGTools widthForContentString:stringSumAndCurrency];
+    NSInteger widthName = [YGTools widthForContentString:stringName];
+    
+    if(widthName > (self.view.bounds.size.width - widthSum - kWidthOfMarginIndents))
+        stringName = [YGTools stringForContentString:stringName holdInWidth:(self.view.bounds.size.width - widthSum - kWidthOfMarginIndents)];
     
     NSDictionary *nameAttributes = nil;
     if(!entity.active){

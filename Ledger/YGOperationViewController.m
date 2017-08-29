@@ -32,8 +32,6 @@
 #import "YGTools.h"
 #import "YGConfig.h"
 
-#define USE_MEMORY_CACHE
-
 static NSString *const kOperationOneRowCellId = @"OperationOneRowCellId";
 static NSString *const kOperationTwoRowCellId = @"OperationTwoRowCellId";
 static NSString *const kOperationExpenseCellId = @"OperationExpenseCellId";
@@ -42,6 +40,8 @@ static NSString *const kOperationAccountActualCellId = @"OperationAccountActualC
 static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
 @interface YGOperationViewController (){
+    
+    NSDate *p_dateDataLoaded;
     
     YGOperationSections *p_sections;
     
@@ -56,8 +56,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     YGOperationManager *_om;
     YGCategoryManager *_cm;
     YGEntityManager *_em;
-    
-    // BOOL _isPullRefreshToAddElement;
     
     UIRefreshControl *_refresh;
     
@@ -84,7 +82,6 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     
     self.navigationItem.title = NSLocalizedString(@"OPERATIONS_VIEW_FORM_TITLE", @"Title of Operations form");
     
-    
     // set heights of sections and rows
     _heightOneRowCell = [self heightOneRowCell];
     _heightTwoRowCell = [self heightTwoRowCell];
@@ -100,55 +97,73 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     [center addObserver:self
-               selector:@selector(reloadDataFromSectionsCache)
+               selector:@selector(reloadDataFromCache)
                    name:@"OperationManagerCacheUpdateEvent"
                  object:nil];
     
     [center addObserver:self
-               selector:@selector(reloadDataFromSectionsCache)
+               selector:@selector(reloadDataFromCache)
                    name:@"EntityManagerEntityWithOperationsUpdateEvent"
                  object:nil];
     
     [center addObserver:self
-               selector:@selector(reloadDataFromSectionsCache)
+               selector:@selector(reloadDataFromCache)
                    name:@"CategoryManagerCategoryWithObjectsUpdateEvent"
                  object:nil];
     
     [center addObserver:self
-               selector:@selector(buildSectionsCache)
+               selector:@selector(reloadDataFromCache)
                    name:@"HideDecimalFractionInListsChangedEvent"
                  object:nil];
     
+    // Выход из background/suspend'a
+    [center addObserver:self
+               selector:@selector(applicationDidBecomeActiveHandler)
+                   name:@"UIApplicationDidBecomeActiveNotification" object:nil];
+    
     // fill table from cache - p_sections;
-    [self reloadDataFromSectionsCache];
+    [self reloadDataFromCache];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
+
     [super viewDidAppear:animated];
-    
-    [self reloadDataFromSectionsCache];
 }
 
 /**
- Dealloc of object. Remove all notifications.
+ При переходе программы в активное состояние проверяем совпадает ли установленная при загрузке
+ контроллера дата с текущей, если нет получается наступил следующий день и необходимо заново
+ сгенерировать секции.
+ */
+- (void)applicationDidBecomeActiveHandler {
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    if(![calendar isDateInToday:p_dateDataLoaded])
+        [self reloadDataFromCache];
+}
+
+/**
+ Dealloc. Удаляем все подписки на извещения.
  */
 -(void)dealloc {
     
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self];
-}
-
-- (void)buildSectionsCache {
-    
-    p_sections = [[YGOperationSections alloc] initWithOperations:_om.operations];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
-
-- (void)reloadDataFromSectionsCache {
+- (void)reloadDataFromCache {
     
-    [self buildSectionsCache];
+    // для сравнения с текущей датой при выходе из background/suspend
+    p_dateDataLoaded = [NSDate date];
+    
+    p_sections = [[YGOperationSections alloc] initWithOperations:_om.operations forViewWidth:self.view.bounds.size.width];
     
     if(!p_sections || [p_sections.list count] == 0){
         
@@ -167,7 +182,7 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
         [self.tableView reloadData];
     }
     
-    [self updateUI];
+    //[self updateUI];
 }
 
 //- (void)pullRefreshSwipe:(UIRefreshControl *)refresh {
