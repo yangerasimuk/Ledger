@@ -146,7 +146,7 @@
         _initCommentValue = nil;
         
         // hide button delete
-        self.buttonDelete.enabled = NO;
+        //self.buttonDelete.enabled = NO;
         self.cellDelete.hidden = YES;
         
         // show button save and add new
