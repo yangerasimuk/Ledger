@@ -39,6 +39,8 @@ static NSString *const kOperationIncomeCellId = @"OperationIncomeCellId";
 static NSString *const kOperationAccountActualCellId = @"OperationAccountActualCellId";
 static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
 
+static NSInteger kTimeIntervalForCheckToday = 10;
+
 @interface YGOperationViewController (){
     
     NSDate *p_dateDataLoaded;
@@ -62,6 +64,8 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     CGFloat _heightSection;
     CGFloat _heightOneRowCell;
     CGFloat _heightTwoRowCell;
+    
+    NSTimer *p_timerToday;
 }
 
 @property (strong, nonatomic) UIView *noDataView;
@@ -125,19 +129,32 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
     [self reloadDataFromCache];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-}
-
 
 - (void)viewDidAppear:(BOOL)animated {
 
     [super viewDidAppear:animated];
+    
+    p_timerToday = [NSTimer timerWithTimeInterval:kTimeIntervalForCheckToday
+                                           target:self
+                                         selector:@selector(checkForToday)
+                                         userInfo:nil
+                                          repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:p_timerToday forMode:NSDefaultRunLoopMode];
 }
 
 /**
- При переходе программы в активное состояние проверяем совпадает ли установленная при загрузке
+ При уходе контроллера дезактивируем таймер.
+ */
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [p_timerToday invalidate];
+    p_timerToday = nil;
+}
+
+/**
+ При переходе программы в активное состояние, проверяем совпадает ли установленная при загрузке
  контроллера дата с текущей, если нет получается наступил следующий день и необходимо заново
  сгенерировать секции.
  */
@@ -154,7 +171,16 @@ static NSString *const kOperationTransferCellId = @"OperationTransferCellId";
  */
 -(void)dealloc {
     
+    // remove self as observer
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) checkForToday {
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    if(![calendar isDateInToday:p_dateDataLoaded])
+        [self reloadDataFromCache];
 }
 
 

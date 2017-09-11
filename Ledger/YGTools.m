@@ -952,8 +952,19 @@
 
 #pragma mark - Get visible size of string
 
+/**
+ Определение ширины в точках заданной строки на экране. 
+ 
+ @warning Подразумевается, что строка будет занимать одну строку, если нужно определить ширину параграфа смотри закомментированный код.
+ 
+ @string Строка для которой определяется её ширина на экране.
+ 
+ @return Ширина строки.
+ 
+ */
 + (NSInteger)widthForContentString:(NSString *)string {
     
+    /*
     CGSize sizeMax = CGSizeMake(1000, 1000);
     
     NSStringDrawingOptions options = NSStringDrawingUsesFontLeading;
@@ -967,17 +978,22 @@
                                        options:options
                                     attributes:attributes
                                        context:nil];
+     */
     
-    return (NSInteger)rect.size.width;
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[self defaultFontSize]]};
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+    
+    CGSize textSize = [attrString size];
+    
+    //return (NSInteger)rect.size.width;
+    return (NSInteger)textSize.width;
 }
 
 
 /**
  Получаем строку, которая вмещается в заданную ширину.
  
- @holdInWidth максимальная ширина, в которую необходимо вписать строку
- 
- @viewWidth Ширина View.
+ @holdInWidth максимальная ширина, в которую необходимо вписать строку.
  
  @return Итоговая строка, которая может вместиться в заданную ширину.
  */
@@ -987,6 +1003,8 @@
     
     NSRange range = NSMakeRange([resultString length] - 1, 1);
     
+    // расстояние целевой строки до максимальной границы определяется тремя точками
+    // если не вмещается, начинаем сокращать по одному символу
     while([self widthForContentString:[NSString stringWithFormat:@"%@...", [resultString copy]]] > width){
         
         [resultString deleteCharactersInRange:range];
