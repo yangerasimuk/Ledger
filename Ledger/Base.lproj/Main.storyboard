@@ -2448,7 +2448,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6No-5h-1D9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="Options" image="TabBarOption" selectedImage="TabBarOption" id="3E0-PB-02e"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="u3O-O6-9yY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="u3O-O6-9yY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2468,7 +2468,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hHn-sH-LxO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Operations" image="TabBarOperation" selectedImage="TabBarOperation" id="CGj-YP-beV"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FFw-lD-Ncs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="FFw-lD-Ncs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3029,7 +3029,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="buttonSaveAndAddNewPressed" destination="26z-eN-1BT" eventType="touchUpInside" id="fnW-fW-zPE"/>
+                                                        <action selector="buttonSaveAndAddNewPressed:" destination="26z-eN-1BT" eventType="touchUpInside" id="BjW-cR-qtT"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -3088,7 +3088,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wp6-P6-gyi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="Accounts" image="TabBarAccount" selectedImage="TabBarAccount" id="y5U-IU-gfB"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="zvu-rM-CyZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="zvu-rM-CyZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3110,7 +3110,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
-        <segue reference="eja-KG-Lzi"/>
-        <segue reference="mcF-KB-89Z"/>
+        <segue reference="RCi-9n-IWp"/>
+        <segue reference="jqm-Xp-GbA"/>
     </inferredMetricsTieBreakers>
 </document>
