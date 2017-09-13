@@ -65,11 +65,15 @@
     if(operations && ![_operations isEqual:operations]){
         
         _operations = [operations mutableCopy];
-        
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotificationName:@"OperationManagerCacheUpdateEvent"
-                              object:nil];
     }
+    else if(!operations){
+        _operations = nil;
+    }
+    
+    // Нужно извещать и в том случае, если операций нет, такое возможно при восстановлении из пусто бд
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                          object:nil];
 }
 
 

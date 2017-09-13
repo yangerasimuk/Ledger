@@ -189,49 +189,73 @@
 
 - (IBAction)buttonRestorePressed:(UIButton *)sender {
     
-    // start activity indicator
-    [self startActivityIndicatorWithColor:[YGTools colorForActionRestore]];
+    UIAlertController *warningController = [UIAlertController
+                                            alertControllerWithTitle:@"Предупреждение"
+                                            message:@"В процессе восстановления текущая база данных будет заменена на архивную. Подтвердите операцию."
+                                            preferredStyle:UIAlertControllerStyleAlert];
     
-    // begin ignoring user actions
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    // disable buttonRestore to prevent new user backup action
-    self.buttonRestore.enabled = NO;
-    self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
-    
-    self.buttonBackup.enabled = NO;
-    self.buttonBackup.backgroundColor = [YGTools colorForActionDisable];
-    
-    YGDBManager *dm = [YGDBManager sharedInstance];
-    YGStorageLocal *storage = [dm storageByType:YGStorageTypeLocal];
-    
-    NSArray <YGBackup *>*backups = [storage backups];
-    YGBackup *backup = [backups firstObject];
-    
-    [storage restoreDb:backup];
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:@"DatabaseRestoredEvent" object:nil];
-    
-    // make some delay for prevent new user actions
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // confirm action
+    UIAlertAction *confirmAction = [UIAlertAction
+                                    actionWithTitle:@"Выполнить"
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * _Nonnull action) {
         
-        // enable buttonRestore
-        self.buttonBackup.enabled = YES;
-        self.buttonBackup.backgroundColor = [YGTools colorForActionBackup];
+        // start activity indicator
+        [self startActivityIndicatorWithColor:[YGTools colorForActionRestore]];
         
-        self.buttonRestore.enabled = YES;
-        self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
+        // begin ignoring user actions
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
-        // update UI
-        [self loadBackupInfo];
+        // disable buttonRestore to prevent new user backup action
+        self.buttonRestore.enabled = NO;
+        self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
         
-        // end ignoring user actions
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        self.buttonBackup.enabled = NO;
+        self.buttonBackup.backgroundColor = [YGTools colorForActionDisable];
         
-        // end animation
-        [self stopActivityIndicator];
-    });
+        YGDBManager *dm = [YGDBManager sharedInstance];
+        YGStorageLocal *storage = [dm storageByType:YGStorageTypeLocal];
+        
+        NSArray <YGBackup *>*backups = [storage backups];
+        YGBackup *backup = [backups firstObject];
+        
+        [storage restoreDb:backup];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"DatabaseRestoredEvent" object:nil];
+        
+        // make some delay for prevent new user actions
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            // enable buttonRestore
+            self.buttonBackup.enabled = YES;
+            self.buttonBackup.backgroundColor = [YGTools colorForActionBackup];
+            
+            self.buttonRestore.enabled = YES;
+            self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
+            
+            // update UI
+            [self loadBackupInfo];
+            
+            // end ignoring user actions
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            
+            // end animation
+            [self stopActivityIndicator];
+        });
+    }];
+    [warningController addAction:confirmAction];
+    
+    // cancel action
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:@"Отменить"
+                                   style:UIAlertActionStyleCancel
+                                   handler:nil];
+    [warningController addAction:cancelAction];
+
+    
+    [self presentViewController:warningController animated:YES completion:nil];
 }
 
 
