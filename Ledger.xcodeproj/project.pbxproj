@@ -362,8 +362,6 @@
 		132379DD1F136E7C0051325F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				13D9D8931F19FE1F001F46B1 /* Section & rows */,
-				138FDD8F1F192F68009C3D2D /* Cells */,
 				13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */,
 				13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */,
 				13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */,
@@ -401,10 +399,7 @@
 				132379DA1F136E370051325F /* Sections & rows */,
 				13279DD01EF41CE800BA46AF /* Header & cells */,
 				132379DB1F136E620051325F /* Controllers */,
-				13279D561EEDD9A700BA46AF /* YGOperationManager.h */,
-				13279D571EEDD9A700BA46AF /* YGOperationManager.m */,
-				13279D4E1EED96F000BA46AF /* YGOperation.h */,
-				13279D4F1EED96F000BA46AF /* YGOperation.m */,
+				1374597F1F69B7B8006F2A0C /* Model */,
 			);
 			name = Operation;
 			sourceTree = "<group>";
@@ -412,11 +407,8 @@
 		13279D521EED990C00BA46AF /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				1374597E1F69B788006F2A0C /* Model */,
 				132379DC1F136E710051325F /* Controllers */,
-				13279D531EEDA27B00BA46AF /* YGEntityManager.h */,
-				13279D541EEDA27B00BA46AF /* YGEntityManager.m */,
-				13279D4B1EED949900BA46AF /* YGEntity.h */,
-				13279D4C1EED949900BA46AF /* YGEntity.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -559,22 +551,44 @@
 		134255871EEA9A8C00DBF934 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				137459801F69B7C4006F2A0C /* Model */,
+				13D9D8931F19FE1F001F46B1 /* View */,
 				132379DD1F136E7C0051325F /* Controllers */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		1374597E1F69B788006F2A0C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13279D531EEDA27B00BA46AF /* YGEntityManager.h */,
+				13279D541EEDA27B00BA46AF /* YGEntityManager.m */,
+				13279D4B1EED949900BA46AF /* YGEntity.h */,
+				13279D4C1EED949900BA46AF /* YGEntity.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1374597F1F69B7B8006F2A0C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13279D561EEDD9A700BA46AF /* YGOperationManager.h */,
+				13279D571EEDD9A700BA46AF /* YGOperationManager.m */,
+				13279D4E1EED96F000BA46AF /* YGOperation.h */,
+				13279D4F1EED96F000BA46AF /* YGOperation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		137459801F69B7C4006F2A0C /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				1330519A1EDEF09D0031044D /* YGCategoryManager.h */,
 				1330519B1EDEF09D0031044D /* YGCategoryManager.m */,
 				133051971EDEEFBC0031044D /* YGCategory.h */,
 				133051981EDEEFBC0031044D /* YGCategory.m */,
 			);
-			name = Category;
-			sourceTree = "<group>";
-		};
-		138FDD8F1F192F68009C3D2D /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */,
-				138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */,
-			);
-			name = Cells;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		139F7A911EFD0D1B00BD85AB /* DB */ = {
@@ -646,15 +660,17 @@
 			name = Config;
 			sourceTree = "<group>";
 		};
-		13D9D8931F19FE1F001F46B1 /* Section & rows */ = {
+		13D9D8931F19FE1F001F46B1 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				13D9D8941F1A4773001F46B1 /* YYGCategorySection.h */,
 				13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */,
 				13D9D8901F19FE17001F46B1 /* YYGCategoryRow.h */,
 				13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */,
+				138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */,
+				138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */,
 			);
-			name = "Section & rows";
+			name = View;
 			sourceTree = "<group>";
 		};
 		13E0D3131F229E6800B0C578 /* Data */ = {
