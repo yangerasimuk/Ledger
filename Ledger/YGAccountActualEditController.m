@@ -144,9 +144,11 @@
         self.buttonSaveAndAddNew.titleLabel.textColor = [UIColor whiteColor];
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
-        // focus on sum only for new element
+        // focus on sum only for new element        
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.textFieldTargetSum becomeFirstResponder];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         });
         
     }

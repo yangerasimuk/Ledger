@@ -60,15 +60,17 @@
 }
 
 
+/**
+ @warning Массиву нельзя присваивать nil, так как в этом случае нельзя будет добавлять объекты
+ */
 - (void)setOperations:(NSMutableArray<YGOperation *> *)operations {
     
     if(operations && ![_operations isEqual:operations]){
         
         _operations = [operations mutableCopy];
     }
-    else if(!operations){
-        _operations = nil;
-    }
+    else if(!operations && [_operations count] > 0)
+        [_operations removeAllObjects];
     
     // Нужно извещать и в том случае, если операций нет, такое возможно при восстановлении из пусто бд
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
