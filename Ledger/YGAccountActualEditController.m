@@ -13,6 +13,7 @@
 #import "YGEntityManager.h"
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGAccountActualEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
@@ -144,7 +145,9 @@
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
         // focus on sum only for new element
-        [self.textFieldTargetSum becomeFirstResponder];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.textFieldTargetSum becomeFirstResponder];
+        });
         
     }
     else{

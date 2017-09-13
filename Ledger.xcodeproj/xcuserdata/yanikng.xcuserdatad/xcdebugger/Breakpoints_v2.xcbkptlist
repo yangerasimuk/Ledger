@@ -91,11 +91,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGTransferEditController.m"
-            timestampString = "525536698.613251"
+            timestampString = "527014134.497089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "-unwindFromSourceAccountChoiceToTransferEdit:"
             landmarkType = "7">
          </BreakpointContent>
@@ -331,11 +331,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "525536356.158125"
+            timestampString = "527014134.497089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "549"
-            endingLineNumber = "549"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
             landmarkName = "-saveExpense"
             landmarkType = "7">
          </BreakpointContent>
@@ -554,22 +554,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Ledger/YGExpenseEditController.m"
-            timestampString = "524329560.56843"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Ledger/YYGExpenseParentChoiceController.m"
             timestampString = "524405552.918751"
             startingColumnNumber = "9223372036854775807"
@@ -603,11 +587,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGIncomeEditController.m"
-            timestampString = "526838742.88158"
+            timestampString = "527014134.497089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "545"
-            endingLineNumber = "545"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "-saveIncome"
             landmarkType = "7">
          </BreakpointContent>
@@ -663,7 +647,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGOperationManager.m"

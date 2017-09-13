@@ -34,3 +34,5 @@ int kDatabaseMajorVersion = 1;
 NSString *const kDatabaseMinorVersionKey = @"DatabaseMinorVersion";
 int kDatabaseMinorVersion = 0;
 
+int kKeyboardAppearanceDelay = 1;
+
