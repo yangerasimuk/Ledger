@@ -10,8 +10,6 @@
 #import "YGEntityManager.h"
 #import "YGCategoryManager.h"
 #import "YGAccountEditController.h"
-//#import "YGOperationCell.h"
-
 #import "YGTools.h"
 #import "YGConfig.h"
 
@@ -65,28 +63,26 @@ static NSString *const kEntityCellId = @"EntityCellId";
                    name:@"HideDecimalFractionInListsChangedEvent"
                  object:nil];
     
-    [self loadData];
-    
+    [self reloadDataFromCache];
 }
 
 - (void)reloadDataFromCache {
     
+    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
+    
     if(!_entities || [_entities count] == 0){
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //self.tableView.hidden = YES;
         self.tableView.userInteractionEnabled = NO;
         [self showNoDataView];
     }
     else{
         
         [self hideNoDataView];
-        //self.tableView.hidden = NO;
         self.tableView.userInteractionEnabled = YES;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        
+                
         [self.tableView reloadData];
-        
     }
 }
 
@@ -99,15 +95,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
     [self reloadDataFromCache];
 }
 
-- (void) loadData {
-    
-    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
-    
-    [self updateUI];
-    
-    [self reloadDataFromCache];
-    
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -126,16 +113,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
      */
 }
 
-- (void)updateUI {
-    /*
-    YGConfig *config = [YGTools config];
-    
-    if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"Y"])
-        _isHideDecimalFraction = YES;
-    else
-        _isHideDecimalFraction = NO;
-     */
-}
 
 /**
  Dealloc of object. Remove all notifications.
