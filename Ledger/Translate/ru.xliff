@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Ledger/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+    </header>
+    <body/>
+  </file>
+  <file original="Ledger/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+    </header>
+    <body>
+      <trans-unit id="0Ce-YM-T4K.text">
+        <source>Sum</source>
+        <target>Сумма</target>
+        <note>Class = "UILabel"; text = "Sum:"; ObjectID = "0Ce-YM-T4K";</note>
+      </trans-unit>
+      <trans-unit id="0ZH-Dq-sCd.headerTitle">
+        <source>Comment</source>
+        <target>Комментарий</target>
+      </trans-unit>
+      <trans-unit id="0gF-hk-tmS.normalTitle">
+        <source>Activate</source>
+        <target>Активировать</target>
+        <note>Class = "UIButton"; normalTitle = "Activate"; ObjectID = "0gF-hk-tmS";</note>
+      </trans-unit>
+      <trans-unit id="2Tz-cI-Dt5.text">
+        <source>Expense category</source>
+        <target>Статьи расходов</target>
+        <note>Class = "UILabel"; text = "Expense category"; ObjectID = "2Tz-cI-Dt5";</note>
+      </trans-unit>
+      <trans-unit id="3E0-PB-02e.title">
+        <source>Options</source>
+        <target>Настройки</target>
+        <note>Class = "UITabBarItem"; title = "Options"; ObjectID = "3E0-PB-02e";</note>
+      </trans-unit>
+      <trans-unit id="3Lo-ZJ-ryX.normalTitle">
+        <source>Activate</source>
+        <target>Активировать</target>
+        <note>Class = "UIButton"; normalTitle = "Activate"; ObjectID = "3Lo-ZJ-ryX";</note>
+      </trans-unit>
+      <trans-unit id="4aa-ky-kfG.normalTitle">
+        <source>Backup</source>
+        <target>Архивировать</target>
+        <note>Class = "UIButton"; normalTitle = "Backup"; ObjectID = "4aa-ky-kfG";</note>
+      </trans-unit>
+      <trans-unit id="4dq-Vd-GZW.text">
+        <source>Note</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="5V4-XZ-aUx.text">
+        <source>Sum</source>
+        <target>Сумма</target>
+        <note>Class = "UILabel"; text = "Sum:"; ObjectID = "5V4-XZ-aUx";</note>
+      </trans-unit>
+      <trans-unit id="8cR-XF-JcC.text">
+        <source>Currency</source>
+        <target>Валюты</target>
+        <note>Class = "UILabel"; text = "Currency"; ObjectID = "8cR-XF-JcC";</note>
+      </trans-unit>
+      <trans-unit id="582-cI-Djh.text">
+        <source>Hide centes</source>
+        <target>Скрыть копейки</target>
+        <note>Class = "UILabel"; text = "Hide decimal fraction"; ObjectID = "582-cI-Djh";</note>
+      </trans-unit>
+      <trans-unit id="A1Y-uA-dSE.text">
+        <source>Title</source>
+        <target>Заголовок</target>
+        <note>Class = "UILabel"; text = "Title"; ObjectID = "A1Y-uA-dSE";</note>
+      </trans-unit>
+      <trans-unit id="CGj-YP-beV.title">
+        <source>Operations</source>
+        <target>Операции</target>
+        <note>Class = "UITabBarItem"; title = "Operations"; ObjectID = "CGj-YP-beV";</note>
+      </trans-unit>
+      <trans-unit id="ELZ-BV-TMX.title">
+        <source>Options</source>
+        <target>Настройки</target>
+        <note>Class = "UINavigationItem"; title = "Options"; ObjectID = "ELZ-BV-TMX";</note>
+      </trans-unit>
+      <trans-unit id="FtB-0b-GR8.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "FtB-0b-GR8";</note>
+      </trans-unit>
+      <trans-unit id="Hj2-NW-R9M.text">
+        <source>Database size</source>
+        <target>Размер</target>
+        <note>Class = "UILabel"; text = "Database size:"; ObjectID = "Hj2-NW-R9M";</note>
+      </trans-unit>
+      <trans-unit id="I5X-So-yvY.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "I5X-So-yvY";</note>
+      </trans-unit>
+      <trans-unit id="IMc-Yg-RHK.headerTitle">
+        <source>Backup database</source>
+        <target>Архив базы данных</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "IMc-Yg-RHK";</note>
+      </trans-unit>
+      <trans-unit id="Ig5-ZJ-NpE.text">
+        <source>Root category</source>
+        <target>Корневая статья</target>
+        <note>Class = "UILabel"; text = "Root category"; ObjectID = "Ig5-ZJ-NpE";</note>
+      </trans-unit>
+      <trans-unit id="IqF-UX-hiA.text">
+        <source>Sort</source>
+        <target>Место</target>
+        <note>Class = "UILabel"; text = "Sort:"; ObjectID = "IqF-UX-hiA";</note>
+      </trans-unit>
+      <trans-unit id="K3s-mm-yHZ.text">
+        <source>Sort</source>
+        <target>Место</target>
+        <note>Class = "UILabel"; text = "Sort:"; ObjectID = "K3s-mm-yHZ";</note>
+      </trans-unit>
+      <trans-unit id="LVG-PO-bjz.normalTitle">
+        <source>Activate</source>
+        <target>Активировать</target>
+        <note>Class = "UIButton"; normalTitle = "Activate"; ObjectID = "LVG-PO-bjz";</note>
+      </trans-unit>
+      <trans-unit id="Lu8-d5-ZUG.text">
+        <source>Income source</source>
+        <target>Статьи доходов</target>
+        <note>Class = "UILabel"; text = "Income source"; ObjectID = "Lu8-d5-ZUG";</note>
+      </trans-unit>
+      <trans-unit id="MG1-g4-MIz.text">
+        <source>Name</source>
+        <target>Имя</target>
+        <note>Class = "UILabel"; text = "Name:"; ObjectID = "MG1-g4-MIz";</note>
+      </trans-unit>
+      <trans-unit id="MKh-dL-S2f.text">
+        <source>Name</source>
+        <target>Имя</target>
+        <note>Class = "UILabel"; text = "Name:"; ObjectID = "MKh-dL-S2f";</note>
+      </trans-unit>
+      <trans-unit id="MOz-Mo-JnQ.text">
+        <source>Sum</source>
+        <target>Сумма</target>
+        <note>Class = "UILabel"; text = "Sum:"; ObjectID = "MOz-Mo-JnQ";</note>
+      </trans-unit>
+      <trans-unit id="OIX-te-ela.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "OIX-te-ela";</note>
+      </trans-unit>
+      <trans-unit id="OrH-8A-Gf3.normalTitle">
+        <source>Activate</source>
+        <target>Активировать</target>
+        <note>Class = "UIButton"; normalTitle = "Activate"; ObjectID = "OrH-8A-Gf3";</note>
+      </trans-unit>
+      <trans-unit id="RUi-Oh-Gkt.text">
+        <source>Default currency</source>
+        <target>Валюта по-умолчанию</target>
+        <note>Class = "UILabel"; text = "Use as  default currency:"; ObjectID = "RUi-Oh-Gkt";</note>
+      </trans-unit>
+      <trans-unit id="Tua-6L-gws.text">
+        <source>About</source>
+        <target>О программе</target>
+        <note>Class = "UILabel"; text = "About"; ObjectID = "Tua-6L-gws";</note>
+      </trans-unit>
+      <trans-unit id="U4d-LV-RBQ.headerTitle">
+        <source>Parent category</source>
+        <target>Родительская статья</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Parent category"; ObjectID = "U4d-LV-RBQ";</note>
+      </trans-unit>
+      <trans-unit id="UiG-md-rzq.text">
+        <source>Name</source>
+        <target>Имя</target>
+        <note>Class = "UILabel"; text = "Name:"; ObjectID = "UiG-md-rzq";</note>
+      </trans-unit>
+      <trans-unit id="Z1u-C1-UaU.text">
+        <source>Note:</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="aGe-OB-9ej.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "aGe-OB-9ej";</note>
+      </trans-unit>
+      <trans-unit id="ba8-iE-S1T.headerTitle">
+        <source>Account -&gt; Expense category</source>
+        <target>Счет -&gt; Статья расхода</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Account -&gt; Expense category"; ObjectID = "ba8-iE-S1T";</note>
+      </trans-unit>
+      <trans-unit id="blz-hv-5Qg.normalTitle">
+        <source>Save &amp; add</source>
+        <target>Сохранить и добавить</target>
+        <note>Class = "UIButton"; normalTitle = "Save &amp; add"; ObjectID = "blz-hv-5Qg";</note>
+      </trans-unit>
+      <trans-unit id="doG-gw-5XT.text">
+        <source>Modified</source>
+        <target>Изменение</target>
+        <note>Class = "UILabel"; text = "Last operation:"; ObjectID = "doG-gw-5XT";</note>
+      </trans-unit>
+      <trans-unit id="e3u-1O-XUK.normalTitle">
+        <source>Save &amp; add</source>
+        <target>Сохранить и добавить</target>
+        <note>Class = "UIButton"; normalTitle = "Save &amp; add"; ObjectID = "e3u-1O-XUK";</note>
+      </trans-unit>
+      <trans-unit id="f2B-bq-zaU.text">
+        <source>Database size</source>
+        <target>Размер</target>
+        <note>Class = "UILabel"; text = "Database size:"; ObjectID = "f2B-bq-zaU";</note>
+      </trans-unit>
+      <trans-unit id="fOc-gt-H7Y.text">
+        <source>Symbol</source>
+        <target>Символ</target>
+        <note>Class = "UILabel"; text = "Symbol:"; ObjectID = "fOc-gt-H7Y";</note>
+      </trans-unit>
+      <trans-unit id="gGT-hP-Gwa.normalTitle">
+        <source>Save &amp; add</source>
+        <target>Сохранить и добавить</target>
+        <note>Class = "UIButton"; normalTitle = "Save &amp; add"; ObjectID = "gGT-hP-Gwa";</note>
+      </trans-unit>
+      <trans-unit id="hyQ-eX-vOL.text">
+        <source>Modified</source>
+        <target>Изменение</target>
+        <note>Class = "UILabel"; text = "Last operation:"; ObjectID = "hyQ-eX-vOL";</note>
+      </trans-unit>
+      <trans-unit id="iNZ-M9-Qa0.text">
+        <source>Pull refresh to add</source>
+        <target>Тянуть вниз для добавления</target>
+        <note>Class = "UILabel"; text = "Pull refresh to add new"; ObjectID = "iNZ-M9-Qa0";</note>
+      </trans-unit>
+      <trans-unit id="j6t-PF-xG5.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "j6t-PF-xG5";</note>
+      </trans-unit>
+      <trans-unit id="j64-eT-xWf.text">
+        <source>Label</source>
+        <target>Маркировка</target>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "j64-eT-xWf";</note>
+      </trans-unit>
+      <trans-unit id="jLr-4l-kj2.text">
+        <source>Name</source>
+        <target>Имя</target>
+        <note>Class = "UILabel"; text = "Name:"; ObjectID = "jLr-4l-kj2";</note>
+      </trans-unit>
+      <trans-unit id="jwF-uG-onl.headerTitle">
+        <source>Backup database</source>
+        <target>Архив базы данных</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "jwF-uG-onl";</note>
+      </trans-unit>
+      <trans-unit id="k27-dk-R6t.text">
+        <source>Note:</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="kzO-Sg-SYX.text">
+        <source>Note</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="lsa-R2-aaR.text">
+        <source>Backup date</source>
+        <target>Архивация</target>
+        <note>Class = "UILabel"; text = "Backup date:"; ObjectID = "lsa-R2-aaR";</note>
+      </trans-unit>
+      <trans-unit id="mEx-I8-Oey.text">
+        <source>Select currency</source>
+        <target>Выбрать валюту</target>
+        <note>Class = "UILabel"; text = "Select currency"; ObjectID = "mEx-I8-Oey";</note>
+      </trans-unit>
+      <trans-unit id="mLI-gX-7nw.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "mLI-gX-7nw";</note>
+      </trans-unit>
+      <trans-unit id="nne-ao-GIN.text">
+        <source>Detail</source>
+        <target>Детально</target>
+        <note>Class = "UILabel"; text = "Detail"; ObjectID = "nne-ao-GIN";</note>
+      </trans-unit>
+      <trans-unit id="qXG-MO-dDu.headerTitle">
+        <source>Account balance</source>
+        <target>Остаток по счёту</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Account balance"; ObjectID = "qXG-MO-dDu";</note>
+      </trans-unit>
+      <trans-unit id="qnU-qz-z6B.headerTitle">
+        <source>Dictionaries</source>
+        <target>Словари</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Dictionaries"; ObjectID = "qnU-qz-z6B";</note>
+      </trans-unit>
+      <trans-unit id="r8e-H2-feU.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "r8e-H2-feU";</note>
+      </trans-unit>
+      <trans-unit id="reu-q0-A6G.normalTitle">
+        <source>Save &amp; add</source>
+        <target>Сохранить и добавить</target>
+        <note>Class = "UIButton"; normalTitle = "Save &amp; add"; ObjectID = "reu-q0-A6G";</note>
+      </trans-unit>
+      <trans-unit id="rhd-ec-LVu.headerTitle">
+        <source>Income source -&gt; Account</source>
+        <target>Статья дохода -&gt; Счет</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Income source -&gt; Account"; ObjectID = "rhd-ec-LVu";</note>
+      </trans-unit>
+      <trans-unit id="sOM-RZ-eVp.text">
+        <source>Sum</source>
+        <target>Сумма</target>
+        <note>Class = "UILabel"; text = "Sum"; ObjectID = "sOM-RZ-eVp";</note>
+      </trans-unit>
+      <trans-unit id="ssl-Rq-TcW.normalTitle">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <note>Class = "UIButton"; normalTitle = "Delete"; ObjectID = "ssl-Rq-TcW";</note>
+      </trans-unit>
+      <trans-unit id="tQR-Ct-lPa.text">
+        <source>Note</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="ubY-pY-RPP.text">
+        <source>Label</source>
+        <target>Маркировка</target>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "ubY-pY-RPP";</note>
+      </trans-unit>
+      <trans-unit id="uoU-uD-lqt.text">
+        <source>Local backup</source>
+        <target>Локальный архив</target>
+        <note>Class = "UILabel"; text = "Local backup"; ObjectID = "uoU-uD-lqt";</note>
+      </trans-unit>
+      <trans-unit id="vc0-0a-yde.text">
+        <source>Sort</source>
+        <target>Место</target>
+        <note>Class = "UILabel"; text = "Sort:"; ObjectID = "vc0-0a-yde";</note>
+      </trans-unit>
+      <trans-unit id="wEL-gH-SXk.text">
+        <source>Sort</source>
+        <target>Место</target>
+        <note>Class = "UILabel"; text = "Sort:"; ObjectID = "wEL-gH-SXk";</note>
+      </trans-unit>
+      <trans-unit id="wIT-Ba-wd6.text">
+        <source>Label</source>
+        <target>Маркировка</target>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "wIT-Ba-wd6";</note>
+      </trans-unit>
+      <trans-unit id="x2x-wm-UEf.normalTitle">
+        <source>Restore</source>
+        <target>Восстановить</target>
+        <note>Class = "UIButton"; normalTitle = "Restore"; ObjectID = "x2x-wm-UEf";</note>
+      </trans-unit>
+      <trans-unit id="xAC-aS-7El.text">
+        <source>Sum</source>
+        <target>Сумма</target>
+        <note>Class = "UILabel"; text = "Sum:"; ObjectID = "xAC-aS-7El";</note>
+      </trans-unit>
+      <trans-unit id="xha-ew-rDC.text">
+        <source>Note</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="xjm-NA-HTs.text">
+        <source>Note</source>
+        <target>Заметка</target>
+      </trans-unit>
+      <trans-unit id="xuf-3g-dWX.headerTitle">
+        <source>Current database</source>
+        <target>Текущая база данных</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Current database"; ObjectID = "xuf-3g-dWX";</note>
+      </trans-unit>
+      <trans-unit id="y5U-IU-gfB.title">
+        <source>Accounts</source>
+        <target>Счета</target>
+        <note>Class = "UITabBarItem"; title = "Accounts"; ObjectID = "y5U-IU-gfB";</note>
+      </trans-unit>
+      <trans-unit id="z0y-Fm-Toj.text">
+        <source>Account as default</source>
+        <target>Счёт по-умолчанию</target>
+        <note>Class = "UILabel"; text = "Use account as default"; ObjectID = "z0y-Fm-Toj";</note>
+      </trans-unit>
+      <trans-unit id="zzB-6S-TEH.headerTitle">
+        <source>Source -&gt; target accounts</source>
+        <target>Начальный -&gt; Целевой счета</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Source -&gt; target accounts"; ObjectID = "zzB-6S-TEH";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Ledger/Info.plist" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>Ledger</source>
+        <target>Леджер test</target>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0.1</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Ledger/en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+    </header>
+    <body>
+      <trans-unit id="ABOUT_FORM_TITLE">
+        <source>About</source>
+        <target>О программе</target>
+        <note>Title of About form</note>
+      </trans-unit>
+      <trans-unit id="ACCOUNTS_VIEW_FORM_TITLE">
+        <source>Accounts</source>
+        <target>Счета</target>
+        <note>Title of Accounts form</note>
+      </trans-unit>
+      <trans-unit id="ACCOUNT_CHOICE_FORM_TITLE">
+        <source>Account choice</source>
+        <target>Выбор счёта</target>
+        <note>Title of Account choice form.</note>
+      </trans-unit>
+      <trans-unit id="ACCOUNT_EDIT_FORM_TITLE">
+        <source>Account</source>
+        <target>Счёт</target>
+        <note>Title of Account view/edit form.</note>
+      </trans-unit>
+      <trans-unit id="ACTIVATE_BUTTON_TITLE">
+        <source>Activate</source>
+        <target>Активировать</target>
+        <note>Activate for button title
+   Label of Activate button.
+   Title of Activate button.</note>
+      </trans-unit>
+      <trans-unit id="APPLICATION_AUTHOR">
+        <source>Yan Gerasimuk</source>
+        <target>Ян Герасимук</target>
+        <note>Author of application (Yan Gerasimuk)</note>
+      </trans-unit>
+      <trans-unit id="APPLICATION_NAME">
+        <source>Ledger</source>
+        <target>Леджер</target>
+        <note>Name of application (Ledger)</note>
+      </trans-unit>
+      <trans-unit id="APPLICATION_VERSION">
+        <source>Version</source>
+        <target>Версия</target>
+        <note>Version of application</note>
+      </trans-unit>
+      <trans-unit id="ATTENTION_ALERT_CONTROLLER_TITLE">
+        <source>Attention!</source>
+        <target>Внимание!</target>
+        <note>Attention title of alert controller</note>
+      </trans-unit>
+      <trans-unit id="BALANCE_ALERT_ITEM_TITLE">
+        <source>Account balance</source>
+        <target>Остаток по счёту</target>
+        <note>Balance</note>
+      </trans-unit>
+      <trans-unit id="BALANCE_EDIT_FORM_TITLE">
+        <source>Account balance</source>
+        <target>Остаток по счёту</target>
+        <note>Balance.</note>
+      </trans-unit>
+      <trans-unit id="CANCEL_ALERT_ITEM_TITLE">
+        <source>Cancel</source>
+        <target>Отмена</target>
+        <note>Cancel</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DEACTIVATE_ALERT_TITLE">
+        <source>CAN_NOT_DEACTIVATE_ALERT_TITLE</source>
+        <note>Title of alert Can not deactivate</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DEACTIVATE_BECOUSE_ALL_CHILD_CATEGORIES_MUST_BE_DEACTIVATED">
+        <source>CAN_NOT_DEACTIVATE_BECOUSE_ALL_CHILD_CATEGORIES_MUST_BE_DEACTIVATED</source>
+        <note>Message with reason that all child categories must be deactivated.</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CATEGORY_FOR_TYPE">
+        <source>CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CATEGORY_FOR_TYPE</source>
+        <note>Message with reason that applicatin must have at least one active category for type</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CURRENCY">
+        <source>CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CURRENCY</source>
+        <note>Message with reason that applicatin must have at least one active currency</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DELETE_ALERT_TITLE">
+        <source>CAN_NOT_DELETE_ALERT_TITLE</source>
+        <note>Title of alert Can not delete</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_CHILD_SUBCATEGORIES_MESSAGE">
+        <source>CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_CHILD_SUBCATEGORIES_MESSAGE</source>
+        <note>Message with reason that category has child subcategories and to delete the one must delete or split child ones.</note>
+      </trans-unit>
+      <trans-unit id="CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE">
+        <source>CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE</source>
+        <note>Message with reason that category has linked objects (operations, accounts, debts, etc.)
+   The currency has linked objects (operations, accounts, debts, etc.)</note>
+      </trans-unit>
+      <trans-unit id="CREDITORS_DEBTORS_VIEW_FORM_TITLE">
+        <source>CREDITORS_DEBTORS_VIEW_FORM_TITLE</source>
+        <note>Title of Creditor/debtor form
+   Title of Creditors/Debtors form.</note>
+      </trans-unit>
+      <trans-unit id="CREDITOR_DEBTOR_EDIT_FORM_TITLE">
+        <source>CREDITOR_DEBTOR_EDIT_FORM_TITLE</source>
+        <note>Title of Creditor/Debtor view/edit form.</note>
+      </trans-unit>
+      <trans-unit id="CURRENCIES_VIEW_FORM_TITLE">
+        <source>Currencies</source>
+        <target>Валюты</target>
+        <note>Title of Currencies form</note>
+      </trans-unit>
+      <trans-unit id="CURRENCY_CHOICE_FORM_TITLE">
+        <source>Currency choice</source>
+        <target>Выбор валюты</target>
+        <note>Title of Currency choice form.</note>
+      </trans-unit>
+      <trans-unit id="CURRENCY_EDIT_FORM_TITLE">
+        <source>Currency</source>
+        <target>Валюта</target>
+        <note>Title of currency view/edit form.</note>
+      </trans-unit>
+      <trans-unit id="CURRENCY_VIEW_FORM_TITLE">
+        <source>Currencies</source>
+        <target>Валюты</target>
+        <note>Title of currency form</note>
+      </trans-unit>
+      <trans-unit id="DATE_CHOICE_FORM_TITLE">
+        <source>Date choice</source>
+        <target>Выбор даты</target>
+        <note>Title of date choice form.</note>
+      </trans-unit>
+      <trans-unit id="DB_REPLACEMENT_WHEN_RESTORE_MESSAGE">
+        <source>DB_REPLACEMENT_WHEN_RESTORE_MESSAGE</source>
+        <target>В процессе восстановления текущая база данных будет заменена на архивную</target>
+        <note>В процессе восстановления текущая база данных будет заменена на архивную.</note>
+      </trans-unit>
+      <trans-unit id="DEACTIVATE_BUTTON_TITLE">
+        <source>Deactivate</source>
+        <target>Деактивировать</target>
+        <note>Deactivate for button title
+   Label of Deactivate button.
+   Title of Deactivate button.</note>
+      </trans-unit>
+      <trans-unit id="EXPENSE_ALERT_ITEM_TITLE">
+        <source>Expense</source>
+        <target>Расход</target>
+        <note>Expense</note>
+      </trans-unit>
+      <trans-unit id="EXPENSE_CATEGORIES_VIEW_FORM_TITLE">
+        <source>Expense categories</source>
+        <target>Статьи расходов</target>
+        <note>Title of Expense categories form.
+   Title of expense form</note>
+      </trans-unit>
+      <trans-unit id="EXPENSE_CATEGORY_CHOICE_FORM_TITLE">
+        <source>Expense category choice</source>
+        <target>Выбор статьи расхода</target>
+        <note>Title of Expense choice form.</note>
+      </trans-unit>
+      <trans-unit id="EXPENSE_CATEGORY_EDIT_FORM_TITLE">
+        <source>Expense category</source>
+        <target>Статья расхода</target>
+        <note>Title of Expense category view/edit form.</note>
+      </trans-unit>
+      <trans-unit id="EXPENSE_EDIT_FORM_TITLE">
+        <source>Expense</source>
+        <target>Расход</target>
+        <note>Title of expense edit form.</note>
+      </trans-unit>
+      <trans-unit id="INCOME_ALERT_ITEM_TITLE">
+        <source>Income</source>
+        <target>Доход</target>
+        <note>Income</note>
+      </trans-unit>
+      <trans-unit id="INCOME_EDIT_FORM_TITLE">
+        <source>Income</source>
+        <target>Доход</target>
+        <note>Title of Income operation.</note>
+      </trans-unit>
+      <trans-unit id="INCOME_SOURCES_VIEW_FORM_TITLE">
+        <source>Income sources</source>
+        <target>Статья дохода</target>
+        <note>Title of income form
+   Title of Income sources form.</note>
+      </trans-unit>
+      <trans-unit id="INCOME_SOURCE_CHOICE_FORM_TITLE">
+        <source>Income source choice</source>
+        <target>Выбор статьи дохода</target>
+        <note>Title of Income source choice form.</note>
+      </trans-unit>
+      <trans-unit id="INCOME_SOURCE_EDIT_FORM_TITLE">
+        <source>Income source</source>
+        <target>Статья дохода</target>
+        <note>Title of Income source form.</note>
+      </trans-unit>
+      <trans-unit id="LOCAL_BACKUP_FORM_TITLE">
+        <source>Local backup</source>
+        <target>Локальный архив</target>
+        <note>Title of Local backup form</note>
+      </trans-unit>
+      <trans-unit id="NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE">
+        <source>If account balance is not equal zero, set right value by "Account balance" operation in "Operations" section.</source>
+        <target>Если остаток по данному счету не равен нулю, установите актуальное значение операцией "Остаток по счёту" в разделе "Операции".</target>
+      </trans-unit>
+      <trans-unit id="NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE">
+        <source>Account balance</source>
+        <target>Остаток по счёту</target>
+      </trans-unit>
+      <trans-unit id="NO_ACCOUNTS_LABEL">
+        <source>No accounts</source>
+        <target>Нет счетов</target>
+        <note>No accounts in Accounts form.</note>
+      </trans-unit>
+      <trans-unit id="NO_OPERATIONS_LABEL">
+        <source>No operations</source>
+        <target>Нет операций</target>
+        <note>No operation text in Local backup form
+   No operations in Operations form.</note>
+      </trans-unit>
+      <trans-unit id="OK_ACTION_TITLE">
+        <source>OK</source>
+        <target>OK</target>
+      </trans-unit>
+      <trans-unit id="OPERATIONS_VIEW_FORM_TITLE">
+        <source>Operations</source>
+        <target>Операции</target>
+        <note>Title of Operations form</note>
+      </trans-unit>
+      <trans-unit id="OPERATION_CHOICE_ALERT_SHEET_TITLE">
+        <source>Select operation</source>
+        <target>Выбор операции</target>
+        <note>Usually: Choose operation</note>
+      </trans-unit>
+      <trans-unit id="OPTIONS_VIEW_FORM_TITLE">
+        <source>Options</source>
+        <target>Настройки</target>
+        <note>Title of Options form</note>
+      </trans-unit>
+      <trans-unit id="PARENT_CHOICE_TITLE">
+        <source>Parent category</source>
+        <target>Родительская статья</target>
+        <note>Parent expense category choice title</note>
+      </trans-unit>
+      <trans-unit id="REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE">
+        <source>REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE</source>
+        <note>Message with reason that applicatin must have at least one active category</note>
+      </trans-unit>
+      <trans-unit id="REASON_CAN_NOT_DELETE_ACCOUNT_WITH_LINKED_MESSAGE">
+        <source>REASON_CAN_NOT_DELETE_ACCOUNT_WITH_LINKED_MESSAGE</source>
+        <note>Message with reason that current account has linked objects and can not be deleted.</note>
+      </trans-unit>
+      <trans-unit id="REASON_CAN_NOT_DELETE_BECOUSE_ABSENT_ANOTHER_ACTIVE_CATEGORY_FOR_TYPE_MESSAGE">
+        <source>REASON_CAN_NOT_DELETE_BECOUSE_ABSENT_ANOTHER_ACTIVE_CATEGORY_FOR_TYPE_MESSAGE</source>
+        <note>Message with reason that category is only one active for type and another is not exists.</note>
+      </trans-unit>
+      <trans-unit id="REASON_CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE">
+        <source>REASON_CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE</source>
+        <note>Message with reason that category has linked objects (operations, accounts, debts, etc.)</note>
+      </trans-unit>
+      <trans-unit id="REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE">
+        <source>REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE</source>
+        <note>Message with reason that category is only one for type and can not be deleted.</note>
+      </trans-unit>
+      <trans-unit id="RESTORE_ALERT_ITEM_TITLE">
+        <source>RESTORE_ALERT_ITEM_TITLE</source>
+        <target>Восстановить</target>
+        <note>Restore</note>
+      </trans-unit>
+      <trans-unit id="ROOT_CATEGORY_LABEL">
+        <source>Root category</source>
+        <target>Корневая статья</target>
+        <note>Name of Root category</note>
+      </trans-unit>
+      <trans-unit id="ROOT_CATEGORY_NAME">
+        <source>Root Category</source>
+        <target>Корневая статья</target>
+        <note>Name of Root category</note>
+      </trans-unit>
+      <trans-unit id="SELECT_ACCOUNT_LABEL">
+        <source>Select account</source>
+        <target>Выбрать счёт</target>
+        <note>Select account
+   Select account.</note>
+      </trans-unit>
+      <trans-unit id="SELECT_CATEGORY_LABEL">
+        <source>Select expense</source>
+        <target>Выбрать статью расхода</target>
+        <note>Select category</note>
+      </trans-unit>
+      <trans-unit id="SELECT_CURRENCY_LABEL">
+        <source>Select currency</source>
+        <target>Выбрать валюту</target>
+        <note>Select currency text on label.</note>
+      </trans-unit>
+      <trans-unit id="SELECT_INCOME_SOURCE_LABEL">
+        <source>Select income</source>
+        <target>Выбрать статью дохода</target>
+        <note>Select source</note>
+      </trans-unit>
+      <trans-unit id="SUM">
+        <source>Sum</source>
+        <target>Сумма</target>
+        <note>Sum
+   Sum.</note>
+      </trans-unit>
+      <trans-unit id="TAGS_VIEW_FORM_TITLE">
+        <source>TAGS_VIEW_FORM_TITLE</source>
+        <note>Title of Tag form
+   Title of Tags form.</note>
+      </trans-unit>
+      <trans-unit id="TAG_EDIT_FORM_TITLE">
+        <source>TAG_EDIT_FORM_TITLE</source>
+        <target>Метка</target>
+        <note>Title of Tag edit form.</note>
+      </trans-unit>
+      <trans-unit id="TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE">
+        <source>To add an operation "Account balance" you must have at least one active Account</source>
+        <target>Для добавления операции "Остаток по счёту" необходимо иметь хотя бы один активный Счет</target>
+        <note>Terms for adding operation Account actual</note>
+      </trans-unit>
+      <trans-unit id="TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE">
+        <source>To add an operation "Expense", you must have at least one active Account and one active Expense category</source>
+        <target>Для добавления операции "Расход" необходимо иметь хотя бы один активный Счет и Категорию расхода</target>
+        <note>Terms for adding operation Expense</note>
+      </trans-unit>
+      <trans-unit id="TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE">
+        <source>To add an operation "Income" you must have at least one active Account and one active Income source</source>
+        <target>Для добавления операции "Доход" необходимо иметь хотя бы один активный Счет и Источник дохода</target>
+        <note>Terms for adding operation Income</note>
+      </trans-unit>
+      <trans-unit id="TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE">
+        <source>To add an operation "Transfer" you must have at least two active Accounts</source>
+        <target>Для добавления операции "Перевод" необходимо иметь хотя бы два активных Счета</target>
+        <note>Terms for adding operation Transfer</note>
+      </trans-unit>
+      <trans-unit id="TEXT_VIEW_COMMENT_PLACEHOLDER">
+        <source>Comment</source>
+        <target>Комментарий</target>
+        <note>Placeholder for all textView for comments.</note>
+      </trans-unit>
+      <trans-unit id="TODAY">
+        <source>Today</source>
+        <target>Сегодня</target>
+        <note>Today date</note>
+      </trans-unit>
+      <trans-unit id="TRANSFER_ALERT_ITEM_TITLE">
+        <source>Transfer</source>
+        <target>Перевод</target>
+        <note>Transfer</note>
+      </trans-unit>
+      <trans-unit id="TRANSFER_EDIT_FORM_TITLE">
+        <source>Transfer</source>
+        <target>Перевод</target>
+        <note>Title of transfor edit form.</note>
+      </trans-unit>
+      <trans-unit id="WARNING_ALERT_CONTROLLER_TITLE">
+        <source>WARNING_ALERT_CONTROLLER_TITLE</source>
+        <target>Предупреждение</target>
+        <note>Warning</note>
+      </trans-unit>
+      <trans-unit id="YESTERDAY">
+        <source>Yesterday</source>
+        <target>Вчера</target>
+        <note>Yesterday date</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="LedgerTests/Info.plist" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>Ledger</source>
+        <target>Леджер</target>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="LedgerUITests/Info.plist" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>Ledger</source>
+        <target>Леджер</target>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
