@@ -15,8 +15,6 @@
 #import <YGFileSystem.h>
 #import "YYGLedgerDefine.h"
 
-//static NSString *const kDateTimeFormat = @"yyyy-MM-dd HH:mm:ss Z";
-
 @interface YGBackupLocalViewController (){
     UIActivityIndicatorView *p_indicator;
     BOOL p_isBackupExist;
@@ -29,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelWorkDBSize;
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
-
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonBackup;
@@ -61,16 +58,19 @@
     [self loadBackupInfo];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self loadBackupInfo];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)loadBackupInfo {
     
@@ -125,6 +125,7 @@
     self.labelWorkDBSize.text = workDbFileSize;
 
 }
+
 
 #pragma mark - Update UI for show/hide backup secion
 
@@ -187,11 +188,12 @@
     });
 }
 
+
 - (IBAction)buttonRestorePressed:(UIButton *)sender {
     
     UIAlertController *warningController = [UIAlertController
-        alertControllerWithTitle:NSLocalizedString(@"Предупреждение", @"WARNING_ALERT_CONTROLLER_TITLE")
-        message:NSLocalizedString(@"DB_", @"В процессе восстановления текущая база данных будет заменена на архивную. Подтвердите операцию.")
+        alertControllerWithTitle:NSLocalizedString(@"WARNING_ALERT_CONTROLLER_TITLE", @"Warning")
+        message:NSLocalizedString(@"DB_REPLACEMENT_WHEN_RESTORE_MESSAGE", @"В процессе восстановления текущая база данных будет заменена на архивную.")
         preferredStyle:UIAlertControllerStyleAlert];
     
     
@@ -288,6 +290,7 @@
     return height;
 }
 
+
 /**
  @warning Set height in 0.0 is not work.
  */
@@ -301,7 +304,7 @@
 }
 
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     NSString *title = [super tableView:tableView titleForHeaderInSection:section];
     
@@ -341,6 +344,7 @@
     [p_indicator startAnimating];
 }
 
+
 - (void)stopActivityIndicator {
     
     [p_indicator stopAnimating];
@@ -348,6 +352,5 @@
     // needed?
     [p_indicator removeFromSuperview];
 }
-
 
 @end

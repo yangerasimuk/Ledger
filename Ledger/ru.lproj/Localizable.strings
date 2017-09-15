@@ -51,6 +51,9 @@
 /* Title of date choice form. */
 "DATE_CHOICE_FORM_TITLE" = "Выбор даты";
 
+/* В процессе восстановления текущая база данных будет заменена на архивную. */
+"DB_REPLACEMENT_WHEN_RESTORE_MESSAGE" = "В процессе восстановления текущая база данных будет заменена на архивную";
+
 /* Deactivate for button title
    Label of Deactivate button.
    Title of Deactivate button. */
@@ -119,6 +122,9 @@
 /* Parent expense category choice title */
 "PARENT_CHOICE_TITLE" = "Родительская статья";
 
+/* Restore */
+"RESTORE_ALERT_ITEM_TITLE" = "Восстановить";
+
 /* Name of Root category */
 "ROOT_CATEGORY_LABEL" = "Корневая статья";
 
@@ -168,6 +174,9 @@
 
 /* Title of transfor edit form. */
 "TRANSFER_EDIT_FORM_TITLE" = "Перевод";
+
+/* Warning */
+"WARNING_ALERT_CONTROLLER_TITLE" = "Предупреждение";
 
 /* Yesterday date */
 "YESTERDAY" = "Вчера";

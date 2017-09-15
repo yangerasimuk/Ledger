@@ -80,6 +80,9 @@
 /* Title of date choice form. */
 "DATE_CHOICE_FORM_TITLE" = "Date choice";
 
+/* В процессе восстановления текущая база данных будет заменена на архивную. */
+"DB_REPLACEMENT_WHEN_RESTORE_MESSAGE" = "Restore process will replace existing database with backup one";
+
 /* Deactivate for button title
    Label of Deactivate button.
    Title of Deactivate button. */
@@ -159,6 +162,9 @@
 /* Message with reason that category is only one for type and can not be deleted. */
 "REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE" = "REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE";
 
+/* Restore */
+"RESTORE_ALERT_ITEM_TITLE" = "Restore";
+
 /* Name of Root category */
 "ROOT_CATEGORY_LABEL" = "Root category";
 
@@ -212,6 +218,9 @@
 
 /* Title of transfor edit form. */
 "TRANSFER_EDIT_FORM_TITLE" = "Transfer";
+
+/* Warning */
+"WARNING_ALERT_CONTROLLER_TITLE" = "Warning";
 
 /* Yesterday date */
 "YESTERDAY" = "Yesterday";

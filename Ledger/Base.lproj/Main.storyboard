@@ -1701,6 +1701,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Delete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -3110,6 +3111,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
         <segue reference="eja-KG-Lzi"/>
-        <segue reference="Ou7-RZ-gc3"/>
+        <segue reference="mcF-KB-89Z"/>
     </inferredMetricsTieBreakers>
 </document>

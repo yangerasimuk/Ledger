@@ -24,7 +24,7 @@
         
         UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, width, height)];
         
-        headerLabel.backgroundColor = [UIColor colorWithRed:(float)235/255 green:(float)235/255 blue:(float)235/255 alpha:1.0f];
+        headerLabel.backgroundColor = [UIColor colorWithRed:(float)239/255 green:(float)239/255 blue:(float)244/255 alpha:1.0f];
         headerLabel.opaque = NO;
         headerLabel.textColor = [UIColor blackColor];
         headerLabel.font = [UIFont systemFontOfSize:[YGTools defaultFontSize]];
