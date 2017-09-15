@@ -32,3 +32,5 @@ extern int kDatabaseMajorVersion;
 extern NSString *const kDatabaseMinorVersionKey;
 extern int kDatabaseMinorVersion;
 
+extern float kKeyboardAppearanceDelay;
+

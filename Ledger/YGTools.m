@@ -483,51 +483,6 @@
     return screenWidth;
 }
 
-+ (NSInteger)lengthCharachtersForTableView {
-    
-    static NSInteger lenghtCharactersForTableView = 0;
-    
-    if(lenghtCharactersForTableView == 0){
-        
-        NSInteger width = [YGTools deviceScreenWidth];
-        
-        switch (width) {
-            case 320:
-                lenghtCharactersForTableView = 26;
-                break;
-            case 375:
-                lenghtCharactersForTableView = 28;
-                break;
-            case 414:
-                lenghtCharactersForTableView = 30;
-                break;
-            default:
-                lenghtCharactersForTableView = 27;
-                break;
-        }
-    }
-    
-    return lenghtCharactersForTableView;
-}
-
-+ (NSString *)stringContainString:(NSString *)string lengthMax:(NSInteger)lengthMax {
-    
-    if([string length] <= lengthMax)
-        return string;
-    else{
-        return [NSString stringWithFormat:@"%@...", [string substringToIndex:lengthMax]];
-    }
-}
-
-/*
-+ (void)sizeClassOfCurrentIPhone {
-    UIDevice *device = [UIDevice currentDevice];
-    
-    UIScreen *screen = [UIScreen mainScreen];
-    
-    //NSLog(@"%@", NSStringFromCGRect([screen nativeBounds]));
-}
- */
 
 #pragma mark - Default colors for actions
 
@@ -816,7 +771,7 @@
         return YES;
     
     // length of result string
-    if([resultString length] > 25)
+    if([resultString length] > 30)
         return NO;
         
     return YES;
@@ -994,5 +949,70 @@
         return string;
 }
 
+
+#pragma mark - Get visible size of string
+
+/**
+ Определение ширины в точках заданной строки на экране. 
+ 
+ @warning Подразумевается, что строка будет занимать одну строку, если нужно определить ширину параграфа смотри закомментированный код.
+ 
+ @string Строка для которой определяется её ширина на экране.
+ 
+ @return Ширина строки.
+ 
+ */
++ (NSInteger)widthForContentString:(NSString *)string {
+    
+    /*
+    CGSize sizeMax = CGSizeMake(1000, 1000);
+    
+    NSStringDrawingOptions options = NSStringDrawingUsesFontLeading;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+    
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[self defaultFontSize]],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+    
+    CGRect rect = [string boundingRectWithSize:sizeMax
+                                       options:options
+                                    attributes:attributes
+                                       context:nil];
+     */
+    
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:[self defaultFontSize]]};
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+    
+    CGSize textSize = [attrString size];
+    
+    //return (NSInteger)rect.size.width;
+    return (NSInteger)textSize.width;
+}
+
+
+/**
+ Получаем строку, которая вмещается в заданную ширину.
+ 
+ @holdInWidth максимальная ширина, в которую необходимо вписать строку.
+ 
+ @return Итоговая строка, которая может вместиться в заданную ширину.
+ */
++ (NSString *)stringForContentString:(NSString *)string holdInWidth:(NSInteger)width {
+    
+    NSMutableString *resultString = [string mutableCopy];
+    
+    NSRange range = NSMakeRange([resultString length] - 1, 1);
+    
+    // расстояние целевой строки до максимальной границы определяется тремя точками
+    // если не вмещается, начинаем сокращать по одному символу
+    while([self widthForContentString:[NSString stringWithFormat:@"%@...", [resultString copy]]] > width){
+        
+        [resultString deleteCharactersInRange:range];
+        
+        range.location--;
+    }
+    
+    return [NSString stringWithFormat:@"%@...", [resultString copy]];
+}
 
 @end

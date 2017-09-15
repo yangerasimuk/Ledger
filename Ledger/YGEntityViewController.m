@@ -10,11 +10,10 @@
 #import "YGEntityManager.h"
 #import "YGCategoryManager.h"
 #import "YGAccountEditController.h"
-//#import "YGOperationCell.h"
-
 #import "YGTools.h"
 #import "YGConfig.h"
 
+static NSInteger const kWidthOfMarginIndents = 65;
 static NSString *const kEntityCellId = @"EntityCellId";
 
 @interface YGEntityViewController (){
@@ -64,28 +63,26 @@ static NSString *const kEntityCellId = @"EntityCellId";
                    name:@"HideDecimalFractionInListsChangedEvent"
                  object:nil];
     
-    [self loadData];
-    
+    [self reloadDataFromCache];
 }
 
 - (void)reloadDataFromCache {
     
+    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
+    
     if(!_entities || [_entities count] == 0){
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //self.tableView.hidden = YES;
         self.tableView.userInteractionEnabled = NO;
         [self showNoDataView];
     }
     else{
         
         [self hideNoDataView];
-        //self.tableView.hidden = NO;
         self.tableView.userInteractionEnabled = YES;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        
+                
         [self.tableView reloadData];
-        
     }
 }
 
@@ -98,15 +95,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
     [self reloadDataFromCache];
 }
 
-- (void) loadData {
-    
-    self.entities = [_em.entities valueForKey:NSStringFromEntityType(_type)];
-    
-    [self updateUI];
-    
-    [self reloadDataFromCache];
-    
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -125,16 +113,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
      */
 }
 
-- (void)updateUI {
-    /*
-    YGConfig *config = [YGTools config];
-    
-    if([[config valueForKey:@"HideDecimalFraction"] isEqualToString:@"Y"])
-        _isHideDecimalFraction = YES;
-    else
-        _isHideDecimalFraction = NO;
-     */
-}
 
 /**
  Dealloc of object. Remove all notifications.
@@ -269,10 +247,12 @@ static NSString *const kEntityCellId = @"EntityCellId";
     
     // define name of account, trancate if needed
     NSString *stringName = [entity.name copy];
-    NSInteger lengthNameMax = [YGTools lengthCharachtersForTableView] - [stringSumAndCurrency length];
     
-
-    stringName = [YGTools stringContainString:[entity.name copy] lengthMax:lengthNameMax-2];
+    NSInteger widthSum = [YGTools widthForContentString:stringSumAndCurrency];
+    NSInteger widthName = [YGTools widthForContentString:stringName];
+    
+    if(widthName > (self.view.bounds.size.width - widthSum - kWidthOfMarginIndents))
+        stringName = [YGTools stringForContentString:stringName holdInWidth:(self.view.bounds.size.width - widthSum - kWidthOfMarginIndents)];
     
     NSDictionary *nameAttributes = nil;
     if(!entity.active){

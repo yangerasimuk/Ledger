@@ -12,8 +12,8 @@
 
 @interface YGOperationSections : NSObject
 
-@property (strong, nonatomic, readonly) NSMutableArray <YGOperationSection *> *list;
+@property (nonatomic, strong, readonly) NSMutableArray <YGOperationSection *> *list;
 
--(instancetype)initWithOperations:(NSArray <YGOperation *>*)operations;
+- (instancetype)initWithOperations:(NSArray <YGOperation *>*)operations forViewWidth:(NSInteger)widthView;
 
 @end

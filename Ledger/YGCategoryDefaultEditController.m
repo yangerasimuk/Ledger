@@ -9,6 +9,7 @@
 #import "YGCategoryDefaultEditController.h"
 #import "YGCategoryManager.h"
 #import "YGTools.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGCategoryDefaultEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
@@ -74,14 +75,26 @@
         p_name = nil;
         p_sort = 100;
         self.textFieldSort.text = @"100";
+        
+        
         p_comment = nil;
+        // имитируем placeholder у textView
+        self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        self.textViewComment.textColor = [UIColor lightGrayColor];
+        self.textViewComment.delegate = self;
+
         
         self.buttonActivate.enabled = NO;
         self.buttonDelete.enabled = NO;
         
         self.labelName.textColor = [YGTools colorRed];
         
-        [self.textFieldName becomeFirstResponder];
+        // focus
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.textFieldName becomeFirstResponder];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        });
     }
     else{
         
@@ -91,8 +104,19 @@
         self.textFieldSort.text = [NSString stringWithFormat:@"%ld", (long)self.category.sort];
         p_sort = self.category.sort;
         
-        self.textViewComment.text = self.category.comment;
         p_comment = self.category.comment;
+        
+        // если комментария нет, то имитируем placeholder
+        if(p_comment && ![p_comment isEqualToString:@""]){
+            self.textViewComment.text = p_comment;
+            self.textViewComment.textColor = [UIColor blackColor];
+        }
+        else{
+            self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            self.textViewComment.textColor = [UIColor lightGrayColor];
+        }
+        self.textViewComment.delegate = self;
+        
         
         self.buttonActivate.enabled = YES;
         self.buttonDelete.enabled = YES;
@@ -176,6 +200,34 @@
     }
     else
         return NO;
+}
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.")]){
+            textView.text = @"";
+            textView.textColor = [UIColor blackColor];
+        }
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(!textView.text || [textView.text isEqualToString:@""]){
+            textView.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            textView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    [textView resignFirstResponder];
 }
 
 

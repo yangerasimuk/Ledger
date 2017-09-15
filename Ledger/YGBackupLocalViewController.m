@@ -15,8 +15,6 @@
 #import <YGFileSystem.h>
 #import "YYGLedgerDefine.h"
 
-//static NSString *const kDateTimeFormat = @"yyyy-MM-dd HH:mm:ss Z";
-
 @interface YGBackupLocalViewController (){
     UIActivityIndicatorView *p_indicator;
     BOOL p_isBackupExist;
@@ -29,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelWorkDBSize;
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOfController;
-
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonsOfController;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonBackup;
@@ -61,16 +58,19 @@
     [self loadBackupInfo];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self loadBackupInfo];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)loadBackupInfo {
     
@@ -125,6 +125,7 @@
     self.labelWorkDBSize.text = workDbFileSize;
 
 }
+
 
 #pragma mark - Update UI for show/hide backup secion
 
@@ -187,51 +188,76 @@
     });
 }
 
+
 - (IBAction)buttonRestorePressed:(UIButton *)sender {
     
-    // start activity indicator
-    [self startActivityIndicatorWithColor:[YGTools colorForActionRestore]];
+    UIAlertController *warningController = [UIAlertController
+        alertControllerWithTitle:NSLocalizedString(@"WARNING_ALERT_CONTROLLER_TITLE", @"Warning")
+        message:NSLocalizedString(@"DB_REPLACEMENT_WHEN_RESTORE_MESSAGE", @"В процессе восстановления текущая база данных будет заменена на архивную.")
+        preferredStyle:UIAlertControllerStyleAlert];
     
-    // begin ignoring user actions
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    // disable buttonRestore to prevent new user backup action
-    self.buttonRestore.enabled = NO;
-    self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
-    
-    self.buttonBackup.enabled = NO;
-    self.buttonBackup.backgroundColor = [YGTools colorForActionDisable];
-    
-    YGDBManager *dm = [YGDBManager sharedInstance];
-    YGStorageLocal *storage = [dm storageByType:YGStorageTypeLocal];
-    
-    NSArray <YGBackup *>*backups = [storage backups];
-    YGBackup *backup = [backups firstObject];
-    
-    [storage restoreDb:backup];
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:@"DatabaseRestoredEvent" object:nil];
-    
-    // make some delay for prevent new user actions
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // confirm action
+    UIAlertAction *confirmAction = [UIAlertAction
+                                    actionWithTitle:NSLocalizedString(@"RESTORE_ALERT_ITEM_TITLE", @"Restore")
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * _Nonnull action) {
         
-        // enable buttonRestore
-        self.buttonBackup.enabled = YES;
-        self.buttonBackup.backgroundColor = [YGTools colorForActionBackup];
+        // start activity indicator
+        [self startActivityIndicatorWithColor:[YGTools colorForActionRestore]];
         
-        self.buttonRestore.enabled = YES;
-        self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
+        // begin ignoring user actions
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
-        // update UI
-        [self loadBackupInfo];
+        // disable buttonRestore to prevent new user backup action
+        self.buttonRestore.enabled = NO;
+        self.buttonRestore.backgroundColor = [YGTools colorForActionDisable];
         
-        // end ignoring user actions
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        self.buttonBackup.enabled = NO;
+        self.buttonBackup.backgroundColor = [YGTools colorForActionDisable];
         
-        // end animation
-        [self stopActivityIndicator];
-    });
+        YGDBManager *dm = [YGDBManager sharedInstance];
+        YGStorageLocal *storage = [dm storageByType:YGStorageTypeLocal];
+        
+        NSArray <YGBackup *>*backups = [storage backups];
+        YGBackup *backup = [backups firstObject];
+        
+        [storage restoreDb:backup];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"DatabaseRestoredEvent" object:nil];
+        
+        // make some delay for prevent new user actions
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            // enable buttonRestore
+            self.buttonBackup.enabled = YES;
+            self.buttonBackup.backgroundColor = [YGTools colorForActionBackup];
+            
+            self.buttonRestore.enabled = YES;
+            self.buttonRestore.backgroundColor = [YGTools colorForActionRestore];
+            
+            // update UI
+            [self loadBackupInfo];
+            
+            // end ignoring user actions
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            
+            // end animation
+            [self stopActivityIndicator];
+        });
+    }];
+    [warningController addAction:confirmAction];
+    
+    // cancel action
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"CANCEL_ALERT_ITEM_TITLE", @"Cancel")
+                                   style:UIAlertActionStyleCancel
+                                   handler:nil];
+    [warningController addAction:cancelAction];
+
+    
+    [self presentViewController:warningController animated:YES completion:nil];
 }
 
 
@@ -264,6 +290,7 @@
     return height;
 }
 
+
 /**
  @warning Set height in 0.0 is not work.
  */
@@ -277,7 +304,7 @@
 }
 
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     NSString *title = [super tableView:tableView titleForHeaderInSection:section];
     
@@ -317,6 +344,7 @@
     [p_indicator startAnimating];
 }
 
+
 - (void)stopActivityIndicator {
     
     [p_indicator stopAnimating];
@@ -324,6 +352,5 @@
     // needed?
     [p_indicator removeFromSuperview];
 }
-
 
 @end

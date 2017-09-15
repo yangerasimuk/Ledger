@@ -36,7 +36,7 @@
     NSString *documentDirectory = [YGTools documentsDirectoryPath];
     NSString *backupInfoFileName = [[documentDirectory stringByAppendingPathComponent:name] stringByAppendingString:@".xml"];
     
-    NSLog(@"file name: %@", backupInfoFileName);
+    //NSLog(@"file name: %@", backupInfoFileName);
     
     NSDictionary *backupInfoDic = nil;
     
@@ -48,7 +48,7 @@
     }
     
 
-    NSLog(@"backupXml: %@", backupInfoDic);
+    //NSLog(@"backupXml: %@", backupInfoDic);
     
     NSString *lastOperation = [backupInfoDic objectForKey:@"LastOperation"];
     NSString *backupDate = [backupInfoDic objectForKey:@"BackupDate"];

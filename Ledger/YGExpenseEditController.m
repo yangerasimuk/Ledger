@@ -15,6 +15,7 @@
 #import "YGEntityManager.h"
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGExpenseEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
@@ -137,6 +138,11 @@
         // set label sum red
         self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum.")] color:[YGTools colorRed]];
         
+        // имитируем placeholder у textView
+        self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+        self.textViewComment.textColor = [UIColor lightGrayColor];
+        self.textViewComment.delegate = self;
+        
         // init
         _initDateValue = [p_day copy];
         _initAccountValue = nil;
@@ -155,8 +161,11 @@
         self.buttonSaveAndAddNew.backgroundColor = [YGTools colorForActionDisable];
         
         // set focus on sum only for all modes
-        [self.textFieldSum becomeFirstResponder];
-
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.textFieldSum becomeFirstResponder];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        });
     }
     else{
         
@@ -203,13 +212,18 @@
         self.textFieldSum.text = [YGTools stringCurrencyFromDouble:self.expense.sourceSum];
         
         // set comment
-//        _comment = self.expense.comment;
-//        if(self.expense.comment)
-//            self.textFieldComment.text = _comment;
-        
         _comment = self.expense.comment;
-        if(_comment)
+
+        // если комментария нет, то имитируем placeholder
+        if(_comment && ![_comment isEqualToString:@""]){
             self.textViewComment.text = _comment;
+            self.textViewComment.textColor = [UIColor blackColor];
+        }
+        else{
+            self.textViewComment.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            self.textViewComment.textColor = [UIColor lightGrayColor];
+        }
+        self.textViewComment.delegate = self;
         
         
         // init
@@ -299,6 +313,34 @@
     }
     else
         return NO;
+}
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(textView.text && [textView.text isEqualToString:NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.")]){
+            textView.text = @"";
+            textView.textColor = [UIColor blackColor];
+        }
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    if([textView isEqual:self.textViewComment]){
+        
+        if(!textView.text || [textView.text isEqualToString:@""]){
+            textView.text = NSLocalizedString(@"TEXT_VIEW_COMMENT_PLACEHOLDER", @"Placeholder for all textView for comments.");
+            textView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    [textView resignFirstResponder];
 }
 
 
