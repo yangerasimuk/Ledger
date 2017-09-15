@@ -798,8 +798,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				138662991F34FE7F00800A11 /* Localizable.strings in Resources */,
-				133051031EDAE29D0031044D /* LaunchScreen.storyboard in Resources */,
 				138662841F3498E600800A11 /* InfoPlist.strings in Resources */,
+				133051031EDAE29D0031044D /* LaunchScreen.storyboard in Resources */,
 				133051001EDAE29D0031044D /* Assets.xcassets in Resources */,
 				133050FE1EDAE29D0031044D /* Main.storyboard in Resources */,
 			);
@@ -1050,7 +1050,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/include/YGFileSystem";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -1100,7 +1100,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos/include/YGConfig /Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos/include/YGFileSystem";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1113,10 +1113,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Ledger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGFileSystem-ayxaewihnqzpzjghxsyhrzwaslud/Build/Products/Release-iphoneos",
-					"/Users/yanikng/Library/Developer/Xcode/DerivedData/YGConfig-bjtebflibbamtldcudmvudoakine/Build/Products/Release-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yangerasimuk.Ledger-test";
 				PRODUCT_NAME = "Ledger-test";
 			};
