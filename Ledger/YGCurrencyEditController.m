@@ -9,6 +9,7 @@
 #import "YGCurrencyEditController.h"
 #import "YGCategoryManager.h"
 #import "YGTools.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGCurrencyEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
@@ -99,7 +100,13 @@
         self.labelName.textColor = [YGTools colorRed];
         self.labelSymbol.textColor = [YGTools colorRed];
         
-        [self.currencyName becomeFirstResponder];
+        
+        // focus
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.currencyName becomeFirstResponder];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        });
     }
     else{
 

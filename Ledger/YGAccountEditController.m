@@ -11,6 +11,8 @@
 #import "YGCategoryManager.h"
 #import "YGCurrencyChoiceController.h"
 #import "YGTools.h"
+#import "YYGLedgerDefine.h"
+
 
 @interface YGAccountEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
@@ -134,7 +136,11 @@
         }
         
         // focus
-        [self.textFieldName becomeFirstResponder];
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.textFieldName becomeFirstResponder];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        });
     }
     else{
         

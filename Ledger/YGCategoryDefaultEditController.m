@@ -9,6 +9,7 @@
 #import "YGCategoryDefaultEditController.h"
 #import "YGCategoryManager.h"
 #import "YGTools.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGCategoryDefaultEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
@@ -88,7 +89,12 @@
         
         self.labelName.textColor = [YGTools colorRed];
         
-        [self.textFieldName becomeFirstResponder];
+        // focus
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.textFieldName becomeFirstResponder];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        });
     }
     else{
         
