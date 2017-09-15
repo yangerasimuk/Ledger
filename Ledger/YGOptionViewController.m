@@ -13,6 +13,7 @@
 #import "YGTools.h"
 
 @interface YGOptionViewController ()
+
 @property (weak, nonatomic) IBOutlet UISwitch *switchHideDecimalFraction;
 @property (weak, nonatomic) IBOutlet UISwitch *switchPullRefreshAddElement;
 
@@ -42,16 +43,19 @@
     [self updateUI];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self updateUI];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)updateUI {
     YGConfig *config = [YGTools config];
@@ -65,7 +69,6 @@
         isPullRefreshToAddElement = YES;
     self.switchPullRefreshAddElement.on = isPullRefreshToAddElement;
 }
-
 
 
 #pragma mark - Navigation
@@ -112,6 +115,7 @@
     
 }
 
+
 - (IBAction)switchHideDecimalFractionValueChanged:(UISwitch *)sender {
     
     YGConfig *config = [YGTools config];
@@ -123,6 +127,7 @@
     [center postNotificationName:@"HideDecimalFractionInListsChangedEvent" object:nil];
 }
 
+
 - (IBAction)switchPullRefreshAddElementValueChanged:(UISwitch *)sender {
     
     YGConfig *config = [YGTools config];
@@ -133,9 +138,10 @@
         [config setValue:@"N" forKey:@"PullRefreshToAddElement"];
 }
 
+
 #pragma mark - UITableViewDelegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
@@ -143,6 +149,21 @@
         height = 0.0f;
     
     return height;
+}
+
+
+/**
+ Сообщение реализовано для более аккуратного выведения ячеек: без этого сообщения, если присутствуют скрытые ячейки выводится сокращенный разделитель (как между ячейками одного раздела). Это некрасиво.
+ */
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    switch(section){
+        case 0: return 3;
+        case 1: return 1;
+        case 2: return 1;
+        case 3: return 1;
+        default: return 0;
+    }
 }
 
 @end
