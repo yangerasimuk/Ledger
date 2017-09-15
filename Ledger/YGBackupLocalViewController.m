@@ -190,14 +190,14 @@
 - (IBAction)buttonRestorePressed:(UIButton *)sender {
     
     UIAlertController *warningController = [UIAlertController
-                                            alertControllerWithTitle:@"Предупреждение"
-                                            message:@"В процессе восстановления текущая база данных будет заменена на архивную. Подтвердите операцию."
-                                            preferredStyle:UIAlertControllerStyleAlert];
+        alertControllerWithTitle:NSLocalizedString(@"Предупреждение", @"WARNING_ALERT_CONTROLLER_TITLE")
+        message:NSLocalizedString(@"DB_", @"В процессе восстановления текущая база данных будет заменена на архивную. Подтвердите операцию.")
+        preferredStyle:UIAlertControllerStyleAlert];
     
     
     // confirm action
     UIAlertAction *confirmAction = [UIAlertAction
-                                    actionWithTitle:@"Выполнить"
+                                    actionWithTitle:NSLocalizedString(@"RESTORE_ALERT_ITEM_TITLE", @"Restore")
                                     style:UIAlertActionStyleDefault
                                     handler:^(UIAlertAction * _Nonnull action) {
         
@@ -249,7 +249,7 @@
     
     // cancel action
     UIAlertAction *cancelAction = [UIAlertAction
-                                   actionWithTitle:@"Отменить"
+                                   actionWithTitle:NSLocalizedString(@"CANCEL_ALERT_ITEM_TITLE", @"Cancel")
                                    style:UIAlertActionStyleCancel
                                    handler:nil];
     [warningController addAction:cancelAction];

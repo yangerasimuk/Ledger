@@ -1564,7 +1564,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2SC-if-AoQ">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1590,7 +1590,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OtN-ph-K8P">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1806,7 +1806,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEG-9l-7D1">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1835,7 +1835,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIZ-Wc-P1a">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1860,7 +1860,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8S-OU-Xsq">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2447,7 +2447,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6No-5h-1D9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="Options" image="TabBarOption" selectedImage="TabBarOption" id="3E0-PB-02e"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="u3O-O6-9yY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="u3O-O6-9yY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2467,7 +2467,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hHn-sH-LxO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Operations" image="TabBarOperation" selectedImage="TabBarOperation" id="CGj-YP-beV"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="FFw-lD-Ncs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FFw-lD-Ncs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2500,7 +2500,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7Q-p6-fkQ">
-                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2529,7 +2529,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCm-T6-SAj">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2605,7 +2605,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoI-2y-Upt">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2824,7 +2824,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-MQ-SDe">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2853,7 +2853,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIT-Ee-Dos">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2878,7 +2878,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13Q-qk-cgV">
-                                                    <rect key="frame" x="16" y="7" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="310" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3087,7 +3087,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wp6-P6-gyi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="Accounts" image="TabBarAccount" selectedImage="TabBarAccount" id="y5U-IU-gfB"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="zvu-rM-CyZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="zvu-rM-CyZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3110,6 +3110,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="JD3-8B-TTR"/>
         <segue reference="eja-KG-Lzi"/>
-        <segue reference="mcF-KB-89Z"/>
+        <segue reference="Ou7-RZ-gc3"/>
     </inferredMetricsTieBreakers>
 </document>
