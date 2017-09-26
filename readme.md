@@ -40,7 +40,7 @@
 Пожалуй, лучше помолчу ;)
 
 ## Вопросы?
-Моя электропочта: [mail@yangerasimuk.com], техподдержка: [Ledger on vk.com](https://vk.com/ledgerapp).
+Моя электропочта: (mail@yangerasimuk.com), техподдержка: [Ledger on vk.com](https://vk.com/ledgerapp).
 
 gl hf
 
