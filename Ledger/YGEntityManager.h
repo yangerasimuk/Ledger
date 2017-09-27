@@ -36,6 +36,7 @@
 - (void)recalcSumOfAccount:(YGEntity *)entity forOperation:(YGOperation *)operation;
 - (BOOL)isExistLinkedOperationsForEntity:(YGEntity *)entity;
 - (BOOL)isExistActiveEntityOfType:(YGEntityType)type;
+- (BOOL)isExistDuplicateOfEntity:(YGEntity *)entity;
 - (NSInteger)countOfActiveEntitiesOfType:(YGEntityType)type;
 
 @end

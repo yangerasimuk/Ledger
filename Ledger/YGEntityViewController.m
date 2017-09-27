@@ -24,7 +24,9 @@ static NSString *const kEntityCellId = @"EntityCellId";
     BOOL p_hideDecimalFraction;
 }
 
+// список Сущностей
 @property (strong, nonatomic) NSArray <YGEntity *> *entities;
+// вьюха для случая отсутствия данных
 @property (strong, nonatomic) UIView *noDataView;
 
 @end
@@ -165,6 +167,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     }
 }
 
+
 - (void)hideNoDataView {
     
     if(self.noDataView){
@@ -172,8 +175,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
         self.noDataView = nil;
     }
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

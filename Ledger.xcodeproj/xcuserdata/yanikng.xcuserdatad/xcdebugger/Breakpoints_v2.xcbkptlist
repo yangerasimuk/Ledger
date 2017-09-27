@@ -59,12 +59,12 @@
             condition = "i=4"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGDataTest.m"
-            timestampString = "523306505.927208"
+            timestampString = "528202508.922799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2987"
             endingLineNumber = "2987"
-            landmarkName = "recalcAllAccounts()"
+            landmarkName = "recalcAllAccounts"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -155,12 +155,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGDataTest.m"
-            timestampString = "523306505.927208"
+            timestampString = "528202508.92294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "addTestAccounts()"
+            landmarkName = "addTestAccounts"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -171,12 +171,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YYGDataTest.m"
-            timestampString = "523306505.927208"
+            timestampString = "528202508.922988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
             endingLineNumber = "103"
-            landmarkName = "addTestAccounts()"
+            landmarkName = "addTestAccounts"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -299,7 +299,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "524235411.10162"
+            timestampString = "528204284.398243"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "249"
@@ -321,22 +321,6 @@
             startingLineNumber = "277"
             endingLineNumber = "277"
             landmarkName = "-addRecord:insertSQL:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledger/YGAccountEditController.m"
-            timestampString = "527168463.098947"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "483"
-            endingLineNumber = "483"
-            landmarkName = "-saveButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -507,7 +491,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledger/YGEntityManager.m"
-            timestampString = "527019316.660794"
+            timestampString = "528204284.398501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"

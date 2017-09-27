@@ -553,6 +553,27 @@
 }
 
 
+- (BOOL)isExistDuplicateOfEntity:(YGEntity *)entity {
+    
+    NSArray *entitiesOfType = [self entitiesByType:entity.type];
+    
+    NSPredicate *duplicatePredicate;
+    if(entity.rowId == -1){
+        duplicatePredicate = [NSPredicate predicateWithFormat:@"type = %ld AND name = %@ AND currencyId = %ld", entity.type, entity.name, entity.currencyId];
+    }
+    else{
+        duplicatePredicate = [NSPredicate predicateWithFormat:@"type = %ld AND name = %@ AND currencyId = %ld AND rowId = %ld", entity.type, entity.name, entity.currencyId, entity.rowId];
+    }
+    
+    NSArray *duplicateEntities = [entitiesOfType filteredArrayUsingPredicate:duplicatePredicate];
+    
+    if([duplicateEntities count] > 0)
+        return YES;
+    else
+        return NO;
+}
+
+
 - (NSInteger)countOfActiveEntitiesOfType:(YGEntityType)type {
     
     NSArray *entitiesOfType = [self entitiesByType:type];

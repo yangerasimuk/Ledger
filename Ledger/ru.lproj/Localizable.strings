@@ -7,6 +7,9 @@
 /* Title of Account choice form. */
 "ACCOUNT_CHOICE_FORM_TITLE" = "Выбор счёта";
 
+/* Message in warning in saving duplicated account */
+"ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE" = "Нельзя добавлять дубликат уже существующего счёта, для продолжения измените имя счёта и/или валюту счёта.";
+
 /* Title of Account view/edit form. */
 "ACCOUNT_EDIT_FORM_TITLE" = "Счёт";
 
@@ -94,10 +97,10 @@
 /* Title of Local backup form */
 "LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
 
-/* (No Commment) */
+/* (No Comment) */
 "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "Если остаток по данному счету не равен нулю, установите актуальное значение операцией \"Остаток по счёту\" в разделе \"Операции\".";
 
-/* (No Commment) */
+/* (No Comment) */
 "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Остаток по счёту";
 
 /* No accounts in Accounts form. */
@@ -107,7 +110,7 @@
    No operations in Operations form. */
 "NO_OPERATIONS_LABEL" = "Нет операций";
 
-/* (No Commment) */
+/* (No Comment) */
 "OK_ACTION_TITLE" = "OK";
 
 /* Title of Operations form */
