@@ -13,7 +13,6 @@
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
 
-
 @interface YGAccountEditController () <UITextFieldDelegate, UITextViewDelegate> {
     
     NSString *p_name;
@@ -22,12 +21,14 @@
     YGCategory *p_currency;
     BOOL p_isDefault;
     
+    // флаги фиксации изменения значений формы
     BOOL _isNameChanged;
     BOOL _isSortChanged;
     BOOL _isCommentChanged;
     BOOL _isCurrencyChanged;
     BOOL _isDefaultChanged;
-    
+
+    // первоначальные значения формы, с ними будет идти сравнение для активации кнопки сохранения
     NSString *_initNameValue;
     NSInteger _initSortValue;
     NSString *_initCommentValue;
@@ -83,6 +84,7 @@
     
     self.navigationItem.title = NSLocalizedString(@"ACCOUNT_EDIT_FORM_TITLE", @"Title of Account view/edit form.");
     
+    // разделение на работу с новым или уже существующим счетом
     if(!self.account){
         
         self.account = nil;
@@ -115,8 +117,8 @@
         YGCategory *currency = [_cm categoryAttachedForType:YGCategoryTypeCurrency];
         
         if(currency){
-            p_currency = currency;
             
+            p_currency = currency;
             self.labelCurrency.text = p_currency.name;
         }
         
@@ -131,11 +133,12 @@
         }
         
         if(!currency){
+            
             self.labelCurrency.text = NSLocalizedString(@"SELECT_CURRENCY_LABEL", @"Select currency text on label.");
             self.labelCurrency.textColor = [YGTools colorRed];
         }
         
-        // focus
+        // фокус на поле ввода суммы с небольшой задержкой, чтобы клавиатура появлялась более плавно
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kKeyboardAppearanceDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.textFieldName becomeFirstResponder];
@@ -310,6 +313,19 @@
 }
 
 
+#pragma mark - Warnings
+
+- (void)showWarningOfSaveDuplicateAccount {
+    
+    UIAlertController *warningController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE", @"Message in warning in saving duplicated account") preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    
+    [warningController addAction:okAction];
+    [self presentViewController:warningController animated:YES completion:nil];
+}
+
+
 #pragma mark - UITextViewDelegate for placeholder
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
@@ -480,6 +496,7 @@
 
 - (void)saveButtonPressed {
     
+    // удаляем пробелы, окружающие строки
     p_name = [p_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     p_comment = [p_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
@@ -497,11 +514,25 @@
                              sort:p_sort
                              comment:p_comment
                              ];
+    
+        // проверка на попытку сохранения дублирующего счета, т.е. счета с разным id, но одинаковыми названием и id валюты
+        if([_em isExistDuplicateOfEntity:account]){
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            [self showWarningOfSaveDuplicateAccount];
+            return;
+        }
         
         [_em addEntity:[account copy]];
     }
     else{
         
+        // проверка на попытку сохранения дублирующего счета, т.е. счета с разным id, но одинаковыми названием и id валюты
+        if([_em isExistDuplicateOfEntity:self.account]){
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            [self showWarningOfSaveDuplicateAccount];
+            return;
+        }
+
         if(_isNameChanged)
             self.account.name = p_name;
         if(_isSortChanged)

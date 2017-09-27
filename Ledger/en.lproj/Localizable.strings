@@ -7,6 +7,9 @@
 /* Title of Account choice form. */
 "ACCOUNT_CHOICE_FORM_TITLE" = "Account choice";
 
+/* Message in warning in saving duplicated account */
+"ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE" = "Can't add duplicate of existing account, for continue change name of account or/and currency of account";
+
 /* Title of Account view/edit form. */
 "ACCOUNT_EDIT_FORM_TITLE" = "Account";
 

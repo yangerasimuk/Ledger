@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Ledger/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="ru">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.0" build-num="9A235"/>
     </header>
     <body/>
   </file>
   <file original="Ledger/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="ru">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.0" build-num="9A235"/>
     </header>
     <body>
       <trans-unit id="0Ce-YM-T4K.text">
@@ -377,21 +377,18 @@
   </file>
   <file original="Ledger/Info.plist" source-language="en" datatype="plaintext" target-language="ru">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.0" build-num="9A235"/>
     </header>
     <body>
       <trans-unit id="CFBundleName">
-        <source>Ledger</source>
-        <target>Леджер test</target>
-      </trans-unit>
-      <trans-unit id="CFBundleShortVersionString">
-        <source>1.0.1</source>
+        <source>Ledger test</source>
+        <target>Леджер тест</target>
       </trans-unit>
     </body>
   </file>
   <file original="Ledger/en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="ru">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.0" build-num="9A235"/>
     </header>
     <body>
       <trans-unit id="ABOUT_FORM_TITLE">
@@ -408,6 +405,11 @@
         <source>Account choice</source>
         <target>Выбор счёта</target>
         <note>Title of Account choice form.</note>
+      </trans-unit>
+      <trans-unit id="ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE">
+        <source>ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE</source>
+        <target>Нельзя добавлять дубликат счёта, для продолжения измените имя и/или валюту счёта.</target>
+        <note>Message in warning in saving duplicated account</note>
       </trans-unit>
       <trans-unit id="ACCOUNT_EDIT_FORM_TITLE">
         <source>Account</source>
@@ -520,7 +522,7 @@
         <note>Title of date choice form.</note>
       </trans-unit>
       <trans-unit id="DB_REPLACEMENT_WHEN_RESTORE_MESSAGE">
-        <source>DB_REPLACEMENT_WHEN_RESTORE_MESSAGE</source>
+        <source>Restore process will replace existing database with backup one</source>
         <target>В процессе восстановления текущая база данных будет заменена на архивную</target>
         <note>В процессе восстановления текущая база данных будет заменена на архивную.</note>
       </trans-unit>
@@ -652,7 +654,7 @@
         <note>Message with reason that category is only one for type and can not be deleted.</note>
       </trans-unit>
       <trans-unit id="RESTORE_ALERT_ITEM_TITLE">
-        <source>RESTORE_ALERT_ITEM_TITLE</source>
+        <source>Restore</source>
         <target>Восстановить</target>
         <note>Restore</note>
       </trans-unit>
@@ -744,7 +746,7 @@
         <note>Title of transfor edit form.</note>
       </trans-unit>
       <trans-unit id="WARNING_ALERT_CONTROLLER_TITLE">
-        <source>WARNING_ALERT_CONTROLLER_TITLE</source>
+        <source>Warning</source>
         <target>Предупреждение</target>
         <note>Warning</note>
       </trans-unit>
@@ -752,34 +754,6 @@
         <source>Yesterday</source>
         <target>Вчера</target>
         <note>Yesterday date</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="LedgerTests/Info.plist" source-language="en" datatype="plaintext" target-language="ru">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
-    </header>
-    <body>
-      <trans-unit id="CFBundleName">
-        <source>Ledger</source>
-        <target>Леджер</target>
-      </trans-unit>
-      <trans-unit id="CFBundleShortVersionString">
-        <source>1.0</source>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="LedgerUITests/Info.plist" source-language="en" datatype="plaintext" target-language="ru">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.3.3" build-num="8E3004b"/>
-    </header>
-    <body>
-      <trans-unit id="CFBundleName">
-        <source>Ledger</source>
-        <target>Леджер</target>
-      </trans-unit>
-      <trans-unit id="CFBundleShortVersionString">
-        <source>1.0</source>
       </trans-unit>
     </body>
   </file>

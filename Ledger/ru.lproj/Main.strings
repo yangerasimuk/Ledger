@@ -1,7 +1,7 @@
 /* Class = "UILabel"; text = "Sum:"; ObjectID = "0Ce-YM-T4K"; */
 "0Ce-YM-T4K.text" = "Сумма";
 
-/* (No Commment) */
+/* (No Comment) */
 "0ZH-Dq-sCd.headerTitle" = "Комментарий";
 
 /* Class = "UIButton"; normalTitle = "Activate"; ObjectID = "0gF-hk-tmS"; */
@@ -19,7 +19,7 @@
 /* Class = "UIButton"; normalTitle = "Backup"; ObjectID = "4aa-ky-kfG"; */
 "4aa-ky-kfG.normalTitle" = "Архивировать";
 
-/* (No Commment) */
+/* (No Comment) */
 "4dq-Vd-GZW.text" = "Заметка";
 
 /* Class = "UILabel"; text = "Sum:"; ObjectID = "5V4-XZ-aUx"; */
@@ -94,7 +94,7 @@
 /* Class = "UILabel"; text = "Name:"; ObjectID = "UiG-md-rzq"; */
 "UiG-md-rzq.text" = "Имя";
 
-/* (No Commment) */
+/* (No Comment) */
 "Z1u-C1-UaU.text" = "Заметка";
 
 /* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "aGe-OB-9ej"; */
@@ -139,10 +139,10 @@
 /* Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "jwF-uG-onl"; */
 "jwF-uG-onl.headerTitle" = "Архив базы данных";
 
-/* (No Commment) */
+/* (No Comment) */
 "k27-dk-R6t.text" = "Заметка";
 
-/* (No Commment) */
+/* (No Comment) */
 "kzO-Sg-SYX.text" = "Заметка";
 
 /* Class = "UILabel"; text = "Backup date:"; ObjectID = "lsa-R2-aaR"; */
@@ -178,7 +178,7 @@
 /* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "ssl-Rq-TcW"; */
 "ssl-Rq-TcW.normalTitle" = "Удалить";
 
-/* (No Commment) */
+/* (No Comment) */
 "tQR-Ct-lPa.text" = "Заметка";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ubY-pY-RPP"; */
@@ -202,10 +202,10 @@
 /* Class = "UILabel"; text = "Sum:"; ObjectID = "xAC-aS-7El"; */
 "xAC-aS-7El.text" = "Сумма";
 
-/* (No Commment) */
+/* (No Comment) */
 "xha-ew-rDC.text" = "Заметка";
 
-/* (No Commment) */
+/* (No Comment) */
 "xjm-NA-HTs.text" = "Заметка";
 
 /* Class = "UITableViewSection"; headerTitle = "Current database"; ObjectID = "xuf-3g-dWX"; */
