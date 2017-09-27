@@ -149,6 +149,10 @@
         <target>Активировать</target>
         <note>Class = "UIButton"; normalTitle = "Activate"; ObjectID = "OrH-8A-Gf3";</note>
       </trans-unit>
+      <trans-unit id="Qc0-ap-Hqf.text">
+        <source>Label</source>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "Qc0-ap-Hqf";</note>
+      </trans-unit>
       <trans-unit id="RUi-Oh-Gkt.text">
         <source>Default currency</source>
         <target>Валюта по-умолчанию</target>
@@ -407,8 +411,8 @@
         <note>Title of Account choice form.</note>
       </trans-unit>
       <trans-unit id="ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE">
-        <source>ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE</source>
-        <target>Нельзя добавлять дубликат счёта, для продолжения измените имя и/или валюту счёта.</target>
+        <source>Can't add duplicate of existing account, for continue change name of account or/and currency of account</source>
+        <target>Нельзя добавлять дубликат уже существующего счёта, для продолжения измените имя счёта и/или валюту счёта.</target>
         <note>Message in warning in saving duplicated account</note>
       </trans-unit>
       <trans-unit id="ACCOUNT_EDIT_FORM_TITLE">
@@ -432,6 +436,11 @@
         <source>Ledger</source>
         <target>Леджер</target>
         <note>Name of application (Ledger)</note>
+      </trans-unit>
+      <trans-unit id="APPLICATION_RELEASED_PRETEXT">
+        <source>APPLICATION_RELEASED_PRETEXT</source>
+        <target>от</target>
+        <note>Pretext for release build date.</note>
       </trans-unit>
       <trans-unit id="APPLICATION_VERSION">
         <source>Version</source>

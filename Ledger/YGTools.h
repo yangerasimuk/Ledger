@@ -16,6 +16,7 @@
 + (BOOL) isDayOfDate:(NSDate *)sourceDate equalsDayOfDate:(NSDate *)targetDate;
 + (NSDate *)dayOfDate:(NSDate *)date;
 + (NSString *)humanViewOfDate:(NSDate *)date;
++ (NSString *)stringHumanViewDMYOfDate:(NSDate *)date;
 + (NSString *)humanViewWithTodayOfDate:(NSDate *)date;
 + (NSString *)stringFromDate:(NSDate *)date;
 + (NSString *)stringFromAbsoluteDate:(NSDate *)date;

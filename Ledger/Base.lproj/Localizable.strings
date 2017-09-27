@@ -24,6 +24,9 @@
 /* Name of application (Ledger) */
 "APPLICATION_NAME" = "Ledger";
 
+/* Pretext for release build date. */
+"APPLICATION_RELEASED_PRETEXT" = "released";
+
 /* Version of application */
 "APPLICATION_VERSION" = "Version";
 

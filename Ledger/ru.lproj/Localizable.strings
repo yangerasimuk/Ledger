@@ -24,6 +24,9 @@
 /* Name of application (Ledger) */
 "APPLICATION_NAME" = "Леджер";
 
+/* Pretext for release build date. */
+"APPLICATION_RELEASED_PRETEXT" = "от";
+
 /* Version of application */
 "APPLICATION_VERSION" = "Версия";
 

@@ -8,12 +8,15 @@
 
 #import "YYGAboutViewController.h"
 #import "YGTools.h"
+#import "YYGLedgerDefine.h"
 
 @interface YYGAboutViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *labelApplicationName;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelApplicationVersion;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelApplicationDateBuild;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelCopyright;
 
@@ -33,6 +36,15 @@
     self.labelApplicationVersion.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"APPLICATION_VERSION", @"Version of application"), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 
     self.labelCopyright.text = [NSString stringWithFormat:@"© %@", NSLocalizedString(@"APPLICATION_AUTHOR", @"Author of application (Yan Gerasimuk)")];
+    
+    // date build
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:kAppBuildDateFormat];
+    NSDate *buildDate = [formatter dateFromString:kAppBuildDate];
+    
+    NSString *releasedString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"APPLICATION_RELEASED_PRETEXT", @"Pretext for release build date."), [YGTools stringHumanViewDMYOfDate:buildDate]];
+    
+    self.labelApplicationDateBuild.text = releasedString;
     
     // name
     NSDictionary *attributesName = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:[YGTools defaultFontSize]+6]

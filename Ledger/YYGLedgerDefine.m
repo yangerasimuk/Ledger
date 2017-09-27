@@ -8,6 +8,10 @@
 
 #import "YYGLedgerDefine.h"
 
+// Application build date
+NSString *const kAppBuildDate = @"2017-09-27";
+NSString *const kAppBuildDateFormat = @"yyyy-MM-dd";
+
 // Application database name
 NSString *const kDatabaseName = @"ledger.db.sqlite";
 
