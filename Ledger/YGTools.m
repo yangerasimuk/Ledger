@@ -95,6 +95,23 @@
         return [YGTools humanViewOfDate:date];
 }
 
+/**
+ @warning Для даты с текущей русской локалью, в конце добавляется " г."
+ */
++ (NSString *)stringHumanViewDMYOfDate:(NSDate *)date {
+    
+    NSString *resultString;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"d MMMM yyyy"];
+    
+    if([[[NSLocale currentLocale] localeIdentifier] hasPrefix:@"ru"])
+        resultString = [NSString stringWithFormat:@"%@ г.", [formatter stringFromDate:date]];
+    else
+        resultString = [formatter stringFromDate:date];
+    
+    return resultString;
+}
+
 
 + (NSString *)humanViewShortWithTodayOfDay:(NSDate *)day {
     

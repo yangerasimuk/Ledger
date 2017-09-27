@@ -1016,8 +1016,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc0-ap-Hqf">
+                                        <rect key="frame" x="23" y="150" width="260" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j64-eT-xWf">
-                                        <rect key="frame" x="23" y="160" width="260" height="35"/>
+                                        <rect key="frame" x="23" y="222" width="260" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1038,6 +1045,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="labelApplicationDateBuild" destination="Qc0-ap-Hqf" id="jot-b5-tXJ"/>
                         <outlet property="labelApplicationName" destination="ubY-pY-RPP" id="aWi-1v-DJy"/>
                         <outlet property="labelApplicationVersion" destination="wIT-Ba-wd6" id="YXc-GO-zyR"/>
                         <outlet property="labelCopyright" destination="j64-eT-xWf" id="XPj-fP-FvK"/>

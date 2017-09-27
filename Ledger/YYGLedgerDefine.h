@@ -14,6 +14,9 @@
 
 #define DEBUG_REBUILD_BASE 1
 
+extern NSString *const kAppBuildDate;
+extern NSString *const kAppBuildDateFormat;
+
 extern NSString *const kDatabaseName;
 extern NSString *const kDateTimeFormat;
 extern NSString *const kAppConfigName;
