@@ -134,7 +134,6 @@
             self.labelCategory.textColor = [YGTools colorRed];
         }
         
-        
         // set label sum red
         self.labelSum.attributedText = [YGTools attributedStringWithText:[NSString stringWithFormat:@"%@", NSLocalizedString(@"SUM", @"Sum.")] color:[YGTools colorRed]];
         
@@ -225,7 +224,6 @@
         }
         self.textViewComment.delegate = self;
         
-        
         // init
         _initDateValue = [p_day copy];
         _initAccountValue = [_account copy];
@@ -243,7 +241,6 @@
         self.buttonDelete.enabled = YES;
         self.buttonDelete.hidden = NO;
         self.buttonDelete.backgroundColor = [YGTools colorForActionDelete];
-
     }
     
     // button save
