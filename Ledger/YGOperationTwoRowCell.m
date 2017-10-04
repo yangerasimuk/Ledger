@@ -71,14 +71,14 @@
         // Second row text
         self.labelSecondRowText = [[UILabel alloc] initWithFrame:[self rectSecondRowLabel]];
         self.labelSecondRowText.textAlignment = NSTextAlignmentLeft;
-        self.labelFirstRowText.backgroundColor = [UIColor clearColor];
+        self.labelSecondRowText.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:self.labelSecondRowText];
         
         // Second row detail text
         self.labelSecondRowDetailText = [[UILabel alloc] initWithFrame:[self rectSecondRowLabel]];
         self.labelSecondRowDetailText.textAlignment = NSTextAlignmentRight;
-        self.labelFirstRowText.backgroundColor = [UIColor clearColor];
+        self.labelSecondRowText.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:self.labelSecondRowDetailText];
          
