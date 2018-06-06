@@ -9,10 +9,8 @@
 #import <Foundation/Foundation.h>
 
 //#define APP_STORE 1
-
 //#define FILL_TEST_DATA 1
-
-#define DEBUG_REBUILD_BASE 1
+//#define DEBUG_REBUILD_BASE 1
 
 extern NSString *const kAppBuildDate;
 extern NSString *const kAppBuildDateFormat;
@@ -22,11 +20,8 @@ extern NSString *const kDateTimeFormat;
 extern NSString *const kAppConfigName;
 
 extern NSString *const kDateTimeFormatOnlyDay;
-
 extern NSString *const kDateTimeFormatOnlyTime;
-
 extern NSString *const kDateTimeFormatForBackupName;
-
 extern NSString *const kDateMinimum;
 
 extern NSString *const kDatabaseMajorVersionKey;

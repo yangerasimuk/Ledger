@@ -602,8 +602,6 @@
     [self.textFieldSourceSum becomeFirstResponder];
 }
 
-
-
 - (void)saveTransfer {
     
     NSDate *now = [NSDate date];
@@ -626,14 +624,14 @@
         
         
         NSInteger operationId = [_om addOperation:transfer];
-        
         transfer.rowId = operationId;
         
         [_em recalcSumOfAccount:_sourceAccount forOperation:transfer];
         [_em recalcSumOfAccount:_targetAccount forOperation:transfer];
-        
     }
-    else{
+    else {
+        
+        YGOperation *oldTransfer = [self.transfer copy];
         
         if(_isDateChanged)
             self.transfer.day = [p_day copy];
@@ -656,7 +654,7 @@
         
         self.transfer.modified = now;
         
-        [_om updateOperation:[self.transfer copy]];
+        [_om updateOperation:oldTransfer withNew:[self.transfer copy]];
         
         // need to recalc?
         if(_isDateChanged || _isSourceAccountChanged || _isSourceSumChanged || _isTargetAccountChanged || _isTargetSumChanged){
@@ -684,7 +682,6 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 
 #pragma mark - Navigation

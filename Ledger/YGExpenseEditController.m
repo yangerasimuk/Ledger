@@ -546,11 +546,15 @@
 
 
 - (void)saveExpense {
-    
+        
     NSDate *now = [NSDate date];
     NSString *comment = [_comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if(self.isNewExpense){
+        
+//#ifdef DEBUG
+//        NSLog(@"Save new expense");
+//#endif
         
         YGOperation *expense = [[YGOperation alloc]
                                 initWithType:YGOperationTypeExpense
@@ -566,13 +570,17 @@
                                 comment:comment];
         
         NSInteger operationId = [_om addOperation:expense];
-        
-        // crutch
         expense.rowId = operationId;
         
         [_em recalcSumOfAccount:_account forOperation:expense];
     }
     else{
+        
+//#ifdef DEBUG
+//        NSLog(@"Save exists expense");
+//#endif
+        
+        YGOperation *oldExpense = [self.expense copy];
         
         if(_isDateChanged)
             self.expense.day = [p_day copy];
@@ -594,7 +602,7 @@
         
         self.expense.modified = now;
         
-        [_om updateOperation:[self.expense copy]];
+        [_om updateOperation:oldExpense withNew:[self.expense copy]];
         
         // need to recalc?
         if(_isDateChanged || _isAccountChanged || _isSumChanged){

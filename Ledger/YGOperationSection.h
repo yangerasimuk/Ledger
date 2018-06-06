@@ -30,5 +30,6 @@
 - (instancetype)initWithDate:(NSDate *)date;
 - (instancetype)initWithDate:(NSDate *)date operationRows:(NSMutableArray <YGOperationRow *>*)operationRows;
 - (void)addOperationRow:(YGOperationRow *)operationRow;
+- (void)setOperationRows:(NSMutableArray <YGOperationRow *>*)operationRows;
 
 @end
