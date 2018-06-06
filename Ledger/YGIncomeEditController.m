@@ -566,14 +566,14 @@
                                comment:comment];
         
         NSInteger operationId = [_om addOperation:income];
-        
-        // crutch
         income.rowId = operationId;
         
         // update sum of account
         [_em recalcSumOfAccount:[_account copy] forOperation:[income copy]];
     }
-    else{
+    else {
+        
+        YGOperation *oldIncome = [self.income copy];
         
         if(_isDateChanged)
             self.income.day = [p_day copy];
@@ -594,7 +594,7 @@
         
         self.income.modified = [NSDate date];
         
-        [_om updateOperation:[self.income copy]];
+        [_om updateOperation:oldIncome withNew:[self.income copy]];
         
         // need to recalc?
         if(_isDateChanged || _isAccountChanged || _isSumChanged){
@@ -664,6 +664,5 @@
     
     return height;
 }
-
 
 @end

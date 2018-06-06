@@ -10,10 +10,10 @@
 
 #import "YGCategoryManager.h"
 #import "YGOperationManager.h"
+#import "YGOperationSectionManager.h"
 #import "YGEntityManager.h"
 #import "YGEntity.h"
 
-#import "YGOperationSections.h"
 #import "YGOperationSectionHeader.h"
 #import "YGOperationRow.h"
 
@@ -45,7 +45,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     
     NSDate *p_dateDataLoaded;
     
-    YGOperationSections *p_sections;
+    NSMutableArray <YGOperationSection *> *p_sections;
     
     NSArray <YGCategory *> *_currencies;
     NSArray <YGCategory *> *_expenseCategories;
@@ -56,8 +56,11 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     NSArray <YGEntity *> *_debts;
     
     YGOperationManager *_om;
+    YGOperationSectionManager *p_operationSectionManager;
     YGCategoryManager *_cm;
     YGEntityManager *_em;
+    
+    NSArray <YGOperationSectionHeader *> *p_sectionHeaders;
     
     UIRefreshControl *_refresh;
     
@@ -66,6 +69,8 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     CGFloat _heightTwoRowCell;
     
     NSTimer *p_timerToday;
+    
+    BOOL p_isDataSourceChanged;
 }
 
 @property (strong, nonatomic) UIView *noDataView;
@@ -78,8 +83,11 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     [super viewDidLoad];
     
     _om = [YGOperationManager sharedInstance];
+    p_operationSectionManager = [YGOperationSectionManager sharedInstance];
     _cm = [YGCategoryManager sharedInstance];
     _em = [YGEntityManager sharedInstance];
+    
+    p_sections = p_operationSectionManager.sections;
     
     UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddBarButton)];
     self.navigationItem.rightBarButtonItem = addBarButton;
@@ -98,37 +106,15 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kOperationAccountActualCellId];
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [self addAsObserver];
     
-    [center addObserver:self
-               selector:@selector(reloadDataFromCache)
-                   name:@"OperationManagerCacheUpdateEvent"
-                 object:nil];
-    
-    [center addObserver:self
-               selector:@selector(reloadDataFromCache)
-                   name:@"EntityManagerEntityWithOperationsUpdateEvent"
-                 object:nil];
-    
-    [center addObserver:self
-               selector:@selector(reloadDataFromCache)
-                   name:@"CategoryManagerCategoryWithObjectsUpdateEvent"
-                 object:nil];
-    
-    [center addObserver:self
-               selector:@selector(reloadDataFromCache)
-                   name:@"HideDecimalFractionInListsChangedEvent"
-                 object:nil];
-    
-    // Выход из background/suspend'a
-    [center addObserver:self
-               selector:@selector(applicationDidBecomeActiveHandler)
-                   name:@"UIApplicationDidBecomeActiveNotification" object:nil];
+    [self addPullRefresh];
     
     // fill table from cache - p_sections;
+    p_isDataSourceChanged = YES;
     [self reloadDataFromCache];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
 
@@ -141,6 +127,10 @@ static NSInteger kTimeIntervalForCheckToday = 10;
                                           repeats:YES];
     
     [[NSRunLoop mainRunLoop] addTimer:p_timerToday forMode:NSDefaultRunLoopMode];
+    
+    if (p_isDataSourceChanged) {
+        [self reloadDataFromCache];
+    }
 }
 
 /**
@@ -183,44 +173,49 @@ static NSInteger kTimeIntervalForCheckToday = 10;
         [self reloadDataFromCache];
 }
 
+- (void) setDataSourceUpdated {
+    p_isDataSourceChanged = YES;
+}
 
 - (void)reloadDataFromCache {
     
-    // для сравнения с текущей датой при выходе из background/suspend
-    p_dateDataLoaded = [NSDate date];
-    
-    p_sections = [[YGOperationSections alloc] initWithOperations:_om.operations forViewWidth:self.view.bounds.size.width];
-    
-    if(!p_sections || [p_sections.list count] == 0){
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // для сравнения с текущей датой при выходе из background/suspend
+        p_dateDataLoaded = [NSDate date];
         
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //self.tableView.hidden = YES;
-        self.tableView.userInteractionEnabled = NO;
-        [self showNoDataView];
-    }
-    else{
+        if(!p_sections || [p_sections count] == 0){
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            //self.tableView.hidden = YES;
+            self.tableView.userInteractionEnabled = NO;
+            [self showNoDataView];
+        } else{
+            [self hideNoDataView];
+            self.tableView.userInteractionEnabled = YES;
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            
+            NSMutableArray <YGOperationSectionHeader *> *headers = [[NSMutableArray alloc] init];
+            [p_sections enumerateObjectsUsingBlock:^(YGOperationSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                YGOperationSectionHeader *header = [[YGOperationSectionHeader alloc] initWithSection:obj];
+                [headers addObject:header];
+            }];
+            p_sectionHeaders = [headers copy];
+            
+            [self.tableView reloadData];
+        }
         
-        [self hideNoDataView];
-        //self.tableView.hidden = NO;
-        self.tableView.userInteractionEnabled = YES;
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        
-        [self.tableView reloadData];
-    }
-    
-    //[self updateUI];
+        p_isDataSourceChanged = NO;
+    });
 }
 
 //- (void)pullRefreshSwipe:(UIRefreshControl *)refresh {
-//    
+//
 //    [refresh beginRefreshing];
 //    [refresh endRefreshing];
-//    
+//
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self addOperation];
 //    });
 //}
-
 
 #pragma mark - Show/hide No operation view
 
@@ -362,9 +357,6 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 }
 
 
-
-
-
 #pragma mark - Add concrete action
 
 - (void)actionAddExpense {
@@ -470,7 +462,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
+    YGOperationRow *operationRow = p_sections[indexPath.section].operationRows[indexPath.row];
 
     if(operationRow.operation.type == YGOperationTypeExpense){
         
@@ -513,20 +505,19 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-
-    return p_sections.list[section].headerView;
+    //return p_sections[section].headerView;
+    return p_sectionHeaders[section];
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
     return [YGOperationSectionHeader heightSectionHeader];
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    YGOperationType type = p_sections.list[indexPath.section].operationRows[indexPath.row].operation.type;
+    YGOperationType type = p_sections[indexPath.section].operationRows[indexPath.row].operation.type;
     
     if(type == YGOperationTypeTransfer){
         return _heightTwoRowCell; // 76;
@@ -540,21 +531,18 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 #pragma mark - UITableDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return [p_sections.list count];
+    return [p_sections count];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return [p_sections.list[section].operationRows count];
+    return [p_sections[section].operationRows count];
 }
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
-
+    YGOperationRow *operationRow = p_sections[indexPath.section].operationRows[indexPath.row];
     
     if(operationRow.operation.type == YGOperationTypeExpense) {
         
@@ -595,9 +583,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //YGOperationRow *operationRow = _sections.list[indexPath.section].operationRows[indexPath.row];
-    
-    YGOperationRow *operationRow = p_sections.list[indexPath.section].operationRows[indexPath.row];
+    YGOperationRow *operationRow = p_sections[indexPath.section].operationRows[indexPath.row];
     
     if(operationRow.operation.type == YGOperationTypeExpense){
         
@@ -684,9 +670,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 }
 */
 
-#pragma mark - Some usefull methods
-
-
+#pragma mark - Helper methods
 
 - (CGFloat)heightOneRowCell {
     
@@ -736,6 +720,73 @@ static NSInteger kTimeIntervalForCheckToday = 10;
         }
     }
     return heightTwoRowCell;
+}
+
+- (void)addAsObserver {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserver:self
+               selector:@selector(setDataSourceUpdated)
+                   name:@"OperationManagerCacheUpdateEvent"
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(setDataSourceUpdated)
+                   name:@"EntityManagerEntityWithOperationsUpdateEvent"
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(setDataSourceUpdated)
+                   name:@"CategoryManagerCategoryWithObjectsUpdateEvent"
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(setDataSourceUpdated)
+                   name:@"HideDecimalFractionInListsChangedEvent"
+                 object:nil];
+    
+    // Выход из 9i/suspend'a
+    [center addObserver:self
+               selector:@selector(applicationDidBecomeActiveHandler)
+                   name:@"UIApplicationDidBecomeActiveNotification" object:nil];
+}
+
+- (void)addPullRefresh {
+    UIRefreshControl *pullRefresh = [[UIRefreshControl alloc] init];
+    [pullRefresh addTarget:self action:@selector(pullRefreshReloadTable:) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = pullRefresh;
+}
+
+/**
+ Reload table data when user pull table down.
+ 
+ In some case there is sqlite db lock.
+
+ @param sender tableView?
+ */
+- (void)pullRefreshReloadTable:(id)sender {
+    
+    @try {
+        __weak YGOperationViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (weakSelf) {
+                YGOperationViewController *strongSelf = weakSelf;
+                self.tableView.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE", @"Title when pull refresh reload table")];
+                [strongSelf.tableView.refreshControl beginRefreshing];
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    [p_operationSectionManager makeSections];
+                    p_sections = p_operationSectionManager.sections;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf reloadDataFromCache];
+                        [strongSelf.tableView.refreshControl endRefreshing];
+                    });
+                });
+            } // if (weakSelf)
+        });
+    }
+    @catch (NSException *ex) {
+        NSLog(@"Exception in YGOperationViewController.pullRefreshReloadTable. Description: %@", [ex description]);
+    }
 }
 
 @end

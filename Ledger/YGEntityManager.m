@@ -436,77 +436,83 @@
  */
 - (void)recalcSumOfAccount:(YGEntity *)account forOperation:(YGOperation *)operation {
     
-    // check for entity type
-    if(account.type != YGEntityTypeAccount)
-        @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation" reason:@"Recalc can not be made for this entity type" userInfo:nil];
-    
-    // check for operation type, if operation is AccountActual recalc does not necessary
-    if(operation.type == YGOperationTypeAccountActual)
-        return;
-    
-    YGOperationManager *om = [YGOperationManager sharedInstance];
-    YGOperation *lastActualAccount = [om lastOperationOfType:YGOperationTypeAccountActual withTargetId:account.rowId];
-    
-    // check for more near date of actual account operation
-    if(operation && lastActualAccount){
-        
-        if([lastActualAccount.day compare:operation.day] == NSOrderedDescending)
-            return;
-        else if([lastActualAccount.day compare:operation.day] == NSOrderedSame
-                && [lastActualAccount.modified compare:operation.modified] == NSOrderedDescending)
-            return;
-    }
-    
-    // get source sum
-    double targetSum = 0.00f;
-    
-    if(lastActualAccount)
-        targetSum = lastActualAccount.targetSum;
-    
-    NSArray <YGOperation *>*operations = nil;
-    if(lastActualAccount)
-        operations = [om operationsWithAccountId:account.rowId sinceAccountActual:lastActualAccount];
-    else
-        operations = [om operationsWithAccountId:account.rowId];
-    
-    if([operations count] > 0){
-        for(YGOperation *oper in operations){
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        @try {
+            // check for entity type
+            if(account.type != YGEntityTypeAccount)
+                @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation" reason:@"Recalc can not be made for this entity type" userInfo:nil];
             
-            if(oper.type == YGOperationTypeIncome){
-                targetSum += oper.targetSum;
+            // check for operation type, if operation is AccountActual recalc does not necessary
+            if(operation.type == YGOperationTypeAccountActual)
+                return;
+            
+            YGOperationManager *om = [YGOperationManager sharedInstance];
+            YGOperation *lastActualAccount = [om lastOperationOfType:YGOperationTypeAccountActual withTargetId:account.rowId];
+            
+            // check for more near date of actual account operation
+            if(operation && lastActualAccount){
+                
+                if([lastActualAccount.day compare:operation.day] == NSOrderedDescending)
+                    return;
+                else if([lastActualAccount.day compare:operation.day] == NSOrderedSame
+                        && [lastActualAccount.modified compare:operation.modified] == NSOrderedDescending)
+                    return;
             }
-            else if(oper.type == YGOperationTypeExpense){
-                targetSum -= oper.sourceSum;
-            }
-            else if(oper.type == YGOperationTypeTransfer){
-                if(oper.sourceId == account.rowId){
-                    targetSum -= oper.sourceSum;
-                }
-                else if(oper.targetId == account.rowId){
-                    targetSum += oper.targetSum;
-                }
-                else{
-                    @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this transfer" userInfo:nil];
-                }
-            }
-            else if(oper.type == YGOperationTypeAccountActual){
-                ;
-            }
+            
+            // get source sum
+            double targetSum = 0.00f;
+            
+            if(lastActualAccount)
+                targetSum = lastActualAccount.targetSum;
+            
+            NSArray <YGOperation *>*operations = nil;
+            if(lastActualAccount)
+                operations = [om operationsWithAccountId:account.rowId sinceAccountActual:lastActualAccount];
             else
-                @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this type of operation does not implement" userInfo:nil];
+                operations = [om operationsWithAccountId:account.rowId];
+            
+            if([operations count] > 0){
+                for(YGOperation *oper in operations){
+                    
+                    if(oper.type == YGOperationTypeIncome){
+                        targetSum += oper.targetSum;
+                    }
+                    else if(oper.type == YGOperationTypeExpense){
+                        targetSum -= oper.sourceSum;
+                    }
+                    else if(oper.type == YGOperationTypeTransfer){
+                        if(oper.sourceId == account.rowId){
+                            targetSum -= oper.sourceSum;
+                        }
+                        else if(oper.targetId == account.rowId){
+                            targetSum += oper.targetSum;
+                        }
+                        else{
+                            @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this transfer" userInfo:nil];
+                        }
+                    }
+                    else if(oper.type == YGOperationTypeAccountActual){
+                        ;
+                    }
+                    else
+                        @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this type of operation does not implement" userInfo:nil];
+                }
+            }
+            
+            // is account needs to update?
+            if(account.sum != targetSum){
+                
+                account.sum = targetSum;
+                account.modified = [NSDate date];
+                
+                [self updateEntity:[account copy]];
+            }
         }
-    }
-
-    // is account needs to update?
-    if(account.sum != targetSum){
-        
-        account.sum = targetSum;
-        account.modified = [NSDate date];
-        
-        [self updateEntity:[account copy]];
-    }
+        @catch (NSException *ex) {
+            NSLog(@"Fail in -[YGEntityManager recalcSumOfAccount:forOperation:]. Exception: %@", [ex description]);
+        }
+    });
 }
-
 
 /**
  Is linked operations for entity exist. When delete entity we must check it.

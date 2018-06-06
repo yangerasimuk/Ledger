@@ -9,12 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "YGOperation.h"
 
+@protocol OperationSectionProtocol
+- (void)addOperation:(YGOperation *)operation;
+- (void)updateOperation:(YGOperation *)oldOperation withNew:(YGOperation *)newOperation;
+- (void)removeOperation:(YGOperation *)operation;
+@end
+
 @interface YGOperationManager : NSObject
 
 @property (assign, nonatomic) BOOL hideDecimalFraction;
 
 @property (strong, nonatomic) NSMutableArray <YGOperation *> *operations;
-
+@property (weak, nonatomic) id<OperationSectionProtocol> sectionDelegate;
 
 + (instancetype)sharedInstance;
 
@@ -27,7 +33,7 @@
  */
 - (YGOperation *)lastOperationOfType:(YGOperationType)type withTargetId:(NSInteger)targetId;
 
-- (void)updateOperation:(YGOperation *)operation;
+- (void)updateOperation:(YGOperation *)oldOperation withNew:(YGOperation *)newOperation;
 
 - (void)removeOperation:(YGOperation *)operation;
 

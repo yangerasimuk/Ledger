@@ -119,6 +119,9 @@
 /* Title of Operations form */
 "OPERATIONS_VIEW_FORM_TITLE" = "Операции";
 
+/* Title when pull refresh reload table */
+"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE" = "Обновляю список";
+
 /* Usually: Choose operation */
 "OPERATION_CHOICE_ALERT_SHEET_TITLE" = "Выбор операции";
 

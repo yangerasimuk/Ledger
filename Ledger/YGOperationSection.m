@@ -16,9 +16,7 @@
 @interface YGOperationSection (){
     NSMutableArray <YGOperationRow *> *_operationRows;
 }
-
 +(NSString *)nameOfDateInHumanView:(NSDate *)date;
-
 @end
 
 @implementation YGOperationSection
@@ -35,7 +33,7 @@
         else
             _operationRows = [[NSMutableArray alloc] init];
         
-        _headerView = [self cacheSection];
+        //_headerView = [self headerView];
     }
     return self;
 }
@@ -47,7 +45,6 @@
 // lazy
 - (NSString *)name{
     if(!_name){
-        
         _name = [YGTools humanViewShortWithTodayOfDay:_date];
     }
     return _name;
@@ -55,17 +52,13 @@
 
 
 - (void)addOperationRow:(YGOperationRow *)operationRow{
-    
     [_operationRows addObject:operationRow];
-    
     [self sortOperationRows];
 }
 
 
 - (void)sortOperationRows {
-    
     NSSortDescriptor *sortOnModifiedByDesc = [[NSSortDescriptor alloc] initWithKey:@"operation.modified" ascending:NO];
-    
     [_operationRows sortUsingDescriptors:@[sortOnModifiedByDesc]];
 }
 
@@ -79,12 +72,14 @@
     return [NSString stringWithFormat:@"%@", [formatter stringFromDate:date]];
 }
 
-- (YGOperationSectionHeader *)cacheSection{
-    
-    YGOperationSectionHeader *headerView = [[YGOperationSectionHeader alloc] initWithSection:self];
-    
-    return headerView;
+- (YGOperationSectionHeader *)headerView {
+    if (!_headerView)
+        _headerView = [[YGOperationSectionHeader alloc] initWithSection:self];
+    return _headerView;
 }
 
+- (void)setOperationRows:(NSMutableArray <YGOperationRow *>*)operationRows {
+    _operationRows = operationRows;
+    [self sortOperationRows];
+}
 @end
-

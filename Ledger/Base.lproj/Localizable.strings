@@ -144,6 +144,9 @@
 /* Title of Operations form */
 "OPERATIONS_VIEW_FORM_TITLE" = "Operations";
 
+/* Title when pull refresh reload table */
+"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE" = "Reload list";
+
 /* Usually: Choose operation */
 "OPERATION_CHOICE_ALERT_SHEET_TITLE" = "Select operation";
 

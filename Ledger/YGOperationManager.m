@@ -54,7 +54,6 @@
 
 
 -(void)dealloc {
-    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
@@ -105,8 +104,8 @@
 
 - (NSInteger)addOperation:(YGOperation *)operation{
     
-    // return value
-    NSInteger operationId = 0;
+    // 1. Add to db
+    NSInteger operationId = 0; // return value
     
     NSNumber *operation_type_id = [NSNumber numberWithInteger:operation.type];
     NSNumber *source_id = [NSNumber numberWithInteger:operation.sourceId];
@@ -127,7 +126,6 @@
     NSString *uuid = [operation.uuid UUIDString];
     
     @try {
-        
         NSArray *operationArr = [NSArray arrayWithObjects:
                                  operation_type_id,
                                  source_id,
@@ -146,10 +144,8 @@
                                  uuid,
                                  nil];
         
-        // sql string
         NSString *insertSQL = @"INSERT INTO operation (operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, day_unix, created, created_unix, modified, modified_unix, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
-        // db
         operationId = [_sqlite addRecord:operationArr insertSQL:insertSQL];
         
         // specific actions
@@ -172,13 +168,37 @@
             [em updateEntity:account];
         }
         
-        // add operation to memory cache
+        // 2. Add operation to memory cache
         YGOperation *newOperation = [operation copy];
         newOperation.rowId = operationId;
-        [self.operations addObject:newOperation];
+
+        NSInteger lowIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([newOperation.day timeIntervalSince1970] > [obj.day timeIntervalSince1970])
+                return YES;
+            else
+                return NO;
+        }];
         
-        [self sortOperationsInArray:self.operations];
+        NSInteger upperIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([newOperation.day isEqualToDate:obj.day] && [newOperation.modified compare:obj.modified] == NSOrderedDescending)
+                return YES;
+            else
+                return NO;
+        }];
         
+        if (lowIndex != NSNotFound && upperIndex != NSNotFound)
+            [self.operations insertObject:newOperation atIndex:upperIndex];
+        else if (lowIndex != NSNotFound && upperIndex == NSNotFound)
+            [self.operations insertObject:newOperation atIndex:lowIndex];
+        else if (lowIndex == NSNotFound && upperIndex == NSNotFound)
+            [self.operations addObject:newOperation];
+        
+        // 3. Add operation to sectionWithOperations dataSource
+        if (_sectionDelegate)
+            [_sectionDelegate addOperation:newOperation];
+        
+        // 4. Post notification about cache update
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center postNotificationName:@"OperationManagerCacheUpdateEvent"
                               object:nil];
@@ -200,62 +220,86 @@
 
 
 /**
- Update operations in db and memory cache. Write object as is, without any modifications.
- 
+ Update operations in db, memory cache and sections dataSource.
+ Write object as is, without any modifications.
  */
-- (void)updateOperation:(YGOperation *)operation{
+- (void)updateOperation:(YGOperation *)oldOperation withNew:(YGOperation *)newOperation {
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, day_unix=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@, comment=%@, uuid=%@ WHERE operation_id=%@;",
-                           [YGTools sqlStringForInt:operation.type],
-                           [YGTools sqlStringForInt:operation.sourceId],
-                           [YGTools sqlStringForInt:operation.targetId],
-                           [YGTools sqlStringForDecimal:operation.sourceSum],
-                           [YGTools sqlStringForInt:operation.sourceCurrencyId],
-                           [YGTools sqlStringForDecimal:operation.targetSum],
-                           [YGTools sqlStringForInt:operation.targetCurrencyId],
-                           [YGTools sqlStringForDateAbsoluteOrNull:operation.day],
-                           [YGTools sqlStringForDouble:[operation.day timeIntervalSince1970]],
-                           [YGTools sqlStringForDateLocalOrNull:operation.created],
-                           [YGTools sqlStringForDouble:[operation.created timeIntervalSince1970]],
-                           [YGTools sqlStringForDateLocalOrNull:operation.modified],
-                           [YGTools sqlStringForDouble:[operation.modified timeIntervalSince1970]],
-                           [YGTools sqlStringForStringOrNull:operation.comment],
-                           [YGTools sqlStringForStringNotNull:[operation.uuid UUIDString]],
-                           [YGTools sqlStringForInt:operation.rowId]
-                           ];
+//#ifdef DEBUG
+//    NSLog(@"updateOperation:withNew:");
+//    NSLog(@"old operation:\n%@", [oldOperation description]);
+//    NSLog(@"new operation:\n%@", [newOperation description]);
+//#endif
     
-    [_sqlite execSQL:updateSQL];
-    
-    // update memory cache
-    YGOperation *replacedOperation = [self operationById:operation.rowId];
-    NSUInteger index = [self.operations indexOfObject:replacedOperation];
-    //self.operations set
-    self.operations[index] = [operation copy];
-    
-    // Need sort? It seems not. But if update date?
-    [self sortOperationsInArray:self.operations];
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:@"OperationManagerCacheUpdateEvent"
-                          object:nil];
+    @try {
+        // 1. Update db
+        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE operation SET operation_type_id=%@, source_id=%@, target_id=%@, source_sum=%@, source_currency_id=%@, target_sum=%@, target_currency_id=%@, day=%@, day_unix=%@, created=%@, created_unix=%@, modified=%@, modified_unix=%@, comment=%@, uuid=%@ WHERE operation_id=%@;",
+                               [YGTools sqlStringForInt:newOperation.type],
+                               [YGTools sqlStringForInt:newOperation.sourceId],
+                               [YGTools sqlStringForInt:newOperation.targetId],
+                               [YGTools sqlStringForDecimal:newOperation.sourceSum],
+                               [YGTools sqlStringForInt:newOperation.sourceCurrencyId],
+                               [YGTools sqlStringForDecimal:newOperation.targetSum],
+                               [YGTools sqlStringForInt:newOperation.targetCurrencyId],
+                               [YGTools sqlStringForDateAbsoluteOrNull:newOperation.day],
+                               [YGTools sqlStringForDouble:[newOperation.day timeIntervalSince1970]],
+                               [YGTools sqlStringForDateLocalOrNull:newOperation.created],
+                               [YGTools sqlStringForDouble:[newOperation.created timeIntervalSince1970]],
+                               [YGTools sqlStringForDateLocalOrNull:newOperation.modified],
+                               [YGTools sqlStringForDouble:[newOperation.modified timeIntervalSince1970]],
+                               [YGTools sqlStringForStringOrNull:newOperation.comment],
+                               [YGTools sqlStringForStringNotNull:[newOperation.uuid UUIDString]],
+                               [YGTools sqlStringForInt:oldOperation.rowId]
+                               ];
+        [_sqlite execSQL:updateSQL];
+        
+        // 2. Update memory cache
+        NSUInteger index = [self.operations indexOfObject:oldOperation];
+        
+//#ifdef DEBUG
+//        if (index == NSNotFound)
+//            NSLog(@"index: NSNotFound");
+//        else
+//            NSLog(@"index: %ld", (long)index);
+//#endif
+        
+        self.operations[index] = [newOperation copy];
+        
+        // Need sort? It seems at any case YES.
+        [self sortOperationsInArray:self.operations];
+        
+        // 3. Update sections dataSource
+        if (_sectionDelegate)
+            [_sectionDelegate updateOperation:oldOperation withNew:newOperation];
+        
+        // 4. Post notification about update
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                              object:nil];
+    }
+    @catch (NSException *ex) {
+        NSLog(@"Exception in YGOperationManager.updateOperation:withNew:. Description: %@", [ex description]);
+    }
 }
-
 
 - (void)removeOperation:(YGOperation *)operation{
     
+    // 1. Remove from db
     NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM operation WHERE operation_id = %ld;", (long)operation.rowId];
-    
     [_sqlite removeRecordWithSQL:deleteSQL];
     
-    // update memory cache
+    // 2. Remove from memory cache
     [self.operations removeObject:operation];
     
-    // sort don't needed
+    // 3. Remove from section dataSource
+    if (_sectionDelegate)
+        [_sectionDelegate removeOperation:operation];
+    
+    // 4. Post notification about cache update
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"OperationManagerCacheUpdateEvent"
                           object:nil];
 }
-
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId {
 
