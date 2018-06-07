@@ -24,7 +24,8 @@
     YGEntityManager *p_entityManager;
     YGOperationManager *p_operationManager;
 
-    NSArray <YGOperation *> *p_operations;
+    NSMutableArray <YGOperation *> *p_operations; // ранее был просто NSArray
+    
     /// for quick search in sectionsFromExpenses
     NSMutableArray <NSDate *> *_dates;
 
@@ -52,11 +53,11 @@ static NSInteger const kWidthOfMarginIndents = 45;
 - (instancetype)init{
     self = [super init];
     if(self){
-        
         p_categoryManager = [YGCategoryManager sharedInstance];
         p_entityManager = [YGEntityManager sharedInstance];
         p_operationManager = [YGOperationManager sharedInstance];
         p_operationManager.sectionDelegate = self;
+        
         p_config = [YGTools config];
         
         // width of view must be set befor calculate of strings
@@ -71,9 +72,18 @@ static NSInteger const kWidthOfMarginIndents = 45;
  Called from constructor and from outside, when reload operation list
  */
 - (void)makeSections {
-    p_operations = p_operationManager.listOperations;
+#ifdef PERFORMANCE
+    NSLog(@"YGOperationSectionManager.makeSections");
+#endif
+    p_operations = p_operationManager.operations; // ранее была копия NSArrays
     _sections = [[self sectionsFromOperations] mutableCopy];
     [self sortSectionsByDate];
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:@"OperationSectionManagerMakeSectionsEvent" object:nil];
+#ifdef PERFORMANCE
+    NSLog(@"<< makeSections finished");
+#endif
 }
 
 - (NSArray <YGOperationSection*>*)sectionsFromOperations {
@@ -86,52 +96,28 @@ static NSInteger const kWidthOfMarginIndents = 45;
     [p_operations enumerateObjectsUsingBlock:^(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSDate *dayOfDate = [YGOperationSectionManager dayOfDate:obj.day];
-        
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date = %@", dayOfDate];
+        NSArray *sectionsForDay = [result filteredArrayUsingPredicate:datePredicate];
         
-        if([result count] > 0){
-            NSArray *secs = [result filteredArrayUsingPredicate:datePredicate];
-            
-            if([secs count] > 1){
-                @throw [NSException exceptionWithName:@"-[YGSections sectionsFromOperations]" reason:@"More than one section for the date" userInfo:nil];
-            }
-            if([secs count] == 1){
-                YGOperationSection *s = secs[0];
-                
-                // create YGOperationRow from obj
-                // set YGOperationRow properties
-                // add to section array
-                YGOperationRow *row = [[YGOperationRow alloc] initWithOperation:obj];
-                [self cacheRow:row];
-                [s addOperationRow:row];
-            } else {
-                
-                // create YGOperationRow from obj
-                // set YGOperationRow properties
-                // add to section array
-                YGOperationRow *row = [[YGOperationRow alloc] initWithOperation:obj];
-                [self cacheRow:row];
-                
-                NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:row, nil];
-                YGOperationSection *s = [[YGOperationSection alloc] initWithDate:dayOfDate operationRows:arr];
-                [result addObject:s];
-            }
-        } else {
-            // create YGOperationRow from obj
-            // set YGOperationRow properties
-            // add to section array
+        if([sectionsForDay count] > 1){
+            @throw [NSException exceptionWithName:@"-[YGSections sectionsFromOperations]" reason:@"More than one section for the date" userInfo:nil];
+        }
+        
+        if([sectionsForDay count] == 1){ // section for day exists yet
+            YGOperationSection *section = [sectionsForDay firstObject];
             YGOperationRow *row = [[YGOperationRow alloc] initWithOperation:obj];
             [self cacheRow:row];
-            
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:row, nil];
-            YGOperationSection *s = [[YGOperationSection alloc] initWithDate:dayOfDate operationRows:arr];
-            [result addObject:s];
+            [section addOperationRow:row];
+        } else { // section for day is not exists
+            YGOperationRow *row = [[YGOperationRow alloc] initWithOperation:obj];
+            [self cacheRow:row];
+            NSMutableArray *rows = [[NSMutableArray alloc] initWithObjects:row, nil];
+            YGOperationSection *newSection = [[YGOperationSection alloc] initWithDate:dayOfDate operationRows:rows];
+            [result addObject:newSection];
         }
     }];
-    
     return result;
 }
-
 
 + (NSDate *)dayOfDate:(NSDate *)date{
     
@@ -150,6 +136,10 @@ static NSInteger const kWidthOfMarginIndents = 45;
 #pragma mark - Sort sections
 
 - (void)sortSectionsByDate{
+#ifdef PERFORMANCE
+    NSLog(@"YGOperationSectionMananger.sortSectionsByDate");
+#endif
+    
     [_sections sortUsingComparator:^NSComparisonResult(YGOperationSection *sec1, YGOperationSection *sec2){
         if([sec1.date compare: sec2.date] == NSOrderedDescending)
             return NSOrderedAscending;
@@ -158,6 +148,10 @@ static NSInteger const kWidthOfMarginIndents = 45;
         else
             return NSOrderedSame; // :)
     }];
+    
+#ifdef PERFORMANCE
+    NSLog(@"<< sortSectinsByDate finished");
+#endif
 }
 
 #pragma mark - Prepare cache for operation row
@@ -262,21 +256,21 @@ static NSInteger const kWidthOfMarginIndents = 45;
 }
 
 - (void)updateOperation:(YGOperation *)oldOperation withNew:(YGOperation *)newOperation {
-    
-//#ifdef DEBUG
-//    NSLog(@"YGOperationSectionMananger.updateOperation:withNew:");
-//#endif
+//#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+    NSLog(@"YGOperationSectionMananger.updateOperation:withNew:");
+    NSLog(@"oldOperation:\n%@", [oldOperation description]);
+    NSLog(@"newOperation:\n%@", [newOperation description]);
+#endif
     
     // New or exist section
     if ([oldOperation.day compare:newOperation.day] == NSOrderedSame) {
-//#ifdef DEBUG
-//        NSLog(@"");
-//#endif
         YGOperationSection *section = [self sectionWithDate:oldOperation.day];
-        
-//#ifdef DEBUG
-//        NSLog(@"Finded section: \n%@", [section description]);
-//#endif
+
+#ifdef FUNC_DEBUG
+        NSLog(@"Day is not changed.");
+        NSLog(@"Current section:\n%@", [section description]);
+#endif
         
         NSMutableArray <YGOperationRow *> *rows = [section.operationRows mutableCopy];
         NSInteger index = [rows indexOfObjectPassingTest:^BOOL(YGOperationRow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -286,19 +280,18 @@ static NSInteger const kWidthOfMarginIndents = 45;
                 return NO;
         }];
         
-//#ifdef DEBUG
-//        NSLog(@"Finded index: %ld", (long)index);
-//        NSLog(@"Operation on index: %@", rows[index].operation);
-//        NSLog(@"New operation: %@", newOperation);
-//#endif
+#ifdef FUNC_DEBUG
+        NSLog(@"Finded index in section.rows: %ld", (long)index);
+        NSLog(@"Finded operation:\n%@", rows[index].operation);
+#endif
         
         rows[index].operation = [newOperation copy];
         [self cacheRow:rows[index]];
         [section setOperationRows:rows];
     } else {
-//#ifdef DEBUG
-//        NSLog(@"");
-//#endif
+#ifdef FUNC_DEBUG
+        NSLog(@"Day is changed.");
+#endif
         [self removeOperation:oldOperation];
         [self addOperation:newOperation];
     }
@@ -340,6 +333,10 @@ static NSInteger const kWidthOfMarginIndents = 45;
 }
 
 - (void)addSection:(YGOperationSection *)section {
+    //#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+    NSLog(@"YGOperationSectionManager.addSection");
+#endif
     
     // Calculate bounds for new section in dataSource
     NSInteger lowIndex = [self.sections indexOfObjectPassingTest:^BOOL(YGOperationSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -356,6 +353,10 @@ static NSInteger const kWidthOfMarginIndents = 45;
             return NO;
         }
     }];
+    
+#ifdef FUNC_DEBUG
+    NSLog(@"lowIndex: %ld, upperIndex: %ld", (long)lowIndex, (long)upperIndex);
+#endif
     
     // Add new section to dataSource
     if (lowIndex != NSNotFound && upperIndex != NSNotFound) {

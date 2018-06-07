@@ -11,6 +11,7 @@
 //#define APP_STORE 1
 //#define FILL_TEST_DATA 1
 //#define DEBUG_REBUILD_BASE 1
+//#define PERFORMANCE 1
 
 extern NSString *const kAppBuildDate;
 extern NSString *const kAppBuildDateFormat;
