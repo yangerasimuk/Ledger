@@ -190,3 +190,9 @@
 /* Yesterday date */
 "YESTERDAY" = "Вчера";
 
+/* Application name on Launch screen. */
+"LAUNCH_SCREEN_APP_NAME_LABEL" = "Леджер";
+
+/* Log text during loading Launch screen. */
+"LAUNCH_SCREEN_LOG_LOADING_LABEL" = "Загрузка...";
+

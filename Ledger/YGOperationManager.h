@@ -28,29 +28,16 @@
 
 - (YGOperation *)lastOperationForType:(YGOperationType)type;
 
-/**
- For reculc sum of account
- */
-- (YGOperation *)lastOperationOfType:(YGOperationType)type withTargetId:(NSInteger)targetId;
 
 - (void)updateOperation:(YGOperation *)oldOperation withNew:(YGOperation *)newOperation;
 
 - (void)removeOperation:(YGOperation *)operation;
 
-- (NSArray <YGOperation *> *)listOperations;
-
-/**
- For reculc sum of account
- */
+/// For recalc sum of account
+- (YGOperation *)lastOperationOfType:(YGOperationType)type withTargetId:(NSInteger)targetId;
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId;
-//- (NSArray <YGOperation *> *)operationsOfType:(YGOperationType)type withSourceId:(NSInteger)sourceId;
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId;
 
-
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)accountActual;
-
-
-
-
 
 @end

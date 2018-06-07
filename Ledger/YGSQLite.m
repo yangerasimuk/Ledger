@@ -433,6 +433,9 @@
 
 
 - (NSArray *)selectWithSqlQuery:(NSString *)sqlQuery {
+#ifdef PERFORMANCE
+    NSLog(@"YGSQLite.selectWithSqlQuery:");
+#endif
             
     NSMutableArray *result = [[NSMutableArray alloc] init];
 
@@ -487,6 +490,10 @@
     }
     
     sqlite3_close(db);
+    
+#ifdef PERFORMANCE
+    NSLog(@"<< selectWithSqlQuery finished");
+#endif
 
     if([result count] > 0)
         return [result copy];

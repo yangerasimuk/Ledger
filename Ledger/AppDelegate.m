@@ -114,5 +114,26 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)loadMainUI {
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TabBarViewController"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    UIView *snapshot = [self.window snapshotViewAfterScreenUpdates:true];
+    [vc.view addSubview:snapshot];
+    
+    self.window.rootViewController = vc;
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        snapshot.layer.opacity = 0.0f;
+        snapshot.layer.transform = CATransform3DMakeScale(1.5f, 1.5f, 1.5f);
+    } completion:^(BOOL finished) {
+        [snapshot removeFromSuperview];
+    }];
+    
+    [self.window makeKeyAndVisible];
+}
+
 
 @end

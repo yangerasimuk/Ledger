@@ -12,7 +12,6 @@
 #import "YGEntityManager.h"
 #import "YGConfig.h"
 
-
 @interface YGOperationManager (){
     YGSQLite *_sqlite;
 }
@@ -81,9 +80,7 @@
 #pragma mark - Inner methods for memory cache process
 
 - (void) getOperationsForCache {
-    
     NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation ORDER BY day_unix DESC, modified_unix DESC;";
-    
     self.operations = [[self operationsBySqlQuery:sqlQuery] mutableCopy];
 }
 
@@ -224,12 +221,12 @@
  Write object as is, without any modifications.
  */
 - (void)updateOperation:(YGOperation *)oldOperation withNew:(YGOperation *)newOperation {
-    
-//#ifdef DEBUG
-//    NSLog(@"updateOperation:withNew:");
-//    NSLog(@"old operation:\n%@", [oldOperation description]);
-//    NSLog(@"new operation:\n%@", [newOperation description]);
-//#endif
+//#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+    NSLog(@"YGOperationMananger.updateOperation:withNew:");
+    NSLog(@"old operation:\n%@", [oldOperation description]);
+    NSLog(@"new operation:\n%@", [newOperation description]);
+#endif
     
     @try {
         // 1. Update db
@@ -254,15 +251,15 @@
         [_sqlite execSQL:updateSQL];
         
         // 2. Update memory cache
-        NSUInteger index = [self.operations indexOfObject:oldOperation];
-        
-//#ifdef DEBUG
-//        if (index == NSNotFound)
-//            NSLog(@"index: NSNotFound");
-//        else
-//            NSLog(@"index: %ld", (long)index);
-//#endif
-        
+        // Not work - it's a copy object!
+        //NSUInteger index = [self.operations indexOfObject:oldOperation];
+        NSUInteger index = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (oldOperation.rowId == obj.rowId)
+                return YES;
+            else
+                return NO;
+        }];
+                
         self.operations[index] = [newOperation copy];
         
         // Need sort? It seems at any case YES.
@@ -332,50 +329,49 @@
     return [self operationsBySqlQuery:sqlQuery];
 }
 
-
-- (NSArray <YGOperation *> *)listOperations{
-    
-    NSString *sqlQuery = @"SELECT operation_id, operation_type_id, source_id, target_id, source_sum, source_currency_id, target_sum, target_currency_id, day, created, modified, comment, uuid FROM operation ORDER BY created_unix DESC;";
-    
-    return [self operationsBySqlQuery:sqlQuery];
-}
-
-
 - (NSArray <YGOperation *> *)operationsBySqlQuery:(NSString *)sqlQuery {
+//#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+    NSLog(@"YGOperationManager.operationsBySqlQuery:");
+#endif
     
     NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
+    
+#ifdef PERFORMANCE
+    NSLog(@"Mapping sqlite result to ponso array");
+#endif
     
     if(rawList){
         
         NSMutableArray <YGOperation *> *result = [[NSMutableArray alloc] init];
         
-        for(NSArray *arr in rawList){
-            
-            NSInteger rowId = [arr[0] integerValue];
-            YGOperationType type = [arr[1] integerValue];
-            NSInteger sourceId = [arr[2] integerValue];
-            NSInteger targetId = [arr[3] integerValue];
-            double sourceSum = [arr[4] doubleValue];
-            NSInteger sourceCurrencyId = [arr[5] integerValue];
-            double targetSum = [arr[6] doubleValue];
-            NSInteger targetCurrencyId= [arr[7] integerValue];
-            NSDate *day = [arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]];
-            NSDate *created = [arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]];
-            NSDate *modified = [arr[10] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[10]];
-            NSString *comment = [arr[11] isEqual:[NSNull null]] ? nil : arr[11];
-            NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:arr[12]];
-            
-            YGOperation *operation = [[YGOperation alloc] initWithRowId:rowId type:type sourceId:sourceId targetId:targetId sourceSum:sourceSum sourceCurrencyId:sourceCurrencyId targetSum:targetSum targetCurrencyId:targetCurrencyId day:day created:created modified:modified comment:comment uuid:uuid];
-            
+        [rawList enumerateObjectsUsingBlock:^(id  _Nonnull arr, NSUInteger idx, BOOL * _Nonnull stop) {
+            YGOperation *operation = [[YGOperation alloc]
+                                      initWithRowId:[arr[0] integerValue]
+                                      type:[arr[1] integerValue]
+                                      sourceId:[arr[2] integerValue]
+                                      targetId:[arr[3] integerValue]
+                                      sourceSum:[arr[4] doubleValue]
+                                      sourceCurrencyId:[arr[5] integerValue]
+                                      targetSum:[arr[6] doubleValue]
+                                      targetCurrencyId:[arr[7] integerValue]
+                                      day:[arr[8] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[8]]
+                                      created:[arr[9] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[9]]
+                                      modified: [arr[10] isEqual:[NSNull null]] ? nil : [YGTools dateFromString:arr[10]]
+                                      comment:[arr[11] isEqual:[NSNull null]] ? nil : arr[11]
+                                      uuid:[[NSUUID alloc] initWithUUIDString:arr[12]]];
             [result addObject:operation];
-        }
+        }];
+        
+#ifdef PERFORMANCE
+        NSLog(@"<< operationsBySqlQuery finished");
+#endif
         
         return [result copy];
     }
     else
         return nil;
 }
-
 
 /**
  Wrapper on operationBySqlQuery:.

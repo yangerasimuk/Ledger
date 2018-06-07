@@ -106,10 +106,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     [self.tableView registerClass:[YGOperationAccountActualCell class] forCellReuseIdentifier:kOperationAccountActualCellId];
     [self.tableView registerClass:[YGOperationTransferCell class] forCellReuseIdentifier:kOperationTransferCellId];
     
-
     [self addAsObserver];
-    
-    [self addPullRefresh];
     
     // fill table from cache - p_sections;
     p_isDataSourceChanged = YES;
@@ -306,24 +303,6 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     
     [self presentViewController:controller animated:YES completion:nil];
 }
-
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self reloadDataFromCache];
-    
-    [self updateUI];
-    
-    // get list of operations
-    NSArray *operations = [_om listOperations];
-    
-    _sections = [[YGOperationSections alloc] initWithOperations:operations];
-    
-    [self.tableView reloadData];
-}
- */
-
 
 - (void)updateUI {
     //YGConfig *config = [YGTools config];
@@ -758,27 +737,38 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 }
 
 /**
- Reload table data when user pull table down.
+ Pull-Refresh отключен - при жесте пальцем вниз происходит рывок таблицы, когда срабатывает событие.
+ Получается таблица как бы вырывается из под пальца - неприятно.
+ Поведение это системное, т.е. так себя ведет refreshControl когда просто включено обновление в storyboard.
  
+ Reload table data when user pull table down.
  In some case there is sqlite db lock.
 
  @param sender tableView?
  */
 - (void)pullRefreshReloadTable:(id)sender {
-    
     @try {
+        self.view.userInteractionEnabled = NO;
+        self.navigationController.view.userInteractionEnabled = NO;
+        
         __weak YGOperationViewController *weakSelf = self;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (weakSelf) {
                 YGOperationViewController *strongSelf = weakSelf;
+                
                 self.tableView.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE", @"Title when pull refresh reload table")];
                 [strongSelf.tableView.refreshControl beginRefreshing];
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
                     [p_operationSectionManager makeSections];
                     p_sections = p_operationSectionManager.sections;
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf reloadDataFromCache];
                         [strongSelf.tableView.refreshControl endRefreshing];
+                        strongSelf.view.userInteractionEnabled = YES;
+                        strongSelf.navigationController.view.userInteractionEnabled = YES;
                     });
                 });
             } // if (weakSelf)

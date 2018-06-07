@@ -234,3 +234,9 @@
 /* Yesterday date */
 "YESTERDAY" = "Yesterday";
 
+/* Application name on Launch screen. */
+"LAUNCH_SCREEN_APP_NAME_LABEL" = "Ledger";
+
+/* Log text during loading Launch screen. */
+"LAUNCH_SCREEN_LOG_LOADING_LABEL" = "Loading...";
+
