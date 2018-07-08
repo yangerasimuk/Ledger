@@ -1,0 +1,325 @@
+/* Title of About form */
+"ABOUT_FORM_TITLE" = "About";
+
+/* Title of Accounts form */
+"ACCOUNTS_VIEW_FORM_TITLE" = "Accounts";
+
+/* Title of Account choice form. */
+"ACCOUNT_CHOICE_FORM_TITLE" = "Account choice";
+
+/* Message in warning in saving duplicated account */
+"ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE" = "Can't add duplicate of existing account, for continue change name of account or/and currency of account";
+
+/* Title of Account view/edit form. */
+"ACCOUNT_EDIT_FORM_TITLE" = "Account";
+
+/* Activate for button title
+   Label of Activate button.
+   Title of Activate button. */
+"ACTIVATE_BUTTON_TITLE" = "Activate";
+
+/* Author of application (Yan Gerasimuk) */
+"APPLICATION_AUTHOR" = "Yan Gerasimuk";
+
+/* Name of application (Ledger) */
+"APPLICATION_NAME" = "Ledger";
+
+/* Pretext for release build date. */
+"APPLICATION_RELEASED_PRETEXT" = "released";
+
+/* Version of application */
+"APPLICATION_VERSION" = "Version";
+
+/* Attention title of alert controller */
+"ATTENTION_ALERT_CONTROLLER_TITLE" = "Attention!";
+
+/* Balance */
+"BALANCE_ALERT_ITEM_TITLE" = "Account balance";
+
+/* Balance. */
+"BALANCE_EDIT_FORM_TITLE" = "Account balance";
+
+/* Cancel */
+"CANCEL_ALERT_ITEM_TITLE" = "Cancel";
+
+/* Title of alert Can not deactivate */
+"CAN_NOT_DEACTIVATE_ALERT_TITLE" = "CAN_NOT_DEACTIVATE_ALERT_TITLE";
+
+/* Message with reason that all child categories must be deactivated. */
+"CAN_NOT_DEACTIVATE_BECOUSE_ALL_CHILD_CATEGORIES_MUST_BE_DEACTIVATED" = "CAN_NOT_DEACTIVATE_BECOUSE_ALL_CHILD_CATEGORIES_MUST_BE_DEACTIVATED";
+
+/* Message with reason that applicatin must have at least one active category for type */
+"CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CATEGORY_FOR_TYPE" = "CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CATEGORY_FOR_TYPE";
+
+/* Message with reason that applicatin must have at least one active currency */
+"CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CURRENCY" = "CAN_NOT_DEACTIVATE_BECOUSE_APP_NEED_AT_LEAST_ONE_ACTIVE_CURRENCY";
+
+/* Title of alert Can not delete */
+"CAN_NOT_DELETE_ALERT_TITLE" = "CAN_NOT_DELETE_ALERT_TITLE";
+
+/* Message with reason that category has child subcategories and to delete the one must delete or split child ones. */
+"CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_CHILD_SUBCATEGORIES_MESSAGE" = "CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_CHILD_SUBCATEGORIES_MESSAGE";
+
+/* Message with reason that category has linked objects (operations, accounts, debts, etc.)
+   The currency has linked objects (operations, accounts, debts, etc.) */
+"CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE" = "CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE";
+
+/* Title of Creditor/debtor form
+   Title of Creditors/Debtors form. */
+"CREDITORS_DEBTORS_VIEW_FORM_TITLE" = "CREDITORS_DEBTORS_VIEW_FORM_TITLE";
+
+/* Title of Creditor/Debtor view/edit form. */
+"CREDITOR_DEBTOR_EDIT_FORM_TITLE" = "CREDITOR_DEBTOR_EDIT_FORM_TITLE";
+
+/* Title of Currencies form */
+"CURRENCIES_VIEW_FORM_TITLE" = "Currencies";
+
+/* Title of Currency choice form. */
+"CURRENCY_CHOICE_FORM_TITLE" = "Currency choice";
+
+/* Title of currency view/edit form. */
+"CURRENCY_EDIT_FORM_TITLE" = "Currency";
+
+/* Title of currency form */
+"CURRENCY_VIEW_FORM_TITLE" = "Currencies";
+
+/* Title of date choice form. */
+"DATE_CHOICE_FORM_TITLE" = "Date choice";
+
+/* В процессе восстановления текущая база данных будет заменена на архивную. */
+"DB_REPLACEMENT_WHEN_RESTORE_MESSAGE" = "Restore process will replace existing database with backup one. Please, confirm action.";
+
+/* Deactivate for button title
+   Label of Deactivate button.
+   Title of Deactivate button. */
+"DEACTIVATE_BUTTON_TITLE" = "Deactivate";
+
+/* Expense */
+"EXPENSE_ALERT_ITEM_TITLE" = "Expense";
+
+/* Title of Expense categories form.
+   Title of expense form */
+"EXPENSE_CATEGORIES_VIEW_FORM_TITLE" = "Expense categories";
+
+/* Title of Expense choice form. */
+"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Expense category choice";
+
+/* Title of Expense category view/edit form. */
+"EXPENSE_CATEGORY_EDIT_FORM_TITLE" = "Expense category";
+
+/* Title of expense edit form. */
+"EXPENSE_EDIT_FORM_TITLE" = "Expense";
+
+/* Income */
+"INCOME_ALERT_ITEM_TITLE" = "Income";
+
+/* Title of Income operation. */
+"INCOME_EDIT_FORM_TITLE" = "Income";
+
+/* Title of income form
+   Title of Income sources form. */
+"INCOME_SOURCES_VIEW_FORM_TITLE" = "Income sources";
+
+/* Title of Income source choice form. */
+"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Income source choice";
+
+/* Title of Income source form. */
+"INCOME_SOURCE_EDIT_FORM_TITLE" = "Income source";
+
+/* Title of Local backup form */
+"LOCAL_BACKUP_FORM_TITLE" = "Local backup";
+
+/* Notification about account balance operation throught new account creation. */
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE";
+
+/* Notification about account balance operation throught new account creation. */
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE";
+
+/* No operations in Operations form. */
+"NO_OPERATIONS_LABEL" = "No operations";
+
+/* OK */
+"OK_ACTION_TITLE" = "OK";
+
+/* Title of Operations form */
+"OPERATIONS_VIEW_FORM_TITLE" = "Operations";
+
+/* Title when pull refresh reload table */
+"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE" = "Reload list";
+
+/* Usually: Choose operation */
+"OPERATION_CHOICE_ALERT_SHEET_TITLE" = "Select operation";
+
+/* Title of Options form */
+"OPTIONS_VIEW_FORM_TITLE" = "Options";
+
+/* Parent expense category choice title */
+"PARENT_CHOICE_TITLE" = "Parent category";
+
+/* Message with reason that applicatin must have at least one active category */
+"REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE" = "REASON_CAN_NOT_DEACTIVATE_CATEGORY_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE";
+
+/* Message with reason that current account has linked objects and can not be deleted. */
+"REASON_CAN_NOT_DELETE_ACCOUNT_WITH_LINKED_MESSAGE" = "REASON_CAN_NOT_DELETE_ACCOUNT_WITH_LINKED_MESSAGE";
+
+/* Message with reason that category is only one active for type and another is not exists. */
+"REASON_CAN_NOT_DELETE_BECOUSE_ABSENT_ANOTHER_ACTIVE_CATEGORY_FOR_TYPE_MESSAGE" = "REASON_CAN_NOT_DELETE_BECOUSE_ABSENT_ANOTHER_ACTIVE_CATEGORY_FOR_TYPE_MESSAGE";
+
+/* Message with reason that category has linked objects (operations, accounts, debts, etc.) */
+"REASON_CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE" = "REASON_CAN_NOT_DELETE_BECOUSE_CATEGORY_HAS_LINKED_OBJECTS_MESSAGE";
+
+/* Message with reason that category is only one for type and can not be deleted. */
+"REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE" = "REASON_CAN_NOT_DELETE_BECOUSE_ONLY_ONE_CATEGORY_EXISTS_FOR_TYPE_MESSAGE";
+
+/* Restore */
+"RESTORE_ALERT_ITEM_TITLE" = "Restore";
+
+/* Name of Root category */
+"ROOT_CATEGORY_LABEL" = "Root category";
+
+/* Name of Root category */
+"ROOT_CATEGORY_NAME" = "Root Category";
+
+/* Select account
+   Select account. */
+"SELECT_ACCOUNT_LABEL" = "Select account";
+
+/* Select category */
+"SELECT_CATEGORY_LABEL" = "Select expense";
+
+/* Select currency text on label. */
+"SELECT_CURRENCY_LABEL" = "Select currency";
+
+/* Select source */
+"SELECT_INCOME_SOURCE_LABEL" = "Select income";
+
+/* Sum
+   Sum. */
+"SUM" = "Sum";
+
+/* Title of Tag form
+   Title of Tags form. */
+"TAGS_VIEW_FORM_TITLE" = "TAGS_VIEW_FORM_TITLE";
+
+/* Title of Tag edit form. */
+"TAG_EDIT_FORM_TITLE" = "TAG_EDIT_FORM_TITLE";
+
+/* Terms for adding operation Account actual */
+"TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE" = "To add an operation \"Account balance\" you must have at least one active Account";
+
+/* Terms for adding operation Expense */
+"TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE" = "To add an operation \"Expense\", you must have at least one active Account and one active Expense category";
+
+/* Terms for adding operation Income */
+"TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE" = "To add an operation \"Income\" you must have at least one active Account and one active Income source";
+
+/* Terms for adding operation Transfer */
+"TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE" = "To add an operation \"Transfer\" you must have at least two active Accounts";
+
+/* Placeholder for all textView for comments. */
+"TEXT_VIEW_COMMENT_PLACEHOLDER" = "Comment";
+
+/* Today date */
+"TODAY" = "Today";
+
+/* Transfer */
+"TRANSFER_ALERT_ITEM_TITLE" = "Transfer";
+
+/* Title of transfor edit form. */
+"TRANSFER_EDIT_FORM_TITLE" = "Transfer";
+
+/* Warning */
+"WARNING_ALERT_CONTROLLER_TITLE" = "Warning";
+
+/* Yesterday date */
+"YESTERDAY" = "Yesterday";
+
+/* Application name on Launch screen. */
+"LAUNCH_SCREEN_APP_NAME_LABEL" = "Ledger";
+
+/* Log text during loading Launch screen. */
+"LAUNCH_SCREEN_LOG_LOADING_LABEL" = "Loading...";
+
+/* Failed tests */
+"DB_TESTER_FAILED_TEST" = "Failed tests:";
+
+/* Format of backup file must be sqlite. */
+"DB_TEST_RULE_BACKUP_FILE_MUST_BE_SQLITE" = "Format of backup file must be sqlite.";
+
+/* Backup file is sqlite db file. */
+"DB_TEST_BACKUP_IS_SQLITE_FILE" = "Backup file is sqlite db file.";
+
+/* Backup file is not sqlite db file. */
+"DB_TEST_BACKUP_IS_NOT_SQLITE_FILE" = "Backup file is not sqlite db file.";
+
+/* Opening a database by Sqlite library. */
+"DB_TEST_RULE_DB_MUST_OPEN_BY_SQLITE_LIBRARY" = "Opening a database by Sqlite library.";
+
+/* Database does not open. */
+"DB_TEST_DB_DOES_NOT_OPEN" = "Database does not open.";
+
+/* Database opens successfully. */
+"DB_TEST_DB_OPENS" = "Database opens successfully.";
+
+/* Database version must be support by the app. */
+"DB_TEST_RULE_DB_VERSION_MUST_SUPPORTS_BY_APP" = "Database version must be support by the app.";
+
+/* This database version supports by the app. */
+"DB_TEST_DB_VERSION_SUPPORTS_BY_APP" = "This database version supports by the app.";
+
+/* Backup database of this version is not supported by the app. */
+"DB_TEST_DB_VERSION_DOES_NOT_SUPPORT_BY_APP" = "Backup database of this version is not supported by the app.";
+
+/* Make snapshot of work db... */
+"BACKUPER_MAKE_SNAPSHOT_MESSAGE" = "Snapshot of work db...";
+
+/* Backup bundle is not valid. */
+"BACKUPER_BUNDLE_IS_NOT_VALID" = "Backup bundle is not valid.";
+
+/* Download backup info... */
+"DROPBOX_DOWNLOAD_BACKUP_INFO_MESSAGE" = "Download backup info...";
+
+/* Download backup... */
+"DROPBOX_DOWNLOAD_BACKUP_MESSAGE" = "Download backup...";
+
+/* Local backup is not valid. */
+"DROPBOX_LOCAL_BACKUP_IS_NOT_VALID_MESSAGE" = "Local backup is not valid.";
+
+/* Test backup... */
+"DROPBOX_TEST_BACKUP_MESSAGE" = "Test backup...";
+
+/* Can not restore database from remote backup. */
+"DROPBOX_CAN_NOT_RESTORE_DB_MESSAGE" = "Can not restore database from remote backup.";
+
+/* Upload backup... */
+"DROPBOX_UPLOAD_BACKUP_MESSAGE" = "Upload backup...";
+
+/* Account */
+"BACKUP_MENU_ACCOUNT" = "Account";
+
+/* Error */
+"BACKUP_ERROR_ALERT_TITLE" = "Error";
+
+/* Please, try again later. */
+"BACKUP_TRY_AGAIN_LATER_MESSAGE" = "Please, try again later.";
+
+/* Restore from backup is failed. \nPlease, try again later. */
+"BACKUP_RESTORE_FROM_BACKUP_FAILED_MESSAGE" = "Restore from backup is failed. \nPlease, try again later.";
+
+/* Restore error */
+"BACKUP_RESTORE_ERROR_ALERT_TITLE" = "Restore error";
+
+/* Unlink Dropbox account */
+"DROPBOX_ACCOUNT_UNLINK_BUTTON" = "Unlink Dropbox account";
+
+/* Link Dropbox account */
+"DROPBOX_ACCOUNT_LINK_BUTTON" = "Link Dropbox account";
+
+/* Help text for unlink dropbox account. */
+"DROPBOX_TO_UNLINK_ACCOUNT_TEXT" = "To unlink Dropbox account from the application or change Dropbox account, click the \"Unlink Dropbox account\" button.\n\nAfter you did it, backup to remote storage and restore backups from it will be impossible.\n\nTo restore backup service, link to your Dropbox account again.";
+
+/* Help text for link dropbox account. */
+"DROPBOX_TO_LINK_ACCOUNT_TEXT" = "To backup the application database to the network storage of Dropbox and then restore it, you need to link your Dropbox account to the application. To do this, click on the \"Link Dropbox account\" button and follow the instructions.\n\nBinding procedure needs only once, repeat it only in case of change Dropbox account.\n\nThe application does not have access to the login and password from the Dropbox account at any time.";
+
+/* Account. */
+"DROPBOX_ACCOUNT_TITLE" = "Account";

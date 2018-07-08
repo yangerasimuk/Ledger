@@ -9,8 +9,13 @@
 #import "YYGLedgerDefine.h"
 
 // Application build date
-NSString *const kAppBuildDate = @"2017-09-27";
+//NSString *const kAppBuildDate = @"2017-09-27";
+NSString *const kAppBuildDate = @"2018-07-08";
 NSString *const kAppBuildDateFormat = @"yyyy-MM-dd";
+
+// Database version supports
+int kDatabaseMajorVersion = 1;
+int kDatabaseMinorVersion = 0;
 
 // Application database name
 NSString *const kDatabaseName = @"ledger.db.sqlite";
@@ -33,10 +38,10 @@ NSString *const kDateTimeFormatForBackupName = @"yyyy-MM-dd-HH-mm-ssZ";
 NSString *const kDateMinimum = @"2001-01-01 01:01:01 +0000";
 
 NSString *const kDatabaseMajorVersionKey = @"DatabaseMajorVersion";
-int kDatabaseMajorVersion = 1;
 
 NSString *const kDatabaseMinorVersionKey = @"DatabaseMinorVersion";
-int kDatabaseMinorVersion = 0;
 
 float kKeyboardAppearanceDelay = 0.6;
 
+// @"^\\d{4}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[+-]\\d{4}\\.ledger\\.db\\.sqlite$"
+NSString *const kBackupFileNamePattern = @"^\\d{4}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[+-]\\d{4}\\.ledger\\.db\\.sqlite"; // +.xml

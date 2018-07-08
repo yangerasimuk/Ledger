@@ -33,3 +33,4 @@ extern int kDatabaseMinorVersion;
 
 extern float kKeyboardAppearanceDelay;
 
+extern NSString *const kBackupFileNamePattern;

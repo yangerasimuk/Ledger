@@ -1,0 +1,251 @@
+/* Class = "UILabel"; text = "Sum:"; ObjectID = "0Ce-YM-T4K"; */
+"0Ce-YM-T4K.text" = "Sum";
+
+/* Class = "UITableViewSection"; headerTitle = "Comment"; ObjectID = "0ZH-Dq-sCd"; */
+"0ZH-Dq-sCd.headerTitle" = "Comment";
+
+/* Class = "UIButton"; normalTitle = "Activate"; ObjectID = "0gF-hk-tmS"; */
+"0gF-hk-tmS.normalTitle" = "Activate";
+
+/* Class = "UILabel"; text = "Expense category"; ObjectID = "2Tz-cI-Dt5"; */
+"2Tz-cI-Dt5.text" = "Expense category";
+
+/* Class = "UITabBarItem"; title = "Options"; ObjectID = "3E0-PB-02e"; */
+"3E0-PB-02e.title" = "Options";
+
+/* Class = "UIButton"; normalTitle = "Activate"; ObjectID = "3Lo-ZJ-ryX"; */
+"3Lo-ZJ-ryX.normalTitle" = "Activate";
+
+/* Class = "UIButton"; normalTitle = "Backup"; ObjectID = "4aa-ky-kfG"; */
+"4aa-ky-kfG.normalTitle" = "Backup";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "4dq-Vd-GZW"; */
+"4dq-Vd-GZW.text" = "Note";
+
+/* Class = "UILabel"; text = "Sum:"; ObjectID = "5V4-XZ-aUx"; */
+"5V4-XZ-aUx.text" = "Sum";
+
+/* Class = "UILabel"; text = "Currency"; ObjectID = "8cR-XF-JcC"; */
+"8cR-XF-JcC.text" = "Currency";
+
+/* Class = "UILabel"; text = "Hide decimal fraction"; ObjectID = "582-cI-Djh"; */
+"582-cI-Djh.text" = "Hide centes";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "A1Y-uA-dSE"; */
+"A1Y-uA-dSE.text" = "Title";
+
+/* Class = "UITabBarItem"; title = "Operations"; ObjectID = "CGj-YP-beV"; */
+"CGj-YP-beV.title" = "Operations";
+
+/* Class = "UINavigationItem"; title = "Options"; ObjectID = "ELZ-BV-TMX"; */
+"ELZ-BV-TMX.title" = "Options";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "FtB-0b-GR8"; */
+"FtB-0b-GR8.normalTitle" = "Delete";
+
+/* Class = "UILabel"; text = "Database size:"; ObjectID = "Hj2-NW-R9M"; */
+"Hj2-NW-R9M.text" = "Database size";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "I5X-So-yvY"; */
+"I5X-So-yvY.normalTitle" = "Delete";
+
+/* Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "IMc-Yg-RHK"; */
+"IMc-Yg-RHK.headerTitle" = "Backup database";
+
+/* Class = "UILabel"; text = "Root category"; ObjectID = "Ig5-ZJ-NpE"; */
+"Ig5-ZJ-NpE.text" = "Root category";
+
+/* Class = "UILabel"; text = "Sort:"; ObjectID = "IqF-UX-hiA"; */
+"IqF-UX-hiA.text" = "Sort";
+
+/* Class = "UILabel"; text = "Sort:"; ObjectID = "K3s-mm-yHZ"; */
+"K3s-mm-yHZ.text" = "Sort";
+
+/* Class = "UIButton"; normalTitle = "Activate"; ObjectID = "LVG-PO-bjz"; */
+"LVG-PO-bjz.normalTitle" = "Activate";
+
+/* Class = "UILabel"; text = "Income source"; ObjectID = "Lu8-d5-ZUG"; */
+"Lu8-d5-ZUG.text" = "Income source";
+
+/* Class = "UILabel"; text = "Name:"; ObjectID = "MG1-g4-MIz"; */
+"MG1-g4-MIz.text" = "Name";
+
+/* Class = "UILabel"; text = "Name:"; ObjectID = "MKh-dL-S2f"; */
+"MKh-dL-S2f.text" = "Name";
+
+/* Class = "UILabel"; text = "Sum:"; ObjectID = "MOz-Mo-JnQ"; */
+"MOz-Mo-JnQ.text" = "Sum";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "OIX-te-ela"; */
+"OIX-te-ela.normalTitle" = "Delete";
+
+/* Class = "UIButton"; normalTitle = "Activate"; ObjectID = "OrH-8A-Gf3"; */
+"OrH-8A-Gf3.normalTitle" = "Activate";
+
+/* Class = "UILabel"; text = "Use as  default currency:"; ObjectID = "RUi-Oh-Gkt"; */
+"RUi-Oh-Gkt.text" = "Default currency";
+
+/* Class = "UILabel"; text = "About"; ObjectID = "Tua-6L-gws"; */
+"Tua-6L-gws.text" = "About";
+
+/* Class = "UITableViewSection"; headerTitle = "Parent category"; ObjectID = "U4d-LV-RBQ"; */
+"U4d-LV-RBQ.headerTitle" = "Parent category";
+
+/* Class = "UILabel"; text = "Name:"; ObjectID = "UiG-md-rzq"; */
+"UiG-md-rzq.text" = "Name";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "Z1u-C1-UaU"; */
+"Z1u-C1-UaU.text" = "Note:";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "aGe-OB-9ej"; */
+"aGe-OB-9ej.normalTitle" = "Delete";
+
+/* Class = "UITableViewSection"; headerTitle = "Account -> Expense category"; ObjectID = "ba8-iE-S1T"; */
+"ba8-iE-S1T.headerTitle" = "Account -> Expense category";
+
+/* Class = "UIButton"; normalTitle = "Save & add"; ObjectID = "blz-hv-5Qg"; */
+"blz-hv-5Qg.normalTitle" = "Save & add";
+
+/* Class = "UILabel"; text = "Last operation:"; ObjectID = "doG-gw-5XT"; */
+"doG-gw-5XT.text" = "Modified";
+
+/* Class = "UIButton"; normalTitle = "Save & add"; ObjectID = "e3u-1O-XUK"; */
+"e3u-1O-XUK.normalTitle" = "Save & add";
+
+/* Class = "UILabel"; text = "Database size:"; ObjectID = "f2B-bq-zaU"; */
+"f2B-bq-zaU.text" = "Database size";
+
+/* Class = "UILabel"; text = "Symbol:"; ObjectID = "fOc-gt-H7Y"; */
+"fOc-gt-H7Y.text" = "Symbol";
+
+/* Class = "UIButton"; normalTitle = "Save & add"; ObjectID = "gGT-hP-Gwa"; */
+"gGT-hP-Gwa.normalTitle" = "Save & add";
+
+/* Class = "UILabel"; text = "Last operation:"; ObjectID = "hyQ-eX-vOL"; */
+"hyQ-eX-vOL.text" = "Modified";
+
+/* Class = "UILabel"; text = "Pull refresh to add new"; ObjectID = "iNZ-M9-Qa0"; */
+"iNZ-M9-Qa0.text" = "Pull refresh to add";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "j6t-PF-xG5"; */
+"j6t-PF-xG5.normalTitle" = "Delete";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "j64-eT-xWf"; */
+"j64-eT-xWf.text" = "Label";
+
+/* Class = "UILabel"; text = "Name:"; ObjectID = "jLr-4l-kj2"; */
+"jLr-4l-kj2.text" = "Name";
+
+/* Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "jwF-uG-onl"; */
+"jwF-uG-onl.headerTitle" = "Backup database";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "k27-dk-R6t"; */
+"k27-dk-R6t.text" = "Note:";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "kzO-Sg-SYX"; */
+"kzO-Sg-SYX.text" = "Note";
+
+/* Class = "UILabel"; text = "Backup date:"; ObjectID = "lsa-R2-aaR"; */
+"lsa-R2-aaR.text" = "Backup date";
+
+/* Class = "UILabel"; text = "Select currency"; ObjectID = "mEx-I8-Oey"; */
+"mEx-I8-Oey.text" = "Select currency";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "mLI-gX-7nw"; */
+"mLI-gX-7nw.normalTitle" = "Delete";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "nne-ao-GIN"; */
+"nne-ao-GIN.text" = "Detail";
+
+/* Class = "UITableViewSection"; headerTitle = "Account balance"; ObjectID = "qXG-MO-dDu"; */
+"qXG-MO-dDu.headerTitle" = "Account balance";
+
+/* Class = "UITableViewSection"; headerTitle = "Dictionaries"; ObjectID = "qnU-qz-z6B"; */
+"qnU-qz-z6B.headerTitle" = "Dictionaries";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "r8e-H2-feU"; */
+"r8e-H2-feU.normalTitle" = "Delete";
+
+/* Class = "UIButton"; normalTitle = "Save & add"; ObjectID = "reu-q0-A6G"; */
+"reu-q0-A6G.normalTitle" = "Save & add";
+
+/* Class = "UITableViewSection"; headerTitle = "Income source -> Account"; ObjectID = "rhd-ec-LVu"; */
+"rhd-ec-LVu.headerTitle" = "Income source -> Account";
+
+/* Class = "UILabel"; text = "Sum"; ObjectID = "sOM-RZ-eVp"; */
+"sOM-RZ-eVp.text" = "Sum";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "ssl-Rq-TcW"; */
+"ssl-Rq-TcW.normalTitle" = "Delete";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "tQR-Ct-lPa"; */
+"tQR-Ct-lPa.text" = "Note";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ubY-pY-RPP"; */
+"ubY-pY-RPP.text" = "Label";
+
+/* Class = "UILabel"; text = "Local backup"; ObjectID = "uoU-uD-lqt"; */
+"uoU-uD-lqt.text" = "Local";
+
+/* Class = "UILabel"; text = "Sort:"; ObjectID = "vc0-0a-yde"; */
+"vc0-0a-yde.text" = "Sort";
+
+/* Class = "UILabel"; text = "Sort:"; ObjectID = "wEL-gH-SXk"; */
+"wEL-gH-SXk.text" = "Sort";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "wIT-Ba-wd6"; */
+"wIT-Ba-wd6.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "x2x-wm-UEf"; */
+"x2x-wm-UEf.normalTitle" = "Restore";
+
+/* Class = "UILabel"; text = "Sum:"; ObjectID = "xAC-aS-7El"; */
+"xAC-aS-7El.text" = "Sum";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "xha-ew-rDC"; */
+"xha-ew-rDC.text" = "Note";
+
+/* Class = "UILabel"; text = "Note:"; ObjectID = "xjm-NA-HTs"; */
+"xjm-NA-HTs.text" = "Note";
+
+/* Class = "UITableViewSection"; headerTitle = "Current database"; ObjectID = "xuf-3g-dWX"; */
+"xuf-3g-dWX.headerTitle" = "Current database";
+
+/* Class = "UITabBarItem"; title = "Accounts"; ObjectID = "y5U-IU-gfB"; */
+"y5U-IU-gfB.title" = "Accounts";
+
+/* Class = "UILabel"; text = "Use account as default"; ObjectID = "z0y-Fm-Toj"; */
+"z0y-Fm-Toj.text" = "Account as default";
+
+/* Class = "UITableViewSection"; headerTitle = "Source -> target accounts"; ObjectID = "zzB-6S-TEH"; */
+"zzB-6S-TEH.headerTitle" = "Source -> target accounts";
+
+/* Class = "UILabel"; text = ""; ObjectID = "wVC-vW-3IE"; */
+"wVC-vW-3IE.text" = "Dropbox";
+
+/* Class = "UITableViewSection"; headerTitle = "Current database"; ObjectID = "wa0-Es-c8u"; */
+"wa0-Es-c8u.headerTitle" = "Current database";
+
+/* Class = "UILabel"; text = "Last operation:"; ObjectID = "7xP-rY-UKk"; */
+"7xP-rY-UKk.text" = "Last operation";
+
+/* Class = "UILabel"; text = "Database size:"; ObjectID = "hMf-YA-WJH"; */
+"hMf-YA-WJH.text" = "Database size";
+
+/* Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "zjJ-7g-jK6"; */
+"zjJ-7g-jK6.headerTitle" = "Backup database";
+
+/* Class = "UILabel"; text = "Last operation:"; ObjectID = "gRJ-5Z-4ON"; */
+"gRJ-5Z-4ON.text" = "Last operation";
+
+/* Class = "UILabel"; text = "Database size:"; ObjectID = "Ha0-XC-IFY"; */
+"Ha0-XC-IFY.text" = "Database size";
+
+/* Class = "UILabel"; text = "Backup date:"; ObjectID = "Xpq-HL-loD"; */
+"Xpq-HL-loD.text" = "Backup date";
+
+/* Class = "UIButton"; normalTitle = "Backup"; ObjectID = "WrF-Bi-96k"; */
+"WrF-Bi-96k.normalTitle" = "Backup";
+
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "nKf-PV-vPL"; */
+"nKf-PV-vPL.normalTitle" = "Restore";
