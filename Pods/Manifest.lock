@@ -1,0 +1,16 @@
+PODS:
+  - ObjectiveDropboxOfficial (3.3.4)
+
+DEPENDENCIES:
+  - ObjectiveDropboxOfficial
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ObjectiveDropboxOfficial
+
+SPEC CHECKSUMS:
+  ObjectiveDropboxOfficial: 37878160a4e4c7f3e3886d4d1e8ea90d12c05d67
+
+PODFILE CHECKSUM: 09bdb3793ea3aada724b26a2238704a9a3462354
+
+COCOAPODS: 1.5.3
