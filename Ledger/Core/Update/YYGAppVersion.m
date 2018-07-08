@@ -14,6 +14,14 @@
 
 @implementation YYGAppVersion
 
+/**
+ Designed init.
+
+ @param major Major digit version.
+ @param minor Minor digit version.
+ @param build Build digit version.
+ @return Self.
+ */
 - (instancetype)initWithMajor:(NSInteger)major minor:(NSInteger)minor build:(NSInteger)build {
     self = [super init];
     if(self){
@@ -51,6 +59,10 @@
     build = [infoDictionary objectForKey:@"CFBundleVersion"];
     
     return [self initWithMajor:[major integerValue] minor:[minor integerValue] build:[build integerValue]];
+}
+
+- (instancetype)init {
+    return [self initWithCurruntBundle];
 }
 
 - (instancetype)initWithConfigEnvironmentKeys {
