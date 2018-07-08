@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "133050EF1EDAE29D0031044D"
-               BuildableName = "Ledger test.app"
+               BuildableName = "Ledger.app"
                BlueprintName = "Ledger"
                ReferencedContainer = "container:Ledger.xcodeproj">
             </BuildableReference>
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
@@ -54,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "133050EF1EDAE29D0031044D"
-            BuildableName = "Ledger test.app"
+            BuildableName = "Ledger.app"
             BlueprintName = "Ledger"
             ReferencedContainer = "container:Ledger.xcodeproj">
          </BuildableReference>
@@ -66,7 +65,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -78,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "133050EF1EDAE29D0031044D"
-            BuildableName = "Ledger test.app"
+            BuildableName = "Ledger.app"
             BlueprintName = "Ledger"
             ReferencedContainer = "container:Ledger.xcodeproj">
          </BuildableReference>
@@ -97,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "133050EF1EDAE29D0031044D"
-            BuildableName = "Ledger test.app"
+            BuildableName = "Ledger.app"
             BlueprintName = "Ledger"
             ReferencedContainer = "container:Ledger.xcodeproj">
          </BuildableReference>
