@@ -40,11 +40,9 @@
 		13279DC81EF2816600BA46AF /* YGAccountEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DC71EF2816600BA46AF /* YGAccountEditController.m */; };
 		13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */; };
 		13279DE01EF58C8900BA46AF /* YGDateChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */; };
-		133050F51EDAE29D0031044D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 133050F41EDAE29D0031044D /* main.m */; };
 		133050F81EDAE29D0031044D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 133050F71EDAE29D0031044D /* AppDelegate.m */; };
 		133050FE1EDAE29D0031044D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 133050FC1EDAE29D0031044D /* Main.storyboard */; };
 		133051001EDAE29D0031044D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 133050FF1EDAE29D0031044D /* Assets.xcassets */; };
-		133051031EDAE29D0031044D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 133051011EDAE29D0031044D /* LaunchScreen.storyboard */; };
 		1330510E1EDAE29D0031044D /* LedgerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1330510D1EDAE29D0031044D /* LedgerTests.m */; };
 		133051191EDAE29D0031044D /* LedgerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051181EDAE29D0031044D /* LedgerUITests.m */; };
 		133051281EDAE3300031044D /* YGTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133051271EDAE3300031044D /* YGTabBarViewController.m */; };
@@ -63,12 +61,24 @@
 		133C7F6720C8157B00CC9F16 /* YGLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C7F6620C8157B00CC9F16 /* YGLaunchScreenViewController.m */; };
 		135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E51F177096004F10DE /* YYGConfigDefine.m */; };
 		135510E91F177096004F10DE /* YYGConfigError.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E71F177096004F10DE /* YYGConfigError.m */; };
+		137E80D920F241E2000E4B7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E80D820F241E2000E4B7A /* main.m */; };
+		137E80DB20F2434A000E4B7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 137E80DA20F2434A000E4B7A /* LaunchScreen.storyboard */; };
 		138662841F3498E600800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 138662861F3498E600800A11 /* InfoPlist.strings */; };
 		1386628A1F34FA0C00800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1386628C1F34FA0C00800A11 /* InfoPlist.strings */; };
 		138662941F34FA0D00800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 138662961F34FA0D00800A11 /* InfoPlist.strings */; };
 		138662991F34FE7F00800A11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1386629B1F34FE7F00800A11 /* Localizable.strings */; };
 		138FDD921F192FD5009C3D2D /* YYGCategoryOneRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */; };
 		1392B1C920C5DD6900807ED3 /* YGOperationSectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1392B1C820C5DD6900807ED3 /* YGOperationSectionManager.m */; };
+		1397437520E0E41300391439 /* YGDropboxLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1397437420E0E41300391439 /* YGDropboxLinkViewController.m */; };
+		1397437B20E10BD700391439 /* YGLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1397437A20E10BD700391439 /* YGLoadView.m */; };
+		1397439220E13C4200391439 /* YYGStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1397439120E13C4200391439 /* YYGStorage.m */; };
+		1397439820E13DC800391439 /* YYGBackupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1397439720E13DC800391439 /* YYGBackupViewController.m */; };
+		1397439E20E1425600391439 /* YYGStorageDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1397439D20E1425600391439 /* YYGStorageDropbox.m */; };
+		139743A120E1431D00391439 /* YYGStorageLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 139743A020E1431D00391439 /* YYGStorageLocal.m */; };
+		139743A420E15EE900391439 /* YYGBackuper.m in Sources */ = {isa = PBXBuildFile; fileRef = 139743A320E15EE900391439 /* YYGBackuper.m */; };
+		139743BE20E4F80100391439 /* YYGDBTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 139743BD20E4F80100391439 /* YYGDBTester.m */; };
+		139743C120E5011E00391439 /* YYGDBTestDbVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 139743C020E5011E00391439 /* YYGDBTestDbVersion.m */; };
+		139743C420E5061F00391439 /* YYGDBTestDbOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = 139743C320E5061F00391439 /* YYGDBTestDbOpen.m */; };
 		139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F7A931EFD111200BD85AB /* YGTransferEditController.m */; };
 		13CCF86C1F16861400EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8521F16861400EAB928 /* YGFile.m */; };
 		13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8551F16861400EAB928 /* YGFileSystemObject.m */; };
@@ -91,6 +101,10 @@
 		13E0D3191F22A84D00B0C578 /* YYGDataRelease.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D3181F22A84D00B0C578 /* YYGDataRelease.m */; };
 		13E0D31C1F22ABC800B0C578 /* YYGDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */; };
 		13E0D31F1F24DE5A00B0C578 /* YYGAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D31E1F24DE5A00B0C578 /* YYGAboutViewController.m */; };
+		13F0D54720E7D95C00DE8CBE /* YYGDBTestDbFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F0D54620E7D95C00DE8CBE /* YYGDBTestDbFormat.m */; };
+		13F0D54C20EB84A400DE8CBE /* YYGUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F0D54B20EB84A400DE8CBE /* YYGUpdater.m */; };
+		13F0D54F20EBB10D00DE8CBE /* YYGAppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F0D54E20EBB10D00DE8CBE /* YYGAppVersion.m */; };
+		36741E3595D5FB02CBB6712E /* Pods_Ledger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EC63D6CE913B28B7FCF6A27 /* Pods_Ledger.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,13 +191,11 @@
 		13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyChoiceController.m; sourceTree = "<group>"; };
 		13279DDE1EF58C8900BA46AF /* YGDateChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDateChoiceController.h; sourceTree = "<group>"; };
 		13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDateChoiceController.m; sourceTree = "<group>"; };
-		133050F01EDAE29D0031044D /* Ledger test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ledger test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		133050F41EDAE29D0031044D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		133050F01EDAE29D0031044D /* Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		133050F61EDAE29D0031044D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		133050F71EDAE29D0031044D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		133050FD1EDAE29D0031044D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		133050FF1EDAE29D0031044D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		133051021EDAE29D0031044D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		133051041EDAE29D0031044D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		133051091EDAE29D0031044D /* LedgerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1330510D1EDAE29D0031044D /* LedgerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LedgerTests.m; sourceTree = "<group>"; };
@@ -222,8 +234,9 @@
 		135510E51F177096004F10DE /* YYGConfigDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigDefine.m; sourceTree = "<group>"; };
 		135510E61F177096004F10DE /* YYGConfigError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGConfigError.h; sourceTree = "<group>"; };
 		135510E71F177096004F10DE /* YYGConfigError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigError.m; sourceTree = "<group>"; };
+		137E80D820F241E2000E4B7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		137E80DA20F2434A000E4B7A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		138662801F3487A400800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		138662811F3487A400800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		138662851F3498E600800A11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		138662871F34990500800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1386628B1F34FA0C00800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -234,12 +247,31 @@
 		1386629E1F359F3700800A11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1386629F1F359F3700800A11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		138662A01F359F3700800A11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		138662A11F359F3800800A11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		138662A21F35B58300800A11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGCategoryOneRowCell.h; sourceTree = "<group>"; };
 		138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGCategoryOneRowCell.m; sourceTree = "<group>"; };
 		1392B1C720C5DD6900807ED3 /* YGOperationSectionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YGOperationSectionManager.h; sourceTree = "<group>"; };
 		1392B1C820C5DD6900807ED3 /* YGOperationSectionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YGOperationSectionManager.m; sourceTree = "<group>"; };
+		1397437320E0E41300391439 /* YGDropboxLinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YGDropboxLinkViewController.h; sourceTree = "<group>"; };
+		1397437420E0E41300391439 /* YGDropboxLinkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YGDropboxLinkViewController.m; sourceTree = "<group>"; };
+		1397437920E10BD700391439 /* YGLoadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YGLoadView.h; sourceTree = "<group>"; };
+		1397437A20E10BD700391439 /* YGLoadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YGLoadView.m; sourceTree = "<group>"; };
+		1397439020E13C4200391439 /* YYGStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGStorage.h; sourceTree = "<group>"; };
+		1397439120E13C4200391439 /* YYGStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGStorage.m; sourceTree = "<group>"; };
+		1397439620E13DC800391439 /* YYGBackupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGBackupViewController.h; sourceTree = "<group>"; };
+		1397439720E13DC800391439 /* YYGBackupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGBackupViewController.m; sourceTree = "<group>"; };
+		1397439C20E1425600391439 /* YYGStorageDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGStorageDropbox.h; sourceTree = "<group>"; };
+		1397439D20E1425600391439 /* YYGStorageDropbox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGStorageDropbox.m; sourceTree = "<group>"; };
+		1397439F20E1431D00391439 /* YYGStorageLocal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGStorageLocal.h; sourceTree = "<group>"; };
+		139743A020E1431D00391439 /* YYGStorageLocal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGStorageLocal.m; sourceTree = "<group>"; };
+		139743A220E15EE900391439 /* YYGBackuper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGBackuper.h; sourceTree = "<group>"; };
+		139743A320E15EE900391439 /* YYGBackuper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGBackuper.m; sourceTree = "<group>"; };
+		139743BC20E4F80100391439 /* YYGDBTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGDBTester.h; sourceTree = "<group>"; };
+		139743BD20E4F80100391439 /* YYGDBTester.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGDBTester.m; sourceTree = "<group>"; };
+		139743BF20E5011E00391439 /* YYGDBTestDbVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGDBTestDbVersion.h; sourceTree = "<group>"; };
+		139743C020E5011E00391439 /* YYGDBTestDbVersion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGDBTestDbVersion.m; sourceTree = "<group>"; };
+		139743C220E5061F00391439 /* YYGDBTestDbOpen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGDBTestDbOpen.h; sourceTree = "<group>"; };
+		139743C320E5061F00391439 /* YYGDBTestDbOpen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGDBTestDbOpen.m; sourceTree = "<group>"; };
 		139F7A921EFD111200BD85AB /* YGTransferEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGTransferEditController.h; sourceTree = "<group>"; };
 		139F7A931EFD111200BD85AB /* YGTransferEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGTransferEditController.m; sourceTree = "<group>"; };
 		13CCF8521F16861400EAB928 /* YGFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFile.m; sourceTree = "<group>"; };
@@ -285,6 +317,15 @@
 		13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDataTest.m; sourceTree = "<group>"; };
 		13E0D31D1F24DE5A00B0C578 /* YYGAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGAboutViewController.h; sourceTree = "<group>"; };
 		13E0D31E1F24DE5A00B0C578 /* YYGAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGAboutViewController.m; sourceTree = "<group>"; };
+		13F0D54520E7D95C00DE8CBE /* YYGDBTestDbFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGDBTestDbFormat.h; sourceTree = "<group>"; };
+		13F0D54620E7D95C00DE8CBE /* YYGDBTestDbFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGDBTestDbFormat.m; sourceTree = "<group>"; };
+		13F0D54A20EB84A400DE8CBE /* YYGUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGUpdater.h; sourceTree = "<group>"; };
+		13F0D54B20EB84A400DE8CBE /* YYGUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGUpdater.m; sourceTree = "<group>"; };
+		13F0D54D20EBB10D00DE8CBE /* YYGAppVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGAppVersion.h; sourceTree = "<group>"; };
+		13F0D54E20EBB10D00DE8CBE /* YYGAppVersion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGAppVersion.m; sourceTree = "<group>"; };
+		3F386E3B4F2A62DBAA823C4A /* Pods-Ledger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ledger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ledger/Pods-Ledger.release.xcconfig"; sourceTree = "<group>"; };
+		5EC63D6CE913B28B7FCF6A27 /* Pods_Ledger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ledger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D9EA6EC8CCFEC6265AFDFD7 /* Pods-Ledger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ledger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ledger/Pods-Ledger.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				133051311EDAEDA00031044D /* libsqlite3.tbd in Frameworks */,
+				36741E3595D5FB02CBB6712E /* Pods_Ledger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,183 +355,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		132379DA1F136E370051325F /* Sections & rows */ = {
-			isa = PBXGroup;
-			children = (
-				132379F41F13F2600051325F /* YGOperationSection.h */,
-				132379F51F13F2600051325F /* YGOperationSection.m */,
-				132379E51F13D1350051325F /* YGOperationRow.h */,
-				132379E61F13D1350051325F /* YGOperationRow.m */,
-			);
-			name = "Sections & rows";
-			sourceTree = "<group>";
-		};
-		132379DB1F136E620051325F /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				131E1D9A1EF7A3BA00531F10 /* YGAccountChoiceController.h */,
-				131E1D9B1EF7A3BA00531F10 /* YGAccountChoiceController.m */,
-				131E1E421EFC094300531F10 /* YGIncomeSourceChoiceController.h */,
-				131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */,
-				131E1D9D1EF7B78900531F10 /* YGExpenseCategoryChoiceController.h */,
-				131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */,
-				13279DDE1EF58C8900BA46AF /* YGDateChoiceController.h */,
-				13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */,
-				139F7A921EFD111200BD85AB /* YGTransferEditController.h */,
-				139F7A931EFD111200BD85AB /* YGTransferEditController.m */,
-				131E1E391EFBD17A00531F10 /* YGIncomeEditController.h */,
-				131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */,
-				131E1DA01EF7E67C00531F10 /* YGAccountActualEditController.h */,
-				131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */,
-				131E1D981EF59C4900531F10 /* YGExpenseEditController.h */,
-				131E1D971EF59C4900531F10 /* YGExpenseEditController.m */,
-				13279D591EEDE89900BA46AF /* YGOperationViewController.h */,
-				13279D5A1EEDE89900BA46AF /* YGOperationViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		132379DC1F136E710051325F /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				13279DC61EF2816600BA46AF /* YGAccountEditController.h */,
-				13279DC71EF2816600BA46AF /* YGAccountEditController.m */,
-				13279DC01EF26F6F00BA46AF /* YGEntityViewController.h */,
-				13279DC11EF26F6F00BA46AF /* YGEntityViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		132379DD1F136E7C0051325F /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */,
-				13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */,
-				13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */,
-				13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */,
-				133051A91EE054740031044D /* YGCurrencyEditController.h */,
-				133051AA1EE054740031044D /* YGCurrencyEditController.m */,
-				131E1D951EF59B1600531F10 /* YGExpenseCategoryEditController.h */,
-				131E1D941EF59B1600531F10 /* YGExpenseCategoryEditController.m */,
-				13279DBD1EF1903B00BA46AF /* YGCategoryDefaultEditController.h */,
-				13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */,
-				13279D8D1EEFC1B800BA46AF /* YGCategoryViewController.h */,
-				13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		132379DE1F136E8C0051325F /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				133051261EDAE3300031044D /* YGTabBarViewController.h */,
-				133051271EDAE3300031044D /* YGTabBarViewController.m */,
-				1317BF391F0FC2E10039A224 /* YGBackupLocalViewController.h */,
-				1317BF3A1F0FC2E10039A224 /* YGBackupLocalViewController.m */,
-				13279D8A1EEFC14200BA46AF /* YGOptionViewController.h */,
-				13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */,
-				13E0D31D1F24DE5A00B0C578 /* YYGAboutViewController.h */,
-				13E0D31E1F24DE5A00B0C578 /* YYGAboutViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		13279D511EED990200BA46AF /* Operation */ = {
-			isa = PBXGroup;
-			children = (
-				132379DA1F136E370051325F /* Sections & rows */,
-				13279DD01EF41CE800BA46AF /* Headers & cells */,
-				132379DB1F136E620051325F /* Controllers */,
-				1374597F1F69B7B8006F2A0C /* Model */,
-			);
-			name = Operation;
-			sourceTree = "<group>";
-		};
-		13279D521EED990C00BA46AF /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				1374597E1F69B788006F2A0C /* Model */,
-				132379DC1F136E710051325F /* Controllers */,
-			);
-			name = Entity;
-			sourceTree = "<group>";
-		};
-		13279D851EEECFE900BA46AF /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				132379DE1F136E8C0051325F /* Controllers */,
-				13CCF8511F16854600EAB928 /* FileSystem */,
-				13CCF8791F16861E00EAB928 /* Config */,
-				132EB8581F31A6990046703E /* DBConfig */,
-				132EB8591F31A6A50046703E /* DBLog */,
-				1330519D1EDF31A60031044D /* YGTools.h */,
-				1330519E1EDF31A60031044D /* YGTools.m */,
-				133050F61EDAE29D0031044D /* AppDelegate.h */,
-				133050F71EDAE29D0031044D /* AppDelegate.m */,
-				133C7F6520C8157B00CC9F16 /* YGLaunchScreenViewController.h */,
-				133C7F6620C8157B00CC9F16 /* YGLaunchScreenViewController.m */,
-				133C001A1F17748200D0CB0E /* YYGLedgerDefine.h */,
-				133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */,
-				133C001D1F17748E00D0CB0E /* YYGLedgerError.h */,
-				133C001E1F17748E00D0CB0E /* YYGLedgerError.m */,
-			);
-			name = Others;
-			sourceTree = "<group>";
-		};
-		13279DD01EF41CE800BA46AF /* Headers & cells */ = {
-			isa = PBXGroup;
-			children = (
-				132379FA1F14175E0051325F /* YGOperationSectionHeader.h */,
-				132379FB1F14175E0051325F /* YGOperationSectionHeader.m */,
-				132379DF1F136F150051325F /* YGOperationOneRowCell.h */,
-				132379E01F136F150051325F /* YGOperationOneRowCell.m */,
-				132379E21F1383420051325F /* YGOperationTwoRowCell.h */,
-				132379E31F1383420051325F /* YGOperationTwoRowCell.m */,
-				132379EB1F13DFEE0051325F /* YGOperationIncomeCell.h */,
-				132379EC1F13DFEE0051325F /* YGOperationIncomeCell.m */,
-				132379EE1F13E0000051325F /* YGOperationAccountActualCell.h */,
-				132379EF1F13E0000051325F /* YGOperationAccountActualCell.m */,
-				132379F11F13E01C0051325F /* YGOperationTransferCell.h */,
-				132379F21F13E01C0051325F /* YGOperationTransferCell.m */,
-				132379E81F13D24E0051325F /* YGOperationExpenseCell.h */,
-				132379E91F13D24E0051325F /* YGOperationExpenseCell.m */,
-			);
-			name = "Headers & cells";
-			sourceTree = "<group>";
-		};
-		132EB8581F31A6990046703E /* DBConfig */ = {
-			isa = PBXGroup;
-			children = (
-				133A6E831F311D670069AB98 /* YYGDBConfig.h */,
-				133A6E841F311D670069AB98 /* YYGDBConfig.m */,
-			);
-			name = DBConfig;
-			sourceTree = "<group>";
-		};
-		132EB8591F31A6A50046703E /* DBLog */ = {
-			isa = PBXGroup;
-			children = (
-				133A6E801F3117550069AB98 /* YYGDBLog.h */,
-				133A6E811F3117550069AB98 /* YYGDBLog.m */,
-			);
-			name = DBLog;
-			sourceTree = "<group>";
-		};
 		133050E71EDAE29D0031044D = {
 			isa = PBXGroup;
 			children = (
 				133050F21EDAE29D0031044D /* Ledger */,
+				137E80DC20F24490000E4B7A /* Supporting Files */,
 				1330510C1EDAE29D0031044D /* LedgerTests */,
 				133051171EDAE29D0031044D /* LedgerUITests */,
 				133050F11EDAE29D0031044D /* Products */,
 				1330512F1EDAEDA00031044D /* Frameworks */,
+				B8111A2E5F7E4B899CAC00DC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		133050F11EDAE29D0031044D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				133050F01EDAE29D0031044D /* Ledger test.app */,
+				133050F01EDAE29D0031044D /* Ledger.app */,
 				133051091EDAE29D0031044D /* LedgerTests.xctest */,
 				133051141EDAE29D0031044D /* LedgerUITests.xctest */,
 			);
@@ -499,28 +381,15 @@
 		133050F21EDAE29D0031044D /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
-				1386629B1F34FE7F00800A11 /* Localizable.strings */,
-				133050FC1EDAE29D0031044D /* Main.storyboard */,
-				13279D511EED990200BA46AF /* Operation */,
-				13279D521EED990C00BA46AF /* Entity */,
-				134255871EEA9A8C00DBF934 /* Category */,
-				139F7A911EFD0D1B00BD85AB /* DB */,
-				13279D851EEECFE900BA46AF /* Others */,
-				133050FF1EDAE29D0031044D /* Assets.xcassets */,
-				133051011EDAE29D0031044D /* LaunchScreen.storyboard */,
-				133051041EDAE29D0031044D /* Info.plist */,
-				133050F31EDAE29D0031044D /* Supporting Files */,
+				1397437F20E12B7600391439 /* Core */,
+				137E80D420EFB510000E4B7A /* User Interface */,
+				135F860020EFB17400CFA942 /* Category */,
+				135F85FE20EFB11600CFA942 /* Entity */,
+				135F860420EFB2AF00CFA942 /* Operation */,
+				139743AA20E3FA0600391439 /* Options */,
+				139743AB20E3FB0400391439 /* Utilities */,
 			);
 			path = Ledger;
-			sourceTree = "<group>";
-		};
-		133050F31EDAE29D0031044D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				133050F41EDAE29D0031044D /* main.m */,
-				138662861F3498E600800A11 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		1330510C1EDAE29D0031044D /* LedgerTests */ = {
@@ -547,21 +416,32 @@
 			isa = PBXGroup;
 			children = (
 				133051301EDAEDA00031044D /* libsqlite3.tbd */,
+				5EC63D6CE913B28B7FCF6A27 /* Pods_Ledger.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		134255871EEA9A8C00DBF934 /* Category */ = {
+		135F85FD20EFB0D900CFA942 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				137459801F69B7C4006F2A0C /* Model */,
-				13D9D8931F19FE1F001F46B1 /* View */,
-				132379DD1F136E7C0051325F /* Controllers */,
+				13279DC61EF2816600BA46AF /* YGAccountEditController.h */,
+				13279DC71EF2816600BA46AF /* YGAccountEditController.m */,
+				13279DC01EF26F6F00BA46AF /* YGEntityViewController.h */,
+				13279DC11EF26F6F00BA46AF /* YGEntityViewController.m */,
 			);
-			name = Category;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		1374597E1F69B788006F2A0C /* Model */ = {
+		135F85FE20EFB11600CFA942 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				135F85FF20EFB12C00CFA942 /* Model */,
+				135F85FD20EFB0D900CFA942 /* ViewControllers */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		135F85FF20EFB12C00CFA942 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				13279D531EEDA27B00BA46AF /* YGEntityManager.h */,
@@ -569,10 +449,74 @@
 				13279D4B1EED949900BA46AF /* YGEntity.h */,
 				13279D4C1EED949900BA46AF /* YGEntity.m */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		1374597F1F69B7B8006F2A0C /* Model */ = {
+		135F860020EFB17400CFA942 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				135F860320EFB19C00CFA942 /* Model */,
+				135F860120EFB18A00CFA942 /* View */,
+				135F860220EFB19200CFA942 /* ViewControllers */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		135F860120EFB18A00CFA942 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				13D9D8941F1A4773001F46B1 /* YYGCategorySection.h */,
+				13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */,
+				13D9D8901F19FE17001F46B1 /* YYGCategoryRow.h */,
+				13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */,
+				138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */,
+				138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		135F860220EFB19200CFA942 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				13D9D8971F1A5573001F46B1 /* YYGExpenseParentChoiceController.h */,
+				13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */,
+				13279DC91EF2AECF00BA46AF /* YGCurrencyChoiceController.h */,
+				13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */,
+				133051A91EE054740031044D /* YGCurrencyEditController.h */,
+				133051AA1EE054740031044D /* YGCurrencyEditController.m */,
+				131E1D951EF59B1600531F10 /* YGExpenseCategoryEditController.h */,
+				131E1D941EF59B1600531F10 /* YGExpenseCategoryEditController.m */,
+				13279DBD1EF1903B00BA46AF /* YGCategoryDefaultEditController.h */,
+				13279DBE1EF1903B00BA46AF /* YGCategoryDefaultEditController.m */,
+				13279D8D1EEFC1B800BA46AF /* YGCategoryViewController.h */,
+				13279D8E1EEFC1B800BA46AF /* YGCategoryViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		135F860320EFB19C00CFA942 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1330519A1EDEF09D0031044D /* YGCategoryManager.h */,
+				1330519B1EDEF09D0031044D /* YGCategoryManager.m */,
+				133051971EDEEFBC0031044D /* YGCategory.h */,
+				133051981EDEEFBC0031044D /* YGCategory.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		135F860420EFB2AF00CFA942 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				135F860520EFB2D400CFA942 /* Model */,
+				135F860820EFB2F800CFA942 /* Sections & rows */,
+				135F860720EFB2EE00CFA942 /* Headers & cells */,
+				135F860620EFB2E000CFA942 /* ViewControllers */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
+		135F860520EFB2D400CFA942 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				1392B1C720C5DD6900807ED3 /* YGOperationSectionManager.h */,
@@ -582,39 +526,67 @@
 				13279D4E1EED96F000BA46AF /* YGOperation.h */,
 				13279D4F1EED96F000BA46AF /* YGOperation.m */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		137459801F69B7C4006F2A0C /* Model */ = {
+		135F860620EFB2E000CFA942 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1330519A1EDEF09D0031044D /* YGCategoryManager.h */,
-				1330519B1EDEF09D0031044D /* YGCategoryManager.m */,
-				133051971EDEEFBC0031044D /* YGCategory.h */,
-				133051981EDEEFBC0031044D /* YGCategory.m */,
+				131E1D9A1EF7A3BA00531F10 /* YGAccountChoiceController.h */,
+				131E1D9B1EF7A3BA00531F10 /* YGAccountChoiceController.m */,
+				131E1E421EFC094300531F10 /* YGIncomeSourceChoiceController.h */,
+				131E1E431EFC094400531F10 /* YGIncomeSourceChoiceController.m */,
+				131E1D9D1EF7B78900531F10 /* YGExpenseCategoryChoiceController.h */,
+				131E1D9E1EF7B78900531F10 /* YGExpenseCategoryChoiceController.m */,
+				13279DDE1EF58C8900BA46AF /* YGDateChoiceController.h */,
+				13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */,
+				139F7A921EFD111200BD85AB /* YGTransferEditController.h */,
+				139F7A931EFD111200BD85AB /* YGTransferEditController.m */,
+				131E1E391EFBD17A00531F10 /* YGIncomeEditController.h */,
+				131E1E3A1EFBD17A00531F10 /* YGIncomeEditController.m */,
+				131E1DA01EF7E67C00531F10 /* YGAccountActualEditController.h */,
+				131E1DA11EF7E67C00531F10 /* YGAccountActualEditController.m */,
+				131E1D981EF59C4900531F10 /* YGExpenseEditController.h */,
+				131E1D971EF59C4900531F10 /* YGExpenseEditController.m */,
+				13279D591EEDE89900BA46AF /* YGOperationViewController.h */,
+				13279D5A1EEDE89900BA46AF /* YGOperationViewController.m */,
 			);
-			name = Model;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		139F7A911EFD0D1B00BD85AB /* DB */ = {
+		135F860720EFB2EE00CFA942 /* Headers & cells */ = {
 			isa = PBXGroup;
 			children = (
-				13E0D3131F229E6800B0C578 /* Data */,
-				1330512C1EDAE60F0031044D /* YGSQLite.h */,
-				1330512D1EDAE60F0031044D /* YGSQLite.m */,
-				1317BEF51F0F72A80039A224 /* YGStorage.h */,
-				1317BEF61F0F72A80039A224 /* YGStorage.m */,
-				1317BEFB1F0F7BD10039A224 /* YGStorageLocal.h */,
-				1317BEFC1F0F7BD10039A224 /* YGStorageLocal.m */,
-				1317BEEF1F0E67920039A224 /* YGDBManager.h */,
-				1317BEF01F0E67920039A224 /* YGDBManager.m */,
-				1317BF3E1F0FD8D50039A224 /* YGBackup.h */,
-				1317BF3F1F0FD8D50039A224 /* YGBackup.m */,
+				132379FA1F14175E0051325F /* YGOperationSectionHeader.h */,
+				132379FB1F14175E0051325F /* YGOperationSectionHeader.m */,
+				132379DF1F136F150051325F /* YGOperationOneRowCell.h */,
+				132379E01F136F150051325F /* YGOperationOneRowCell.m */,
+				132379E21F1383420051325F /* YGOperationTwoRowCell.h */,
+				132379E31F1383420051325F /* YGOperationTwoRowCell.m */,
+				132379EB1F13DFEE0051325F /* YGOperationIncomeCell.h */,
+				132379EC1F13DFEE0051325F /* YGOperationIncomeCell.m */,
+				132379EE1F13E0000051325F /* YGOperationAccountActualCell.h */,
+				132379EF1F13E0000051325F /* YGOperationAccountActualCell.m */,
+				132379F11F13E01C0051325F /* YGOperationTransferCell.h */,
+				132379F21F13E01C0051325F /* YGOperationTransferCell.m */,
+				132379E81F13D24E0051325F /* YGOperationExpenseCell.h */,
+				132379E91F13D24E0051325F /* YGOperationExpenseCell.m */,
 			);
-			name = DB;
+			path = "Headers & cells";
 			sourceTree = "<group>";
 		};
-		13CCF8511F16854600EAB928 /* FileSystem */ = {
+		135F860820EFB2F800CFA942 /* Sections & rows */ = {
+			isa = PBXGroup;
+			children = (
+				132379F41F13F2600051325F /* YGOperationSection.h */,
+				132379F51F13F2600051325F /* YGOperationSection.m */,
+				132379E51F13D1350051325F /* YGOperationRow.h */,
+				132379E61F13D1350051325F /* YGOperationRow.m */,
+			);
+			path = "Sections & rows";
+			sourceTree = "<group>";
+		};
+		135F860920EFB3C700CFA942 /* File system */ = {
 			isa = PBXGroup;
 			children = (
 				13CCF8521F16861400EAB928 /* YGFile.m */,
@@ -649,10 +621,10 @@
 				13CCF86A1F16861400EAB928 /* YGFileSystemSorter.h */,
 				13CCF86B1F16861400EAB928 /* YGFileSystemSorter.m */,
 			);
-			name = FileSystem;
+			path = "File system";
 			sourceTree = "<group>";
 		};
-		13CCF8791F16861E00EAB928 /* Config */ = {
+		135F860A20EFB42600CFA942 /* Config */ = {
 			isa = PBXGroup;
 			children = (
 				13CCF87B1F16862E00EAB928 /* YGConfig.h */,
@@ -662,23 +634,125 @@
 				135510E61F177096004F10DE /* YYGConfigError.h */,
 				135510E71F177096004F10DE /* YYGConfigError.m */,
 			);
-			name = Config;
+			path = Config;
 			sourceTree = "<group>";
 		};
-		13D9D8931F19FE1F001F46B1 /* View */ = {
+		137E80D420EFB510000E4B7A /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
-				13D9D8941F1A4773001F46B1 /* YYGCategorySection.h */,
-				13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */,
-				13D9D8901F19FE17001F46B1 /* YYGCategoryRow.h */,
-				13D9D8911F19FE17001F46B1 /* YYGCategoryRow.m */,
-				138FDD901F192FD5009C3D2D /* YYGCategoryOneRowCell.h */,
-				138FDD911F192FD5009C3D2D /* YYGCategoryOneRowCell.m */,
+				133050FC1EDAE29D0031044D /* Main.storyboard */,
+				1386629B1F34FE7F00800A11 /* Localizable.strings */,
+				133050FF1EDAE29D0031044D /* Assets.xcassets */,
 			);
-			name = View;
+			path = "User Interface";
 			sourceTree = "<group>";
 		};
-		13E0D3131F229E6800B0C578 /* Data */ = {
+		137E80DC20F24490000E4B7A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				133051041EDAE29D0031044D /* Info.plist */,
+				138662861F3498E600800A11 /* InfoPlist.strings */,
+				133C001A1F17748200D0CB0E /* YYGLedgerDefine.h */,
+				133C001B1F17748200D0CB0E /* YYGLedgerDefine.m */,
+				133C001D1F17748E00D0CB0E /* YYGLedgerError.h */,
+				133C001E1F17748E00D0CB0E /* YYGLedgerError.m */,
+				137E80D820F241E2000E4B7A /* main.m */,
+				137E80DA20F2434A000E4B7A /* LaunchScreen.storyboard */,
+			);
+			name = "Supporting Files";
+			path = Ledger;
+			sourceTree = "<group>";
+		};
+		1397437F20E12B7600391439 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				133050F61EDAE29D0031044D /* AppDelegate.h */,
+				133050F71EDAE29D0031044D /* AppDelegate.m */,
+				13F0D54820E8056300DE8CBE /* Launch */,
+				13F0D54920EB849100DE8CBE /* Update */,
+				139743AC20E3FB8300391439 /* DB */,
+				139743A920E3F99500391439 /* Navigation */,
+				1397438320E12C5600391439 /* Backup */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1397438320E12C5600391439 /* Backup */ = {
+			isa = PBXGroup;
+			children = (
+				139743A220E15EE900391439 /* YYGBackuper.h */,
+				139743A320E15EE900391439 /* YYGBackuper.m */,
+				1397439020E13C4200391439 /* YYGStorage.h */,
+				1397439120E13C4200391439 /* YYGStorage.m */,
+				1397439F20E1431D00391439 /* YYGStorageLocal.h */,
+				139743A020E1431D00391439 /* YYGStorageLocal.m */,
+				1397439C20E1425600391439 /* YYGStorageDropbox.h */,
+				1397439D20E1425600391439 /* YYGStorageDropbox.m */,
+				1317BEF51F0F72A80039A224 /* YGStorage.h */,
+				1317BEF61F0F72A80039A224 /* YGStorage.m */,
+				1317BEFB1F0F7BD10039A224 /* YGStorageLocal.h */,
+				1317BEFC1F0F7BD10039A224 /* YGStorageLocal.m */,
+				1317BF3E1F0FD8D50039A224 /* YGBackup.h */,
+				1317BF3F1F0FD8D50039A224 /* YGBackup.m */,
+			);
+			path = Backup;
+			sourceTree = "<group>";
+		};
+		139743A920E3F99500391439 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				133051261EDAE3300031044D /* YGTabBarViewController.h */,
+				133051271EDAE3300031044D /* YGTabBarViewController.m */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		139743AA20E3FA0600391439 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				13279D8A1EEFC14200BA46AF /* YGOptionViewController.h */,
+				13279D8B1EEFC14200BA46AF /* YGOptionViewController.m */,
+				1317BF391F0FC2E10039A224 /* YGBackupLocalViewController.h */,
+				1317BF3A1F0FC2E10039A224 /* YGBackupLocalViewController.m */,
+				1397437320E0E41300391439 /* YGDropboxLinkViewController.h */,
+				1397437420E0E41300391439 /* YGDropboxLinkViewController.m */,
+				1397439620E13DC800391439 /* YYGBackupViewController.h */,
+				1397439720E13DC800391439 /* YYGBackupViewController.m */,
+				13E0D31D1F24DE5A00B0C578 /* YYGAboutViewController.h */,
+				13E0D31E1F24DE5A00B0C578 /* YYGAboutViewController.m */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		139743AB20E3FB0400391439 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				135F860A20EFB42600CFA942 /* Config */,
+				135F860920EFB3C700CFA942 /* File system */,
+				1330519D1EDF31A60031044D /* YGTools.h */,
+				1330519E1EDF31A60031044D /* YGTools.m */,
+				1397437920E10BD700391439 /* YGLoadView.h */,
+				1397437A20E10BD700391439 /* YGLoadView.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		139743AC20E3FB8300391439 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				139743AD20E3FB9F00391439 /* Data */,
+				139743B020E4F4D600391439 /* DBLog */,
+				139743B420E4F50400391439 /* DBConfig */,
+				139743BB20E4F5F600391439 /* DBTest */,
+				1330512C1EDAE60F0031044D /* YGSQLite.h */,
+				1330512D1EDAE60F0031044D /* YGSQLite.m */,
+				1317BEEF1F0E67920039A224 /* YGDBManager.h */,
+				1317BEF01F0E67920039A224 /* YGDBManager.m */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		139743AD20E3FB9F00391439 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				13E0D3141F22A83500B0C578 /* YYGDataCommon.h */,
@@ -688,7 +762,69 @@
 				13E0D31A1F22ABC800B0C578 /* YYGDataTest.h */,
 				13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */,
 			);
-			name = Data;
+			path = Data;
+			sourceTree = "<group>";
+		};
+		139743B020E4F4D600391439 /* DBLog */ = {
+			isa = PBXGroup;
+			children = (
+				133A6E801F3117550069AB98 /* YYGDBLog.h */,
+				133A6E811F3117550069AB98 /* YYGDBLog.m */,
+			);
+			path = DBLog;
+			sourceTree = "<group>";
+		};
+		139743B420E4F50400391439 /* DBConfig */ = {
+			isa = PBXGroup;
+			children = (
+				133A6E831F311D670069AB98 /* YYGDBConfig.h */,
+				133A6E841F311D670069AB98 /* YYGDBConfig.m */,
+			);
+			path = DBConfig;
+			sourceTree = "<group>";
+		};
+		139743BB20E4F5F600391439 /* DBTest */ = {
+			isa = PBXGroup;
+			children = (
+				139743BC20E4F80100391439 /* YYGDBTester.h */,
+				139743BD20E4F80100391439 /* YYGDBTester.m */,
+				13F0D54520E7D95C00DE8CBE /* YYGDBTestDbFormat.h */,
+				13F0D54620E7D95C00DE8CBE /* YYGDBTestDbFormat.m */,
+				139743C220E5061F00391439 /* YYGDBTestDbOpen.h */,
+				139743C320E5061F00391439 /* YYGDBTestDbOpen.m */,
+				139743BF20E5011E00391439 /* YYGDBTestDbVersion.h */,
+				139743C020E5011E00391439 /* YYGDBTestDbVersion.m */,
+			);
+			path = DBTest;
+			sourceTree = "<group>";
+		};
+		13F0D54820E8056300DE8CBE /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				133C7F6520C8157B00CC9F16 /* YGLaunchScreenViewController.h */,
+				133C7F6620C8157B00CC9F16 /* YGLaunchScreenViewController.m */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		13F0D54920EB849100DE8CBE /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				13F0D54A20EB84A400DE8CBE /* YYGUpdater.h */,
+				13F0D54B20EB84A400DE8CBE /* YYGUpdater.m */,
+				13F0D54D20EBB10D00DE8CBE /* YYGAppVersion.h */,
+				13F0D54E20EBB10D00DE8CBE /* YYGAppVersion.m */,
+			);
+			path = Update;
+			sourceTree = "<group>";
+		};
+		B8111A2E5F7E4B899CAC00DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7D9EA6EC8CCFEC6265AFDFD7 /* Pods-Ledger.debug.xcconfig */,
+				3F386E3B4F2A62DBAA823C4A /* Pods-Ledger.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -698,9 +834,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1330511D1EDAE29D0031044D /* Build configuration list for PBXNativeTarget "Ledger" */;
 			buildPhases = (
+				57A6EB723FF81406FFCD2D1A /* [CP] Check Pods Manifest.lock */,
 				133050EC1EDAE29D0031044D /* Sources */,
 				133050ED1EDAE29D0031044D /* Frameworks */,
 				133050EE1EDAE29D0031044D /* Resources */,
+				22301A88C73AF12C1E722611 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -708,7 +846,7 @@
 			);
 			name = Ledger;
 			productName = Ledger;
-			productReference = 133050F01EDAE29D0031044D /* Ledger test.app */;
+			productReference = 133050F01EDAE29D0031044D /* Ledger.app */;
 			productType = "com.apple.product-type.application";
 		};
 		133051081EDAE29D0031044D /* LedgerTests */ = {
@@ -804,8 +942,8 @@
 			files = (
 				138662991F34FE7F00800A11 /* Localizable.strings in Resources */,
 				138662841F3498E600800A11 /* InfoPlist.strings in Resources */,
-				133051031EDAE29D0031044D /* LaunchScreen.storyboard in Resources */,
 				133051001EDAE29D0031044D /* Assets.xcassets in Resources */,
+				137E80DB20F2434A000E4B7A /* LaunchScreen.storyboard in Resources */,
 				133050FE1EDAE29D0031044D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -828,6 +966,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		22301A88C73AF12C1E722611 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Ledger/Pods-Ledger-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectiveDropboxOfficial.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ledger/Pods-Ledger-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		57A6EB723FF81406FFCD2D1A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ledger-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		133050EC1EDAE29D0031044D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -837,7 +1014,9 @@
 				133A6E851F311D670069AB98 /* YYGDBConfig.m in Sources */,
 				13CCF8751F16861400EAB928 /* YGSearchRuleHasPrefix.m in Sources */,
 				13CCF8731F16861400EAB928 /* YGSearchRuleNameMinLength.m in Sources */,
+				1397439E20E1425600391439 /* YYGStorageDropbox.m in Sources */,
 				133C001C1F17748200D0CB0E /* YYGLedgerDefine.m in Sources */,
+				13F0D54720E7D95C00DE8CBE /* YYGDBTestDbFormat.m in Sources */,
 				1317BF401F0FD8D50039A224 /* YGBackup.m in Sources */,
 				13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */,
 				131E1DA21EF7E67C00531F10 /* YGAccountActualEditController.m in Sources */,
@@ -852,24 +1031,32 @@
 				1317BF3B1F0FC2E10039A224 /* YGBackupLocalViewController.m in Sources */,
 				132379FC1F14175E0051325F /* YGOperationSectionHeader.m in Sources */,
 				133C00251F1777B400D0CB0E /* YYGFileSystemError.m in Sources */,
+				1397437520E0E41300391439 /* YGDropboxLinkViewController.m in Sources */,
+				139743C120E5011E00391439 /* YYGDBTestDbVersion.m in Sources */,
 				13279DC21EF26F6F00BA46AF /* YGEntityViewController.m in Sources */,
 				13CCF8711F16861400EAB928 /* YGSearchPattern.m in Sources */,
 				1317BEF11F0E67920039A224 /* YGDBManager.m in Sources */,
 				132379E71F13D1350051325F /* YGOperationRow.m in Sources */,
 				133C7F6720C8157B00CC9F16 /* YGLaunchScreenViewController.m in Sources */,
 				131E1D991EF59C4900531F10 /* YGExpenseEditController.m in Sources */,
+				1397439220E13C4200391439 /* YYGStorage.m in Sources */,
 				13E0D3161F22A83500B0C578 /* YYGDataCommon.m in Sources */,
 				13CCF86F1F16861400EAB928 /* YGDirectory.m in Sources */,
 				13279D4D1EED949900BA46AF /* YGEntity.m in Sources */,
 				133051991EDEEFBC0031044D /* YGCategory.m in Sources */,
+				137E80D920F241E2000E4B7A /* main.m in Sources */,
 				133C001F1F17748E00D0CB0E /* YYGLedgerError.m in Sources */,
 				131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */,
+				139743A120E1431D00391439 /* YYGStorageLocal.m in Sources */,
 				133051281EDAE3300031044D /* YGTabBarViewController.m in Sources */,
 				13279DE01EF58C8900BA46AF /* YGDateChoiceController.m in Sources */,
 				132379ED1F13DFEE0051325F /* YGOperationIncomeCell.m in Sources */,
 				1392B1C920C5DD6900807ED3 /* YGOperationSectionManager.m in Sources */,
+				13F0D54F20EBB10D00DE8CBE /* YYGAppVersion.m in Sources */,
 				132379F01F13E0000051325F /* YGOperationAccountActualCell.m in Sources */,
+				139743C420E5061F00391439 /* YYGDBTestDbOpen.m in Sources */,
 				1317BEFD1F0F7BD10039A224 /* YGStorageLocal.m in Sources */,
+				139743BE20E4F80100391439 /* YYGDBTester.m in Sources */,
 				138FDD921F192FD5009C3D2D /* YYGCategoryOneRowCell.m in Sources */,
 				13CCF8741F16861400EAB928 /* YGSearchRuleByType.m in Sources */,
 				13D9D8961F1A4773001F46B1 /* YYGCategorySection.m in Sources */,
@@ -887,10 +1074,10 @@
 				13279D8F1EEFC1B800BA46AF /* YGCategoryViewController.m in Sources */,
 				13279D8C1EEFC14200BA46AF /* YGOptionViewController.m in Sources */,
 				133050F81EDAE29D0031044D /* AppDelegate.m in Sources */,
-				133050F51EDAE29D0031044D /* main.m in Sources */,
 				139F7A941EFD111200BD85AB /* YGTransferEditController.m in Sources */,
 				13D9D8991F1A5573001F46B1 /* YYGExpenseParentChoiceController.m in Sources */,
 				131E1D961EF59B1600531F10 /* YGExpenseCategoryEditController.m in Sources */,
+				1397439820E13DC800391439 /* YYGBackupViewController.m in Sources */,
 				131E1E3B1EFBD17A00531F10 /* YGIncomeEditController.m in Sources */,
 				133C00241F1777B400D0CB0E /* YYGFileSystemDefine.m in Sources */,
 				13279DCB1EF2AECF00BA46AF /* YGCurrencyChoiceController.m in Sources */,
@@ -899,12 +1086,15 @@
 				1330519F1EDF31A60031044D /* YGTools.m in Sources */,
 				13279D581EEDD9A700BA46AF /* YGOperationManager.m in Sources */,
 				13CCF87C1F16862E00EAB928 /* YGConfig.m in Sources */,
+				139743A420E15EE900391439 /* YYGBackuper.m in Sources */,
+				1397437B20E10BD700391439 /* YGLoadView.m in Sources */,
 				13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */,
 				132379F61F13F2600051325F /* YGOperationSection.m in Sources */,
 				132379F31F13E01C0051325F /* YGOperationTransferCell.m in Sources */,
 				13E0D31C1F22ABC800B0C578 /* YYGDataTest.m in Sources */,
 				1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */,
 				13E0D31F1F24DE5A00B0C578 /* YYGAboutViewController.m in Sources */,
+				13F0D54C20EB84A400DE8CBE /* YYGUpdater.m in Sources */,
 				13279D501EED96F000BA46AF /* YGOperation.m in Sources */,
 				1330512E1EDAE60F0031044D /* YGSQLite.m in Sources */,
 			);
@@ -950,16 +1140,6 @@
 				1386629C1F359F3600800A11 /* en */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		133051011EDAE29D0031044D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				133051021EDAE29D0031044D /* Base */,
-				138662811F3487A400800A11 /* ru */,
-				138662A11F359F3800800A11 /* en */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		138662861F3498E600800A11 /* InfoPlist.strings */ = {
@@ -1125,27 +1305,29 @@
 		};
 		1330511E1EDAE29D0031044D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D9EA6EC8CCFEC6265AFDFD7 /* Pods-Ledger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EF64T58JW4;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = Ledger/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Ledger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yangerasimuk.Ledger-test";
-				PRODUCT_NAME = "Ledger test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.Ledger;
+				PRODUCT_NAME = Ledger;
 			};
 			name = Debug;
 		};
 		1330511F1EDAE29D0031044D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F386E3B4F2A62DBAA823C4A /* Pods-Ledger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EF64T58JW4;
-				INFOPLIST_FILE = Ledger/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Ledger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yangerasimuk.Ledger-test";
-				PRODUCT_NAME = "Ledger test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.Ledger;
+				PRODUCT_NAME = Ledger;
 			};
 			name = Release;
 		};

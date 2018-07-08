@@ -1,0 +1,281 @@
+/* Title of About form */
+"ABOUT_FORM_TITLE" = "О программе";
+
+/* Title of Accounts form */
+"ACCOUNTS_VIEW_FORM_TITLE" = "Счета";
+
+/* Title of Account choice form. */
+"ACCOUNT_CHOICE_FORM_TITLE" = "Выбор счёта";
+
+/* Message in warning in saving duplicated account */
+"ACCOUNT_DUPLICATE_SAVE_WARNING_MESSAGE" = "Нельзя добавлять дубликат уже существующего счёта, для продолжения измените имя счёта и/или валюту счёта.";
+
+/* Title of Account view/edit form. */
+"ACCOUNT_EDIT_FORM_TITLE" = "Счёт";
+
+/* Activate for button title
+   Label of Activate button.
+   Title of Activate button. */
+"ACTIVATE_BUTTON_TITLE" = "Активировать";
+
+/* Author of application (Yan Gerasimuk) */
+"APPLICATION_AUTHOR" = "Ян Герасимук";
+
+/* Name of application (Ledger) */
+"APPLICATION_NAME" = "Леджер";
+
+/* Pretext for release build date. */
+"APPLICATION_RELEASED_PRETEXT" = "от";
+
+/* Version of application */
+"APPLICATION_VERSION" = "Версия";
+
+/* Attention title of alert controller */
+"ATTENTION_ALERT_CONTROLLER_TITLE" = "Внимание!";
+
+/* Balance */
+"BALANCE_ALERT_ITEM_TITLE" = "Остаток по счёту";
+
+/* Balance. */
+"BALANCE_EDIT_FORM_TITLE" = "Остаток по счёту";
+
+/* Cancel */
+"CANCEL_ALERT_ITEM_TITLE" = "Отмена";
+
+/* Title of Currencies form */
+"CURRENCIES_VIEW_FORM_TITLE" = "Валюты";
+
+/* Title of Currency choice form. */
+"CURRENCY_CHOICE_FORM_TITLE" = "Выбор валюты";
+
+/* Title of currency view/edit form. */
+"CURRENCY_EDIT_FORM_TITLE" = "Валюта";
+
+/* Title of currency form */
+"CURRENCY_VIEW_FORM_TITLE" = "Валюты";
+
+/* Title of date choice form. */
+"DATE_CHOICE_FORM_TITLE" = "Выбор даты";
+
+/* В процессе восстановления текущая база данных будет заменена на архивную. */
+"DB_REPLACEMENT_WHEN_RESTORE_MESSAGE" = "В процессе восстановления текущая база данных будет заменена на архивную. Пожалуйста, подтвердите действие.";
+
+/* Deactivate for button title
+   Label of Deactivate button.
+   Title of Deactivate button. */
+"DEACTIVATE_BUTTON_TITLE" = "Деактивировать";
+
+/* Expense */
+"EXPENSE_ALERT_ITEM_TITLE" = "Расход";
+
+/* Title of Expense categories form.
+   Title of expense form */
+"EXPENSE_CATEGORIES_VIEW_FORM_TITLE" = "Статьи расходов";
+
+/* Title of Expense choice form. */
+"EXPENSE_CATEGORY_CHOICE_FORM_TITLE" = "Выбор статьи расхода";
+
+/* Title of Expense category view/edit form. */
+"EXPENSE_CATEGORY_EDIT_FORM_TITLE" = "Статья расхода";
+
+/* Title of expense edit form. */
+"EXPENSE_EDIT_FORM_TITLE" = "Расход";
+
+/* Income */
+"INCOME_ALERT_ITEM_TITLE" = "Доход";
+
+/* Title of Income operation. */
+"INCOME_EDIT_FORM_TITLE" = "Доход";
+
+/* Title of income form
+   Title of Income sources form. */
+"INCOME_SOURCES_VIEW_FORM_TITLE" = "Статья дохода";
+
+/* Title of Income source choice form. */
+"INCOME_SOURCE_CHOICE_FORM_TITLE" = "Выбор статьи дохода";
+
+/* Title of Income source form. */
+"INCOME_SOURCE_EDIT_FORM_TITLE" = "Статья дохода";
+
+/* Title of Local backup form */
+"LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
+
+/* (No Comment) */
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_MESSAGE" = "Если остаток по данному счету не равен нулю, установите актуальное значение операцией \"Остаток по счёту\" в разделе \"Операции\".";
+
+/* (No Comment) */
+"NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "Остаток по счёту";
+
+/* No accounts in Accounts form. */
+"NO_ACCOUNTS_LABEL" = "Нет счетов";
+
+/* No operation text in Local backup form
+   No operations in Operations form. */
+"NO_OPERATIONS_LABEL" = "Нет операций";
+
+/* (No Comment) */
+"OK_ACTION_TITLE" = "OK";
+
+/* Title of Operations form */
+"OPERATIONS_VIEW_FORM_TITLE" = "Операции";
+
+/* Title when pull refresh reload table */
+"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE" = "Обновляю список";
+
+/* Usually: Choose operation */
+"OPERATION_CHOICE_ALERT_SHEET_TITLE" = "Выбор операции";
+
+/* Title of Options form */
+"OPTIONS_VIEW_FORM_TITLE" = "Настройки";
+
+/* Parent expense category choice title */
+"PARENT_CHOICE_TITLE" = "Родительская статья";
+
+/* Restore */
+"RESTORE_ALERT_ITEM_TITLE" = "Восстановить";
+
+/* Name of Root category */
+"ROOT_CATEGORY_LABEL" = "Корневая статья";
+
+/* Name of Root category */
+"ROOT_CATEGORY_NAME" = "Корневая статья";
+
+/* Select account
+   Select account. */
+"SELECT_ACCOUNT_LABEL" = "Выбрать счёт";
+
+/* Select category */
+"SELECT_CATEGORY_LABEL" = "Выбрать статью расхода";
+
+/* Select currency text on label. */
+"SELECT_CURRENCY_LABEL" = "Выбрать валюту";
+
+/* Select source */
+"SELECT_INCOME_SOURCE_LABEL" = "Выбрать статью дохода";
+
+/* Sum
+   Sum. */
+"SUM" = "Сумма";
+
+/* Title of Tag edit form. */
+"TAG_EDIT_FORM_TITLE" = "Метка";
+
+/* Terms for adding operation Account actual */
+"TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE" = "Для добавления операции \"Остаток по счёту\" необходимо иметь хотя бы один активный Счет";
+
+/* Terms for adding operation Expense */
+"TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE" = "Для добавления операции \"Расход\" необходимо иметь хотя бы один активный Счет и Категорию расхода";
+
+/* Terms for adding operation Income */
+"TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE" = "Для добавления операции \"Доход\" необходимо иметь хотя бы один активный Счет и Источник дохода";
+
+/* Terms for adding operation Transfer */
+"TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE" = "Для добавления операции \"Перевод\" необходимо иметь хотя бы два активных Счета";
+
+/* Placeholder for all textView for comments. */
+"TEXT_VIEW_COMMENT_PLACEHOLDER" = "Комментарий";
+
+/* Today date */
+"TODAY" = "Сегодня";
+
+/* Transfer */
+"TRANSFER_ALERT_ITEM_TITLE" = "Перевод";
+
+/* Title of transfor edit form. */
+"TRANSFER_EDIT_FORM_TITLE" = "Перевод";
+
+/* Warning */
+"WARNING_ALERT_CONTROLLER_TITLE" = "Предупреждение";
+
+/* Yesterday date */
+"YESTERDAY" = "Вчера";
+
+/* Application name on Launch screen. */
+"LAUNCH_SCREEN_APP_NAME_LABEL" = "Леджер";
+
+/* Log text during loading Launch screen. */
+"LAUNCH_SCREEN_LOG_LOADING_LABEL" = "Загрузка...";
+
+/* Failed tests */
+"DB_TESTER_FAILED_TEST" = "Не пройденные тесты:";
+
+/* Format of backup file must be sqlite. */
+"DB_TEST_RULE_BACKUP_FILE_MUST_BE_SQLITE" = "Формат файла архива должен быть sqlite.";
+
+/* Backup file is sqlite db file. */
+"DB_TEST_BACKUP_IS_SQLITE_FILE" = "Архив является файлом sqlite базы данных.";
+
+/* Backup file is not sqlite db file. */
+"DB_TEST_BACKUP_IS_NOT_SQLITE_FILE" = "Архив не является файлом sqlite базы данных.";
+
+/* Opening a database by Sqlite library. */
+"DB_TEST_RULE_DB_MUST_OPEN_BY_SQLITE_LIBRARY" = "База данных должна открываться при помощи библиотеки Sqlite.";
+
+/* Database does not open. */
+"DB_TEST_DB_DOES_NOT_OPEN" = "База данных не открывается.";
+
+/* Database opens successfully. */
+"DB_TEST_DB_OPENS" = "База данных успешно открывается.";
+
+/* Database version must be support by the app. */
+"DB_TEST_RULE_DB_VERSION_MUST_SUPPORTS_BY_APP" = "Версия базы данных должна поддерживаться приложением.";
+
+/* Database version supports by the app. */
+"DB_TEST_DB_VERSION_SUPPORTS_BY_APP" = "Данная версия базы данных поддерживается приложением.";
+
+/* Backup database of this version is not supported by the app. */
+"DB_TEST_DB_VERSION_DOES_NOT_SUPPORT_BY_APP" = "Данная весря базы данных не поддерживается приложением.";
+
+/* Make snapshot of work db... */
+"BACKUPER_MAKE_SNAPSHOT_MESSAGE" = "Снимок рабочей базы...";
+
+/* Backup bundle is not valid. */
+"BACKUPER_BUNDLE_IS_NOT_VALID" = "Файлы архива не валидны.";
+
+/* Download backup info... */
+"DROPBOX_DOWNLOAD_BACKUP_INFO_MESSAGE" = "Загрузка данных архива...";
+
+/* Download backup... */
+"DROPBOX_DOWNLOAD_BACKUP_MESSAGE" = "Загрузка архива...";
+
+/* Local backup is not valid. */
+"DROPBOX_LOCAL_BACKUP_IS_NOT_VALID_MESSAGE" = "Local backup is not valid.";
+
+/* Test backup... */
+"DROPBOX_TEST_BACKUP_MESSAGE" = "Тест архива...";
+
+/* Can not restore database from remote backup. */
+"DROPBOX_CAN_NOT_RESTORE_DB_MESSAGE" = "Невозможно восстановить базу данных из архива.";
+
+/* Upload backup... */
+"DROPBOX_UPLOAD_BACKUP_MESSAGE" = "Выгрузка архива...";
+
+/* Account */
+"BACKUP_MENU_ACCOUNT" = "Учётка";
+
+/* Error */
+"BACKUP_ERROR_ALERT_TITLE" = "Ошибка";
+
+/* Please, try again later. */
+"BACKUP_TRY_AGAIN_LATER_MESSAGE" = "Пожалуйста, попробуйте позже.";
+
+/* Restore from backup is failed. \nPlease, try again later. */
+"BACKUP_RESTORE_FROM_BACKUP_FAILED_MESSAGE" = "Восстановление из архива завершилось с ошибкой. \nПожалуйста, попробуйте позже.";
+
+/* Restore error */
+"BACKUP_RESTORE_ERROR_ALERT_TITLE" = "Ошибка восстановления";
+
+/* Unlink Dropbox account */
+"DROPBOX_ACCOUNT_UNLINK_BUTTON" = "Отвязать учётную запись Dropbox";
+
+/* Link Dropbox account */
+"DROPBOX_ACCOUNT_LINK_BUTTON" = "Привязать учётную запись Dropbox";
+
+/* Help text for unlink dropbox account. */
+"DROPBOX_TO_UNLINK_ACCOUNT_TEXT" = "Для отключения программы от сетевого хранилища Dropbox или смены учётной записи Dropbox, нажмите на кнопку \"Отвязать учётную запись Dropbox\".\n\nПосле отключения программы от сетевого хранилища, функции резервирование и восстановления архивов будут недоступны.\n\nДля восстановления возможности резервирования повторно пройдите процедуру привязки учётной записи Dropbox к программе.";
+
+/* Help text for link dropbox account. */
+"DROPBOX_TO_LINK_ACCOUNT_TEXT" = "Для резервирования базы данных программы в сетевое хранилище Dropbox и последующего восстановления из него, необходимо привязать свою учётную запись к программе. Для этого нажмите на кнопку \"Привязать учётную запись Dropbox\" и следуйте инструкциям.\n\nПроцедуру привязки достаточно пройти один раз, повторять её нужно только в случае смены учетной записи Dropbox.\n\nПрограмма ни в какой момент времени не имеет доступа к логину и паролю от учетной записи Dropbox.";
+
+/* Account. */
+"DROPBOX_ACCOUNT_TITLE" = "Учётка";
