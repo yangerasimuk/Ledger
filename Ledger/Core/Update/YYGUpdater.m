@@ -92,9 +92,9 @@
 
  @return Is update success or not
  */
-- (BOOL)updateToVersionMajor1Minor1Build12 {
+- (BOOL)updateToVersionMajor1Minor1Build13 {
     
-    NSLog(@"Update to version 1.1(12)...");
+    NSLog(@"Update to version 1.1(13)...");
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
