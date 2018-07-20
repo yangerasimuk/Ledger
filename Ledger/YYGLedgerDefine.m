@@ -10,7 +10,8 @@
 
 // Application build date
 //NSString *const kAppBuildDate = @"2017-09-27";
-NSString *const kAppBuildDate = @"2018-07-08";
+// NSString *const kAppBuildDate = @"2018-07-08";
+NSString *const kAppBuildDate = @"2018-07-20";
 NSString *const kAppBuildDateFormat = @"yyyy-MM-dd";
 
 // Database version supports
