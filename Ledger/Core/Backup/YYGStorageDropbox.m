@@ -593,6 +593,7 @@ typedef NS_ENUM(NSInteger, YYGDownloadTaskType) {
                           autorename:@(NO)
                       clientModified:nil
                                 mute:@(NO)
+                      propertyGroups:nil
                            inputData:fileData]
       setResponseBlock:^(DBFILESFileMetadata *result, DBFILESUploadError *routeError, DBRequestError *networkError) {
           if (result) {
@@ -634,6 +635,7 @@ typedef NS_ENUM(NSInteger, YYGDownloadTaskType) {
                           autorename:@(YES)
                       clientModified:nil
                                 mute:@(NO)
+                      propertyGroups:nil
                            inputData:fileData]
       setResponseBlock:^(DBFILESFileMetadata *result, DBFILESUploadError *routeError, DBRequestError *networkError) {
           if (result) {

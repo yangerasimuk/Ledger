@@ -231,12 +231,36 @@
                                             <segue destination="5Oe-gT-VUn" kind="show" id="M9H-T5-baY"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="IncomeSourceCell" id="3oA-NK-3dq">
+                                        <rect key="frame" x="0.0" y="187.5" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3oA-NK-3dq" id="S79-bc-AlX">
+                                            <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debtors/Creditors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79p-2K-BLg">
+                                                    <rect key="frame" x="24" y="11" width="255" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="79p-2K-BLg" firstAttribute="centerY" secondItem="S79-bc-AlX" secondAttribute="centerY" id="2Od-8I-ZVW"/>
+                                                <constraint firstItem="79p-2K-BLg" firstAttribute="leading" secondItem="S79-bc-AlX" secondAttribute="leadingMargin" constant="8" id="Jxp-rP-ESe"/>
+                                                <constraint firstAttribute="topMargin" secondItem="79p-2K-BLg" secondAttribute="top" id="U5O-Ze-U4p"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="79p-2K-BLg" secondAttribute="trailing" constant="41" id="fth-Wj-ElY"/>
+                                        </constraints>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Backup database" id="IMc-Yg-RHK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BackupLocalCell" id="HpN-R1-cl9">
-                                        <rect key="frame" x="0.0" y="243.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="287.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HpN-R1-cl9" id="bEd-Hp-lcw">
                                             <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -263,7 +287,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BackupDropBoxCell" id="z6N-Id-usQ">
-                                        <rect key="frame" x="0.0" y="287.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="331.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z6N-Id-usQ" id="i0r-QG-Cj9">
                                             <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -291,7 +315,7 @@
                             <tableViewSection id="MIs-IS-ilL">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HideDecimalFraction" id="ziS-dP-OY9">
-                                        <rect key="frame" x="0.0" y="367.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="411.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ziS-dP-OY9" id="vm7-vJ-Xle">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -304,7 +328,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V8f-1C-ogB">
-                                                    <rect key="frame" x="253" y="6" width="51" height="31.5"/>
+                                                    <rect key="frame" x="253" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="switchHideDecimalFractionValueChanged:" destination="3kP-V2-KYn" eventType="valueChanged" id="SXJ-IO-Wn8"/>
                                                     </connections>
@@ -324,7 +348,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Pull refresh to add new" id="wR3-Wp-u8C">
-                                        <rect key="frame" x="0.0" y="411.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="455.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wR3-Wp-u8C" id="cwR-4D-alc">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -337,7 +361,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHq-5M-4dg">
-                                                    <rect key="frame" x="253" y="6" width="51" height="31.5"/>
+                                                    <rect key="frame" x="253" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="switchPullRefreshAddElementValueChanged:" destination="3kP-V2-KYn" eventType="valueChanged" id="mtN-wk-nJA"/>
                                                     </connections>
@@ -363,7 +387,7 @@
                             <tableViewSection id="G47-bc-oyc">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HideDecimalFraction" id="xJZ-NS-Qoo">
-                                        <rect key="frame" x="0.0" y="491.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="535.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xJZ-NS-Qoo" id="y40-HP-UHn">
                                             <rect key="frame" x="0.0" y="0.0" width="294" height="43.5"/>
@@ -1291,7 +1315,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWv-N5-uta" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2036" y="1881"/>
+            <point key="canvasLocation" x="1161" y="2571"/>
         </scene>
         <!--Dropbox Link View Controller-->
         <scene sceneID="nEF-zK-3Vn">

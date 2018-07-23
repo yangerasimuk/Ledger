@@ -8,6 +8,8 @@
 
 #import "YGOptionViewController.h"
 #import "YGCategoryViewController.h"
+#import "YYGDebtorsViewController.h"
+#import "YYGDebtorsViewModel.h"
 #import "YGDropboxLinkViewController.h"
 #import "YYGBackupViewController.h"
 #import "YGCategory.h"
@@ -92,6 +94,12 @@
             [self.navigationController pushViewController:dropboxLinkVC animated:YES];
         }
     }
+    else if (indexPath.section == 0 && indexPath.row == 3){
+        NSLog(@"show debtors list");
+        YYGDebtorsViewModel *debtorsVM = [[YYGDebtorsViewModel alloc] init];
+        YYGDebtorsViewController *debtorsVC = [[YYGDebtorsViewController alloc] initWithViewModel:debtorsVM];
+        [self.navigationController pushViewController:debtorsVC animated:YES];
+    }
     
     // Deselect row
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -170,7 +178,7 @@
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch(section) {
-        case 0: return 3;
+        case 0: return 4;
         case 1: return 2;
         case 2: return 1;
         case 3: return 1;

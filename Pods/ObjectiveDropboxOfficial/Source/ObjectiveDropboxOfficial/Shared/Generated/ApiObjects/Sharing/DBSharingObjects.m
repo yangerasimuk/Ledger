@@ -6,6 +6,179 @@
 
 /// Arguments, results, and errors for the `Sharing` namespace.
 
+#import "DBSHARINGAccessInheritance.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGAccessInheritance
+
+#pragma mark - Constructors
+
+- (instancetype)initWithInherit {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAccessInheritanceInherit;
+  }
+  return self;
+}
+
+- (instancetype)initWithNoInherit {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAccessInheritanceNoInherit;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGAccessInheritanceOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isInherit {
+  return _tag == DBSHARINGAccessInheritanceInherit;
+}
+
+- (BOOL)isNoInherit {
+  return _tag == DBSHARINGAccessInheritanceNoInherit;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGAccessInheritanceOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGAccessInheritanceInherit:
+    return @"DBSHARINGAccessInheritanceInherit";
+  case DBSHARINGAccessInheritanceNoInherit:
+    return @"DBSHARINGAccessInheritanceNoInherit";
+  case DBSHARINGAccessInheritanceOther:
+    return @"DBSHARINGAccessInheritanceOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary *)serialize:(id)instance {
+  return [DBSHARINGAccessInheritanceSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary *)dict {
+  return [DBSHARINGAccessInheritanceSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGAccessInheritanceSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGAccessInheritanceInherit:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGAccessInheritanceNoInherit:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGAccessInheritanceOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToAccessInheritance:other];
+}
+
+- (BOOL)isEqualToAccessInheritance:(DBSHARINGAccessInheritance *)anAccessInheritance {
+  if (self == anAccessInheritance) {
+    return YES;
+  }
+  if (self.tag != anAccessInheritance.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGAccessInheritanceInherit:
+    return [[self tagName] isEqual:[anAccessInheritance tagName]];
+  case DBSHARINGAccessInheritanceNoInherit:
+    return [[self tagName] isEqual:[anAccessInheritance tagName]];
+  case DBSHARINGAccessInheritanceOther:
+    return [[self tagName] isEqual:[anAccessInheritance tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGAccessInheritanceSerializer
+
++ (NSDictionary *)serialize:(DBSHARINGAccessInheritance *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isInherit]) {
+    jsonDict[@".tag"] = @"inherit";
+  } else if ([valueObj isNoInherit]) {
+    jsonDict[@".tag"] = @"no_inherit";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGAccessInheritance *)deserialize:(NSDictionary *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"inherit"]) {
+    return [[DBSHARINGAccessInheritance alloc] initWithInherit];
+  } else if ([tag isEqualToString:@"no_inherit"]) {
+    return [[DBSHARINGAccessInheritance alloc] initWithNoInherit];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGAccessInheritance alloc] initWithOther];
+  } else {
+    return [[DBSHARINGAccessInheritance alloc] initWithOther];
+  }
+}
+
+@end
+
 #import "DBSHARINGAccessLevel.h"
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
@@ -471,7 +644,7 @@
 
   result = prime * result + [self.file hash];
   result = prime * result + [self.members hash];
-  if (self.customMessage) {
+  if (self.customMessage != nil) {
     result = prime * result + [self.customMessage hash];
   }
   result = prime * result + [self.quiet hash];
@@ -885,7 +1058,7 @@
   result = prime * result + [self.sharedFolderId hash];
   result = prime * result + [self.members hash];
   result = prime * result + [self.quiet hash];
-  if (self.customMessage) {
+  if (self.customMessage != nil) {
     result = prime * result + [self.customMessage hash];
   }
 
@@ -2332,7 +2505,7 @@
 
   result = prime * result + [self.url hash];
   result = prime * result + [self.visibility hash];
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
 
@@ -2410,10 +2583,13 @@
     return [DBSHARINGCollectionLinkMetadataSerializer deserialize:valueDict];
   }
 
-  @throw([NSException
-      exceptionWithName:@"InvalidTag"
-                 reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
-               userInfo:nil]);
+  NSString *url = valueDict[@"url"];
+  DBSHARINGVisibility *visibility = [DBSHARINGVisibilitySerializer deserialize:valueDict[@"visibility"]];
+  NSDate *expires = valueDict[@"expires"]
+                        ? [DBNSDateSerializer deserialize:valueDict[@"expires"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
+                        : nil;
+
+  return [[DBSHARINGLinkMetadata alloc] initWithUrl:url visibility:visibility expires:expires];
 }
 
 @end
@@ -2476,7 +2652,7 @@
 
   result = prime * result + [self.url hash];
   result = prime * result + [self.visibility hash];
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
 
@@ -2604,7 +2780,7 @@
 
   result = prime * result + [self.path hash];
   result = prime * result + [self.shortUrl hash];
-  if (self.pendingUpload) {
+  if (self.pendingUpload != nil) {
     result = prime * result + [self.pendingUpload hash];
   }
 
@@ -2897,7 +3073,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.path hash];
-  if (self.settings) {
+  if (self.settings != nil) {
     result = prime * result + [self.settings hash];
   }
 
@@ -3305,13 +3481,13 @@
   result = prime * result + [self.currentAudience hash];
   result = prime * result + [self.linkPermissions hash];
   result = prime * result + [self.passwordProtected hash];
-  if (self.accessLevel) {
+  if (self.accessLevel != nil) {
     result = prime * result + [self.accessLevel hash];
   }
-  if (self.audienceRestrictingSharedFolder) {
+  if (self.audienceRestrictingSharedFolder != nil) {
     result = prime * result + [self.audienceRestrictingSharedFolder hash];
   }
-  if (self.expiry) {
+  if (self.expiry != nil) {
     result = prime * result + [self.expiry hash];
   }
 
@@ -3526,13 +3702,13 @@
   result = prime * result + [self.currentAudience hash];
   result = prime * result + [self.linkPermissions hash];
   result = prime * result + [self.passwordProtected hash];
-  if (self.accessLevel) {
+  if (self.accessLevel != nil) {
     result = prime * result + [self.accessLevel hash];
   }
-  if (self.audienceRestrictingSharedFolder) {
+  if (self.audienceRestrictingSharedFolder != nil) {
     result = prime * result + [self.audienceRestrictingSharedFolder hash];
   }
-  if (self.expiry) {
+  if (self.expiry != nil) {
     result = prime * result + [self.expiry hash];
   }
 
@@ -4304,19 +4480,19 @@
   result = prime * result + [self.url hash];
   result = prime * result + [self.name hash];
   result = prime * result + [self.linkPermissions hash];
-  if (self.id_) {
+  if (self.id_ != nil) {
     result = prime * result + [self.id_ hash];
   }
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
-  if (self.pathLower) {
+  if (self.pathLower != nil) {
     result = prime * result + [self.pathLower hash];
   }
-  if (self.teamMemberInfo) {
+  if (self.teamMemberInfo != nil) {
     result = prime * result + [self.teamMemberInfo hash];
   }
-  if (self.contentOwnerTeamInfo) {
+  if (self.contentOwnerTeamInfo != nil) {
     result = prime * result + [self.contentOwnerTeamInfo hash];
   }
 
@@ -4430,10 +4606,30 @@
     return [DBSHARINGFolderLinkMetadataSerializer deserialize:valueDict];
   }
 
-  @throw([NSException
-      exceptionWithName:@"InvalidTag"
-                 reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
-               userInfo:nil]);
+  NSString *url = valueDict[@"url"];
+  NSString *name = valueDict[@"name"];
+  DBSHARINGLinkPermissions *linkPermissions =
+      [DBSHARINGLinkPermissionsSerializer deserialize:valueDict[@"link_permissions"]];
+  NSString *id_ = valueDict[@"id"] ?: nil;
+  NSDate *expires = valueDict[@"expires"]
+                        ? [DBNSDateSerializer deserialize:valueDict[@"expires"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
+                        : nil;
+  NSString *pathLower = valueDict[@"path_lower"] ?: nil;
+  DBSHARINGTeamMemberInfo *teamMemberInfo =
+      valueDict[@"team_member_info"] ? [DBSHARINGTeamMemberInfoSerializer deserialize:valueDict[@"team_member_info"]]
+                                     : nil;
+  DBUSERSTeam *contentOwnerTeamInfo = valueDict[@"content_owner_team_info"]
+                                          ? [DBUSERSTeamSerializer deserialize:valueDict[@"content_owner_team_info"]]
+                                          : nil;
+
+  return [[DBSHARINGSharedLinkMetadata alloc] initWithUrl:url
+                                                     name:name
+                                          linkPermissions:linkPermissions
+                                                      id_:id_
+                                                  expires:expires
+                                                pathLower:pathLower
+                                           teamMemberInfo:teamMemberInfo
+                                     contentOwnerTeamInfo:contentOwnerTeamInfo];
 }
 
 @end
@@ -4548,19 +4744,19 @@
   result = prime * result + [self.serverModified hash];
   result = prime * result + [self.rev hash];
   result = prime * result + [self.size hash];
-  if (self.id_) {
+  if (self.id_ != nil) {
     result = prime * result + [self.id_ hash];
   }
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
-  if (self.pathLower) {
+  if (self.pathLower != nil) {
     result = prime * result + [self.pathLower hash];
   }
-  if (self.teamMemberInfo) {
+  if (self.teamMemberInfo != nil) {
     result = prime * result + [self.teamMemberInfo hash];
   }
-  if (self.contentOwnerTeamInfo) {
+  if (self.contentOwnerTeamInfo != nil) {
     result = prime * result + [self.contentOwnerTeamInfo hash];
   }
 
@@ -5063,7 +5259,7 @@
 
   switch (_tag) {
   case DBSHARINGFileMemberActionIndividualResultSuccess:
-    if (self.success) {
+    if (self.success != nil) {
       result = prime * result + [self.success hash];
     }
   case DBSHARINGFileMemberActionIndividualResultMemberError:
@@ -5528,7 +5724,7 @@
 
   result = prime * result + [self.action hash];
   result = prime * result + [self.allow hash];
-  if (self.reason) {
+  if (self.reason != nil) {
     result = prime * result + [self.reason hash];
   }
 
@@ -5708,6 +5904,14 @@
   return self;
 }
 
+- (instancetype)initWithSetAccessInheritance {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGFolderActionSetAccessInheritance;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -5772,6 +5976,10 @@
   return _tag == DBSHARINGFolderActionCreateLink;
 }
 
+- (BOOL)isSetAccessInheritance {
+  return _tag == DBSHARINGFolderActionSetAccessInheritance;
+}
+
 - (BOOL)isOther {
   return _tag == DBSHARINGFolderActionOther;
 }
@@ -5804,6 +6012,8 @@
     return @"DBSHARINGFolderActionShareLink";
   case DBSHARINGFolderActionCreateLink:
     return @"DBSHARINGFolderActionCreateLink";
+  case DBSHARINGFolderActionSetAccessInheritance:
+    return @"DBSHARINGFolderActionSetAccessInheritance";
   case DBSHARINGFolderActionOther:
     return @"DBSHARINGFolderActionOther";
   }
@@ -5868,6 +6078,8 @@
     result = prime * result + [[self tagName] hash];
   case DBSHARINGFolderActionCreateLink:
     result = prime * result + [[self tagName] hash];
+  case DBSHARINGFolderActionSetAccessInheritance:
+    result = prime * result + [[self tagName] hash];
   case DBSHARINGFolderActionOther:
     result = prime * result + [[self tagName] hash];
   }
@@ -5921,6 +6133,8 @@
     return [[self tagName] isEqual:[aFolderAction tagName]];
   case DBSHARINGFolderActionCreateLink:
     return [[self tagName] isEqual:[aFolderAction tagName]];
+  case DBSHARINGFolderActionSetAccessInheritance:
+    return [[self tagName] isEqual:[aFolderAction tagName]];
   case DBSHARINGFolderActionOther:
     return [[self tagName] isEqual:[aFolderAction tagName]];
   }
@@ -5962,6 +6176,8 @@
     jsonDict[@".tag"] = @"share_link";
   } else if ([valueObj isCreateLink]) {
     jsonDict[@".tag"] = @"create_link";
+  } else if ([valueObj isSetAccessInheritance]) {
+    jsonDict[@".tag"] = @"set_access_inheritance";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -6000,6 +6216,8 @@
     return [[DBSHARINGFolderAction alloc] initWithShareLink];
   } else if ([tag isEqualToString:@"create_link"]) {
     return [[DBSHARINGFolderAction alloc] initWithCreateLink];
+  } else if ([tag isEqualToString:@"set_access_inheritance"]) {
+    return [[DBSHARINGFolderAction alloc] initWithSetAccessInheritance];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBSHARINGFolderAction alloc] initWithOther];
   } else {
@@ -6095,19 +6313,19 @@
   result = prime * result + [self.url hash];
   result = prime * result + [self.name hash];
   result = prime * result + [self.linkPermissions hash];
-  if (self.id_) {
+  if (self.id_ != nil) {
     result = prime * result + [self.id_ hash];
   }
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
-  if (self.pathLower) {
+  if (self.pathLower != nil) {
     result = prime * result + [self.pathLower hash];
   }
-  if (self.teamMemberInfo) {
+  if (self.teamMemberInfo != nil) {
     result = prime * result + [self.teamMemberInfo hash];
   }
-  if (self.contentOwnerTeamInfo) {
+  if (self.contentOwnerTeamInfo != nil) {
     result = prime * result + [self.contentOwnerTeamInfo hash];
   }
 
@@ -6290,7 +6508,7 @@
 
   result = prime * result + [self.action hash];
   result = prime * result + [self.allow hash];
-  if (self.reason) {
+  if (self.reason != nil) {
     result = prime * result + [self.reason hash];
   }
 
@@ -6430,13 +6648,13 @@
 
   result = prime * result + [self.aclUpdatePolicy hash];
   result = prime * result + [self.sharedLinkPolicy hash];
-  if (self.memberPolicy) {
+  if (self.memberPolicy != nil) {
     result = prime * result + [self.memberPolicy hash];
   }
-  if (self.resolvedMemberPolicy) {
+  if (self.resolvedMemberPolicy != nil) {
     result = prime * result + [self.resolvedMemberPolicy hash];
   }
-  if (self.viewerInfoPolicy) {
+  if (self.viewerInfoPolicy != nil) {
     result = prime * result + [self.viewerInfoPolicy hash];
   }
 
@@ -6596,7 +6814,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.file hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
 
@@ -6735,7 +6953,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.files hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
 
@@ -7390,7 +7608,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.sharedFolderId hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
 
@@ -7930,10 +8148,10 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.url hash];
-  if (self.path) {
+  if (self.path != nil) {
     result = prime * result + [self.path hash];
   }
-  if (self.linkPassword) {
+  if (self.linkPassword != nil) {
     result = prime * result + [self.linkPassword hash];
   }
 
@@ -8055,7 +8273,7 @@
   NSUInteger prime = 31;
   NSUInteger result = 1;
 
-  if (self.path) {
+  if (self.path != nil) {
     result = prime * result + [self.path hash];
   }
 
@@ -8202,7 +8420,7 @@
 
   switch (_tag) {
   case DBSHARINGGetSharedLinksErrorPath:
-    if (self.path) {
+    if (self.path != nil) {
       result = prime * result + [self.path hash];
     }
   case DBSHARINGGetSharedLinksErrorOther:
@@ -8489,10 +8707,10 @@
   result = prime * result + [self.isMember hash];
   result = prime * result + [self.isOwner hash];
   result = prime * result + [self.sameTeam hash];
-  if (self.groupExternalId) {
+  if (self.groupExternalId != nil) {
     result = prime * result + [self.groupExternalId hash];
   }
-  if (self.memberCount) {
+  if (self.memberCount != nil) {
     result = prime * result + [self.memberCount hash];
   }
 
@@ -8668,10 +8886,10 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.accessType hash];
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
-  if (self.initials) {
+  if (self.initials != nil) {
     result = prime * result + [self.initials hash];
   }
   result = prime * result + [self.isInherited hash];
@@ -8826,10 +9044,10 @@
 
   result = prime * result + [self.accessType hash];
   result = prime * result + [self.group hash];
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
-  if (self.initials) {
+  if (self.initials != nil) {
     result = prime * result + [self.initials hash];
   }
   result = prime * result + [self.isInherited hash];
@@ -8977,7 +9195,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.message hash];
-  if (self.upsellUrl) {
+  if (self.upsellUrl != nil) {
     result = prime * result + [self.upsellUrl hash];
   }
 
@@ -9392,14 +9610,14 @@
 
   result = prime * result + [self.accessType hash];
   result = prime * result + [self.invitee hash];
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
-  if (self.initials) {
+  if (self.initials != nil) {
     result = prime * result + [self.initials hash];
   }
   result = prime * result + [self.isInherited hash];
-  if (self.user) {
+  if (self.user != nil) {
     result = prime * result + [self.user hash];
   }
 
@@ -10828,7 +11046,7 @@
 
   result = prime * result + [self.action hash];
   result = prime * result + [self.allow hash];
-  if (self.reason) {
+  if (self.reason != nil) {
     result = prime * result + [self.reason hash];
   }
 
@@ -10958,13 +11176,13 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.canRevoke hash];
-  if (self.resolvedVisibility) {
+  if (self.resolvedVisibility != nil) {
     result = prime * result + [self.resolvedVisibility hash];
   }
-  if (self.requestedVisibility) {
+  if (self.requestedVisibility != nil) {
     result = prime * result + [self.requestedVisibility hash];
   }
-  if (self.revokeFailureReason) {
+  if (self.revokeFailureReason != nil) {
     result = prime * result + [self.revokeFailureReason hash];
   }
 
@@ -11118,16 +11336,16 @@
   NSUInteger prime = 31;
   NSUInteger result = 1;
 
-  if (self.accessLevel) {
+  if (self.accessLevel != nil) {
     result = prime * result + [self.accessLevel hash];
   }
-  if (self.audience) {
+  if (self.audience != nil) {
     result = prime * result + [self.audience hash];
   }
-  if (self.expiry) {
+  if (self.expiry != nil) {
     result = prime * result + [self.expiry hash];
   }
-  if (self.password) {
+  if (self.password != nil) {
     result = prime * result + [self.password hash];
   }
 
@@ -11283,7 +11501,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.file hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
   result = prime * result + [self.includeInherited hash];
@@ -12504,7 +12722,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.limit hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
 
@@ -12918,7 +13136,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.entries hash];
-  if (self.cursor) {
+  if (self.cursor != nil) {
     result = prime * result + [self.cursor hash];
   }
 
@@ -13044,7 +13262,7 @@
   NSUInteger prime = 31;
   NSUInteger result = 1;
 
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
   result = prime * result + [self.limit hash];
@@ -13177,7 +13395,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.sharedFolderId hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
   result = prime * result + [self.limit hash];
@@ -13601,7 +13819,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.limit hash];
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
 
@@ -13979,7 +14197,7 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.entries hash];
-  if (self.cursor) {
+  if (self.cursor != nil) {
     result = prime * result + [self.cursor hash];
   }
 
@@ -14106,13 +14324,13 @@
   NSUInteger prime = 31;
   NSUInteger result = 1;
 
-  if (self.path) {
+  if (self.path != nil) {
     result = prime * result + [self.path hash];
   }
-  if (self.cursor) {
+  if (self.cursor != nil) {
     result = prime * result + [self.cursor hash];
   }
-  if (self.directOnly) {
+  if (self.directOnly != nil) {
     result = prime * result + [self.directOnly hash];
   }
 
@@ -14437,7 +14655,7 @@
 
   result = prime * result + [self.links hash];
   result = prime * result + [self.hasMore hash];
-  if (self.cursor) {
+  if (self.cursor != nil) {
     result = prime * result + [self.cursor hash];
   }
 
@@ -14572,13 +14790,13 @@
   NSUInteger prime = 31;
   NSUInteger result = 1;
 
-  if (self.accessLevel) {
+  if (self.accessLevel != nil) {
     result = prime * result + [self.accessLevel hash];
   }
-  if (self.warning) {
+  if (self.warning != nil) {
     result = prime * result + [self.warning hash];
   }
-  if (self.accessDetails) {
+  if (self.accessDetails != nil) {
     result = prime * result + [self.accessDetails hash];
   }
 
@@ -14988,7 +15206,7 @@
 
   result = prime * result + [self.action hash];
   result = prime * result + [self.allow hash];
-  if (self.reason) {
+  if (self.reason != nil) {
     result = prime * result + [self.reason hash];
   }
 
@@ -16404,7 +16622,7 @@
   result = prime * result + [self.url hash];
   result = prime * result + [self.visibility hash];
   result = prime * result + [self.path hash];
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
 
@@ -18372,6 +18590,14 @@
   return self;
 }
 
+- (instancetype)initWithTooManyFiles {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGRemoveFolderMemberErrorTooManyFiles;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -18426,6 +18652,10 @@
   return _tag == DBSHARINGRemoveFolderMemberErrorNoPermission;
 }
 
+- (BOOL)isTooManyFiles {
+  return _tag == DBSHARINGRemoveFolderMemberErrorTooManyFiles;
+}
+
 - (BOOL)isOther {
   return _tag == DBSHARINGRemoveFolderMemberErrorOther;
 }
@@ -18444,6 +18674,8 @@
     return @"DBSHARINGRemoveFolderMemberErrorTeamFolder";
   case DBSHARINGRemoveFolderMemberErrorNoPermission:
     return @"DBSHARINGRemoveFolderMemberErrorNoPermission";
+  case DBSHARINGRemoveFolderMemberErrorTooManyFiles:
+    return @"DBSHARINGRemoveFolderMemberErrorTooManyFiles";
   case DBSHARINGRemoveFolderMemberErrorOther:
     return @"DBSHARINGRemoveFolderMemberErrorOther";
   }
@@ -18494,6 +18726,8 @@
     result = prime * result + [[self tagName] hash];
   case DBSHARINGRemoveFolderMemberErrorNoPermission:
     result = prime * result + [[self tagName] hash];
+  case DBSHARINGRemoveFolderMemberErrorTooManyFiles:
+    result = prime * result + [[self tagName] hash];
   case DBSHARINGRemoveFolderMemberErrorOther:
     result = prime * result + [[self tagName] hash];
   }
@@ -18533,6 +18767,8 @@
     return [[self tagName] isEqual:[aRemoveFolderMemberError tagName]];
   case DBSHARINGRemoveFolderMemberErrorNoPermission:
     return [[self tagName] isEqual:[aRemoveFolderMemberError tagName]];
+  case DBSHARINGRemoveFolderMemberErrorTooManyFiles:
+    return [[self tagName] isEqual:[aRemoveFolderMemberError tagName]];
   case DBSHARINGRemoveFolderMemberErrorOther:
     return [[self tagName] isEqual:[aRemoveFolderMemberError tagName]];
   }
@@ -18564,6 +18800,8 @@
     jsonDict[@".tag"] = @"team_folder";
   } else if ([valueObj isNoPermission]) {
     jsonDict[@".tag"] = @"no_permission";
+  } else if ([valueObj isTooManyFiles]) {
+    jsonDict[@".tag"] = @"too_many_files";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
@@ -18592,6 +18830,8 @@
     return [[DBSHARINGRemoveFolderMemberError alloc] initWithTeamFolder];
   } else if ([tag isEqualToString:@"no_permission"]) {
     return [[DBSHARINGRemoveFolderMemberError alloc] initWithNoPermission];
+  } else if ([tag isEqualToString:@"too_many_files"]) {
+    return [[DBSHARINGRemoveFolderMemberError alloc] initWithTooManyFiles];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBSHARINGRemoveFolderMemberError alloc] initWithOther];
   } else {
@@ -19543,6 +19783,313 @@
 
 @end
 
+#import "DBSHARINGAccessInheritance.h"
+#import "DBSHARINGSetAccessInheritanceArg.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGSetAccessInheritanceArg
+
+#pragma mark - Constructors
+
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId
+                     accessInheritance:(DBSHARINGAccessInheritance *)accessInheritance {
+  [DBStoneValidators
+   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](sharedFolderId);
+
+  self = [super init];
+  if (self) {
+    _accessInheritance = accessInheritance ?: [[DBSHARINGAccessInheritance alloc] initWithInherit];
+    _sharedFolderId = sharedFolderId;
+  }
+  return self;
+}
+
+- (instancetype)initWithSharedFolderId:(NSString *)sharedFolderId {
+  return [self initWithSharedFolderId:sharedFolderId accessInheritance:nil];
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary *)serialize:(id)instance {
+  return [DBSHARINGSetAccessInheritanceArgSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary *)dict {
+  return [DBSHARINGSetAccessInheritanceArgSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGSetAccessInheritanceArgSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.sharedFolderId hash];
+  result = prime * result + [self.accessInheritance hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSetAccessInheritanceArg:other];
+}
+
+- (BOOL)isEqualToSetAccessInheritanceArg:(DBSHARINGSetAccessInheritanceArg *)aSetAccessInheritanceArg {
+  if (self == aSetAccessInheritanceArg) {
+    return YES;
+  }
+  if (![self.sharedFolderId isEqual:aSetAccessInheritanceArg.sharedFolderId]) {
+    return NO;
+  }
+  if (![self.accessInheritance isEqual:aSetAccessInheritanceArg.accessInheritance]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGSetAccessInheritanceArgSerializer
+
++ (NSDictionary *)serialize:(DBSHARINGSetAccessInheritanceArg *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"shared_folder_id"] = valueObj.sharedFolderId;
+  jsonDict[@"access_inheritance"] = [DBSHARINGAccessInheritanceSerializer serialize:valueObj.accessInheritance];
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGSetAccessInheritanceArg *)deserialize:(NSDictionary *)valueDict {
+  NSString *sharedFolderId = valueDict[@"shared_folder_id"];
+  DBSHARINGAccessInheritance *accessInheritance =
+      valueDict[@"access_inheritance"]
+          ? [DBSHARINGAccessInheritanceSerializer deserialize:valueDict[@"access_inheritance"]]
+          : [[DBSHARINGAccessInheritance alloc] initWithInherit];
+
+  return [[DBSHARINGSetAccessInheritanceArg alloc] initWithSharedFolderId:sharedFolderId
+                                                        accessInheritance:accessInheritance];
+}
+
+@end
+
+#import "DBSHARINGSetAccessInheritanceError.h"
+#import "DBSHARINGSharedFolderAccessError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBSHARINGSetAccessInheritanceError
+
+@synthesize accessError = _accessError;
+
+#pragma mark - Constructors
+
+- (instancetype)initWithAccessError:(DBSHARINGSharedFolderAccessError *)accessError {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSetAccessInheritanceErrorAccessError;
+    _accessError = accessError;
+  }
+  return self;
+}
+
+- (instancetype)initWithNoPermission {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSetAccessInheritanceErrorNoPermission;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBSHARINGSetAccessInheritanceErrorOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+- (DBSHARINGSharedFolderAccessError *)accessError {
+  if (![self isAccessError]) {
+    [NSException
+         raise:@"IllegalStateException"
+        format:@"Invalid tag: required DBSHARINGSetAccessInheritanceErrorAccessError, but was %@.", [self tagName]];
+  }
+  return _accessError;
+}
+
+#pragma mark - Tag state methods
+
+- (BOOL)isAccessError {
+  return _tag == DBSHARINGSetAccessInheritanceErrorAccessError;
+}
+
+- (BOOL)isNoPermission {
+  return _tag == DBSHARINGSetAccessInheritanceErrorNoPermission;
+}
+
+- (BOOL)isOther {
+  return _tag == DBSHARINGSetAccessInheritanceErrorOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBSHARINGSetAccessInheritanceErrorAccessError:
+    return @"DBSHARINGSetAccessInheritanceErrorAccessError";
+  case DBSHARINGSetAccessInheritanceErrorNoPermission:
+    return @"DBSHARINGSetAccessInheritanceErrorNoPermission";
+  case DBSHARINGSetAccessInheritanceErrorOther:
+    return @"DBSHARINGSetAccessInheritanceErrorOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary *)serialize:(id)instance {
+  return [DBSHARINGSetAccessInheritanceErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary *)dict {
+  return [DBSHARINGSetAccessInheritanceErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Description method
+
+- (NSString *)description {
+  return [[DBSHARINGSetAccessInheritanceErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBSHARINGSetAccessInheritanceErrorAccessError:
+    result = prime * result + [self.accessError hash];
+  case DBSHARINGSetAccessInheritanceErrorNoPermission:
+    result = prime * result + [[self tagName] hash];
+  case DBSHARINGSetAccessInheritanceErrorOther:
+    result = prime * result + [[self tagName] hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSetAccessInheritanceError:other];
+}
+
+- (BOOL)isEqualToSetAccessInheritanceError:(DBSHARINGSetAccessInheritanceError *)aSetAccessInheritanceError {
+  if (self == aSetAccessInheritanceError) {
+    return YES;
+  }
+  if (self.tag != aSetAccessInheritanceError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBSHARINGSetAccessInheritanceErrorAccessError:
+    return [self.accessError isEqual:aSetAccessInheritanceError.accessError];
+  case DBSHARINGSetAccessInheritanceErrorNoPermission:
+    return [[self tagName] isEqual:[aSetAccessInheritanceError tagName]];
+  case DBSHARINGSetAccessInheritanceErrorOther:
+    return [[self tagName] isEqual:[aSetAccessInheritanceError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBSHARINGSetAccessInheritanceErrorSerializer
+
++ (NSDictionary *)serialize:(DBSHARINGSetAccessInheritanceError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isAccessError]) {
+    jsonDict[@"access_error"] =
+        [[DBSHARINGSharedFolderAccessErrorSerializer serialize:valueObj.accessError] mutableCopy];
+    jsonDict[@".tag"] = @"access_error";
+  } else if ([valueObj isNoPermission]) {
+    jsonDict[@".tag"] = @"no_permission";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return [jsonDict count] > 0 ? jsonDict : nil;
+}
+
++ (DBSHARINGSetAccessInheritanceError *)deserialize:(NSDictionary *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"access_error"]) {
+    DBSHARINGSharedFolderAccessError *accessError =
+        [DBSHARINGSharedFolderAccessErrorSerializer deserialize:valueDict[@"access_error"]];
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithAccessError:accessError];
+  } else if ([tag isEqualToString:@"no_permission"]) {
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithNoPermission];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithOther];
+  } else {
+    return [[DBSHARINGSetAccessInheritanceError alloc] initWithOther];
+  }
+}
+
+@end
+
 #import "DBSHARINGAclUpdatePolicy.h"
 #import "DBSHARINGMemberPolicy.h"
 #import "DBSHARINGShareFolderArgBase.h"
@@ -19619,17 +20166,17 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.path hash];
-  if (self.aclUpdatePolicy) {
+  if (self.aclUpdatePolicy != nil) {
     result = prime * result + [self.aclUpdatePolicy hash];
   }
   result = prime * result + [self.forceAsync hash];
-  if (self.memberPolicy) {
+  if (self.memberPolicy != nil) {
     result = prime * result + [self.memberPolicy hash];
   }
-  if (self.sharedLinkPolicy) {
+  if (self.sharedLinkPolicy != nil) {
     result = prime * result + [self.sharedLinkPolicy hash];
   }
-  if (self.viewerInfoPolicy) {
+  if (self.viewerInfoPolicy != nil) {
     result = prime * result + [self.viewerInfoPolicy hash];
   }
 
@@ -19823,23 +20370,23 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.path hash];
-  if (self.aclUpdatePolicy) {
+  if (self.aclUpdatePolicy != nil) {
     result = prime * result + [self.aclUpdatePolicy hash];
   }
   result = prime * result + [self.forceAsync hash];
-  if (self.memberPolicy) {
+  if (self.memberPolicy != nil) {
     result = prime * result + [self.memberPolicy hash];
   }
-  if (self.sharedLinkPolicy) {
+  if (self.sharedLinkPolicy != nil) {
     result = prime * result + [self.sharedLinkPolicy hash];
   }
-  if (self.viewerInfoPolicy) {
+  if (self.viewerInfoPolicy != nil) {
     result = prime * result + [self.viewerInfoPolicy hash];
   }
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
-  if (self.linkSettings) {
+  if (self.linkSettings != nil) {
     result = prime * result + [self.linkSettings hash];
   }
 
@@ -21380,16 +21927,16 @@
   result = prime * result + [self.linkPermissions hash];
   result = prime * result + [self.passwordProtected hash];
   result = prime * result + [self.url hash];
-  if (self.accessLevel) {
+  if (self.accessLevel != nil) {
     result = prime * result + [self.accessLevel hash];
   }
-  if (self.audienceRestrictingSharedFolder) {
+  if (self.audienceRestrictingSharedFolder != nil) {
     result = prime * result + [self.audienceRestrictingSharedFolder hash];
   }
-  if (self.expiry) {
+  if (self.expiry != nil) {
     result = prime * result + [self.expiry hash];
   }
-  if (self.audienceExceptions) {
+  if (self.audienceExceptions != nil) {
     result = prime * result + [self.audienceExceptions hash];
   }
 
@@ -21608,7 +22155,7 @@
   result = prime * result + [self.users hash];
   result = prime * result + [self.groups hash];
   result = prime * result + [self.invitees hash];
-  if (self.cursor) {
+  if (self.cursor != nil) {
     result = prime * result + [self.cursor hash];
   }
 
@@ -21729,7 +22276,7 @@
                   pathLower:(NSString *)pathLower
                 permissions:(NSArray<DBSHARINGFilePermission *> *)permissions
                 timeInvited:(NSDate *)timeInvited {
-  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"id:.*"]](id_);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(4) maxLength:nil pattern:@"id:.+"]](id_);
   [DBStoneValidators nonnullValidator:nil](name);
   [DBStoneValidators nonnullValidator:nil](policy);
   [DBStoneValidators nonnullValidator:nil](previewUrl);
@@ -21819,34 +22366,34 @@
   result = prime * result + [self.name hash];
   result = prime * result + [self.policy hash];
   result = prime * result + [self.previewUrl hash];
-  if (self.accessType) {
+  if (self.accessType != nil) {
     result = prime * result + [self.accessType hash];
   }
-  if (self.expectedLinkMetadata) {
+  if (self.expectedLinkMetadata != nil) {
     result = prime * result + [self.expectedLinkMetadata hash];
   }
-  if (self.linkMetadata) {
+  if (self.linkMetadata != nil) {
     result = prime * result + [self.linkMetadata hash];
   }
-  if (self.ownerDisplayNames) {
+  if (self.ownerDisplayNames != nil) {
     result = prime * result + [self.ownerDisplayNames hash];
   }
-  if (self.ownerTeam) {
+  if (self.ownerTeam != nil) {
     result = prime * result + [self.ownerTeam hash];
   }
-  if (self.parentSharedFolderId) {
+  if (self.parentSharedFolderId != nil) {
     result = prime * result + [self.parentSharedFolderId hash];
   }
-  if (self.pathDisplay) {
+  if (self.pathDisplay != nil) {
     result = prime * result + [self.pathDisplay hash];
   }
-  if (self.pathLower) {
+  if (self.pathLower != nil) {
     result = prime * result + [self.pathLower hash];
   }
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
-  if (self.timeInvited) {
+  if (self.timeInvited != nil) {
     result = prime * result + [self.timeInvited hash];
   }
 
@@ -22550,7 +23097,7 @@
   result = prime * result + [self.users hash];
   result = prime * result + [self.groups hash];
   result = prime * result + [self.invitees hash];
-  if (self.cursor) {
+  if (self.cursor != nil) {
     result = prime * result + [self.cursor hash];
   }
 
@@ -22729,16 +23276,16 @@
   result = prime * result + [self.accessType hash];
   result = prime * result + [self.isInsideTeamFolder hash];
   result = prime * result + [self.isTeamFolder hash];
-  if (self.ownerDisplayNames) {
+  if (self.ownerDisplayNames != nil) {
     result = prime * result + [self.ownerDisplayNames hash];
   }
-  if (self.ownerTeam) {
+  if (self.ownerTeam != nil) {
     result = prime * result + [self.ownerTeam hash];
   }
-  if (self.parentSharedFolderId) {
+  if (self.parentSharedFolderId != nil) {
     result = prime * result + [self.parentSharedFolderId hash];
   }
-  if (self.pathLower) {
+  if (self.pathLower != nil) {
     result = prime * result + [self.pathLower hash];
   }
 
@@ -22850,6 +23397,7 @@
 
 @end
 
+#import "DBSHARINGAccessInheritance.h"
 #import "DBSHARINGAccessLevel.h"
 #import "DBSHARINGFolderPermission.h"
 #import "DBSHARINGFolderPolicy.h"
@@ -22879,7 +23427,8 @@
               parentSharedFolderId:(NSString *)parentSharedFolderId
                          pathLower:(NSString *)pathLower
                       linkMetadata:(DBSHARINGSharedContentLinkMetadata *)linkMetadata
-                       permissions:(NSArray<DBSHARINGFolderPermission *> *)permissions {
+                       permissions:(NSArray<DBSHARINGFolderPermission *> *)permissions
+                 accessInheritance:(DBSHARINGAccessInheritance *)accessInheritance {
   [DBStoneValidators nonnullValidator:nil](accessType);
   [DBStoneValidators nonnullValidator:nil](isInsideTeamFolder);
   [DBStoneValidators nonnullValidator:nil](isTeamFolder);
@@ -22916,6 +23465,7 @@
     _previewUrl = previewUrl;
     _sharedFolderId = sharedFolderId;
     _timeInvited = timeInvited;
+    _accessInheritance = accessInheritance ?: [[DBSHARINGAccessInheritance alloc] initWithInherit];
   }
   return self;
 }
@@ -22941,7 +23491,8 @@
              parentSharedFolderId:nil
                         pathLower:nil
                      linkMetadata:nil
-                      permissions:nil];
+                      permissions:nil
+                accessInheritance:nil];
 }
 
 #pragma mark - Serialization methods
@@ -22982,24 +23533,25 @@
   result = prime * result + [self.previewUrl hash];
   result = prime * result + [self.sharedFolderId hash];
   result = prime * result + [self.timeInvited hash];
-  if (self.ownerDisplayNames) {
+  if (self.ownerDisplayNames != nil) {
     result = prime * result + [self.ownerDisplayNames hash];
   }
-  if (self.ownerTeam) {
+  if (self.ownerTeam != nil) {
     result = prime * result + [self.ownerTeam hash];
   }
-  if (self.parentSharedFolderId) {
+  if (self.parentSharedFolderId != nil) {
     result = prime * result + [self.parentSharedFolderId hash];
   }
-  if (self.pathLower) {
+  if (self.pathLower != nil) {
     result = prime * result + [self.pathLower hash];
   }
-  if (self.linkMetadata) {
+  if (self.linkMetadata != nil) {
     result = prime * result + [self.linkMetadata hash];
   }
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
+  result = prime * result + [self.accessInheritance hash];
 
   return prime * result;
 }
@@ -23074,6 +23626,9 @@
       return NO;
     }
   }
+  if (![self.accessInheritance isEqual:aSharedFolderMetadata.accessInheritance]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -23118,6 +23673,7 @@
                                                     return [DBSHARINGFolderPermissionSerializer serialize:elem0];
                                                   }];
   }
+  jsonDict[@"access_inheritance"] = [DBSHARINGAccessInheritanceSerializer serialize:valueObj.accessInheritance];
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
@@ -23151,6 +23707,10 @@
                                                          return [DBSHARINGFolderPermissionSerializer deserialize:elem0];
                                                        }]
                                 : nil;
+  DBSHARINGAccessInheritance *accessInheritance =
+      valueDict[@"access_inheritance"]
+          ? [DBSHARINGAccessInheritanceSerializer deserialize:valueDict[@"access_inheritance"]]
+          : [[DBSHARINGAccessInheritance alloc] initWithInherit];
 
   return [[DBSHARINGSharedFolderMetadata alloc] initWithAccessType:accessType
                                                 isInsideTeamFolder:isInsideTeamFolder
@@ -23165,7 +23725,8 @@
                                               parentSharedFolderId:parentSharedFolderId
                                                          pathLower:pathLower
                                                       linkMetadata:linkMetadata
-                                                       permissions:permissions];
+                                                       permissions:permissions
+                                                 accessInheritance:accessInheritance];
 }
 
 @end
@@ -23663,13 +24224,13 @@
   NSUInteger prime = 31;
   NSUInteger result = 1;
 
-  if (self.requestedVisibility) {
+  if (self.requestedVisibility != nil) {
     result = prime * result + [self.requestedVisibility hash];
   }
-  if (self.linkPassword) {
+  if (self.linkPassword != nil) {
     result = prime * result + [self.linkPassword hash];
   }
-  if (self.expires) {
+  if (self.expires != nil) {
     result = prime * result + [self.expires hash];
   }
 
@@ -24357,7 +24918,7 @@
 
   result = prime * result + [self.teamInfo hash];
   result = prime * result + [self.displayName hash];
-  if (self.memberId) {
+  if (self.memberId != nil) {
     result = prime * result + [self.memberId hash];
   }
 
@@ -26402,22 +26963,22 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.sharedFolderId hash];
-  if (self.memberPolicy) {
+  if (self.memberPolicy != nil) {
     result = prime * result + [self.memberPolicy hash];
   }
-  if (self.aclUpdatePolicy) {
+  if (self.aclUpdatePolicy != nil) {
     result = prime * result + [self.aclUpdatePolicy hash];
   }
-  if (self.viewerInfoPolicy) {
+  if (self.viewerInfoPolicy != nil) {
     result = prime * result + [self.viewerInfoPolicy hash];
   }
-  if (self.sharedLinkPolicy) {
+  if (self.sharedLinkPolicy != nil) {
     result = prime * result + [self.sharedLinkPolicy hash];
   }
-  if (self.linkSettings) {
+  if (self.linkSettings != nil) {
     result = prime * result + [self.linkSettings hash];
   }
-  if (self.actions) {
+  if (self.actions != nil) {
     result = prime * result + [self.actions hash];
   }
 
@@ -26893,10 +27454,10 @@
 
   result = prime * result + [self.accessType hash];
   result = prime * result + [self.user hash];
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
-  if (self.initials) {
+  if (self.initials != nil) {
     result = prime * result + [self.initials hash];
   }
   result = prime * result + [self.isInherited hash];
@@ -26988,6 +27549,7 @@
 
 @end
 
+#import "DBSEENSTATEPlatformType.h"
 #import "DBSHARINGAccessLevel.h"
 #import "DBSHARINGMemberPermission.h"
 #import "DBSHARINGUserFileMembershipInfo.h"
@@ -27007,7 +27569,8 @@
                        permissions:(NSArray<DBSHARINGMemberPermission *> *)permissions
                           initials:(NSString *)initials
                        isInherited:(NSNumber *)isInherited
-                      timeLastSeen:(NSDate *)timeLastSeen {
+                      timeLastSeen:(NSDate *)timeLastSeen
+                      platformType:(DBSEENSTATEPlatformType *)platformType {
   [DBStoneValidators nonnullValidator:nil](accessType);
   [DBStoneValidators nonnullValidator:nil](user);
   [DBStoneValidators
@@ -27019,12 +27582,19 @@
       [super initWithAccessType:accessType user:user permissions:permissions initials:initials isInherited:isInherited];
   if (self) {
     _timeLastSeen = timeLastSeen;
+    _platformType = platformType;
   }
   return self;
 }
 
 - (instancetype)initWithAccessType:(DBSHARINGAccessLevel *)accessType user:(DBSHARINGUserInfo *)user {
-  return [self initWithAccessType:accessType user:user permissions:nil initials:nil isInherited:nil timeLastSeen:nil];
+  return [self initWithAccessType:accessType
+                             user:user
+                      permissions:nil
+                         initials:nil
+                      isInherited:nil
+                     timeLastSeen:nil
+                     platformType:nil];
 }
 
 #pragma mark - Serialization methods
@@ -27059,15 +27629,18 @@
 
   result = prime * result + [self.accessType hash];
   result = prime * result + [self.user hash];
-  if (self.permissions) {
+  if (self.permissions != nil) {
     result = prime * result + [self.permissions hash];
   }
-  if (self.initials) {
+  if (self.initials != nil) {
     result = prime * result + [self.initials hash];
   }
   result = prime * result + [self.isInherited hash];
-  if (self.timeLastSeen) {
+  if (self.timeLastSeen != nil) {
     result = prime * result + [self.timeLastSeen hash];
+  }
+  if (self.platformType != nil) {
+    result = prime * result + [self.platformType hash];
   }
 
   return prime * result;
@@ -27113,6 +27686,11 @@
       return NO;
     }
   }
+  if (self.platformType) {
+    if (![self.platformType isEqual:anUserFileMembershipInfo.platformType]) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -27140,6 +27718,9 @@
   if (valueObj.timeLastSeen) {
     jsonDict[@"time_last_seen"] = [DBNSDateSerializer serialize:valueObj.timeLastSeen dateFormat:@"%Y-%m-%dT%H:%M:%SZ"];
   }
+  if (valueObj.platformType) {
+    jsonDict[@"platform_type"] = [DBSEENSTATEPlatformTypeSerializer serialize:valueObj.platformType];
+  }
 
   return [jsonDict count] > 0 ? jsonDict : nil;
 }
@@ -27158,13 +27739,16 @@
   NSDate *timeLastSeen = valueDict[@"time_last_seen"] ? [DBNSDateSerializer deserialize:valueDict[@"time_last_seen"]
                                                                              dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
                                                       : nil;
+  DBSEENSTATEPlatformType *platformType =
+      valueDict[@"platform_type"] ? [DBSEENSTATEPlatformTypeSerializer deserialize:valueDict[@"platform_type"]] : nil;
 
   return [[DBSHARINGUserFileMembershipInfo alloc] initWithAccessType:accessType
                                                                 user:user
                                                          permissions:permissions
                                                             initials:initials
                                                          isInherited:isInherited
-                                                        timeLastSeen:timeLastSeen];
+                                                        timeLastSeen:timeLastSeen
+                                                        platformType:platformType];
 }
 
 @end
@@ -27180,22 +27764,31 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithAccountId:(NSString *)accountId
+                            email:(NSString *)email
+                      displayName:(NSString *)displayName
                          sameTeam:(NSNumber *)sameTeam
                      teamMemberId:(NSString *)teamMemberId {
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(40) maxLength:@(40) pattern:nil]](accountId);
+  [DBStoneValidators nonnullValidator:nil](email);
+  [DBStoneValidators nonnullValidator:nil](displayName);
   [DBStoneValidators nonnullValidator:nil](sameTeam);
 
   self = [super init];
   if (self) {
     _accountId = accountId;
+    _email = email;
+    _displayName = displayName;
     _sameTeam = sameTeam;
     _teamMemberId = teamMemberId;
   }
   return self;
 }
 
-- (instancetype)initWithAccountId:(NSString *)accountId sameTeam:(NSNumber *)sameTeam {
-  return [self initWithAccountId:accountId sameTeam:sameTeam teamMemberId:nil];
+- (instancetype)initWithAccountId:(NSString *)accountId
+                            email:(NSString *)email
+                      displayName:(NSString *)displayName
+                         sameTeam:(NSNumber *)sameTeam {
+  return [self initWithAccountId:accountId email:email displayName:displayName sameTeam:sameTeam teamMemberId:nil];
 }
 
 #pragma mark - Serialization methods
@@ -27229,8 +27822,10 @@
   NSUInteger result = 1;
 
   result = prime * result + [self.accountId hash];
+  result = prime * result + [self.email hash];
+  result = prime * result + [self.displayName hash];
   result = prime * result + [self.sameTeam hash];
-  if (self.teamMemberId) {
+  if (self.teamMemberId != nil) {
     result = prime * result + [self.teamMemberId hash];
   }
 
@@ -27256,6 +27851,12 @@
   if (![self.accountId isEqual:anUserInfo.accountId]) {
     return NO;
   }
+  if (![self.email isEqual:anUserInfo.email]) {
+    return NO;
+  }
+  if (![self.displayName isEqual:anUserInfo.displayName]) {
+    return NO;
+  }
   if (![self.sameTeam isEqual:anUserInfo.sameTeam]) {
     return NO;
   }
@@ -27277,6 +27878,8 @@
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"account_id"] = valueObj.accountId;
+  jsonDict[@"email"] = valueObj.email;
+  jsonDict[@"display_name"] = valueObj.displayName;
   jsonDict[@"same_team"] = valueObj.sameTeam;
   if (valueObj.teamMemberId) {
     jsonDict[@"team_member_id"] = valueObj.teamMemberId;
@@ -27287,10 +27890,16 @@
 
 + (DBSHARINGUserInfo *)deserialize:(NSDictionary *)valueDict {
   NSString *accountId = valueDict[@"account_id"];
+  NSString *email = valueDict[@"email"];
+  NSString *displayName = valueDict[@"display_name"];
   NSNumber *sameTeam = valueDict[@"same_team"];
   NSString *teamMemberId = valueDict[@"team_member_id"] ?: nil;
 
-  return [[DBSHARINGUserInfo alloc] initWithAccountId:accountId sameTeam:sameTeam teamMemberId:teamMemberId];
+  return [[DBSHARINGUserInfo alloc] initWithAccountId:accountId
+                                                email:email
+                                          displayName:displayName
+                                             sameTeam:sameTeam
+                                         teamMemberId:teamMemberId];
 }
 
 @end

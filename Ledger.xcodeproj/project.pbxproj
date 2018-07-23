@@ -61,6 +61,10 @@
 		133C7F6720C8157B00CC9F16 /* YGLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133C7F6620C8157B00CC9F16 /* YGLaunchScreenViewController.m */; };
 		135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E51F177096004F10DE /* YYGConfigDefine.m */; };
 		135510E91F177096004F10DE /* YYGConfigError.m in Sources */ = {isa = PBXBuildFile; fileRef = 135510E71F177096004F10DE /* YYGConfigError.m */; };
+		1367D38D2102918B0047134C /* YYGDebtorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367D38B2102918B0047134C /* YYGDebtorCell.m */; };
+		1367D392210291960047134C /* YYGDebtorCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367D38E210291960047134C /* YYGDebtorCellViewModel.m */; };
+		1367D393210291960047134C /* YYGDebtorsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367D38F210291960047134C /* YYGDebtorsViewModel.m */; };
+		1367D396210291A50047134C /* YYGDebtorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367D394210291A50047134C /* YYGDebtorsViewController.m */; };
 		137E80D920F241E2000E4B7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E80D820F241E2000E4B7A /* main.m */; };
 		137E80DB20F2434A000E4B7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 137E80DA20F2434A000E4B7A /* LaunchScreen.storyboard */; };
 		138662841F3498E600800A11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 138662861F3498E600800A11 /* InfoPlist.strings */; };
@@ -191,7 +195,7 @@
 		13279DCA1EF2AECF00BA46AF /* YGCurrencyChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGCurrencyChoiceController.m; sourceTree = "<group>"; };
 		13279DDE1EF58C8900BA46AF /* YGDateChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGDateChoiceController.h; sourceTree = "<group>"; };
 		13279DDF1EF58C8900BA46AF /* YGDateChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGDateChoiceController.m; sourceTree = "<group>"; };
-		133050F01EDAE29D0031044D /* Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		133050F01EDAE29D0031044D /* Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Ledger.app; path = "Ledger-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		133050F61EDAE29D0031044D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		133050F71EDAE29D0031044D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		133050FD1EDAE29D0031044D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -234,6 +238,14 @@
 		135510E51F177096004F10DE /* YYGConfigDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigDefine.m; sourceTree = "<group>"; };
 		135510E61F177096004F10DE /* YYGConfigError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGConfigError.h; sourceTree = "<group>"; };
 		135510E71F177096004F10DE /* YYGConfigError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGConfigError.m; sourceTree = "<group>"; };
+		1367D38B2102918B0047134C /* YYGDebtorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDebtorCell.m; sourceTree = "<group>"; };
+		1367D38C2102918B0047134C /* YYGDebtorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDebtorCell.h; sourceTree = "<group>"; };
+		1367D38E210291960047134C /* YYGDebtorCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDebtorCellViewModel.m; sourceTree = "<group>"; };
+		1367D38F210291960047134C /* YYGDebtorsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDebtorsViewModel.m; sourceTree = "<group>"; };
+		1367D390210291960047134C /* YYGDebtorCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDebtorCellViewModel.h; sourceTree = "<group>"; };
+		1367D391210291960047134C /* YYGDebtorsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDebtorsViewModel.h; sourceTree = "<group>"; };
+		1367D394210291A50047134C /* YYGDebtorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDebtorsViewController.m; sourceTree = "<group>"; };
+		1367D395210291A50047134C /* YYGDebtorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDebtorsViewController.h; sourceTree = "<group>"; };
 		137E80D820F241E2000E4B7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		137E80DA20F2434A000E4B7A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		138662801F3487A400800A11 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -455,6 +467,7 @@
 		135F860020EFB17400CFA942 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1367D387210291140047134C /* Debtors */,
 				135F860320EFB19C00CFA942 /* Model */,
 				135F860120EFB18A00CFA942 /* View */,
 				135F860220EFB19200CFA942 /* ViewControllers */,
@@ -635,6 +648,45 @@
 				135510E71F177096004F10DE /* YYGConfigError.m */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		1367D387210291140047134C /* Debtors */ = {
+			isa = PBXGroup;
+			children = (
+				1367D38A2102915D0047134C /* View */,
+				1367D3892102914F0047134C /* ViewModel */,
+				1367D3882102912F0047134C /* ViewController */,
+			);
+			path = Debtors;
+			sourceTree = "<group>";
+		};
+		1367D3882102912F0047134C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1367D395210291A50047134C /* YYGDebtorsViewController.h */,
+				1367D394210291A50047134C /* YYGDebtorsViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1367D3892102914F0047134C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1367D390210291960047134C /* YYGDebtorCellViewModel.h */,
+				1367D38E210291960047134C /* YYGDebtorCellViewModel.m */,
+				1367D391210291960047134C /* YYGDebtorsViewModel.h */,
+				1367D38F210291960047134C /* YYGDebtorsViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1367D38A2102915D0047134C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1367D38C2102918B0047134C /* YYGDebtorCell.h */,
+				1367D38B2102918B0047134C /* YYGDebtorCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		137E80D420EFB510000E4B7A /* User Interface */ = {
@@ -975,10 +1027,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Ledger/Pods-Ledger-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectiveDropboxOfficial.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1024,6 +1078,7 @@
 				13E0D3191F22A84D00B0C578 /* YYGDataRelease.m in Sources */,
 				133051AB1EE054740031044D /* YGCurrencyEditController.m in Sources */,
 				13CCF8781F16861400EAB928 /* YGFileSystemSorter.m in Sources */,
+				1367D396210291A50047134C /* YYGDebtorsViewController.m in Sources */,
 				13CCF86C1F16861400EAB928 /* YGFile.m in Sources */,
 				13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */,
 				135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */,
@@ -1044,6 +1099,7 @@
 				13CCF86F1F16861400EAB928 /* YGDirectory.m in Sources */,
 				13279D4D1EED949900BA46AF /* YGEntity.m in Sources */,
 				133051991EDEEFBC0031044D /* YGCategory.m in Sources */,
+				1367D392210291960047134C /* YYGDebtorCellViewModel.m in Sources */,
 				137E80D920F241E2000E4B7A /* main.m in Sources */,
 				133C001F1F17748E00D0CB0E /* YYGLedgerError.m in Sources */,
 				131E1D9C1EF7A3BA00531F10 /* YGAccountChoiceController.m in Sources */,
@@ -1053,6 +1109,7 @@
 				132379ED1F13DFEE0051325F /* YGOperationIncomeCell.m in Sources */,
 				1392B1C920C5DD6900807ED3 /* YGOperationSectionManager.m in Sources */,
 				13F0D54F20EBB10D00DE8CBE /* YYGAppVersion.m in Sources */,
+				1367D38D2102918B0047134C /* YYGDebtorCell.m in Sources */,
 				132379F01F13E0000051325F /* YGOperationAccountActualCell.m in Sources */,
 				139743C420E5061F00391439 /* YYGDBTestDbOpen.m in Sources */,
 				1317BEFD1F0F7BD10039A224 /* YGStorageLocal.m in Sources */,
@@ -1084,6 +1141,7 @@
 				132379E41F1383420051325F /* YGOperationTwoRowCell.m in Sources */,
 				132379E11F136F150051325F /* YGOperationOneRowCell.m in Sources */,
 				1330519F1EDF31A60031044D /* YGTools.m in Sources */,
+				1367D393210291960047134C /* YYGDebtorsViewModel.m in Sources */,
 				13279D581EEDD9A700BA46AF /* YGOperationManager.m in Sources */,
 				13CCF87C1F16862E00EAB928 /* YGConfig.m in Sources */,
 				139743A420E15EE900391439 /* YYGBackuper.m in Sources */,

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3BF1BABF402B3036A9230F4E878B35CC"
+               BlueprintIdentifier = "161BAC6205D4A54530C6E10E7FFBDDA4"
                BuildableName = "Pods_Ledger.framework"
                BlueprintName = "Pods-Ledger"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3BF1BABF402B3036A9230F4E878B35CC"
+            BlueprintIdentifier = "161BAC6205D4A54530C6E10E7FFBDDA4"
             BuildableName = "Pods_Ledger.framework"
             BlueprintName = "Pods-Ledger"
             ReferencedContainer = "container:Pods.xcodeproj">

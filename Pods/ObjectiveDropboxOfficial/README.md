@@ -4,6 +4,8 @@ The Official Dropbox Objective-C SDK for integrating with Dropbox [API v2](https
 
 Full documentation [here](http://dropbox.github.io/dropbox-sdk-obj-c/api-docs/latest/).
 
+NOTE: Please do not rely on `master` in production. Please instead use one of our tagged [release commits](https://github.com/dropbox/dropbox-sdk-obj-c/releases) (preferrably fetched via CocoaPods or Carthage), as these commits have been more thoroughly tested.
+
 ---
 
 ## Table of Contents
@@ -165,7 +167,7 @@ brew install carthage
 
 ```
 # ObjectiveDropboxOfficial
-github "https://github.com/dropbox/dropbox-sdk-obj-c" ~> 3.3.4
+github "https://github.com/dropbox/dropbox-sdk-obj-c" ~> 3.9.1
 ```
 
 Then, run the following command to checkout and build the Dropbox Objective-C SDK repository:
