@@ -11,7 +11,7 @@
 @interface YYGUpdater : NSObject
 
 - (instancetype)init;
-
 - (void)checkEnvironment;
+- (BOOL)isBackupName:(NSString *)name;
 
 @end

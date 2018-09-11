@@ -787,7 +787,6 @@
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
-
 #pragma mark - Currency methods
 
 /**
@@ -817,7 +816,6 @@
         for(int c = 0, i = 3; i < ([integerString length] - c); i += 3, c++) {
             [integerString insertString:groupingSeparator atIndex:([integerString length] - i - c)];
         }
-        
     }
     
     if(sum < 0)
@@ -870,8 +868,8 @@
             }
         }
     }
-        
-    return [string doubleValue];
+            
+    return round([string doubleValue] * 100.0)/100.0;
 }
 
 #pragma mark - Date day to string and back

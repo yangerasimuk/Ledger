@@ -4,6 +4,9 @@
 /* Title of Accounts form */
 "ACCOUNTS_VIEW_FORM_TITLE" = "Accounts";
 
+/* Title of Debts form */
+"DEBTS_VIEW_FORM_TITLE" = "Debts";
+
 /* Title of Account choice form. */
 "ACCOUNT_CHOICE_FORM_TITLE" = "Account choice";
 
@@ -12,6 +15,9 @@
 
 /* Title of Account view/edit form. */
 "ACCOUNT_EDIT_FORM_TITLE" = "Account";
+
+/* Title of Debt view/edit form. */
+"DEBT_EDIT_FORM_TITLE" = "Debt";
 
 /* Activate for button title
    Label of Activate button.
@@ -66,16 +72,19 @@
 
 /* Title of Creditor/debtor form
    Title of Creditors/Debtors form. */
-"CREDITORS_DEBTORS_VIEW_FORM_TITLE" = "CREDITORS_DEBTORS_VIEW_FORM_TITLE";
+"COUNTERPARTIES_VIEW_FORM_TITLE" = "Counterparties";
 
 /* Title of Creditor/Debtor view/edit form. */
-"CREDITOR_DEBTOR_EDIT_FORM_TITLE" = "CREDITOR_DEBTOR_EDIT_FORM_TITLE";
+"COUNTERPARTIES_EDIT_FORM_TITLE" = "Counterparty";
 
 /* Title of Currencies form */
 "CURRENCIES_VIEW_FORM_TITLE" = "Currencies";
 
 /* Title of Currency choice form. */
 "CURRENCY_CHOICE_FORM_TITLE" = "Currency choice";
+
+/* Title of Counterparty choice form. */
+"COUNTERPARTY_CHOICE_FORM_TITLE" = "Counterparty choice";
 
 /* Title of currency view/edit form. */
 "CURRENCY_EDIT_FORM_TITLE" = "Currency";
@@ -126,6 +135,12 @@
 /* Title of Income source form. */
 "INCOME_SOURCE_EDIT_FORM_TITLE" = "Income source";
 
+/* Title of Creditors/Debtors form. */
+"COUNTERPARTIES_VIEW_FORM_TITLE" = "Counterparties";
+
+/* Title of Creditor/Debtor view/edit form. */
+"COUNTERPARTY_EDIT_FORM_TITLE" = "Counterparty";
+
 /* Title of Local backup form */
 "LOCAL_BACKUP_FORM_TITLE" = "Local backup";
 
@@ -135,8 +150,26 @@
 /* Notification about account balance operation throught new account creation. */
 "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE" = "NOTIFICATION_ABOUT_ACCOUNT_BALANCE_OPERATION_TITLE";
 
+/* No accounts in Accounts form. */
+"NO_ACCOUNTS_LABEL" = "No accounts";
+
+/* No debts in Debts form. */
+"NO_DEBTS_LABEL" = "No debts";
+
 /* No operations in Operations form. */
 "NO_OPERATIONS_LABEL" = "No operations";
+
+/* No counterparties in Counterparties form. */
+"NO_COUNTERPARTIES_LABEL" = "No counterparties";
+
+/* No Expense categories in ExpenseCategories form. */
+"NO_EXPENSE_CATEGORIES_LABEL" = "No expense categories";
+
+/* No income sources in Income sources form. */
+"NO_INCOME_SOURCES_LABEL" = "No income sources";
+
+/* No currencies in Currencies form. */
+"NO_CURRENCIES_LABEL" = "No currencies";
 
 /* OK */
 "OK_ACTION_TITLE" = "OK";
@@ -261,14 +294,14 @@
 /* Database opens successfully. */
 "DB_TEST_DB_OPENS" = "Database opens successfully.";
 
-/* Database version must be support by the app. */
-"DB_TEST_RULE_DB_VERSION_MUST_SUPPORTS_BY_APP" = "Database version must be support by the app.";
+/* Database scheme version must be support by the app. */
+"DB_TEST_RULE_DB_SCHEME_VERSION_MUST_SUPPORTS_BY_APP" = "Database scheme version must be support by the app.";
 
 /* This database version supports by the app. */
-"DB_TEST_DB_VERSION_SUPPORTS_BY_APP" = "This database version supports by the app.";
+"DB_TEST_DB_SCHEME_VERSION_SUPPORTS_BY_APP" = "This database scheme version supports by the app.";
 
 /* Backup database of this version is not supported by the app. */
-"DB_TEST_DB_VERSION_DOES_NOT_SUPPORT_BY_APP" = "Backup database of this version is not supported by the app.";
+"DB_TEST_DB_SCHEME_VERSION_DOES_NOT_SUPPORT_BY_APP" = "Backup database of this scheme version is not supported by the app.";
 
 /* Make snapshot of work db... */
 "BACKUPER_MAKE_SNAPSHOT_MESSAGE" = "Snapshot of work db...";
@@ -323,3 +356,111 @@
 
 /* Account. */
 "DROPBOX_ACCOUNT_TITLE" = "Account";
+
+/* Select target debt red label */
+"OPERATION_EDIT_FORM_SELECT_TARGET_DEBT" = "Select debt";
+
+/* Select source account red label */
+"OPERATION_EDIT_FORM_SELECT_SOURCE_ACCOUNT" = "Select account";
+
+/* Select source debt red label */
+"OPERATION_EDIT_FORM_SELECT_SOURCE_DEBT" = "Select debt";
+
+/* Select target account red label */
+"OPERATION_EDIT_FORM_SELECT_TARGET_ACCOUNT" = "Select account";
+
+/* Title for set debt operation */
+"OPERATION_EDIT_FORM_SET_DEBT_TITLE" = "Set debt";
+
+/* Title for give debt operation */
+"OPERATION_EDIT_FORM_GIVE_DEBT_TITLE" = "Give debt";
+
+/* Title for repayment debt operation */
+"OPERATION_EDIT_FORM_REPAYMENT_DEBT_TITLE" = "Repayment debt";
+
+/* Title for get credit operation */
+"OPERATION_EDIT_FORM_GET_CREDIT_TITLE" = "Get credit";
+
+/* Title for return credit operation */
+"OPERATION_EDIT_FORM_RETURN_CREDIT_TITLE" = "Return credit";
+
+/* Title for select account in select entity form */
+"ENTITY_SELECT_FORM_SELECT_ACCOUNT_TITLE" = "Select account";
+
+/* Title for select debt in select entity form */
+"ENTITY_SELECT_FORM_SELECT_DEBT_TITLE" = "Select debt";
+
+/* Section title for set debt in operation edit form */
+"OPERATION_EDIT_FORM_DEBT_SIZE_SECTION" = "Debt size";
+
+/* Section title for give debt in operation edit form */
+"OPERATION_EDIT_FORM_GIVE_DEBT_SECTION" = "Account -> Debt";
+
+/* Section title for return credit in operation edit form */
+"OPERATION_EDIT_FORM_RETURN_CREDIT_SECTION" = "Account -> Debt";
+
+/* Section title for get credit in operation edit form */
+"OPERATION_EDIT_FORM_GET_CREDIT_SECTION" = "Debt -> Account";
+
+/* Add debt operation menu - set debt */
+"ADD_DEBT_OPERATION_MENU_SET_DEBT_TITLE" = "Set debt";
+
+/* Add debt operation menu - give debt */
+"ADD_DEBT_OPERATION_MENU_GIVE_DEBT_TITLE" = "Give debt";
+
+/* Add debt operation menu - repayment debt */
+"ADD_DEBT_OPERATION_MENU_REPAYMENT_DEBT_TITLE" = "Repayment debt";
+
+/* Add debt operation menu - get credit */
+"ADD_DEBT_OPERATION_MENU_GET_CREDIT_TITLE" = "Get credit";
+
+/* Add debt operation menu - return credit */
+"ADD_DEBT_OPERATION_MENU_RETURN_CREDIT_TITLE" = "Return credit";
+
+/* Alert controller warning title */
+"ALERT_CONTROLLER_WARNING_TITLE" = "Warning";
+
+/* Alert controller information title */
+"ALERT_CONTROLLER_INFO_TITLE" = "Information";
+
+/* Alert controller needs same currency message */
+"ALERT_CONTROLLER_NEEDS_SAME_CURRENCY_MESSAGE" = "To make a transfer from/to debt obligations, it is necessary to have accounts in the same currency.";
+
+/* Select counterparty text on label */
+"ENTITY_EDIT_FORM_SELECT_COUNTERPARTY_LABEL" = "Select counterparty";
+
+/*  Is default account label*/
+"ENTITY_EDIT_FORM_IS_DEFAULT_ACCOUNT_LABEL" = "Is default account";
+
+/* Is default debt label */
+"ENTITY_EDIT_FORM_IS_DEFAULT_DEBT_LABEL" = "Is default debt";
+
+/* Title of debtor in segmented */
+"ENTITY_EDIT_FORM_DEBTOR_SEGMENTED" = "Debtor";
+
+/* Title of creditor in segmented */
+"ENTITY_EDIT_FORM_CREDITOR_SEGMENTED" = "Creditor";
+
+/* To add new debts needs active currency */
+"DEBTS_VIEW_MODEL_NEEDS_ACTIVE_CURRENCY" = "- active currency";
+
+/* To add new debts needs active counterparty */
+"DEBTS_VIEW_MODEL_NEEDS_ACTIVE_COUNTERPARTY" = "- active counterparty.";
+
+/* To add new debts needs intro */
+"DEBTS_VIEW_MODEL_NEEDS_INTRO" = "To add new debt required:";
+
+/* To add new debts info about where */
+"DEBTS_VIEW_MODEL_NEEDS_WHERE_TODO" = "Create new or activate existing dictionaries records in the Settings section.";
+
+/* To add new account needs active currency */
+"ACCOUNTS_VIEW_MODEL_NEEDS_ACTIVE_CURRENCY" = "- active currency";
+
+/* To add new account needs intro */
+"ACCOUNTS_VIEW_MODEL_NEEDS_INTRO" = "To add new account required:";
+
+/* To add new account info about where */
+"ACCOUNTS_VIEW_MODEL_NEEDS_WHERE_TODO" = "Create new or activate existing dictionaries records in the Settings section.";
+
+/* Debts... */
+"DEBTS_ALERT_ITEM_TITLE" = "Debts...";

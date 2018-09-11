@@ -7,26 +7,25 @@
 //
 
 #import "YGOptionViewController.h"
-#import "YGCategoryViewController.h"
-#import "YYGDebtorsViewController.h"
-#import "YYGDebtorsViewModel.h"
-#import "YGDropboxLinkViewController.h"
-#import "YYGBackupViewController.h"
 #import "YGCategory.h"
+#import "YYGCategoriesViewModel.h"
+#import "YGCategoryViewController.h"
+#import "YYGBackupViewModel.h"
+#import "YGDropboxLinkViewController.h"
+#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
+#import "YYGBackupViewController.h"
+
 #import "YGConfig.h"
 #import "YGTools.h"
-#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
-@interface YGOptionViewController() {
+@interface YGOptionViewController () {
     NSString *p_method;
 }
 @property (weak, nonatomic) IBOutlet UISwitch *switchHideDecimalFraction;
 @property (weak, nonatomic) IBOutlet UISwitch *switchPullRefreshAddElement;
-
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOptions;
 - (IBAction)switchHideDecimalFractionValueChanged:(UISwitch *)sender;
 - (IBAction)switchPullRefreshAddElementValueChanged:(UISwitch *)sender;
-
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelsOptions;
 @end
 
 @implementation YGOptionViewController
@@ -80,13 +79,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // Выбираем целевой вьюКонтроллер вручную
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 1 && indexPath.row == 1) {
+    // Выбираем целевой вьюКонтроллер вручную
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        YYGBackupViewController *backupVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YYGBackupViewController"];
+        id<YYGBackupViewModelable> viewModel = [YYGBackupViewModel viewModelWith:YYGStorageTypeLocal];
+        backupVC.viewModel = viewModel;
+        
+        [self.navigationController pushViewController:backupVC animated:YES];
+    }
+    else if (indexPath.section == 1 && indexPath.row == 1) {
         if ([DBClientsManager authorizedClient] || [DBClientsManager authorizedTeamClient]) {
-            NSLog(@"Show viewController for manage backups");
-            YYGBackupViewController *dropboxBackupVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YYGBackupViewController"];
-            [self.navigationController pushViewController:dropboxBackupVC animated:YES];
+            YYGBackupViewController *backupVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YYGBackupViewController"];
+            id<YYGBackupViewModelable> viewModel = [YYGBackupViewModel viewModelWith:YYGStorageTypeDropbox];
+            backupVC.viewModel = viewModel;
+
+            [self.navigationController pushViewController:backupVC animated:YES];
             
         } else {            
             YGDropboxLinkViewController *dropboxLinkVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YGDropboxLinkViewController"];
@@ -94,24 +103,18 @@
             [self.navigationController pushViewController:dropboxLinkVC animated:YES];
         }
     }
-    else if (indexPath.section == 0 && indexPath.row == 3){
-        NSLog(@"show debtors list");
-        YYGDebtorsViewModel *debtorsVM = [[YYGDebtorsViewModel alloc] init];
-        YYGDebtorsViewController *debtorsVC = [[YYGDebtorsViewController alloc] initWithViewModel:debtorsVM];
-        [self.navigationController pushViewController:debtorsVC animated:YES];
-    }
-    
-    // Deselect row
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
+#endif
     
-//    NSLog(@"%@", [self.tableView indexPathForCell:sender]);
-//    NSLog(@"%@", [sender description]);
+#ifdef FUNC_DEBUG
+    NSLog(@"%@", [self.tableView indexPathForCell:sender]);
+    NSLog(@"%@", [sender description]);
+#endif
     
     NSInteger section = [self.tableView indexPathForCell:sender].section;
     
@@ -122,26 +125,10 @@
         
         YGCategoryViewController *vc = segue.destinationViewController;
         
-        // set type of category list
         vc.categoryType = type;
         
-        switch(typeId) {
-            case YGCategoryTypeCurrency:
-                vc.title = NSLocalizedString(@"CURRENCY_VIEW_FORM_TITLE", @"Title of currency form");
-                break;
-            case YGCategoryTypeExpense:
-                vc.title = NSLocalizedString(@"EXPENSE_CATEGORIES_VIEW_FORM_TITLE", @"Title of expense form");
-                break;
-            case YGCategoryTypeIncome:
-                vc.title = NSLocalizedString(@"INCOME_SOURCES_VIEW_FORM_TITLE", @"Title of income form");
-                break;
-            case YGCategoryTypeCreditorOrDebtor:
-                vc.title = NSLocalizedString(@"CREDITORS_DEBTORS_VIEW_FORM_TITLE", @"Title of Creditor/debtor form");
-                break;
-            case YGCategoryTypeTag:
-                vc.title = NSLocalizedString(@"TAGS_VIEW_FORM_TITLE", "Title of Tag form");
-                break;
-        }
+        vc.viewModel = [YYGCategoriesViewModel viewModelWith:type];
+        
     } // if(section == 0){
 }
 

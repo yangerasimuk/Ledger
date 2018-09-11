@@ -4,6 +4,9 @@
 /* Title of Accounts form */
 "ACCOUNTS_VIEW_FORM_TITLE" = "Счета";
 
+/* Title of Debts form */
+"DEBTS_VIEW_FORM_TITLE" = "Долги";
+
 /* Title of Account choice form. */
 "ACCOUNT_CHOICE_FORM_TITLE" = "Выбор счёта";
 
@@ -12,6 +15,9 @@
 
 /* Title of Account view/edit form. */
 "ACCOUNT_EDIT_FORM_TITLE" = "Счёт";
+
+/* Title of Debt view/edit form. */
+"DEBT_EDIT_FORM_TITLE" = "Долг";
 
 /* Activate for button title
    Label of Activate button.
@@ -47,6 +53,9 @@
 
 /* Title of Currency choice form. */
 "CURRENCY_CHOICE_FORM_TITLE" = "Выбор валюты";
+
+/* Title of Counterparty choice form. */
+"COUNTERPARTY_CHOICE_FORM_TITLE" = "Выбор контрагента";
 
 /* Title of currency view/edit form. */
 "CURRENCY_EDIT_FORM_TITLE" = "Валюта";
@@ -97,6 +106,12 @@
 /* Title of Income source form. */
 "INCOME_SOURCE_EDIT_FORM_TITLE" = "Статья дохода";
 
+/* Title of Creditors/Debtors form. */
+"COUNTERPARTIES_VIEW_FORM_TITLE" = "Контрагенты";
+
+/* Title of Creditor/Debtor view/edit form. */
+"COUNTERPARTY_EDIT_FORM_TITLE" = "Контрагент";
+
 /* Title of Local backup form */
 "LOCAL_BACKUP_FORM_TITLE" = "Локальный архив";
 
@@ -109,9 +124,24 @@
 /* No accounts in Accounts form. */
 "NO_ACCOUNTS_LABEL" = "Нет счетов";
 
+/* No debts in Debts form. */
+"NO_DEBTS_LABEL" = "Нет долгов";
+
 /* No operation text in Local backup form
    No operations in Operations form. */
 "NO_OPERATIONS_LABEL" = "Нет операций";
+
+/* No counterparties in Counterparties form. */
+"NO_COUNTERPARTIES_LABEL" = "Нет контрагентов";
+
+/* No Expense categories in ExpenseCategories form. */
+"NO_EXPENSE_CATEGORIES_LABEL" = "Нет статей расходов";
+
+/* No income sources in Income sources form. */
+"NO_INCOME_SOURCES_LABEL" = "Нет статей доходов";
+
+/* No currencies in Currencies form. */
+"NO_CURRENCIES_LABEL" = "Нет валют";
 
 /* (No Comment) */
 "OK_ACTION_TITLE" = "OK";
@@ -217,14 +247,14 @@
 /* Database opens successfully. */
 "DB_TEST_DB_OPENS" = "База данных успешно открывается.";
 
-/* Database version must be support by the app. */
-"DB_TEST_RULE_DB_VERSION_MUST_SUPPORTS_BY_APP" = "Версия базы данных должна поддерживаться приложением.";
+/* Database scheme version must be support by the app. */
+"DB_TEST_RULE_DB_SCHEME_VERSION_MUST_SUPPORTS_BY_APP" = "Версия схемы базы данных должна поддерживаться приложением.";
 
-/* Database version supports by the app. */
-"DB_TEST_DB_VERSION_SUPPORTS_BY_APP" = "Данная версия базы данных поддерживается приложением.";
+/* Database scheme version supports by the app. */
+"DB_TEST_DB_SCHEME_VERSION_SUPPORTS_BY_APP" = "Данная версия базы данных поддерживается приложением.";
 
 /* Backup database of this version is not supported by the app. */
-"DB_TEST_DB_VERSION_DOES_NOT_SUPPORT_BY_APP" = "Данная весря базы данных не поддерживается приложением.";
+"DB_TEST_DB_SCHEME_VERSION_DOES_NOT_SUPPORT_BY_APP" = "Данная весря базы данных не поддерживается приложением.";
 
 /* Make snapshot of work db... */
 "BACKUPER_MAKE_SNAPSHOT_MESSAGE" = "Снимок рабочей базы...";
@@ -279,3 +309,114 @@
 
 /* Account. */
 "DROPBOX_ACCOUNT_TITLE" = "Учётка";
+
+/* Select target debt red label */
+"OPERATION_EDIT_FORM_SELECT_TARGET_DEBT" = "Выбрать долг";
+
+/* Select source account red label */
+"OPERATION_EDIT_FORM_SELECT_SOURCE_ACCOUNT" = "Выбрать счёт";
+
+/* Select source debt red label */
+"OPERATION_EDIT_FORM_SELECT_SOURCE_DEBT" = "Выбрать долг";
+
+/* Select target account red label */
+"OPERATION_EDIT_FORM_SELECT_TARGET_ACCOUNT" = "Выбрать счёт";
+
+/* Title for set debt operation */
+"OPERATION_EDIT_FORM_SET_DEBT_TITLE" = "Установить долг";
+
+/* Title for give debt operation */
+"OPERATION_EDIT_FORM_GIVE_DEBT_TITLE" = "Дать в долг";
+
+/* Title for repayment debt operation */
+"OPERATION_EDIT_FORM_REPAYMENT_DEBT_TITLE" = "Получить по долгу";
+
+/* Title for get credit operation */
+"OPERATION_EDIT_FORM_GET_CREDIT_TITLE" = "Взять в долг";
+
+/* Title for return credit operation */
+"OPERATION_EDIT_FORM_RETURN_CREDIT_TITLE" = "Вернуть долг";
+
+/* Title for select account in select entity form */
+"ENTITY_SELECT_FORM_SELECT_ACCOUNT_TITLE" = "Выбрать счёт";
+
+/* Title for select debt in select entity form */
+"ENTITY_SELECT_FORM_SELECT_DEBT_TITLE" = "Выбрать долг";
+
+/* Section title for set debt in operation edit form */
+"OPERATION_EDIT_FORM_DEBT_SIZE_SECTION" = "Размер долга";
+
+/* Section title for give debt in operation edit form */
+"OPERATION_EDIT_FORM_GIVE_DEBT_SECTION" = "Счёт -> Долг";
+
+/* Section title for return credit in operation edit form */
+"OPERATION_EDIT_FORM_RETURN_CREDIT_SECTION" = "Счёт -> Долг";
+
+/* Section title for get credit in operation edit form */
+"OPERATION_EDIT_FORM_GET_CREDIT_SECTION" = "Долг -> Счёт";
+
+/* Section title for repayment debt in operation edit form */
+"OPERATION_EDIT_FORM_REPAYMENT_DEBT_SECTION" = "Долг -> Счёт";
+
+/* Add debt operation menu - set debt */
+"ADD_DEBT_OPERATION_MENU_SET_DEBT_TITLE" = "Установить долг";
+
+/* Add debt operation menu - give debt */
+"ADD_DEBT_OPERATION_MENU_GIVE_DEBT_TITLE" = "Дать в долг";
+
+/* Add debt operation menu - repayment debt */
+"ADD_DEBT_OPERATION_MENU_REPAYMENT_DEBT_TITLE" = "Получить по долгу";
+
+/* Add debt operation menu - get credit */
+"ADD_DEBT_OPERATION_MENU_GET_CREDIT_TITLE" = "Взять в долг";
+
+/* Add debt operation menu - return credit */
+"ADD_DEBT_OPERATION_MENU_RETURN_CREDIT_TITLE" = "Вернуть долг";
+
+/* Alert controller warning title */
+"ALERT_CONTROLLER_WARNING_TITLE" = "Предупреждение";
+
+/* Alert controller information title */
+"ALERT_CONTROLLER_INFO_TITLE" = "Информация";
+
+/* Alert controller needs same currency message */
+"ALERT_CONTROLLER_NEEDS_SAME_CURRENCY_MESSAGE" = "Для совершения операций перевода с/на долговые обязательства необходимо наличие счетов в той же валюте.";
+
+/* Select counterparty text on label */
+"ENTITY_EDIT_FORM_SELECT_COUNTERPARTY_LABEL" = "Выбрать контрагента";
+
+/*  Is default account label*/
+"ENTITY_EDIT_FORM_IS_DEFAULT_ACCOUNT_LABEL" = "Счёт по-умолчанию";
+
+/* Is default debt label */
+"ENTITY_EDIT_FORM_IS_DEFAULT_DEBT_LABEL" = "Долг по-умолчанию";
+
+/* Title of debtor in segmented */
+"ENTITY_EDIT_FORM_DEBTOR_SEGMENTED" = "Должник";
+
+/* Title of creditor in segmented */
+"ENTITY_EDIT_FORM_CREDITOR_SEGMENTED" = "Кредитор";
+
+/* To add new debts needs active currency */
+"DEBTS_VIEW_MODEL_NEEDS_ACTIVE_CURRENCY" = "- наличие активной валюты";
+
+/* To add new debts needs active counterparty */
+"DEBTS_VIEW_MODEL_NEEDS_ACTIVE_COUNTERPARTY" = "- наличие активного контрагента.";
+
+/* To add new debts needs intro */
+"DEBTS_VIEW_MODEL_NEEDS_INTRO" = "Для добавления нового долга необходимо:";
+
+/* To add new debts info about where */
+"DEBTS_VIEW_MODEL_NEEDS_WHERE_TODO" = "Создать новые или активировать существующие записи справочников, можно в разделе Настройки.";
+
+/* To add new account needs active currency */
+"ACCOUNTS_VIEW_MODEL_NEEDS_ACTIVE_CURRENCY" = "- наличие активной валюты";
+
+/* To add new account needs intro */
+"ACCOUNTS_VIEW_MODEL_NEEDS_INTRO" = "Для добавления нового счёта необходимо:";
+
+/* To add new account info about where */
+"ACCOUNTS_VIEW_MODEL_NEEDS_WHERE_TODO" = "Создать новые или активировать существующие записи справочников, можно в разделе Настройки.";
+
+/* Debts... */
+"DEBTS_ALERT_ITEM_TITLE" = "Долги...";

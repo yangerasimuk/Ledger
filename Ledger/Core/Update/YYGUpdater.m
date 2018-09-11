@@ -13,6 +13,7 @@
 #import "YGDirectory.h"
 #import "YYGAppVersion.h"
 #import "YYGConfigDefine.h"
+#import "YYGDBLog.h"
 
 @implementation YYGUpdater
 
@@ -25,21 +26,41 @@
     
     YYGAppVersion *currentAppVersion = [[YYGAppVersion alloc] initWithCurruntBundle];
     YYGAppVersion *environmentVersion = [[YYGAppVersion alloc] initWithConfigEnvironmentKeys];
+    BOOL isAnyUpdateExec = NO;
     
     // Check if appVersion is higher then environmentVersion
-    if ([currentAppVersion compare:environmentVersion] == NSOrderedDescending){
+    if ([currentAppVersion compare:environmentVersion] == NSOrderedDescending) {
         
-        SEL updateEnvironment = [[self class] updateEnvironment:currentAppVersion];
-        
-        // Check if app have update for new version
-        if ([self respondsToSelector:updateEnvironment]) {
-            if([self performSelector:updateEnvironment]) {
-                NSLog(@"Environment successfully updated to version %@", [currentAppVersion toString]);
-                [self setEnvironmentVersionAsAppVersion:currentAppVersion];
+        // Check each update version
+        for(YYGAppVersion *version in [YYGAppVersion updateLog]) {
+            
+            environmentVersion = [[YYGAppVersion alloc] initWithConfigEnvironmentKeys];
+            
+            NSComparisonResult result = [version compare:environmentVersion];
+            if(result == NSOrderedDescending) {
+                
+                isAnyUpdateExec = YES;
+                
+                SEL updateEnvironment = [[self class] updateEnvironment:version];
+                
+                // Check if app have update for new version
+                if ([self respondsToSelector:updateEnvironment]) {
+                    NSString *message;
+                    if([[self performSelector:updateEnvironment] boolValue]) {
+                        [self setEnvironmentVersionAsAppVersion:version];
+                        message = [NSString stringWithFormat:@"Success update to version %@", [version toString]];
+                    } else
+                        message = [NSString stringWithFormat:@"Fail update to version: %@", [version toString]];
+                    // Log event
+                    [YYGDBLog logEvent:message];
+                }
             }
-        } else {
+        } // for
+        
+        // If no updates execute, but current version still higher, reset it
+        if (!isAnyUpdateExec &&
+            [currentAppVersion compare:environmentVersion] == NSOrderedDescending)
             [self setEnvironmentVersionAsAppVersion:currentAppVersion];
-        }
     }
 }
 
@@ -81,57 +102,6 @@
     [config setValue:@(appVersion.major) forKey:kConfigEnvironmentMajorVersion];
     [config setValue:@(appVersion.minor) forKey:kConfigEnvironmentMinorVersion];
     [config setValue:@(appVersion.build) forKey:kConfigEnvironmentBuildVersion];
-}
-
-#pragma mark - Updates to concrete version
-
-/**
- Update to verstion 1.1(11).
- [+] Make directory for local backup: .../Documents/Backup
- [+] All local backups must be move to .../Documents/Backup
-
- @return Is update success or not
- */
-- (BOOL)updateToVersionMajor1Minor1Build13 {
-    
-    NSLog(@"Update to version 1.1(13)...");
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error = nil;
-    NSString *backupDirPath = [NSString stringWithFormat:@"%@/%@", [YGTools documentsDirectoryPath], @"Backup"];
-    BOOL isDirectory;
-    
-    if([fileManager fileExistsAtPath:backupDirPath isDirectory:&isDirectory]){
-        return NO;
-    } else {
-        if (![fileManager createDirectoryAtPath:backupDirPath withIntermediateDirectories:NO attributes:nil error:&error]){
-            NSLog(@"Can not create local backup directory");
-            return NO;
-        }
-        
-        NSArray *fileNames = [YGTools namesAtPath:[YGTools documentsDirectoryPath]];
-        NSMutableArray *backupFileNames = [NSMutableArray array];
-        
-        for (NSString *name in fileNames){
-            if ([self isBackupName:name]){
-                [backupFileNames addObject:name];
-            }
-        }
-        
-        if ([backupFileNames count] > 0){
-            for (NSString *name in backupFileNames){
-                
-                NSString *oldName = [NSString stringWithFormat:@"%@/%@", [YGTools documentsDirectoryPath], name];
-                NSString *newName = [NSString stringWithFormat:@"%@/%@/%@", [YGTools documentsDirectoryPath], @"Backup", [name lastPathComponent]];
-                
-                if(![fileManager moveItemAtPath:oldName toPath:newName error:&error]){
-                    NSLog(@"Fail to move backup file to new path. Error: %@", [error description]);
-                    return NO;
-                }
-            }
-        }
-        return YES;
-    }
 }
 
 @end

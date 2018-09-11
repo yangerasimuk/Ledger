@@ -25,12 +25,11 @@ extern NSString *const kDateTimeFormatOnlyTime;
 extern NSString *const kDateTimeFormatForBackupName;
 extern NSString *const kDateMinimum;
 
-extern NSString *const kDatabaseMajorVersionKey;
-extern int kDatabaseMajorVersion;
-
-extern NSString *const kDatabaseMinorVersionKey;
-extern int kDatabaseMinorVersion;
+extern NSString *const kDatabaseSchemeVersionKey;
+extern int kDatabaseSchemeVersion;
 
 extern float kKeyboardAppearanceDelay;
 
 extern NSString *const kBackupFileNamePattern;
+
+extern NSString *const kDropboxAppKey;

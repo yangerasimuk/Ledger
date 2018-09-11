@@ -8,14 +8,13 @@
 
 #import "YGConfig.h"
 #import "YYGConfigDefine.h"
-#import <YGFileSystem.h>
+#import "YGFileSystem.h"
 
 @interface YGConfig ()
 - (void) writeOnDisk:(NSMutableDictionary *)dict;
 @end
 
 @implementation YGConfig
-
 
 /// base init
 - (instancetype)initWithDirectory:(YGDirectory *)directory name:(NSString *)name{
@@ -47,9 +46,7 @@
 }
 
 - (instancetype)initWithPath:(NSString *)path name:(NSString *)name {
-    
     YGDirectory *directory = [[YGDirectory alloc] initWithPathFull:path];
-    
     return [self initWithDirectory:directory name:name];
 }
 
@@ -62,7 +59,6 @@
     NSString *configFileName = [NSString stringWithFormat:@".%@.%@.%@", name, kConfigFileSuffix, kConfigFileExtension];
     
     return [self initWithDirectory:directory name:configFileName];
-    
 }
 
 /// init for current directory
@@ -77,7 +73,7 @@
     return [self initWithDirectory:directory name:configFileName];
 }
 
-- (BOOL) isEmpty{
+- (BOOL)isEmpty{
     if([_dictionary count] > 2)
         return NO;
     else
@@ -92,7 +88,6 @@
     if(![_dictionary writeToFile:_file.pathFull atomically:YES]){
         @throw [NSException exceptionWithName:@"-[YGConfig setConfigDefaults:]" reason:@"Error in write config to disk" userInfo:nil];
     }
-    
 }
 
 + (NSString *)dateNowString{
@@ -102,26 +97,25 @@
     return [formatter stringFromDate:date];
 }
 
-
-- (id) valueForKey:(NSString *)key{
+- (id)valueForKey:(NSString *)key{
     return [_dictionary objectForKey:key];
 }
 
 
-- (void) setValue:(id)value forKey:(NSString *)key{
+- (void)setValue:(id)value forKey:(NSString *)key{
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:_dictionary];
     [dict setValue:value forKey:key];
     
     [self writeOnDisk:dict]; 
 }
 
-- (void) removeValueForKey:(NSString *)key{
+- (void)removeValueForKey:(NSString *)key{
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:_dictionary];
     [dict removeObjectForKey:key];
     
     [self writeOnDisk:dict];}
 
-- (void) writeOnDisk:(NSMutableDictionary *)dict{
+- (void)writeOnDisk:(NSMutableDictionary *)dict{
     
     [dict setValue:[YGConfig dateNowString] forKey:kConfigFileKeyModified];
     _dictionary = [dict copy];

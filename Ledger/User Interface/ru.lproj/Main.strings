@@ -67,6 +67,9 @@
 /* Class = "UILabel"; text = "Income source"; ObjectID = "Lu8-d5-ZUG"; */
 "Lu8-d5-ZUG.text" = "Статьи доходов";
 
+/* Class = "UILabel"; text = "Income source"; ObjectID = "79p-2K-BLg"; */
+"79p-2K-BLg.text" = "Контрагенты";
+
 /* Class = "UILabel"; text = "Name:"; ObjectID = "MG1-g4-MIz"; */
 "MG1-g4-MIz.text" = "Имя";
 
@@ -214,6 +217,9 @@
 /* Class = "UITabBarItem"; title = "Accounts"; ObjectID = "y5U-IU-gfB"; */
 "y5U-IU-gfB.title" = "Счета";
 
+/* Class = "UITabBarItem"; title = "Accounts"; ObjectID = "zH0-kS-LLP"; */
+"zH0-kS-LLP.title" = "Долги";
+
 /* Class = "UILabel"; text = "Use account as default"; ObjectID = "z0y-Fm-Toj"; */
 "z0y-Fm-Toj.text" = "Счёт по-умолчанию";
 
@@ -222,6 +228,9 @@
 
 /* Class = "UILabel"; text = ""; ObjectID = "wVC-vW-3IE"; */
 "wVC-vW-3IE.text" = "Dropbox";
+
+/* Class = "UILabel"; text = ""; ObjectID = "fMy-Dp-tFo"; */
+"fMy-Dp-tFo.text" = "Локальный";
 
 /* Class = "UITableViewSection"; headerTitle = "Current database"; ObjectID = "wa0-Es-c8u"; */
 "wa0-Es-c8u.headerTitle" = "Текущая база данных";
@@ -249,3 +258,6 @@
 
 /* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "nKf-PV-vPL"; */
 "nKf-PV-vPL.normalTitle" = "Восстановить";
+
+/* Class = "UITableViewSection"; footerTitle = "Select person and role in this debt obligation"; ObjectID = "szE-A8-4fm"; */
+"szE-A8-4fm.footerTitle" = "Выбрать контрагента и его роль в долговом обязательстве";

@@ -25,4 +25,7 @@
 
 + (NSString *)databaseName;
 + (NSString *)databaseFullName;
+
+- (BOOL)hasColumn:(NSString *)column inTable:(NSString *)table;
+
 @end

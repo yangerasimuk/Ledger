@@ -14,10 +14,4 @@
 
 + (id)valueForKey:(NSString *)key;
 
-/// Concrete db major version
-+ (NSInteger) configDbMajorVersion;
-
-/// Concrete db minor version
-+ (NSInteger) configDbMinorVersion;
-
 @end

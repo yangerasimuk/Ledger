@@ -12,6 +12,7 @@
 #import "YYGAppVersion.h"
 
 @interface YYGAboutViewController()
+
 @property (weak, nonatomic) IBOutlet UILabel *labelApplicationName;
 @property (weak, nonatomic) IBOutlet UILabel *labelApplicationVersion;
 @property (weak, nonatomic) IBOutlet UILabel *labelApplicationDateBuild;

@@ -32,7 +32,8 @@
 /// For recalc sum of account
 - (YGOperation *)lastOperationOfType:(YGOperationType)type withTargetId:(NSInteger)targetId;
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId;
-- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId;
-
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)accountActual;
+- (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId;
+- (NSArray <YGOperation *> *)operationsWithDebtId:(NSInteger)debtId afterSetDebt:(YGOperation *)operation;
+- (NSArray <YGOperation *> *)operationsWithDebtId:(NSInteger)debtId;
 @end

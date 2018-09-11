@@ -12,7 +12,7 @@
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
 #import "YYGDBConfig.h"
-#import <YGConfig.h>
+#import "YGConfig.h"
 #import "YYGUpdater.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
@@ -26,13 +26,11 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // Dropbox
-    [DBClientsManager setupWithAppKey:@"ltzx54gtxldo9sn"];
+    [DBClientsManager setupWithAppKey:kDropboxAppKey];
     
-#ifdef DEBUG
-    
-    // save screen sizes for default font calc
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    // Save screen size in defaults
     UIScreen *screen = [UIScreen mainScreen];
     NSInteger width = [screen nativeBounds].size.width;
     NSInteger height = [screen nativeBounds].size.height;
@@ -40,37 +38,10 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
     [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
     
-    // set config for app
-    YGConfig *config = [YGTools config];
-    
-    NSArray *storageAvailible = @[@"Local"];
-    [config setValue:storageAvailible forKey:@"StoragesAvailible"];
-    
+#ifdef DEBUG
     [defaults setBool:NO forKey:kIsFirstLaunch];
-    
 #else
-    
-    // Check for first launch
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     if(![defaults objectForKey:kIsFirstLaunch] || [defaults valueForKey:kIsFirstLaunch] == NO){
-        
-        // save screen sizes for default font calc
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        UIScreen *screen = [UIScreen mainScreen];
-        NSInteger width = [screen nativeBounds].size.width;
-        NSInteger height = [screen nativeBounds].size.height;
-        
-        [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
-        [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
-        
-        // set config for app
-        YGConfig *config = [YGTools config];
-        
-        NSArray *storageAvailible = @[@"Local"];
-        [config setValue:storageAvailible forKey:@"StoragesAvailible"];
-        
         [defaults setBool:YES forKey:kIsFirstLaunch];
     }
 #endif
@@ -87,7 +58,7 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     
     YYGUpdater *updater = [[YYGUpdater alloc] init];
     [updater checkEnvironment];
-    
+        
     return YES;
 }
 
@@ -123,8 +94,10 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
+#ifdef DEBUG
     NSLog(@"application: openURL: options:");
     NSLog(@"openURL: %@", url);
+#endif
     
     DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
     if (authResult != nil) {
@@ -159,6 +132,5 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     
     [self.window makeKeyAndVisible];
 }
-
 
 @end

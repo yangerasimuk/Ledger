@@ -99,7 +99,37 @@
 
 - (NSInteger)addOperation:(YGOperation *)operation {
     
-    // 1. Add to db
+    NSInteger operationId;
+    
+    @try {
+        // 1. Add to db
+        operationId = [self insertIntoDb:operation];
+        
+        // 2. Make additional actions for some operations
+        switch (operation.type) {
+            case YGOperationTypeAccountActual:
+                [self additionalActionsForNewAccountActual:operation];
+                break;
+            case YGOperationTypeSetDebt:
+                [self additionalActionsForNewSetDebt:operation];
+                break;
+            default:
+                break;
+        }
+        
+        // 3. Add to memory cache
+        YGOperation *newOperation = [operation copy];
+        newOperation.rowId = operationId;
+        [self insertIntoCache:newOperation];
+        
+        return operationId;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exception in -[YGOperationManager addOperation]. Description: %@.", [exception description]);
+    }
+}
+
+- (NSInteger)insertIntoDb:(YGOperation *)operation {
     NSInteger operationId = 0; // return value
     
     NSNumber *operation_type_id = [NSNumber numberWithInteger:operation.type];
@@ -109,14 +139,14 @@
     NSNumber *source_currency_id = [NSNumber numberWithInteger:operation.sourceCurrencyId];
     NSNumber *target_sum = [NSNumber numberWithDouble:operation.targetSum];
     NSNumber *target_currency_id = [NSNumber numberWithInteger:operation.targetCurrencyId];
-
+    
     NSString *day = [YGTools stringFromAbsoluteDate:operation.day];
     NSNumber *day_unix = [NSNumber numberWithDouble:[operation.day timeIntervalSince1970]];
     NSString *created = [YGTools stringFromLocalDate:operation.created];
     NSNumber *created_unix = [NSNumber numberWithDouble:[operation.created timeIntervalSince1970]];
     NSString *modified = [YGTools stringFromLocalDate:operation.modified];
     NSNumber *modified_unix = [NSNumber numberWithDouble:[operation.modified timeIntervalSince1970]];
-
+    
     NSString *comment = operation.comment;
     NSString *uuid = [operation.uuid UUIDString];
     
@@ -143,93 +173,99 @@
         
         operationId = [_sqlite addRecord:operationArr insertSQL:insertSQL];
         
-        // specific actions
-        if(operation.type == YGOperationTypeAccountActual) {
-            
-            // update account sum colomn
-            YGEntityManager *em = [YGEntityManager sharedInstance];
-            
-            YGEntity *account = [em entityById:operation.targetId type:YGEntityTypeAccount];
-            
-            account.sum = operation.targetSum;
-            
-            //NSLog(@"%@", [account description]);
-            
-            // check
-            if(account.currencyId != operation.sourceCurrencyId || account.currencyId != operation.targetCurrencyId)
-                @throw [NSException exceptionWithName:@"-[YGOperationManager addOperation]" reason:@"AccountActual operation currency is not equal account currency" userInfo:nil];
-            
-            [em updateEntity:account];
-        }
-        
-        // 2. Add operation to memory cache
-        YGOperation *newOperation = [operation copy];
-        newOperation.rowId = operationId;
-        
-        // Array self.operations build in desc order (from later to early operations)
-        /*
-        [self.operations enumerateObjectsUsingBlock:^(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            //
-            NSLog(@"%ld) sums: %f/%f, day: %@, modified: %@", (long)idx, obj.sourceSum, obj.targetSum, obj.day, obj.modified);
-        }];
-         printf("\n");
-         */
-
-        NSInteger earlyIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if ([newOperation.day timeIntervalSince1970] > [obj.day timeIntervalSince1970])
-                return YES;
-            else
-                return NO;
-        }];
-        NSInteger equalIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if ([newOperation.day timeIntervalSince1970] == [obj.day timeIntervalSince1970])
-                return YES;
-            else
-                return NO;
-        }];
-        NSInteger laterIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if ([newOperation.day timeIntervalSince1970] < [obj.day timeIntervalSince1970])
-                return YES;
-            else
-                return NO;
-        }];
-        
-        //NSLog(@"earlyIndex: %ld, equalIndex: %ld, laterIndex: %ld", (long)earlyIndex, (long)equalIndex, (long)laterIndex);
-        
-        if (earlyIndex == NSNotFound && equalIndex == NSNotFound && laterIndex == NSNotFound)
-            [self.operations addObject:newOperation];
-        else if (earlyIndex == NSNotFound && equalIndex != NSNotFound && laterIndex == NSNotFound)
-            [self.operations addObject:newOperation];
-        else if (earlyIndex == NSNotFound && equalIndex == NSNotFound && laterIndex != NSNotFound)
-            [self.operations insertObject:newOperation atIndex:0];
-        else if (earlyIndex != NSNotFound && equalIndex != NSNotFound && laterIndex != NSNotFound)
-            [self.operations insertObject:newOperation atIndex:equalIndex];
-        else if (earlyIndex != NSNotFound && equalIndex == NSNotFound && laterIndex != NSNotFound)
-            [self.operations insertObject:newOperation atIndex:earlyIndex];
-        else if (earlyIndex != NSNotFound && equalIndex != NSNotFound && laterIndex == NSNotFound)
-            [self.operations insertObject:newOperation atIndex:equalIndex]; // or atIndex:0
-        else if (earlyIndex == NSNotFound && equalIndex != NSNotFound && laterIndex != NSNotFound)
-            [self.operations insertObject:newOperation atIndex:equalIndex];
-        else if (earlyIndex != NSNotFound && equalIndex == NSNotFound && laterIndex == NSNotFound)
-            [self.operations insertObject:newOperation atIndex:earlyIndex]; // or atIndex:0
-        
-        // 3. Add operation to sectionWithOperations dataSource
-        if (_sectionDelegate)
-            [_sectionDelegate addOperation:newOperation];
-        
-        // 4. Post notification about cache update
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotificationName:@"OperationManagerCacheUpdateEvent"
-                              object:nil];
-        
         return operationId;
     }
     @catch (NSException *exception) {
-        NSLog(@"Exception in -[YGOperationManager addOperation]. Description: %@.", [exception description]);
+        NSLog(@"Exception in -[YGOperationManager insertIntoDb]. %@.", [exception description]);
     }
+}
+
+- (void)additionalActionsForNewAccountActual:(YGOperation *)accountActual {
+    // update account sum colomn
+    YGEntityManager *em = [YGEntityManager sharedInstance];
+    
+    YGEntity *account = [em entityById:accountActual.targetId type:YGEntityTypeAccount];
+    
+    account.sum = accountActual.targetSum;
+    account.modified = [NSDate date];
+    
+    // check
+    if(account.currencyId != accountActual.sourceCurrencyId || account.currencyId != accountActual.targetCurrencyId)
+        @throw [NSException exceptionWithName:@"YGOperationManager additionalActionsForNewAccountActual:" reason:@"AccountActual operation currency is not equal account currency" userInfo:nil];
+    
+    [em updateEntity:account];
+}
+
+- (void)additionalActionsForNewSetDebt:(YGOperation *)setDebt {
+    
+    YGEntityManager *em = [YGEntityManager sharedInstance];
+    
+    YGEntity *debt = [em entityById:setDebt.targetId type:YGEntityTypeDebt];
+    
+    debt.sum = setDebt.targetSum;
+    debt.modified = [NSDate date];
+    
+    // check
+    if(debt.currencyId != setDebt.sourceCurrencyId || debt.currencyId != setDebt.targetCurrencyId)
+        @throw [NSException exceptionWithName:@"YGOperationManager additionalActionsForNewSetDebt:" reason:@"SetDebt operation currency is not equal account currency" userInfo:nil];
+    
+    [em updateEntity:debt];
+}
+
+- (void)insertIntoCache:(YGOperation *)newOperation {
+
+    NSInteger earlyIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([newOperation.day timeIntervalSince1970] > [obj.day timeIntervalSince1970])
+            return YES;
+        else
+            return NO;
+    }];
+    NSInteger equalIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([newOperation.day timeIntervalSince1970] == [obj.day timeIntervalSince1970])
+            return YES;
+        else
+            return NO;
+    }];
+    NSInteger laterIndex = [self.operations indexOfObjectPassingTest:^BOOL(YGOperation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([newOperation.day timeIntervalSince1970] < [obj.day timeIntervalSince1970])
+            return YES;
+        else
+            return NO;
+    }];
+    
+#if DEBUG_FUNC
+    NSLog(@"earlyIndex: %ld, equalIndex: %ld, laterIndex: %ld", (long)earlyIndex, (long)equalIndex, (long)laterIndex);
+#endif
+    
+    if (earlyIndex == NSNotFound && equalIndex == NSNotFound && laterIndex == NSNotFound)
+        [self.operations addObject:newOperation];
+    else if (earlyIndex == NSNotFound && equalIndex != NSNotFound && laterIndex == NSNotFound)
+        [self.operations addObject:newOperation];
+    else if (earlyIndex == NSNotFound && equalIndex == NSNotFound && laterIndex != NSNotFound)
+        [self.operations insertObject:newOperation atIndex:0];
+    else if (earlyIndex != NSNotFound && equalIndex != NSNotFound && laterIndex != NSNotFound)
+        [self.operations insertObject:newOperation atIndex:equalIndex];
+    else if (earlyIndex != NSNotFound && equalIndex == NSNotFound && laterIndex != NSNotFound)
+        [self.operations insertObject:newOperation atIndex:earlyIndex];
+    else if (earlyIndex != NSNotFound && equalIndex != NSNotFound && laterIndex == NSNotFound)
+        [self.operations insertObject:newOperation atIndex:equalIndex]; // or atIndex:0
+    else if (earlyIndex == NSNotFound && equalIndex != NSNotFound && laterIndex != NSNotFound)
+        [self.operations insertObject:newOperation atIndex:equalIndex];
+    else if (earlyIndex != NSNotFound && equalIndex == NSNotFound && laterIndex == NSNotFound)
+        [self.operations insertObject:newOperation atIndex:earlyIndex]; // or atIndex:0
+    
+    // 3. Add operation to sectionWithOperations dataSource
+    if (_sectionDelegate)
+        [_sectionDelegate addOperation:newOperation];
+    
+    // 4. Post notification about cache update
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"OperationManagerCacheUpdateEvent"
+                          object:nil];
+    
 }
 
 - (YGOperation *)operationById:(NSInteger)operationId {
@@ -322,15 +358,27 @@
 }
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId {
-    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld))", accountId, accountId, accountId, accountId];
+    // TODO: replace for call designed func
+    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(type IN {6,7} AND sourceId = %ld) OR (type IN {5,8} AND targetId = %ld) OR (type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld))", accountId, accountId, accountId, accountId, accountId, accountId];
     return [self.operations filteredArrayUsingPredicate:operPredicate];
 }
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)operation {
     
-    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(day >= %@ AND modified >= %@) AND ((type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld)))", operation.day, operation.modified, accountId, accountId, accountId, accountId];
+    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(day >= %@ AND modified >= %@) AND ((type IN {6,7} AND sourceId = %ld) OR (type IN {5,8} AND targetId = %ld) OR (type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld)))", operation.day, operation.modified, accountId, accountId, accountId, accountId];
     
     return [self.operations filteredArrayUsingPredicate:operPredicate];
+}
+
+- (NSArray <YGOperation *> *)operationsWithDebtId:(NSInteger)debtId {
+    NSPredicate *operWithDebts = [NSPredicate predicateWithFormat:@"(type IN {5,8} AND sourceId = %ld) OR (type IN {6,7,9} AND targetId = %ld)", debtId, debtId];
+    return [self.operations filteredArrayUsingPredicate:operWithDebts];
+}
+
+- (NSArray <YGOperation *> *)operationsWithDebtId:(NSInteger)debtId afterSetDebt:(YGOperation *)operation {
+    NSArray <YGOperation *> *operations = [self operationsWithDebtId:debtId];
+    NSPredicate *operLaterThen = [NSPredicate predicateWithFormat:@"day >= %@ AND modified >= %@", operation.day, operation.modified];
+    return [operations filteredArrayUsingPredicate:operLaterThen];
 }
 
 - (NSArray <YGOperation *> *)operationsWithTargetId:(NSInteger)targetId {

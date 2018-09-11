@@ -7,23 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YYGObject.h"
 
 typedef NS_ENUM(NSInteger, YGEntityType) {
-    YGEntityTypeNone    = 0, // using for select all entities
     YGEntityTypeAccount = 1,
-    YGEntityTypeDebt    = 2,
-    YGEntityTypeCredit  = 3
+    YGEntityTypeDebt    = 2
+};
+
+typedef NS_ENUM(NSInteger, YYGCounterpartyType) {
+    YYGCounterpartyTypeNone     = 0,
+    YYGCounterpartyTypeDebtor   = 1,
+    YYGCounterpartyTypeCreditor = 2
 };
 
 NSString * NSStringFromEntityType(YGEntityType type);
+NSString * NSStringFromCounterpartyType(YYGCounterpartyType type);
 
-@interface YGEntity : NSObject
+@interface YGEntity : NSObject <NSCopying, YYGRowIdAndNameIdentifiable, YYGSumAndCurrencyIdentifiable>
 
-@property NSInteger rowId;
+@property (nonatomic, assign) NSInteger rowId;
 @property YGEntityType type;
-@property NSString *name;
-@property double sum;
-@property NSInteger currencyId;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, assign) double sum;
+@property (nonatomic, assign) NSInteger currencyId;
 @property (getter=isActive) BOOL active;
 @property NSDate *created;
 @property NSDate *modified;
@@ -31,9 +37,10 @@ NSString * NSStringFromEntityType(YGEntityType type);
 @property NSInteger sort;
 @property NSString *comment;
 @property NSUUID *uuid;
+@property NSInteger counterpartyId;
+@property YYGCounterpartyType counterpartyType;
 
-- (instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment uuid:(NSUUID *)uuid;
+- (instancetype)initWithRowId:(NSInteger)rowId type:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment uuid:(NSUUID *)uuid counterpartyId:(NSInteger)counterpartyId counterpartyType:(YYGCounterpartyType)counterpartyType;
 
-- (instancetype)initWithType:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment;
-
+- (instancetype)initWithType:(YGEntityType)type name:(NSString *)name sum:(double)sum currencyId:(NSInteger)currencyId attach:(BOOL)attach sort:(NSInteger)sort comment:(NSString *)comment counterpartyId:(NSInteger)counterpartyId counterpartyType:(YYGCounterpartyType)counterpartyType;
 @end

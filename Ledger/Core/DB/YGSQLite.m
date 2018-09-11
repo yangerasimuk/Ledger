@@ -8,7 +8,7 @@
 
 /*
  Naming 
- 1. Primary key of table must contains table name and _id, ex: person_id
+ 1. Primary key of table must contains table name and _id, ex: counterparty_id
  */
 
 #import <sqlite3.h>
@@ -39,7 +39,6 @@
 - (instancetype) init{
     self = [super init];
     if(self){
-        
         [self checkDatabase];
     }
     return self;
@@ -134,7 +133,9 @@
     "attach INTEGER NOT NULL, "
     "sort INTEGER NOT NULL, "
     "comment TEXT, "
-    "uuid TEXT NOT NULL"
+    "uuid TEXT NOT NULL, "
+    "counterparty_id INTEGER, "
+    "counterparty_type_id INTEGER"
     ");";
     
     [self createTable:@"entity" createSQL:createSql];
@@ -436,7 +437,7 @@
 #ifdef PERFORMANCE
     NSLog(@"YGSQLite.selectWithSqlQuery:");
 #endif
-            
+    
     NSMutableArray *result = [[NSMutableArray alloc] init];
 
     sqlite3 *db = [self database];
@@ -644,6 +645,34 @@
  */
 + (NSString *)databaseName {
     return kDatabaseName;
+}
+
+- (NSInteger)executeSql:(NSString *)sqlQuery {
+    
+    NSInteger result = NSNotFound;
+    sqlite3 *db = [self database];
+    const char *sql = [sqlQuery UTF8String];
+    char *errorMessage = 0;
+    
+    result = sqlite3_exec(db, sql, NULL, NULL, &errorMessage);
+    
+    if(result != SQLITE_OK) {
+        NSLog(@"YGSQLite.executeSql fails. Return: %ld, error message: %@", result, [NSString stringWithUTF8String:errorMessage]);
+        sqlite3_free(errorMessage);
+    }
+    
+    sqlite3_close(db);
+    return result;
+}
+
+- (BOOL)hasColumn:(NSString *)column inTable:(NSString *)table {
+    
+    NSString *sql = [NSString stringWithFormat:@"SELECT %@ FROM %@", column, table];
+    
+    if([self executeSql:sql] != SQLITE_OK)
+        return NO;
+    else
+        return YES;
 }
 
 - (void)debugCopyLinkToDatabaseOnDesktop {

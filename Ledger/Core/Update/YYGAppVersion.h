@@ -24,4 +24,6 @@
 
 - (NSString *)toString;
 
++ (NSArray <YYGAppVersion *> *)updateLog;
+
 @end

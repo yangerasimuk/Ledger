@@ -65,8 +65,7 @@
             return [self.name substringToIndex:1];
         else
             return @"?";
-    }
-    else{
+    } else {
         return nil;
     }
 }
@@ -119,9 +118,9 @@ NSString *NSStringFromCategoryType(YGCategoryType type) {
         return @"Expense category";
     else if(type == YGCategoryTypeIncome)
         return @"Income source";
-    else if(type == YGCategoryTypeCreditorOrDebtor)
-        return @"Creditor/debtor";
-    else if(type == YGCategoryTypeCreditorOrDebtor)
+    else if(type == YGCategoryTypeCounterparty)
+        return @"Counterpaty";
+    else if(type == YGCategoryTypeCounterparty)
         return @"Tag";
     else
         return @"Unknown";

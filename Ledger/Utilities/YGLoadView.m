@@ -25,8 +25,9 @@
 - (instancetype)initWithHostView:(UIView *)hostView {
     
     // Offset of Y (64) is feature of tableView (not offset of status and nav bars)
+    // - 64.0f + 10.0f ранее
     CGRect logFrame = CGRectMake(hostView.frame.size.width/6.0f,
-                                 ((hostView.frame.size.height/2.0f)*3.0f)/4.0f - 64.0f + 10.0f,
+                                 ((hostView.frame.size.height/2.0f)*3.0f)/4.0f - 64.0f + 60.0f,
                                  hostView.frame.size.width*2.0f/3.0f,
                                  hostView.frame.size.height/4.0f + 10.0f);
     

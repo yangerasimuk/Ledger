@@ -9,7 +9,7 @@
 #import "YGDBManager.h"
 #import "YGSQLite.h"
 #import "YGTools.h"
-#import <YGConfig.h>
+#import "YGConfig.h"
 #import "YYGLedgerDefine.h"
 #import "YYGDBLog.h"
 #import "YYGDBConfig.h"
@@ -33,43 +33,11 @@
     return self;
 }
 
-/**
- Lazy load availible storages.
- */
-- (NSMutableArray<id<YGStoraging>> *)storages {
-    if(!_storages){
-        
-        // init storages array
-        self.storages = [[NSMutableArray alloc] init];
-        
-        // get availible storages names
-        YGConfig *config = [YGTools config];
-        NSArray *storageNames = [config valueForKey:@"StoragesAvailible"];
-        
-        NSMutableArray *result = [[NSMutableArray alloc] init];
-        for(NSString *name in storageNames){
-            id<YGStoraging> storage = [YGStorage storageWithName:name];
-            [result addObject:storage];
-        }
-        self.storages = result;
-    }
-    return _storages;
-}
-
-- (id<YGStoraging>)storageByType:(YGStorageType)type {
-    
-    for(id <YGStoraging> storage in self.storages){
-        if([storage type] == YGStorageTypeLocal)
-            return storage;
-    }
-    
-    @throw [NSException exceptionWithName:@"-[YGDBManager storageByType]" reason:[NSString stringWithFormat:@"Fail to find storage with type: %ld", (long)type] userInfo:nil];
-}
-
 - (void)dealloc {
-//    NSLog(@"Object YGDBManager dealloc");
+#ifdef DEBUG
+    NSLog(@"Object YGDBManager dealloc");
+#endif
 }
-
 
 - (BOOL)databaseExists {
     
@@ -83,7 +51,6 @@
         return NO;
 }
 
-
 - (void)createDatabase {
     
     // Init of database
@@ -93,11 +60,8 @@
     
     [sqlite fillTables];
     
-    // Set version of new database
-    [YYGDBConfig setValue:@1 forKey:kDatabaseMajorVersionKey];
-    [YYGDBConfig setValue:@0 forKey:kDatabaseMinorVersionKey];
-    
-    //NSLog(@"Database version: %@.%@", [YYGDBConfig valueForKey:kDatabaseMajorVersionKey], [YYGDBConfig valueForKey:kDatabaseMinorVersionKey]);
+    // Set schema version of new database
+    [YYGDBConfig setValue:@2 forKey:kDatabaseSchemeVersionKey];
 }
 
 - (NSString *)lastOperation {
@@ -113,7 +77,6 @@
     NSString *date = [operation firstObject];
     
     return [date copy];
-
 }
 
 /**

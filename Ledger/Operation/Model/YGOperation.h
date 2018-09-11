@@ -16,7 +16,17 @@ typedef NS_ENUM(NSInteger, YGOperationType) {
     YGOperationTypeGetCredit        = 5,
     YGOperationTypeReturnCredit     = 6,
     YGOperationTypeGiveDebt         = 7,
-    YGOperationTypeReturnDebt       = 8
+    YGOperationTypeRepaymentDebt    = 8,
+    YGOperationTypeSetDebt          = 9
+};
+
+typedef NS_OPTIONS(NSInteger, YYGOperationDebtPermissionType) {
+    YYGOperationDebtPermissionTypeNone          = 0,
+    YYGOperationDebtPermissionTypeSetDebt       = 1 << 0,
+    YYGOperationDebtPermissionTypeGetCredit     = 1 << 1,
+    YYGOperationDebtPermissionTypeReturnCredit  = 1 << 2,
+    YYGOperationDebtPermissionTypeGiveDebt      = 1 << 3,
+    YYGOperationDebtPermissionTypeRepaymentDebt = 1 << 4
 };
 
 @interface YGOperation : NSObject

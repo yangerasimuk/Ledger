@@ -106,18 +106,4 @@
     [sqlite execSQL:updateSQL];
 }
 
-#pragma mark - Concrete external API
-
-+ (NSInteger) configDbMajorVersion {
-    return [[YYGDBConfig valueForKey:kDatabaseMajorVersionKey] integerValue];
-}
-
-+ (NSInteger) configDbMinorVersion {
-    return [[YYGDBConfig valueForKey:kDatabaseMinorVersionKey] integerValue];
-}
-
-
-
-
-
 @end
