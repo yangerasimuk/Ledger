@@ -59,6 +59,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
                 
                 YYGBackupViewController *dropboxVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YYGBackupViewController"];
+                dropboxVC.viewModel = [YYGBackupViewModel viewModelWith:YYGStorageTypeDropbox];
                 
                 [self.navigationController pushViewController:dropboxVC animated:YES];
             }
