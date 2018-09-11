@@ -15,15 +15,15 @@
 @implementation YYGUpdater (Versions)
 
 /**
- Update to version 1.2(5).
+ Update to version 1.2(6).
  [+] In table entity add columns: counterparty_id and counterparty_type_id.
  [+] Database scheme version set to 2.
  
  @return Success or fail.
  */
-- (NSNumber *)updateToVersionMajor1Minor2Build5 {
+- (NSNumber *)updateToVersionMajor1Minor2Build6 {
 #ifdef DEBUG
-    NSLog(@"Update to version 1.2(5)...");
+    NSLog(@"Update to version 1.2(6)...");
 #endif
     
     // Check update needs
