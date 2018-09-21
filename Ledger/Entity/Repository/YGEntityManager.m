@@ -223,7 +223,7 @@
     // get update entity
     YGEntity *replacedEntity = [self entityById:entity.rowId type:entity.type];
     
-    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, sum=%@, currency_id=%@, active=%@, created=%@, modified=%@, attach=%@, sort=%@, comment=%@ WHERE entity_id=%@ AND uuid=%@;",
+    NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET entity_type_id=%@, name=%@, sum=%@, currency_id=%@, active=%@, created=%@, modified=%@, attach=%@, sort=%@, comment=%@, counterparty_id=%@, counterparty_type_id=%@ WHERE entity_id=%@ AND uuid=%@;",
                            [YGTools sqlStringForInt:entity.type],
                            [YGTools sqlStringForStringOrNull:entity.name],
                            [YGTools sqlStringForDecimal:entity.sum],
@@ -234,8 +234,11 @@
                            [YGTools sqlStringForBool:entity.attach],
                            [YGTools sqlStringForIntOrDefault:entity.sort],
                            [YGTools sqlStringForStringOrNull:entity.comment],
+                           [YGTools sqlStringForIntOrNull:entity.counterpartyId],
+                           [YGTools sqlStringForIntOrNull:entity.counterpartyType],
                            [YGTools sqlStringForIntOrNull:entity.rowId],
-                           [YGTools sqlStringForStringNotNull:[entity.uuid UUIDString]]];
+                           [YGTools sqlStringForStringNotNull:[entity.uuid UUIDString]]
+                           ];
         
     [_sqlite execSQL:updateSQL];
     
@@ -527,31 +530,17 @@
  @param operation Operation may be nil, for example, during delete operation.
  */
 - (void)recalcSumOfDebt:(YGEntity *)debt forOperation:(YGOperation *)operation {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
-#endif
     
     YGOperationManager *operationManager = [YGOperationManager sharedInstance];
     
     
     YGOperation *lastSetDebt = [operationManager lastOperationOfType:YGOperationTypeSetDebt withTargetId:debt.rowId];
     
-#ifdef FUNC_DEBUG
-    if(lastSetDebt)
-        NSLog(@"lastSetDebt: \n%@", [lastSetDebt description]);
-    else
-        NSLog(@"last setDebt operations is not exists");
-#endif
-    
     NSArray <YGOperation *> *operations;
     if(lastSetDebt)
         operations = [operationManager operationsWithDebtId:debt.rowId afterSetDebt:lastSetDebt];
     else
         operations = [operationManager operationsWithDebtId:debt.rowId];
-    
-#ifdef FUNC_DEBUG
-    NSLog(@"operations for processing count: %ld", [operations count]);
-#endif
     
     if([operations count] > 0) {
         
@@ -562,8 +551,6 @@
             totalSum = 0.0f;
         
         for (YGOperation *oper in operations) {
-            
-            NSLog(@"totalSum: %.2f", totalSum);
             
             switch (oper.type) {
                 case YGOperationTypeGiveDebt:
@@ -587,16 +574,12 @@
             }
         }
         
-#ifdef FUNC_DEBUG
-        NSLog(@"Calculated sum: %.2f", totalSum);
-#endif
-        
         if(debt.sum != totalSum) {
-            NSLog(@"old sum: %.2f", debt.sum);
             debt.sum = totalSum;
             debt.modified = [NSDate date];
             [self updateEntity:[debt copy]];
-            NSLog(@"new sum: %.2f", totalSum);
+        } else {
+            NSLog(@"Sum of debut is not changed.");
         }
     }
 }
@@ -679,27 +662,6 @@
                         default:
                             @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this type of operation does not implement" userInfo:nil];
                     }
-                    
-//                    if(oper.type == YGOperationTypeIncome) {
-//                        totalSum += oper.targetSum;
-//                    }
-//                    else if(oper.type == YGOperationTypeExpense) {
-////                        targetSum -= oper.sourceSum;
-//                    }
-//                    else if(oper.type == YGOperationTypeTransfer) {
-//                        if(oper.sourceId == account.rowId){
-////                            targetSum -= oper.sourceSum;
-//                        }
-//                        else if(oper.targetId == account.rowId) {
-//                            targetSum += oper.targetSum;
-//                        } else {
-//                            @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this transfer" userInfo:nil];
-//                        }
-//                    }
-//                    else if(oper.type == YGOperationTypeAccountActual) {
-//                        ;
-//                    } else
-//                        @throw [NSException exceptionWithName:@"-[YGEntityManager recalcSumOfAccount:forOperation:" reason:@"Calc behavior for this type of operation does not implement" userInfo:nil];
                 }
             }
             
@@ -708,6 +670,8 @@
                 account.sum = totalSum;
                 account.modified = [NSDate date];
                 [self updateEntity:[account copy]];
+            } else {
+                NSLog(@"Sum of account is not changed.");
             }
         }
         @catch (NSException *ex) {

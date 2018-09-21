@@ -365,7 +365,7 @@
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)operation {
     
-    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(day >= %@ AND modified >= %@) AND ((type IN {6,7} AND sourceId = %ld) OR (type IN {5,8} AND targetId = %ld) OR (type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld)))", operation.day, operation.modified, accountId, accountId, accountId, accountId];
+    NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(day >= %@ AND modified >= %@) AND ((type IN {6,7} AND sourceId = %ld) OR (type IN {5,8} AND targetId = %ld) OR (type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld)))", operation.day, operation.modified, accountId, accountId, accountId, accountId, accountId, accountId];
     
     return [self.operations filteredArrayUsingPredicate:operPredicate];
 }

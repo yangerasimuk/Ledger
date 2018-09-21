@@ -331,8 +331,8 @@
 /*
  SQL query without return. Suits for delete, update.
  */
-- (void)execSQL:(NSString *)sqlQuery{
-
+- (void)execSQL:(NSString *)sqlQuery {
+    
     sqlite3 *db = [self database];
     
     char* error;
@@ -340,10 +340,7 @@
     int result = sqlite3_exec(db, [sqlQuery UTF8String], nil, nil, &error);
     
     if (result != SQLITE_OK) {
-        NSLog(@"Error in sql query");
-        if(strlen(error) > 0){
-            NSLog(@"Error message: %@", [NSString stringWithUTF8String:error]);
-        }
+        NSLog(@"YGSQLite execSQL: fails. \nSQL: %@\nerror: %@", sqlQuery, [NSString stringWithUTF8String:error]);
     }
 }
 

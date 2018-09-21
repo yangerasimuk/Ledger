@@ -126,6 +126,7 @@
     [center postNotificationName:@"CategoryManagerCurrencyCacheUpdateEvent" object:nil];
     [center postNotificationName:@"CategoryManagerExpenseCacheUpdateEvent" object:nil];
     [center postNotificationName:@"CategoryManagerIncomeCacheUpdateEvent" object:nil];
+    [center postNotificationName:@"CategoryManagerCounterpartyUpdateEvent" object:nil];
 }
 
 - (void)sortCategoriesInArray:(NSMutableArray <YGCategory *>*)array {
