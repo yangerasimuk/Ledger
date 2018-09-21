@@ -27,6 +27,18 @@ static NSString *const kEntityCellId = @"EntityCellId";
 
 @implementation YGEntityViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self injectViewModel];
+    
+    [self setupUI];
+    
+    [self bindWithViewModelEvents];
+    
+    [self reloadDataFromCache];
+}
+
 - (void)injectViewModel {
     YGEntityType type = 0;
     switch(self.tabBarController.selectedIndex) {
@@ -42,10 +54,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
     _viewModel = [YYGEntitiesViewModel viewModelWith:type];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self injectViewModel];
+- (void)setupUI {
     
     // Get configs
     YGConfig *config = [YGTools config];
@@ -58,25 +67,28 @@ static NSString *const kEntityCellId = @"EntityCellId";
     // set title
     self.title = [self.viewModel title];
     
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(reloadDataFromCache)
-                   name:@"EntityManagerCacheUpdateEvent"
-                 object:nil];
-    
-    [center addObserver:self
-               selector:@selector(reloadDataAfterDecimalFractionChange)
-                   name:@"HideDecimalFractionInListsChangedEvent"
-                 object:nil];
-    
-    [self reloadDataFromCache];
-    
     // Remove empty cells
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     // Save default tintColor
     p_defaultTintColor = self.navigationController.navigationBar.tintColor;
     
+}
+
+- (void)bindWithViewModelEvents {
+    
+    __weak typeof(self) weakSelf = self;
+    [self.viewModel.cacheUpdateEvent subscribeNext:^(NSNumber *isUpdated) {
+        __strong typeof(self) strongSelf = weakSelf;
+        if(strongSelf)
+            [strongSelf reloadDataFromCache];
+    }];
+    
+    [self.viewModel.decimalFractionHideChangeEvent subscribeNext:^(NSNumber *isHide) {
+        __strong typeof(self)strongSelf = weakSelf;
+        if(strongSelf)
+            strongSelf->p_hideDecimalFraction = [isHide boolValue];
+    }];    
 }
 
 - (void)reloadDataFromCache {
@@ -97,34 +109,18 @@ static NSString *const kEntityCellId = @"EntityCellId";
     }
 }
 
-- (void) reloadDataAfterDecimalFractionChange {
-    
-    YGConfig *config = [YGTools config];
-    p_hideDecimalFraction = [[config valueForKey:@"HideDecimalFractionInLists"] boolValue];
-    [self reloadDataFromCache];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     // Every time check conditions for new debts
     p_isEnoughConditionsForNewEntity = [self.viewModel isEnoughConditionsWithFeedback:^(NSString *message){
-        p_enoughConditionsWarningMessage = message;
+        self->p_enoughConditionsWarningMessage = message;
     }];
     
     if(p_isEnoughConditionsForNewEntity)
         self.navigationItem.rightBarButtonItem.tintColor = p_defaultTintColor;
     else
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor redColor];
-}
-
-
-/**
- Dealloc of object. Remove all notifications.
- */
-- (void)dealloc {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self];
 }
 
 #pragma mark - Show/hide No operation view
@@ -138,7 +134,6 @@ static NSString *const kEntityCellId = @"EntityCellId";
 
 - (void)hideNoDataView {
     [p_noDataView hide];
-    
 }
 
 - (void)didReceiveMemoryWarning {

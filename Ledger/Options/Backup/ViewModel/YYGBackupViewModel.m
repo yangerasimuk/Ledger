@@ -77,7 +77,12 @@
 }
 
 - (void)notifyRestoreWithSuccess {
+#warning Remove log
+    NSLog(@"YYGBackupViewModel.notifyRestoreWithSuccess...");
+    
     [self update];
+    
+    NSLog(@"Fire _notifyResoreWithSuccessSubject sendNext");
     [self.notifyRestoreWithSuccessSubject sendNext:nil];
 }
 

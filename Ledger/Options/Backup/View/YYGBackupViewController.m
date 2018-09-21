@@ -205,6 +205,10 @@
 
 - (void)notifyRestoreWithSuccess {
     
+#warning Remove log
+    NSLog(@"YYGBackupViewController.notifyResotreWithSuccess...");
+    NSLog(@"\"DatabaseRestoredEvent\" notification posted");
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"DatabaseRestoredEvent" object:nil];
     

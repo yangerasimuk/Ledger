@@ -94,6 +94,9 @@
 
 - (void)getEntitiesForCache {
     
+#warning Remove log
+    NSLog(@"YGEntityManager.getEntitiesForCache...");
+    
     NSArray *entitiesRaw = [self entitiesFromDb];
     
     NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *entitiesResult = [[NSMutableDictionary alloc] init];
@@ -117,6 +120,8 @@
         [self sortEntitiesInArray:entitiesResult[type]];
     
     _entities = entitiesResult;
+    
+    NSLog(@"\"EntityManagerCacheUpdateEvent\" notification posted");
     
     // generate event
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

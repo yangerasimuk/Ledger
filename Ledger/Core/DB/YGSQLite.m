@@ -333,6 +333,8 @@
  */
 - (void)execSQL:(NSString *)sqlQuery {
     
+#warning Remove logs
+    
     sqlite3 *db = [self database];
     
     char* error;
