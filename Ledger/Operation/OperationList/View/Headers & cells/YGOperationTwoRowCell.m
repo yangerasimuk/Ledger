@@ -10,7 +10,7 @@
 #import "YGTools.h"
 
 @interface YGOperationTwoRowCell() {
-    NSInteger _width;
+    CGFloat _width;
     NSInteger _fontSizeText;
     NSInteger _fontSizeDetailText;
     UIColor *_colorText;
@@ -93,20 +93,15 @@
     static CGRect rectFirstRowLabel;
     
     if(rectFirstRowLabel.size.width == 0) {
-        
-        switch(_width) {
-            case 320:
-                rectFirstRowLabel = CGRectMake(16, 4, 288, 36); // (16, 4, 160, 36) - (180, 4, 125, 36)
-                break;
-            case 375:
-                rectFirstRowLabel = CGRectMake(16, 4, 343, 40); // (16, 4, 187, 40) - (210, 6, 150, 40)
-                break;
-            case 414:
-                rectFirstRowLabel = CGRectMake(20, 6, 374, 42); // (20, 6, 207, 42) - (230, 4, 165, 42)
-                break;
-        }
+        if(_width <= 320.f)
+            rectFirstRowLabel = CGRectMake(16, 4, 288, 36); // (16, 4, 160, 36) - (180, 4, 125, 36)
+        else if(_width > 320.f && _width <= 375.f)
+            rectFirstRowLabel = CGRectMake(16, 4, 343, 40); // (16, 4, 187, 40) - (210, 6, 150, 40)
+        else if(_width > 375.f && _width <= 414.f)
+            rectFirstRowLabel = CGRectMake(20, 6, 374, 42); // (20, 6, 207, 42) - (230, 4, 165, 42)
+        else
+            rectFirstRowLabel = CGRectMake(20, 6, 374, 42); // (20, 6, 207, 42) - (230, 4, 165, 42)
     }
-    
     return rectFirstRowLabel;
 }
 
@@ -115,19 +110,15 @@
     static CGRect rectSecondRowLabel;
     
     if(rectSecondRowLabel.size.width == 0) {
-        switch(_width) {
-            case 320:
-                rectSecondRowLabel = CGRectMake(16, 40, 288, 36); // x + width = 160
-                break;
-            case 375:
-                rectSecondRowLabel = CGRectMake(16, 42, 343, 40); // x + width = 187
-                break;
-            case 414:
-                rectSecondRowLabel = CGRectMake(20, 48, 374, 42); // x + width = 207
-                break;
-        }
+        if(_width <= 320.f)
+            rectSecondRowLabel = CGRectMake(16, 40, 288, 36); // x + width = 160
+        else if(_width > 320.f && _width <= 375.f)
+            rectSecondRowLabel = CGRectMake(16, 42, 343, 40); // x + width = 187
+        else if(_width > 375.f && _width <= 414.f)
+            rectSecondRowLabel = CGRectMake(20, 48, 374, 42); // x + width = 207
+        else
+            rectSecondRowLabel = CGRectMake(20, 48, 374, 42); // x + width = 207
     }
-    
     return rectSecondRowLabel;
 }
 

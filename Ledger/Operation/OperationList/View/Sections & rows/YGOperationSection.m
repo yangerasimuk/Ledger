@@ -9,7 +9,6 @@
 #import "YGOperationSection.h"
 #import "YGOperation.h"
 #import "YGOperationRow.h"
-#import "YGOperationSectionHeader.h"
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
 
@@ -63,11 +62,11 @@
     [_operationRows sortUsingDescriptors:@[sortOnModifiedByDesc]];
 }
 
-- (YGOperationSectionHeader *)headerView {
-    if (!_headerView)
-        _headerView = [[YGOperationSectionHeader alloc] initWithSection:self];
-    return _headerView;
-}
+//- (YGOperationSectionHeader *)headerView {
+//    if (!_headerView)
+//        _headerView = [[YGOperationSectionHeader alloc] initWithSection:self];
+//    return _headerView;
+//}
 
 - (void)setOperationRows:(NSMutableArray <YGOperationRow *>*)operationRows {
     _operationRows = operationRows;

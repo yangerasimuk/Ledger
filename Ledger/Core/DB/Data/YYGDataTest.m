@@ -12,9 +12,7 @@
 #import "YYGLedgerDefine.h"
 #import "YGEntityManager.h"
 
-void recalcAllAccounts();
-
-void addTestAccounts(){
+void addTestAccounts(void) {
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     
@@ -104,7 +102,7 @@ void addTestAccounts(){
 }
 
 
-void addTestExpenseCategories(){
+void addTestExpenseCategories(void) {
     
     
     // fill category - expences category
@@ -516,7 +514,7 @@ void addTestExpenseCategories(){
 }
 
 
-void addTestIncomeSources(){
+void addTestIncomeSources(void) {
     // fill category - income sources
     NSArray *сategories = @[
                             @[
@@ -614,7 +612,7 @@ void addTestIncomeSources(){
 }
 
 
-void addTestOperations(){
+void addTestOperations(void) {
     
     
     //static NSString *const kDateTimeFormat = @"yyyy-MM-dd HH:mm:ss Z";
@@ -2982,7 +2980,7 @@ void addTestOperations(){
     
 }
 
-void recalcAllAccounts(){
+void recalcAllAccounts(void) {
     
     YGEntityManager *manager = [YGEntityManager sharedInstance];
     

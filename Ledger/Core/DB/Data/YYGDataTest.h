@@ -6,10 +6,12 @@
 //  Copyright © 2017 Yan Gerasimuk. All rights reserved.
 //
 
-void addTestAccounts();
+void addTestAccounts(void);
 
-void addTestExpenseCategories();
+void addTestExpenseCategories(void);
 
-void addTestIncomeSources();
+void addTestIncomeSources(void);
 
-void addTestOperations();
+void addTestOperations(void);
+
+void recalcAllAccounts(void);

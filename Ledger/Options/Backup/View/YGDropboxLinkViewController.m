@@ -72,7 +72,10 @@
         
         [DBClientsManager unlinkAndResetClients];
         
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
         YGOptionViewController *optionsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YGOptionViewController"];
+#pragma clang diagnostic pop
         
         for(UIViewController *tempVC in [self.navigationController viewControllers]) {
             if([tempVC isKindOfClass: [YGOptionViewController class]]) {
@@ -88,12 +91,13 @@
         [DBClientsManager authorizeFromController:[UIApplication sharedApplication]
                                        controller:[[self class] topMostController]
                                           openURL:^(NSURL *url) {
-                                              [[UIApplication sharedApplication] openURL:url options:nil completionHandler:^(BOOL success) {
+            [[UIApplication sharedApplication] openURL:url
+                                               options:[NSDictionary dictionary]
+                                     completionHandler:^(BOOL success) {
                                                   
-                                                  //NSLog(@"openURL complete");
-                                              }];
-                                              //[[UIApplication sharedApplication] openURL:url];
-                                          }];
+                //NSLog(@"openURL complete");
+            }];
+        }];
     }
 }
 

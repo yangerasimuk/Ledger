@@ -53,11 +53,18 @@
 - (void)backup {
     // Make snapshot db, info and xml files
     YYGBackuper *backuper = [[YYGBackuper alloc] init];
+    __weak YYGLocalBackupViewModel *weakSelf = self;
     [backuper backupWithSuccessHandler:^{
-        // Upload backup to the storage
-        [p_storage backup:backuper.generalFilePath];
+        YYGLocalBackupViewModel *strongSelf = weakSelf;
+        if(strongSelf) {
+            // Upload backup to the storage
+            [strongSelf->p_storage backup:backuper.generalFilePath];
+        }
     } errorHandler:^(NSString *message) {
-        [self notifyBackupWithErrorMessage:message];
+        YYGLocalBackupViewModel *strongSelf = weakSelf;
+        if(strongSelf) {
+            [strongSelf notifyBackupWithErrorMessage:message];
+        }
     }];
 }
 

@@ -44,7 +44,7 @@
 "FtB-0b-GR8.normalTitle" = "Удалить";
 
 /* Class = "UILabel"; text = "Database size:"; ObjectID = "Hj2-NW-R9M"; */
-"Hj2-NW-R9M.text" = "Размер";
+"Hj2-NW-R9M.text" = "Размер:";
 
 /* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "I5X-So-yvY"; */
 "I5X-So-yvY.normalTitle" = "Удалить";
@@ -116,7 +116,7 @@
 "e3u-1O-XUK.normalTitle" = "Сохранить и добавить";
 
 /* Class = "UILabel"; text = "Database size:"; ObjectID = "f2B-bq-zaU"; */
-"f2B-bq-zaU.text" = "Размер";
+"f2B-bq-zaU.text" = "Размер:";
 
 /* Class = "UILabel"; text = "Symbol:"; ObjectID = "fOc-gt-H7Y"; */
 "fOc-gt-H7Y.text" = "Символ";
@@ -149,7 +149,7 @@
 "kzO-Sg-SYX.text" = "Заметка";
 
 /* Class = "UILabel"; text = "Backup date:"; ObjectID = "lsa-R2-aaR"; */
-"lsa-R2-aaR.text" = "Архивация";
+"lsa-R2-aaR.text" = "Архивация:";
 
 /* Class = "UILabel"; text = "Select currency"; ObjectID = "mEx-I8-Oey"; */
 "mEx-I8-Oey.text" = "Выбрать валюту";
@@ -236,22 +236,22 @@
 "wa0-Es-c8u.headerTitle" = "Текущая база данных";
 
 /* Class = "UILabel"; text = "Last operation:"; ObjectID = "7xP-rY-UKk"; */
-"7xP-rY-UKk.text" = "Изменение";
+"7xP-rY-UKk.text" = "Изменение:";
 
 /* Class = "UILabel"; text = "Database size:"; ObjectID = "hMf-YA-WJH"; */
-"hMf-YA-WJH.text" = "Размер";
+"hMf-YA-WJH.text" = "Размер:";
 
 /* Class = "UITableViewSection"; headerTitle = "Backup database"; ObjectID = "zjJ-7g-jK6"; */
 "zjJ-7g-jK6.headerTitle" = "Архив базы данных";
 
 /* Class = "UILabel"; text = "Last operation:"; ObjectID = "gRJ-5Z-4ON"; */
-"gRJ-5Z-4ON.text" = "Изменение";
+"gRJ-5Z-4ON.text" = "Изменение:";
 
 /* Class = "UILabel"; text = "Database size:"; ObjectID = "Ha0-XC-IFY"; */
-"Ha0-XC-IFY.text" = "Размер";
+"Ha0-XC-IFY.text" = "Размер:";
 
 /* Class = "UILabel"; text = "Database size:"; ObjectID = "Xpq-HL-loD"; */
-"Xpq-HL-loD.text" = "Архивация";
+"Xpq-HL-loD.text" = "Архивация:";
 
 /* Class = "UIButton"; normalTitle = "Backup"; ObjectID = "WrF-Bi-96k"; */
 "WrF-Bi-96k.normalTitle" = "Архивировать";
@@ -261,3 +261,6 @@
 
 /* Class = "UITableViewSection"; footerTitle = "Select person and role in this debt obligation"; ObjectID = "szE-A8-4fm"; */
 "szE-A8-4fm.footerTitle" = "Выбрать контрагента и его роль в долговом обязательстве";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "Iaq-Jp-hSb"; */
+"Iaq-Jp-hSb.normalTitle" = "Удалить";

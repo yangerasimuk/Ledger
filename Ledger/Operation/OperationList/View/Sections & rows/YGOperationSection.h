@@ -16,7 +16,7 @@
 @interface YGOperationSection : NSObject
 
 /// custom view for section header
-@property (strong, nonatomic) YGOperationSectionHeader *headerView;
+// @property (strong, nonatomic) YGOperationSectionHeader *headerView;
 
 /// name of section in human view
 @property (copy, nonatomic, readonly) NSString *name;

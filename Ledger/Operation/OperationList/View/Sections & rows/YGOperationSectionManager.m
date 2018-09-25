@@ -69,9 +69,6 @@ static NSInteger const kWidthOfMarginIndents = 45;
  Called from constructor and from outside, when reload operation list
  */
 - (void)makeSections {
-#if DEBUG
-    NSLog(@"YGOperationSectionManager makeSections");
-#endif
 #ifdef PERFORMANCE
     NSLog(@"YGOperationSectionManager.makeSections");
 #endif
@@ -83,9 +80,6 @@ static NSInteger const kWidthOfMarginIndents = 45;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:@"OperationSectionManagerMakeSectionsEvent" object:nil];
 
-#ifdef DEBUG
-    NSLog(@"Count of maked sections: %ld", [_sections count]);
-#endif
 #ifdef PERFORMANCE
     NSLog(@"<< makeSections finished");
 #endif

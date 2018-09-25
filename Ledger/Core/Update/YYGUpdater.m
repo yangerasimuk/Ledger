@@ -23,7 +23,6 @@
 }
 
 - (void)checkEnvironment {
-    
     YYGAppVersion *currentAppVersion = [[YYGAppVersion alloc] initWithCurruntBundle];
     YYGAppVersion *environmentVersion = [[YYGAppVersion alloc] initWithConfigEnvironmentKeys];
     BOOL isAnyUpdateExec = NO;
@@ -46,13 +45,17 @@
                 // Check if app have update for new version
                 if ([self respondsToSelector:updateEnvironment]) {
                     NSString *message;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                     if([[self performSelector:updateEnvironment] boolValue]) {
                         [self setEnvironmentVersionAsAppVersion:version];
                         message = [NSString stringWithFormat:@"Success update to version %@", [version toString]];
                     } else
                         message = [NSString stringWithFormat:@"Fail update to version: %@", [version toString]];
+#pragma clang diagnostic pop
                     // Log event
                     [YYGDBLog logEvent:message];
+                    NSLog(@"%@", message);
                 }
             }
         } // for

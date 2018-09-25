@@ -6,4 +6,4 @@
 //  Copyright © 2017 Yan Gerasimuk. All rights reserved.
 //
 
-void addCommonCurrencies();
+void addCommonCurrencies(void);

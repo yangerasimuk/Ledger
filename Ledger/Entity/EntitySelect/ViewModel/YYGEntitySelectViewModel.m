@@ -58,13 +58,9 @@
 }
 
 - (NSArray <YGEntity *> *)activeEntitiesOf:(YGEntityType)type {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
-#endif
     
-    NSMutableArray <YGEntity *> *activeEntities = [[NSMutableArray alloc] init];
+    NSArray <YGEntity *> *activeEntities;
     
-    // TODO: change to mutableCopy?
     // 1. Get active entities, may be filtered if source exists
     if(self.source)
         activeEntities = [p_entityManager entitiesByType:type onlyActive:YES exceptEntity:self.source exactCounterpartyType:self.counterparty];
@@ -83,12 +79,8 @@
             }
         }
     } else {
-        filteredEntities = activeEntities;
+        filteredEntities = [activeEntities mutableCopy];
     }
-    
-#ifdef FUNC_DEBUG
-    NSLog(@"result entities: %@", filteredEntities);
-#endif
     
     if([filteredEntities count] > 0)
         return [filteredEntities copy];

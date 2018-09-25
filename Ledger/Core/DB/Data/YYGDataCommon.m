@@ -10,7 +10,7 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 
-void addCommonCurrencies(){
+void addCommonCurrencies(void) {
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
     

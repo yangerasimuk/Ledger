@@ -13,6 +13,11 @@
 //#define DEBUG_REBUILD_BASE 1
 //#define PERFORMANCE 1
 
+extern NSString *const kIsFirstLaunch;
+
+extern NSString *const kDeviceScreenWidth;
+extern NSString *const kDeviceScreenHeight;
+
 extern NSString *const kAppBuildDate;
 extern NSString *const kAppBuildDateFormat;
 

@@ -48,7 +48,7 @@
 
 + (CGFloat)defaultFontSize;
 
-+ (NSInteger)deviceScreenWidth;
++ (CGFloat)deviceScreenWidth;
 
 + (UIColor *)colorForActionDisable;
 + (UIColor *)colorForActionDeactivate;

@@ -165,7 +165,7 @@
                 case 3:         // Target Sum
                     break;
                 default:
-                    @throw [NSException exceptionWithName:@"YYGRepaymentDebtEditViewModel.showCellAtRow:inSection: fails." reason:@"Unknown row number." userInfo:nil];
+                    @throw [NSException exceptionWithName:@"YYGRepaymentDebtEditViewModel heightForRow:inSection: fails." reason:@"Unknown row number." userInfo:nil];
             }
             break;
         case 2:                 // Comment
@@ -220,11 +220,6 @@
 
 - (id)selectViewModelForRow:(NSInteger)row inSection:(NSInteger)section {
     @throw [NSException exceptionWithName:@"YYGRepaymentDebtEditViewModel selectViewModelForRow:inSection: fails." reason:@"Method can not be called." userInfo:nil];
-}
-
-// TODO: что это?!
-- (double)sumOf:(id<YYGSumAndCurrencyIdentifiable>)object {
-    return -1;
 }
 
 - (NSString *)textSelectSource {

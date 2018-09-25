@@ -15,7 +15,6 @@
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (NSString *)titleForHeaderInSection:(NSInteger)section;
-- (BOOL)showCellAtRow:(NSInteger)row inSection:(NSInteger)section;
 
 - (BOOL)showSource;
 - (id<YYGRowIdAndNameIdentifiable>)defaultSource;

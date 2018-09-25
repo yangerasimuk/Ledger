@@ -71,7 +71,7 @@
 - (IBAction)textFieldNameEditingChanged:(UITextField *)sender;
 - (IBAction)textFieldSortEditingChanged:(UITextField *)sender;
 - (IBAction)switchIsDefaultValueChanged:(UISwitch *)sender;
-- (IBAction)segmentedCounterpartyTypeChanged:(UISegmentedControl *)sender;
+- (IBAction)segmentedDebtTypeChanged:(UISegmentedControl *)sender;
 - (IBAction)buttonActivatePressed:(UIButton *)sender;
 - (IBAction)buttonDeletePressed:(UIButton *)sender;
 

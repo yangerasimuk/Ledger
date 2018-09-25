@@ -13,6 +13,9 @@
 - (instancetype) init;
 + (YGSQLite *)sharedInstance;
 
+- (BOOL)isDatabaseFileExist;
+- (BOOL)isDatabaseOpenable;
+
 - (void)createTables;
 - (void)fillTables;
 

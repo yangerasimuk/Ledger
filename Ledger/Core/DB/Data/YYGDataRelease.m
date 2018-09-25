@@ -10,7 +10,7 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 
-void addReleaseAccounts(){
+void addReleaseAccounts(void) {
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];
         

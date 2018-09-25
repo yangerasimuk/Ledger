@@ -424,45 +424,41 @@
  @return Font size.
  */
 + (CGFloat)defaultFontSize {
-    NSInteger defaultFontSize = 18;
-    NSInteger deviceScreenHeight = [YGTools deviceScreenWidth];
     
-    if(deviceScreenHeight == 320)
-        defaultFontSize = 18;
-    else if(deviceScreenHeight == 375)
-        defaultFontSize = 20;
-    else if(deviceScreenHeight == 414)
-        defaultFontSize = 21;
+    static CGFloat fontSize = 0.f;
     
-    return defaultFontSize;
+    if(fontSize == 0.f) {
+        CGFloat width = [YGTools deviceScreenWidth];
+        if(width <= 320.f)
+            fontSize = 18.f;
+        else if(width > 320.f && width <= 375.f)
+            fontSize = 20.f;
+        else if(width > 375.f && width <= 414.f)
+            fontSize = 21.f;
+        else
+            fontSize = 21.f;
+    }
+    return fontSize;
 }
 
-+ (NSInteger)deviceScreenWidth {
+/**
+ Get current device screen width in points.
+
+ @return Screen width (in points).
+ */
++ (CGFloat)deviceScreenWidth {
     
-    NSInteger screenWidth = 320;
+    static CGFloat width = 0.f;
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if(![defaults valueForKey:@"DeviceScreenWidth"])
-        return screenWidth;
-    
-    screenWidth = [[defaults valueForKey:@"DeviceScreenWidth"] integerValue];
-    
-    switch(screenWidth) {
-        case 320: // 1 - 1
-            return 320;
-        case 640: // screenWidth /2
-            return 320;
-        case 750: //screenWidth / 2
-            return 375;
-        case 1080: //screenWidth / 3
-        case 1125: //screenWidth / 3
-            return 375;
-        case 1242:
-            return 414;
+    if(width == 0.f) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSNumber *defaultWidth = [userDefaults valueForKey:kDeviceScreenWidth];
+        if(!defaultWidth)
+            @throw [NSException exceptionWithName:@"YGTools deviceScreenWidth" reason:@"Can not get current device screen width from UserDefaults" userInfo:nil];
+        
+        width = (CGFloat)[defaultWidth doubleValue];
     }
-    
-    return screenWidth;
+    return width;
 }
 
 #pragma mark - Default colors for actions

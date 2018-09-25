@@ -6,8 +6,8 @@
 //  Copyright © 2017 Yan Gerasimuk. All rights reserved.
 //
 
-void addReleaseAccounts();
+void addReleaseAccounts(void);
 
-void addReleaseExpenseCategories();
+void addReleaseExpenseCategories(void);
 
-void addReleaseIncomeSources();
+void addReleaseIncomeSources(void);

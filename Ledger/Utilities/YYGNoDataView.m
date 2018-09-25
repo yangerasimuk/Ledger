@@ -33,39 +33,45 @@
  @param message Message to show.
  */
 - (void)showMessage:(NSString *)message {
-    
+    __weak YYGNoDataView *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        if (p_view) {
-            [p_view removeFromSuperview];
-            p_view = nil;
+        YYGNoDataView *strongSelf = weakSelf;
+        if(strongSelf) {
+            if (strongSelf->p_view) {
+                [strongSelf->p_view removeFromSuperview];
+                strongSelf->p_view = nil;
+            }
+            
+            // Set to one size
+            strongSelf->p_frame.origin.y = 0.0f;
+            strongSelf->p_frame.size.height = [[UIScreen mainScreen] bounds].size.height - 64.0f - 49.0f;
+            
+            strongSelf->p_view = [[UIView alloc] initWithFrame:strongSelf->p_frame];
+            strongSelf->p_view.backgroundColor = [UIColor colorWithRed:0.9647 green:0.9647 blue:0.9647 alpha:1.0f];
+            
+            NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:message
+                attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize] + 2.0f],
+                NSForegroundColorAttributeName:[UIColor grayColor]}];
+            CGSize size = [attributed size];
+            CGFloat y = strongSelf->p_frame.size.height/2 - size.height/2;
+            CGFloat x = strongSelf->p_frame.size.width/2 - size.width/2;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, size.width, size.height)];
+            label.attributedText = attributed;
+            [strongSelf->p_view addSubview:label];
+            
+            [strongSelf->p_parentView addSubview:strongSelf->p_view];
         }
-        
-        // Set to one size
-        p_frame.origin.y = 0.0f;
-        p_frame.size.height = [[UIScreen mainScreen] bounds].size.height - 64.0f - 49.0f;
-        
-        p_view = [[UIView alloc] initWithFrame:p_frame];
-        p_view.backgroundColor = [UIColor colorWithRed:0.9647 green:0.9647 blue:0.9647 alpha:1.0f];
-        
-        NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:message
-                                                                         attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:[YGTools defaultFontSize] + 2.0f],
-                                                                                      NSForegroundColorAttributeName:[UIColor grayColor]}];
-        CGSize size = [attributed size];
-        CGFloat y = p_frame.size.height/2 - size.height/2;
-        CGFloat x = p_frame.size.width/2 - size.width/2;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, size.width, size.height)];
-        label.attributedText = attributed;
-        [p_view addSubview:label];
-        
-        [p_parentView addSubview:p_view];
     });
 }
 
 - (void)hide {
+    __weak YYGNoDataView *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [p_view removeFromSuperview];
-        p_view = nil;
+        YYGNoDataView *strongSelf = weakSelf;
+        if(strongSelf) {
+            [strongSelf->p_view removeFromSuperview];
+            strongSelf->p_view = nil;
+        }
     });
 }
 

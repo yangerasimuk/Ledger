@@ -11,8 +11,49 @@
 #import <sqlite3.h>
 #import "YYGLedgerDefine.h"
 #import "YGTools.h"
+#import "YGEntity.h"
+#import "YGEntityManager.h"
+#import "YGSQLite.h"
 
 @implementation YYGUpdater (Versions)
+
+/**
+ Udate to version 1.2(7).
+ 
+ [x] Fix bug with non-process transfer operation while actualize balance of accounts.
+ [x] Fix bug with non-update entities list after restore db.
+ [x] Fix bug with non-update conterparty while edit debt.
+
+ @return Success or fail.
+ */
+- (NSNumber *)updateToVersionMajor1Minor2Build7 {
+    
+    NSLog(@"Update to version 1.2(7)...");
+    
+    YGSQLite *db = [YGSQLite sharedInstance];
+    
+    if([db isDatabaseFileExist]) {
+        if([db isDatabaseOpenable]) {
+            
+            YGEntityManager *entityManager = [YGEntityManager sharedInstance];
+            
+            NSArray <YGEntity *> *accounts = [entityManager entitiesByType:YGEntityTypeAccount onlyActive:YES];
+            NSLog(@"Active accounts count: %ld", (long)[accounts count]);
+            if(accounts && [accounts count] > 0) {
+                for (YGEntity *account in accounts) {
+                    [entityManager recalcSumOfAccount:account forOperation:nil];
+                }
+            }
+            return @(YES);
+        } else {
+            NSLog(@"SQLite database can not be opened.");
+            return @(NO);
+        }
+    } else {
+        NSLog(@"Database file is not exist.");
+        return @(NO);
+    }
+}
 
 /**
  Update to version 1.2(6).
@@ -22,9 +63,8 @@
  @return Success or fail.
  */
 - (NSNumber *)updateToVersionMajor1Minor2Build6 {
-#ifdef DEBUG
+
     NSLog(@"Update to version 1.2(6)...");
-#endif
     
     // Check update needs
     YGSQLite *sqlite = [YGSQLite sharedInstance];
@@ -164,9 +204,8 @@
  @return Is update success or not
  */
 - (NSNumber *)updateToVersionMajor1Minor1Build13 {
-#ifdef DEBUG
+
     NSLog(@"Update to version 1.1(13)...");
-#endif
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;

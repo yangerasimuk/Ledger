@@ -16,7 +16,7 @@
 #import "YYGUpdater.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
-static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
+//static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 
 @interface AppDelegate()
 @end
@@ -24,19 +24,15 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+        
     // Dropbox
     [DBClientsManager setupWithAppKey:kDropboxAppKey];
     
+    // Save current device screen size in defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    // Save screen size in defaults
     UIScreen *screen = [UIScreen mainScreen];
-    NSInteger width = [screen nativeBounds].size.width;
-    NSInteger height = [screen nativeBounds].size.height;
-    
-    [defaults setObject:@(width) forKey:@"DeviceScreenWidth"];
-    [defaults setObject:@(height) forKey:@"DeviceScreenHeight"];
+    [defaults setObject:@((NSInteger)[screen bounds].size.width) forKey:kDeviceScreenWidth];
+    [defaults setObject:@((NSInteger)[screen bounds].size.height) forKey:kDeviceScreenHeight];
     
 #ifdef DEBUG
     [defaults setBool:NO forKey:kIsFirstLaunch];
@@ -48,7 +44,6 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
     
     // create new work db
     YGDBManager *dm = [YGDBManager sharedInstance];
-    
 #ifdef DEBUG_REBUILD_BASE
     [dm createDatabase];
 #else
@@ -56,6 +51,7 @@ static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
         [dm createDatabase];
 #endif
     
+    // Update environment if neccessary
     YYGUpdater *updater = [[YYGUpdater alloc] init];
     [updater checkEnvironment];
         

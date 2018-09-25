@@ -12,7 +12,10 @@
 #import "YGOperationSectionManager.h"
 #import "YGEntityManager.h"
 #import "YGEntity.h"
-#import "YGOperationSectionHeader.h"
+//#import "YGOperationSectionHeader.h"
+
+#import "YYGOperationSectionHeaderView.h"
+
 #import "YGOperationRow.h"
 #import "YGExpenseEditController.h"
 #import "YGAccountActualEditController.h"
@@ -47,19 +50,14 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     NSArray <YGEntity *> *_accounts;
     NSArray <YGEntity *> *_debts;
     
-    YGOperationManager *_om;
     YGOperationSectionManager *p_operationSectionManager;
-    YGCategoryManager *_cm;
-    YGEntityManager *_em;
+    YGCategoryManager *p_categoryManager;
+    YGEntityManager *p_entityManager;
     
-    NSArray <YGOperationSectionHeader *> *p_sectionHeaders;
+//    UIRefreshControl *_refresh;
     
-    UIRefreshControl *_refresh;
-    
-    CGFloat _heightSection;
     CGFloat _heightOneRowCell;
     CGFloat _heightTwoRowCell;
-    
     CGFloat _heightOneAndHalfRowCell;
     
     NSTimer *p_timerToday;
@@ -75,10 +73,10 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _om = [YGOperationManager sharedInstance];
+//    p_operationManager = [YGOperationManager sharedInstance];
     p_operationSectionManager = [YGOperationSectionManager sharedInstance];
-    _cm = [YGCategoryManager sharedInstance];
-    _em = [YGEntityManager sharedInstance];
+    p_categoryManager = [YGCategoryManager sharedInstance];
+    p_entityManager = [YGEntityManager sharedInstance];
     
     p_sections = p_operationSectionManager.sections;
     
@@ -105,7 +103,8 @@ static NSInteger kTimeIntervalForCheckToday = 10;
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     // fill table from cache - p_sections;
-    p_isDataSourceChanged = YES;
+    p_isDataSourceChanged = NO;
+    [self reloadDataFromCache];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -165,28 +164,26 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 }
 
 - (void)reloadDataFromCache {
+    
+    __weak YGOperationViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        // для сравнения с текущей датой при выходе из background/suspend
-        p_dateDataLoaded = [NSDate date];
-        if(!p_sections || [p_sections count] == 0) {
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            self.tableView.userInteractionEnabled = NO;
-            [self showNoDataView];
-        } else {
-            [self hideNoDataView];
-            self.tableView.userInteractionEnabled = YES;
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        if(weakSelf) {
+            YGOperationViewController *strongSelf = weakSelf;
             
-            NSMutableArray <YGOperationSectionHeader *> *headers = [[NSMutableArray alloc] init];
-            [p_sections enumerateObjectsUsingBlock:^(YGOperationSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                YGOperationSectionHeader *header = [[YGOperationSectionHeader alloc] initWithSection:obj];
-                [headers addObject:header];
-            }];
-            p_sectionHeaders = [headers copy];
-            
-            [self.tableView reloadData];
+            // для сравнения с текущей датой при выходе из background/suspend
+            strongSelf->p_dateDataLoaded = [NSDate date];
+            if(!strongSelf->p_sections || [strongSelf->p_sections count] == 0) {
+                strongSelf.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+                strongSelf.tableView.userInteractionEnabled = NO;
+                [strongSelf showNoDataView];
+            } else {
+                [strongSelf hideNoDataView];
+                strongSelf.tableView.userInteractionEnabled = YES;
+                strongSelf.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                [strongSelf.tableView reloadData];
+            }
+            strongSelf->p_isDataSourceChanged = NO;
         }
-        p_isDataSourceChanged = NO;
     });
 }
 
@@ -342,8 +339,8 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 - (void)actionAddExpense {
     
-    if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]
-       || ![_cm isExistActiveCategoryOfType:YGCategoryTypeExpense]) {
+    if(![p_entityManager isExistActiveEntityOfType:YGEntityTypeAccount]
+       || ![p_categoryManager isExistActiveCategoryOfType:YGCategoryTypeExpense]) {
         
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_EXPENSE_MESSAGE", @"Terms for adding operation Expense") preferredStyle:UIAlertControllerStyleAlert];
         
@@ -362,8 +359,8 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 - (void)actionAddIncome {
     
-    if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]
-       || ![_cm isExistActiveCategoryOfType:YGCategoryTypeIncome]) {
+    if(![p_entityManager isExistActiveEntityOfType:YGEntityTypeAccount]
+       || ![p_categoryManager isExistActiveCategoryOfType:YGCategoryTypeIncome]) {
         
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_INCOME_MESSAGE", @"Terms for adding operation Income") preferredStyle:UIAlertControllerStyleAlert];
         
@@ -383,7 +380,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 - (void)actionAddAccountActual {
 
-    if(![_em isExistActiveEntityOfType:YGEntityTypeAccount]) {
+    if(![p_entityManager isExistActiveEntityOfType:YGEntityTypeAccount]) {
         
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_ACCOUNT_ACTUAL_MESSAGE", @"Terms for adding operation Account actual") preferredStyle:UIAlertControllerStyleAlert];
         
@@ -402,7 +399,7 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 
 - (void)actionAddTransfer {
     
-    if([_em countOfActiveEntitiesOfType:YGEntityTypeAccount] < 2) {
+    if([p_entityManager countOfActiveEntitiesOfType:YGEntityTypeAccount] < 2) {
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ATTENTION_ALERT_CONTROLLER_TITLE", @"Attention title of alert controller") message:NSLocalizedString(@"TERMS_FOR_ADD_OPERATION_TRANSFER_MESSAGE", @"Terms for adding operation Transfer") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -502,11 +499,11 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return p_sectionHeaders[section];
+    return [[YYGOperationSectionHeaderView alloc] initWithTitle:p_sections[section].name];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [YGOperationSectionHeader heightSectionHeader];
+    return [YYGOperationSectionHeaderView height];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -532,24 +529,10 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 #pragma mark - UITableDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#ifdef FUNC_DEBUG
-#undef FUNC_DEBUG
-#endif
-    
-#ifdef FUNC_DEBUG
-    NSLog(@"numberOfSectionsInTableView: %ld", [p_sections count]);
-#endif
     return [p_sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#ifdef FUNC_DEBUG
-#undef FUNC_DEBUG
-#endif
-    
-#ifdef FUNC_DEBUG
-    NSLog(@"numberOfRowsInSection: %ld is: %ld", section, [p_sections[section].operationRows count]);
-#endif
     return [p_sections[section].operationRows count];
 }
 
@@ -632,21 +615,16 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 - (CGFloat)heightOneRowCell {
     static CGFloat heightOneRowCell = 0.f;
     
-    if(heightOneRowCell == 0) {
-        NSInteger width = [YGTools deviceScreenWidth];
-        switch(width) {
-            case 320:
-                heightOneRowCell = 44.f;
-                break;
-            case 375:
-                heightOneRowCell = 48.f;
-                break;
-            case 414:
-                heightOneRowCell = 52.f;
-                break;
-            default:
-                heightOneRowCell = 48.f;
-        }
+    if(heightOneRowCell == 0.f) {
+        CGFloat width = [YGTools deviceScreenWidth];
+        if(width <= 320.f)
+            heightOneRowCell = 44.f;
+        else if(width > 320 && width <= 375.f)
+            heightOneRowCell = 48.f;
+        else if(width > 375 && width <= 414.f)
+            heightOneRowCell = 52.f;
+        else
+            heightOneRowCell = 52.f;
     }
     return heightOneRowCell;
 }
@@ -658,24 +636,17 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 - (CGFloat)heightTwoRowCell {
     static CGFloat heightTwoRowCell = 0.f;
     
-    if(heightTwoRowCell == 0) {
-        NSInteger width = [YGTools deviceScreenWidth];
+    if(heightTwoRowCell == 0.f) {
+        CGFloat width = [YGTools deviceScreenWidth];
         
-        NSLog(@"width: %ld", width);
-        
-        switch(width) {
-            case 320:
-                heightTwoRowCell = 80.f;
-                break;
-            case 375:
-                heightTwoRowCell = 88.f;
-                break;
-            case 414:
-                heightTwoRowCell = 96.f;
-                break;
-            default:
-                heightTwoRowCell = 96.f;
-        }
+        if(width <= 320.f)
+            heightTwoRowCell = 80.f;
+        else if(width > 320.f && width <= 375.f)
+            heightTwoRowCell = 88.f;
+        else if(width > 375.f && width <= 414.f)
+            heightTwoRowCell = 96.f;
+        else
+            heightTwoRowCell = 96.f;        
     }
     return heightTwoRowCell;
 }
@@ -730,8 +701,8 @@ static NSInteger kTimeIntervalForCheckToday = 10;
             YGOperationViewController *strongSelf = weakSelf;
             
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
-                [p_operationSectionManager makeSections];
-                p_sections = p_operationSectionManager.sections;
+                [strongSelf->p_operationSectionManager makeSections];
+                strongSelf->p_sections = strongSelf->p_operationSectionManager.sections;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [strongSelf reloadDataFromCache];
@@ -762,12 +733,12 @@ static NSInteger kTimeIntervalForCheckToday = 10;
             if (weakSelf) {
                 YGOperationViewController *strongSelf = weakSelf;
                 
-                self.tableView.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE", @"Title when pull refresh reload table")];
+                strongSelf.tableView.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"OPERATIONS_VIEW_FORM_PULL_REFRESH_RELOAD_TITLE", @"Title when pull refresh reload table")];
                 [strongSelf.tableView.refreshControl beginRefreshing];
                 
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
-                    [p_operationSectionManager makeSections];
-                    p_sections = p_operationSectionManager.sections;
+                    [strongSelf->p_operationSectionManager makeSections];
+                    strongSelf->p_sections = strongSelf->p_operationSectionManager.sections;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf reloadDataFromCache];

@@ -61,8 +61,8 @@
 }
 
 - (id<YYGRowIdAndNameIdentifiable>)defaultEntityWith:(YGEntityType)type currency:(YGCategory *)currency counterpartyType:(YYGCounterpartyType)counterpartyType {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
 #ifdef FUNC_DEBUG
@@ -127,8 +127,8 @@
 }
 
 - (id<YYGRowIdAndNameIdentifiable>)defaultEntityWith:(YGEntityType)type counterpartyType:(YYGCounterpartyType)counterpartyType {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
     YGEntity *defaultEntity;
@@ -169,8 +169,8 @@
 }
 
 - (id<YYGRowIdAndNameIdentifiable>)defaultEntityWith:(YGEntityType)type {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
     YGEntity *defaultEntity;
@@ -209,8 +209,8 @@
 }
 
 - (BOOL)isOnlyChoiceEntityWith:(YGEntityType)type counterpartyType:(YYGCounterpartyType)counterpartyType {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
 #ifdef FUNC_DEBUG
@@ -247,8 +247,8 @@
 }
 
 - (BOOL)isOnlyChoiceEntityWith:(YGEntityType)type {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
 #ifdef FUNC_DEBUG

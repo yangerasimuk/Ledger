@@ -164,7 +164,7 @@
                 case 3:         // Target Sum
                     break;
                 default:
-                    @throw [NSException exceptionWithName:@"YYGSetDebtEditViewModel.showCellAtRow:inSection: fails." reason:@"Unknown row number." userInfo:nil];
+                    @throw [NSException exceptionWithName:@"YYGSetDebtEditViewModel heightForRow:inSection: fails." reason:@"Unknown row number." userInfo:nil];
             }
             break;
         case 2:                 // Comment
@@ -180,11 +180,11 @@
                     height = 0;
                     break;
                 default:
-                    @throw [NSException exceptionWithName:@"YYGSetDebtEditViewModel.showCellAtRow:inSection: fails." reason:@"Unknown row number." userInfo:nil];
+                    @throw [NSException exceptionWithName:@"YYGSetDebtEditViewModel heightForRow:inSection: fails." reason:@"Unknown row number." userInfo:nil];
             }
             break;
         default:
-            @throw [NSException exceptionWithName:@"YYGSetDebtEditViewModel.showCellAtRow:inSection: fails." reason:@"Unknown section number." userInfo:nil];
+            @throw [NSException exceptionWithName:@"YYGSetDebtEditViewModel heightForRow:inSection: fails." reason:@"Unknown section number." userInfo:nil];
     }
     
     return height;

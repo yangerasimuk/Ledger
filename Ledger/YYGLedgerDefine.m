@@ -8,6 +8,12 @@
 
 #import "YYGLedgerDefine.h"
 
+// Flag of app first launch
+NSString *const kIsFirstLaunch = @"IsFirstLaunch";
+
+NSString *const kDeviceScreenWidth = @"DeviceScreenWidth";
+NSString *const kDeviceScreenHeight = @"DeviceScreenHeight";
+
 // Application build date
 NSString *const kAppBuildDate = @"2018-09-11";
 NSString *const kAppBuildDateFormat = @"yyyy-MM-dd";

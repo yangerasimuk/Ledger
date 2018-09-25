@@ -88,8 +88,8 @@
  @return Currencies list of active debts. So allowed for paired accounts.
  */
 - (NSArray <YGCategory *> *)allowCurrenciesWith:(YYGCounterpartyType)type {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
     NSMutableArray <YGCategory *> *currenciesInDebts = [[NSMutableArray alloc] init];

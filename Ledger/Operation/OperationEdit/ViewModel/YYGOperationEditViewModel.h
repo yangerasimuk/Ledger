@@ -39,7 +39,6 @@
 
 - (BOOL)hasSumAndCurrency:(id<YYGRowIdAndNameIdentifiable>)object;
 - (YGCategory *)currencyOf:(id<YYGSumAndCurrencyIdentifiable>)object;
-- (double)sumOf:(id<YYGSumAndCurrencyIdentifiable>)object;
 
 - (BOOL)isSourceNeedForSave;
 - (BOOL)isSourceSumNotNullNeedForSave;

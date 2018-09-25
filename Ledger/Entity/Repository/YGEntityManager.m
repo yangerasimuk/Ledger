@@ -94,9 +94,6 @@
 
 - (void)getEntitiesForCache {
     
-#warning Remove log
-    NSLog(@"YGEntityManager.getEntitiesForCache...");
-    
     NSArray *entitiesRaw = [self entitiesFromDb];
     
     NSMutableDictionary <NSString *, NSMutableArray <YGEntity *> *> *entitiesResult = [[NSMutableDictionary alloc] init];
@@ -120,9 +117,7 @@
         [self sortEntitiesInArray:entitiesResult[type]];
     
     _entities = entitiesResult;
-    
-    NSLog(@"\"EntityManagerCacheUpdateEvent\" notification posted");
-    
+        
     // generate event
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"EntityManagerCacheUpdateEvent"
@@ -383,8 +378,8 @@
 #pragma mark - Auxiliary methods
 
 - (YGEntity *)entityAttachedForType:(YGEntityType)type currencyId:(NSInteger)currencyId counterpartyType:(YYGCounterpartyType)counterpartyType {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
 #ifdef FUNC_DEBUG
@@ -675,8 +670,6 @@
                 account.sum = totalSum;
                 account.modified = [NSDate date];
                 [self updateEntity:[account copy]];
-            } else {
-                NSLog(@"Sum of account is not changed.");
             }
         }
         @catch (NSException *ex) {
@@ -746,8 +739,8 @@
 }
 
 - (NSInteger)countOfActiveEntitiesOfType:(YGEntityType)type currencyId:(NSInteger)currencyId counterpartyType:(YYGCounterpartyType)counterpartyType {
-#ifndef FUNC_DEBUG
-#define FUNC_DEBUG
+#ifdef FUNC_DEBUG
+#undef FUNC_DEBUG
 #endif
     
 #ifdef FUNC_DEBUG
