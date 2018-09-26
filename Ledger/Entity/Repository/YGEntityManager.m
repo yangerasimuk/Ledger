@@ -10,9 +10,11 @@
 #import "YGOperationManager.h"
 #import "YGSQLite.h"
 #import "YGTools.h"
+#import "YYGLedgerDefine.h"
 
 @interface YGEntityManager () {
-    YGSQLite *_sqlite;
+    YGSQLite *p_sqlite;
+    dispatch_queue_t p_queue;
 }
 @end
 
@@ -20,7 +22,7 @@
 
 @synthesize entities = _entities;
 
-#pragma mark - Singleton, init & accessors
+#pragma mark - Singleton & init
 
 + (instancetype)sharedInstance {
     static YGEntityManager *manager = nil;
@@ -34,13 +36,14 @@
 - (instancetype)init {
     self = [super init];
     if(self){
-        _sqlite = [YGSQLite sharedInstance];
-        _entities = [[NSMutableDictionary alloc] init];
-        [self getEntitiesForCache];
+        p_sqlite = [YGSQLite sharedInstance];
+        p_queue = dispatch_queue_create(kEntitiesQueue, NULL);
+
+        [self buildEntitiesCache];
         
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self
-                   selector:@selector(getEntitiesForCache)
+                   selector:@selector(buildEntitiesCache)
                        name:@"DatabaseRestoredEvent"
                      object:nil];
     }
@@ -52,9 +55,25 @@
     [center removeObserver:self];
 }
 
+#pragma Entities setter & getter
+
+- (void)setEntities:(NSMutableDictionary<NSString *,NSMutableArray<YGEntity *> *> *)entities {
+    __weak YGEntityManager *weakSelf = self;
+    dispatch_async(p_queue, ^{
+        YGEntityManager *strongSelf = weakSelf;
+        if(strongSelf)
+            strongSelf->_entities = entities;
+    });
+}
+
 - (NSMutableDictionary<NSString *,NSMutableArray<YGEntity *> *> *)entities {
-    if(!_entities)
-        [self getEntitiesForCache];
+    __weak YGEntityManager *weakSelf = self;
+    dispatch_sync(p_queue, ^{
+        YGEntityManager *strongSelf = weakSelf;
+        if(strongSelf && !strongSelf->_entities) {
+            strongSelf->_entities = [[NSMutableDictionary alloc] init];
+        }
+    });
     return _entities;
 }
 
@@ -64,7 +83,7 @@
     
     NSString *sqlQuery = @"SELECT entity_id, entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment, uuid, counterparty_id, counterparty_type_id FROM entity ORDER BY active DESC, sort ASC;";
     
-    NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
+    NSArray *rawList = [p_sqlite selectWithSqlQuery:sqlQuery];
     
     NSMutableArray <YGEntity *> *result = [[NSMutableArray alloc] init];
     
@@ -92,7 +111,7 @@
     return [result copy];
 }
 
-- (void)getEntitiesForCache {
+- (void)buildEntitiesCache {
     
     NSArray *entitiesRaw = [self entitiesFromDb];
     
@@ -116,8 +135,8 @@
     for(NSString *type in types)
         [self sortEntitiesInArray:entitiesResult[type]];
     
-    _entities = entitiesResult;
-        
+    self.entities = entitiesResult;
+    
     // generate event
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"EntityManagerCacheUpdateEvent"
@@ -163,7 +182,7 @@
         NSString *insertSQL = @"INSERT INTO entity (entity_type_id, name, sum, currency_id, active, created, modified, attach, sort, comment, uuid, counterparty_id, counterparty_type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         // db
-        rowId = [_sqlite addRecord:entityArr insertSQL:insertSQL];
+        rowId = [p_sqlite addRecord:entityArr insertSQL:insertSQL];
     }
     @catch (NSException *exception) {
         NSLog(@"Fail in -[YGEntityManager idAddEntity]. Exception: %@", [exception description]);
@@ -201,11 +220,8 @@
 @warning May be throw exception when return array count > 1?
  */
 - (YGEntity *)entityById:(NSInteger)entityId type:(YGEntityType)type {
-    
     NSArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(type)];
-    
     NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"rowId = %ld", entityId];
-    
     return [[entitiesByType filteredArrayUsingPredicate:idPredicate] firstObject];
 }
 
@@ -216,7 +232,7 @@
  @warning It seems entity updated in EditController edit by reference, so...
  */
 - (void)updateEntity:(YGEntity *)entity{
-    
+        
     // get memory cache
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
     
@@ -240,7 +256,7 @@
                            [YGTools sqlStringForStringNotNull:[entity.uuid UUIDString]]
                            ];
         
-    [_sqlite execSQL:updateSQL];
+    [p_sqlite execSQL:updateSQL];
     
     // if entity set as default unset another ones
     if(!replacedEntity.attach && entity.attach)
@@ -271,7 +287,7 @@
     // update db
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=0, modified=%@ WHERE entity_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)entity.rowId];
     
-    [_sqlite execSQL:updateSQL];
+    [p_sqlite execSQL:updateSQL];
 
     // update memory cache
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
@@ -295,7 +311,7 @@
     // update db
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET active=1, modified=%@ WHERE entity_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)entity.rowId];
     
-    [_sqlite execSQL:updateSQL];
+    [p_sqlite execSQL:updateSQL];
     
     // update memory cache
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
@@ -316,7 +332,7 @@
     // update db
     NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM entity WHERE entity_id = %ld;", (long)entity.rowId];
     
-    [_sqlite removeRecordWithSQL:deleteSQL];
+    [p_sqlite removeRecordWithSQL:deleteSQL];
     
     // update memory cache
     NSMutableArray <YGEntity *> *entitiesByType = [self.entities valueForKey:NSStringFromEntityType(entity.type)];
@@ -452,18 +468,18 @@
 #endif
     
 #ifdef FUNC_DEBUG
-    NSLog(@"entityOnTopForType:%@ currencyId:%ld counterpartyType:%@", NSStringFromEntityType(type), currencyId, NSStringFromCounterpartyType(counterpartyType));
+    NSLog(@"entityOnTopForType:%@ currencyId:%ld counterpartyType:%@", NSStringFromEntityType(type), (long)currencyId, NSStringFromCounterpartyType(counterpartyType));
 #endif
     
     NSArray <YGEntity *> *entities = [self.entities valueForKey:NSStringFromEntityType(type)];
 #ifdef FUNC_DEBUG
-    NSLog(@"entities with type count: %ld", [entities count]);
+    NSLog(@"entities with type count: %ld", (long)[entities count]);
 #endif
     
     NSPredicate *isActive = [NSPredicate predicateWithFormat:@"active = YES"];
     entities = [entities filteredArrayUsingPredicate:isActive];
 #ifdef FUNC_DEBUG
-    NSLog(@"entities with active count: %ld", [entities count]);
+    NSLog(@"entities with active count: %ld", (long)[entities count]);
 #endif
     
     if(entities
@@ -472,7 +488,7 @@
         NSPredicate *hasCurrency = [NSPredicate predicateWithFormat:@"currencyId = %ld", currencyId];
         entities = [entities filteredArrayUsingPredicate:hasCurrency];
 #ifdef FUNC_DEBUG
-        NSLog(@"entities with currencyId count: %ld", [entities count]);
+        NSLog(@"entities with currencyId count: %ld", (long)[entities count]);
 #endif
     }
     
@@ -483,7 +499,7 @@
         NSPredicate *hasCounterparty = [NSPredicate predicateWithFormat:@"counterpartyType = %ld", counterpartyType];
         entities = [entities filteredArrayUsingPredicate:hasCounterparty];
 #ifdef FUNC_DEBUG
-        NSLog(@"entities with debt type and counterpartyType count: %ld", [entities count]);
+        NSLog(@"entities with debt type and counterpartyType count: %ld", (long)[entities count]);
 #endif
     }
     
@@ -508,7 +524,7 @@
     // update db
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE entity SET attach=0, modified=%@ WHERE entity_type_id = %ld AND entity_id != %ld AND attach<>0;", [YGTools sqlStringForDateLocalOrNull:now], (long)entity.type, (long)entity.rowId];
     
-    [_sqlite execSQL:updateSQL];
+    [p_sqlite execSQL:updateSQL];
     
     // update inner storage
     NSPredicate *unAttachedPredicate = [NSPredicate predicateWithFormat:@"type = %ld && rowId != %ld && attach != NO", entity.type, entity.rowId];
@@ -697,7 +713,7 @@
                            (long)YGOperationTypeIncome, (long)YGOperationTypeAccountActual, (long)YGOperationTypeTransfer, (long)YGOperationTypeReturnCredit, (long)YGOperationTypeGiveDebt, (long)YGOperationTypeSetDebt, (long)entity.rowId
                            ];
     
-    NSArray *operations = [_sqlite selectWithSqlQuery:selectSql];
+    NSArray *operations = [p_sqlite selectWithSqlQuery:selectSql];
     
     if([operations count] > 0)
         return YES;

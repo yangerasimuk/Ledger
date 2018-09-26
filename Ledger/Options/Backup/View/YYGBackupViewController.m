@@ -211,7 +211,8 @@
     if ([self.viewModel isNeedLoadView])
         [self finishLoadView];
 
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    if([UIApplication sharedApplication].isIgnoringInteractionEvents)
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     
     [self loadWorkDbInfo];
 }

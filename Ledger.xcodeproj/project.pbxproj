@@ -129,7 +129,6 @@
 		13D9D8961F1A4773001F46B1 /* YYGCategorySection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8951F1A4773001F46B1 /* YYGCategorySection.m */; };
 		13D9D8991F1A5573001F46B1 /* YYGExpenseParentChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */; };
 		13E0D3161F22A83500B0C578 /* YYGDataCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D3151F22A83500B0C578 /* YYGDataCommon.m */; };
-		13E0D31C1F22ABC800B0C578 /* YYGDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */; };
 		13E0D31F1F24DE5A00B0C578 /* YYGAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E0D31E1F24DE5A00B0C578 /* YYGAboutViewController.m */; };
 		13F0D54720E7D95C00DE8CBE /* YYGDBTestDbFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F0D54620E7D95C00DE8CBE /* YYGDBTestDbFormat.m */; };
 		13F0D54C20EB84A400DE8CBE /* YYGUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F0D54B20EB84A400DE8CBE /* YYGUpdater.m */; };
@@ -205,7 +204,7 @@
 		132C0235212A1168000306C5 /* YYGGetCreditEditViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGGetCreditEditViewModel.m; sourceTree = "<group>"; };
 		132C0237212A12D5000306C5 /* YYGReturnCreditEditViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGReturnCreditEditViewModel.h; sourceTree = "<group>"; };
 		132C0238212A12D5000306C5 /* YYGReturnCreditEditViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGReturnCreditEditViewModel.m; sourceTree = "<group>"; };
-		133050F01EDAE29D0031044D /* Ledger-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ledger-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		133050F01EDAE29D0031044D /* Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		133050F61EDAE29D0031044D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		133050F71EDAE29D0031044D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		133050FD1EDAE29D0031044D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -404,8 +403,6 @@
 		13D9D8981F1A5573001F46B1 /* YYGExpenseParentChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGExpenseParentChoiceController.m; sourceTree = "<group>"; };
 		13E0D3141F22A83500B0C578 /* YYGDataCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDataCommon.h; sourceTree = "<group>"; };
 		13E0D3151F22A83500B0C578 /* YYGDataCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDataCommon.m; sourceTree = "<group>"; };
-		13E0D31A1F22ABC800B0C578 /* YYGDataTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGDataTest.h; sourceTree = "<group>"; };
-		13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGDataTest.m; sourceTree = "<group>"; };
 		13E0D31D1F24DE5A00B0C578 /* YYGAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYGAboutViewController.h; sourceTree = "<group>"; };
 		13E0D31E1F24DE5A00B0C578 /* YYGAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYGAboutViewController.m; sourceTree = "<group>"; };
 		13F0D54520E7D95C00DE8CBE /* YYGDBTestDbFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGDBTestDbFormat.h; sourceTree = "<group>"; };
@@ -462,7 +459,7 @@
 		133050F11EDAE29D0031044D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				133050F01EDAE29D0031044D /* Ledger-test.app */,
+				133050F01EDAE29D0031044D /* Ledger.app */,
 				133051091EDAE29D0031044D /* LedgerTests.xctest */,
 				133051141EDAE29D0031044D /* LedgerUITests.xctest */,
 			);
@@ -1083,8 +1080,6 @@
 				13380038215A8A1E0090F88B /* YYGDataRelease.m */,
 				13E0D3141F22A83500B0C578 /* YYGDataCommon.h */,
 				13E0D3151F22A83500B0C578 /* YYGDataCommon.m */,
-				13E0D31A1F22ABC800B0C578 /* YYGDataTest.h */,
-				13E0D31B1F22ABC800B0C578 /* YYGDataTest.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1278,7 +1273,7 @@
 			);
 			name = Ledger;
 			productName = Ledger;
-			productReference = 133050F01EDAE29D0031044D /* Ledger-test.app */;
+			productReference = 133050F01EDAE29D0031044D /* Ledger.app */;
 			productType = "com.apple.product-type.application";
 		};
 		133051081EDAE29D0031044D /* LedgerTests */ = {
@@ -1552,7 +1547,6 @@
 				1397437B20E10BD700391439 /* YGLoadView.m in Sources */,
 				13279D5B1EEDE89900BA46AF /* YGOperationViewController.m in Sources */,
 				132379F61F13F2600051325F /* YGOperationSection.m in Sources */,
-				13E0D31C1F22ABC800B0C578 /* YYGDataTest.m in Sources */,
 				133172412108816600BD5A4F /* YYGExpensesViewModel.m in Sources */,
 				1330519C1EDEF09D0031044D /* YGCategoryManager.m in Sources */,
 				13E0D31F1F24DE5A00B0C578 /* YYGAboutViewController.m in Sources */,
@@ -1781,8 +1775,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Ledger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yangerasimuk.Ledger-test";
-				PRODUCT_NAME = "Ledger-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.com.Ledger;
+				PRODUCT_NAME = Ledger;
 			};
 			name = Debug;
 		};
@@ -1794,8 +1788,8 @@
 				DEVELOPMENT_TEAM = EF64T58JW4;
 				INFOPLIST_FILE = "$(SRCROOT)/Ledger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yangerasimuk.Ledger-test";
-				PRODUCT_NAME = "Ledger-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.com.Ledger;
+				PRODUCT_NAME = Ledger;
 			};
 			name = Release;
 		};

@@ -16,7 +16,7 @@
 + (void)logEvent:(NSString *)event {
     
     YGDBManager *dm = [YGDBManager sharedInstance];
-    if(![dm databaseExists])
+    if(![dm isDatabaseFileExists])
         return;
     
     YGSQLite *sqlite = [YGSQLite sharedInstance];

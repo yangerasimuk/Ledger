@@ -12,10 +12,7 @@
 #import "YGOperationSectionManager.h"
 #import "YGEntityManager.h"
 #import "YGEntity.h"
-//#import "YGOperationSectionHeader.h"
-
 #import "YYGOperationSectionHeaderView.h"
-
 #import "YGOperationRow.h"
 #import "YGExpenseEditController.h"
 #import "YGAccountActualEditController.h"
@@ -73,7 +70,6 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    p_operationManager = [YGOperationManager sharedInstance];
     p_operationSectionManager = [YGOperationSectionManager sharedInstance];
     p_categoryManager = [YGCategoryManager sharedInstance];
     p_entityManager = [YGEntityManager sharedInstance];
@@ -692,9 +688,6 @@ static NSInteger kTimeIntervalForCheckToday = 10;
 }
 
 - (void)reloadDataSource {
-#ifdef DEBUG
-    NSLog(@"YGOperationViewController reloadDataSource");
-#endif
     __weak YGOperationViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (weakSelf) {

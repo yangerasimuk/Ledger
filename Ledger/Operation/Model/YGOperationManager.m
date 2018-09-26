@@ -403,7 +403,7 @@
     
     NSArray *rawList = [_sqlite selectWithSqlQuery:sqlQuery];
     
-#ifdef PERFORMANCE
+#ifdef DEBUG_PERFORMANCE
     NSLog(@"Mapping sqlite result to ponso array");
 #endif
     
@@ -428,7 +428,7 @@
             [result addObject:operation];
         }];
         
-#ifdef PERFORMANCE
+#ifdef DEBUG_PERFORMANCE
         NSLog(@"<< operationsBySqlQuery finished");
 #endif
         

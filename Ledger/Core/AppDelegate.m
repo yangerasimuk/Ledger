@@ -16,48 +16,53 @@
 #import "YYGUpdater.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
-//static NSString *const kIsFirstLaunch = @"IsFirstLaunch";
-
 @interface AppDelegate()
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-        
-    // Dropbox
-    [DBClientsManager setupWithAppKey:kDropboxAppKey];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+#ifdef DEBUG_IS_FIRST_LAUNCH
+    [userDefaults removeObjectForKey:kIsFirstLaunch];
+#endif
+    // First or casual launch flow
+    if(![userDefaults objectForKey:kIsFirstLaunch]
+       || [[userDefaults valueForKey:kIsFirstLaunch] boolValue] == NO) {
+        [userDefaults setBool:YES forKey:kIsFirstLaunch];
+        [self firstLaunch];
+    }
     
     // Save current device screen size in defaults
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     UIScreen *screen = [UIScreen mainScreen];
-    [defaults setObject:@((NSInteger)[screen bounds].size.width) forKey:kDeviceScreenWidth];
-    [defaults setObject:@((NSInteger)[screen bounds].size.height) forKey:kDeviceScreenHeight];
+    [userDefaults setObject:@((NSInteger)[screen bounds].size.width) forKey:kDeviceScreenWidth];
+    [userDefaults setObject:@((NSInteger)[screen bounds].size.height) forKey:kDeviceScreenHeight];
     
-#ifdef DEBUG
-    [defaults setBool:NO forKey:kIsFirstLaunch];
-#else
-    if(![defaults objectForKey:kIsFirstLaunch] || [defaults valueForKey:kIsFirstLaunch] == NO){
-        [defaults setBool:YES forKey:kIsFirstLaunch];
-    }
-#endif
-    
-    // create new work db
+    // Check database exists and create if neccessary
     YGDBManager *dm = [YGDBManager sharedInstance];
-#ifdef DEBUG_REBUILD_BASE
-    [dm createDatabase];
-#else
-    if(![dm databaseExists])
+    if(![dm isDatabaseFileExists])
         [dm createDatabase];
-#endif
     
     // Update environment if neccessary
     YYGUpdater *updater = [[YYGUpdater alloc] init];
     [updater checkEnvironment];
-        
+    
+    // Dropbox setup
+    [DBClientsManager setupWithAppKey:kDropboxAppKey];
+    
     return YES;
 }
 
+/**
+ First launch, specific flow.
+ */
+- (void)firstLaunch {
+#ifdef DEBUG_REBUILD_DATABASE
+    YGDBManager *dm = [YGDBManager sharedInstance];
+    [dm deleteDatabaseFile];
+#endif
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -91,7 +96,7 @@
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
 #ifdef DEBUG
-    NSLog(@"application: openURL: options:");
+    NSLog(@"application:openURL:options:...");
     NSLog(@"openURL: %@", url);
 #endif
     
@@ -108,6 +113,9 @@
     return NO;
 }
 
+/**
+ Load main UI after Launch UIViewController and background tasks finish work.
+ */
 - (void)loadMainUI {
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

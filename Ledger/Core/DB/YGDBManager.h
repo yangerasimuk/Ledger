@@ -14,8 +14,9 @@
 
 - (instancetype)init;
 
-- (BOOL)databaseExists;
+- (BOOL)isDatabaseFileExists;
 - (void)createDatabase;
+- (void)deleteDatabaseFile;
 - (NSString *)lastOperation;
 - (NSString *)databaseFullName;
 

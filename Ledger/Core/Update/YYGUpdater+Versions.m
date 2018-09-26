@@ -87,7 +87,7 @@
         result = sqlite3_open([databaseFullName UTF8String], &db);
         if(result != SQLITE_OK)
             @throw [NSException exceptionWithName:@"Fail to open db."
-                                           reason:[NSString stringWithFormat:@"Result: %ld", result]
+                                           reason:[NSString stringWithFormat:@"Result: %ld", (long)result]
                                          userInfo:nil];
         
         // BEGIN TRANSACTION;
@@ -100,7 +100,7 @@
                 NSLog(@"Error: %@", errMsg);
             }
             @throw [NSException exceptionWithName:@"Fail to begin transaction."
-                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", result, errMsg]
+                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
                                          userInfo:nil];
         }
         
@@ -114,7 +114,7 @@
                 NSLog(@"Error: %@", errMsg);
             }
             @throw [NSException exceptionWithName:@"Fail to add column counterparty_id entity."
-                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", result, errMsg]
+                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
                                          userInfo:nil];
         }
         
@@ -128,7 +128,7 @@
                 NSLog(@"Error: %@", errMsg);
             }
             @throw [NSException exceptionWithName:@"Fail to add column counterparty_type_id entity."
-                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", result, errMsg]
+                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
                                          userInfo:nil];
         }
         
@@ -142,7 +142,7 @@
                 NSLog(@"Error: %@", errMsg);
             }
             @throw [NSException exceptionWithName:@"Fail to delete databaseSchemeVersion record."
-                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", result, errMsg]
+                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
                                          userInfo:nil];
         }
         
@@ -156,7 +156,7 @@
                 NSLog(@"Error: %@", errMsg);
             }
             @throw [NSException exceptionWithName:@"Fail to insert databaseSchemeVersion record."
-                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", result, errMsg]
+                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
                                          userInfo:nil];
         }
         
@@ -170,7 +170,7 @@
                 NSLog(@"Error: %@", errMsg);
             }
             @throw [NSException exceptionWithName:@"Fail to commit transaction."
-                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", result, errMsg]
+                                           reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
                                          userInfo:nil];
         }
         

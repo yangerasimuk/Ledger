@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-//#define APP_STORE 1
-//#define FILL_TEST_DATA 1
-//#define DEBUG_REBUILD_BASE 1
-//#define PERFORMANCE 1
+// #define APP_STORE 1
+// #define DEBUG_PERFORMANCE 1
+// #define DEBUG_IS_FIRST_LAUNCH 1
+// #define DEBUG_REBUILD_DATABASE 1
 
 extern NSString *const kIsFirstLaunch;
 
@@ -38,3 +38,6 @@ extern float kKeyboardAppearanceDelay;
 extern NSString *const kBackupFileNamePattern;
 
 extern NSString *const kDropboxAppKey;
+
+extern char *const kSQLiteQueue;
+extern char *const kEntitiesQueue;

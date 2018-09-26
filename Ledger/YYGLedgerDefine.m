@@ -15,7 +15,7 @@ NSString *const kDeviceScreenWidth = @"DeviceScreenWidth";
 NSString *const kDeviceScreenHeight = @"DeviceScreenHeight";
 
 // Application build date
-NSString *const kAppBuildDate = @"2018-09-11";
+NSString *const kAppBuildDate = @"2018-09-26";
 NSString *const kAppBuildDateFormat = @"yyyy-MM-dd";
 
 // Database scheme version
@@ -49,3 +49,6 @@ float kKeyboardAppearanceDelay = 0.6;
 NSString *const kBackupFileNamePattern = @"^\\d{4}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[-]\\d{2}[+-]\\d{4}\\.ledger\\.db\\.sqlite"; // +.xml
 
 NSString *const kDropboxAppKey = @"ltzx54gtxldo9sn";
+
+char *const kSQLiteQueue = "com.yangerasimuk.Ledger.sqliteQueue";
+char *const kEntitiesQueue = "com.yangerasimuk.Ledger.entitiesQueue";

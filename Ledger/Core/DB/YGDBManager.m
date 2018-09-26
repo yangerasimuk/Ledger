@@ -39,7 +39,7 @@
 #endif
 }
 
-- (BOOL)databaseExists {
+- (BOOL)isDatabaseFileExists {
     
     NSString *pathDb = [YGSQLite databaseFullName];
     
@@ -62,6 +62,18 @@
     
     // Set schema version of new database
     [YYGDBConfig setValue:@2 forKey:kDatabaseSchemeVersionKey];
+}
+
+- (void)deleteDatabaseFile {
+    
+    NSString *pathDb = [YGSQLite databaseFullName];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error;
+    if(![fm removeItemAtPath:pathDb error:&error]) {
+        NSLog(@"YGDBMananger deleteDatabaseFile fails. Error: %@", [error description]);
+    } else {
+        NSLog(@"Database file successfully deleted.");
+    }
 }
 
 - (NSString *)lastOperation {

@@ -69,7 +69,7 @@ static NSInteger const kWidthOfMarginIndents = 45;
  Called from constructor and from outside, when reload operation list
  */
 - (void)makeSections {
-#ifdef PERFORMANCE
+#ifdef DEBUG_PERFORMANCE
     NSLog(@"YGOperationSectionManager.makeSections");
 #endif
     
@@ -80,7 +80,7 @@ static NSInteger const kWidthOfMarginIndents = 45;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:@"OperationSectionManagerMakeSectionsEvent" object:nil];
 
-#ifdef PERFORMANCE
+#ifdef DEBUG_PERFORMANCE
     NSLog(@"<< makeSections finished");
 #endif
 }
@@ -134,7 +134,7 @@ static NSInteger const kWidthOfMarginIndents = 45;
 #pragma mark - Sort sections
 
 - (void)sortSectionsByDate {
-#ifdef PERFORMANCE
+#ifdef DEBUG_PERFORMANCE
     NSLog(@"YGOperationSectionMananger.sortSectionsByDate");
 #endif
     
@@ -147,7 +147,7 @@ static NSInteger const kWidthOfMarginIndents = 45;
             return NSOrderedSame; // :)
     }];
     
-#ifdef PERFORMANCE
+#ifdef DEBUG_PERFORMANCE
     NSLog(@"<< sortSectinsByDate finished");
 #endif
 }
