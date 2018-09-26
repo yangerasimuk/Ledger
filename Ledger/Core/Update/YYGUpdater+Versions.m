@@ -18,7 +18,7 @@
 @implementation YYGUpdater (Versions)
 
 /**
- Update to version 1.2(8).
+ Update to version 1.3(3).
  
  [x] Fix bug with non-process transfer operation while actualize balance of accounts.
  [x] Fix bug with non-update entities list after restore db.
@@ -26,9 +26,9 @@
 
  @return Success or fail.
  */
-- (NSNumber *)updateToVersionMajor1Minor2Build8 {
+- (NSNumber *)updateToVersionMajor1Minor3Build3 {
     
-    NSLog(@"Update to version 1.2(8)...");
+    NSLog(@"Update to version 1.3(3)...");
     
     YGSQLite *db = [YGSQLite sharedInstance];
     
