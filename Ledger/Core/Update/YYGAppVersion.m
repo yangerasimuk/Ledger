@@ -17,9 +17,9 @@
 + (NSArray <YYGAppVersion *> *)updateLog {
     YYGAppVersion *v1_1_13 = [[YYGAppVersion alloc] initWithMajor:1 minor:1 build:13];
     YYGAppVersion *v1_2_6 = [[YYGAppVersion alloc] initWithMajor:1 minor:2 build:6];
-    YYGAppVersion *v1_2_7 = [[YYGAppVersion alloc] initWithMajor:1 minor:2 build:7];
+    YYGAppVersion *v1_2_8 = [[YYGAppVersion alloc] initWithMajor:1 minor:2 build:8];
     
-    return @[v1_1_13, v1_2_6, v1_2_7];
+    return @[v1_1_13, v1_2_6, v1_2_8];
 }
 
 /**
