@@ -52,3 +52,4 @@ NSString *const kDropboxAppKey = @"ltzx54gtxldo9sn";
 
 char *const kSQLiteQueue = "com.yangerasimuk.Ledger.sqliteQueue";
 char *const kEntitiesQueue = "com.yangerasimuk.Ledger.entitiesQueue";
+char *const kReportsQueue = "com.yangerasimuk.Ledger.reportsQueue";

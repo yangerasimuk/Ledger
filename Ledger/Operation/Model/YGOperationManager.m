@@ -360,13 +360,22 @@
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId {
     // TODO: replace for call designed func
     NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(type IN {6,7} AND sourceId = %ld) OR (type IN {5,8} AND targetId = %ld) OR (type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld))", accountId, accountId, accountId, accountId, accountId, accountId];
+	
+	NSSortDescriptor *orderByDay = [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:YES];
+	NSSortDescriptor *orderByModified = [NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:YES];
+	[self.operations sortUsingDescriptors:@[orderByDay, orderByModified]];
+	
     return [self.operations filteredArrayUsingPredicate:operPredicate];
 }
 
 - (NSArray <YGOperation *> *)operationsWithAccountId:(NSInteger)accountId sinceAccountActual:(YGOperation *)operation {
     
     NSPredicate *operPredicate = [NSPredicate predicateWithFormat:@"(day >= %@ AND modified >= %@) AND ((type IN {6,7} AND sourceId = %ld) OR (type IN {5,8} AND targetId = %ld) OR (type = 2 AND sourceId = %ld) OR (type = 1 AND targetId = %ld) OR (type = 4 AND (sourceId = %ld OR targetId = %ld)))", operation.day, operation.modified, accountId, accountId, accountId, accountId, accountId, accountId];
-    
+	
+	NSSortDescriptor *orderByDay = [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:YES];
+	NSSortDescriptor *orderByModified = [NSSortDescriptor sortDescriptorWithKey:@"modified" ascending:YES];
+	[self.operations sortUsingDescriptors:@[orderByDay, orderByModified]];
+	
     return [self.operations filteredArrayUsingPredicate:operPredicate];
 }
 

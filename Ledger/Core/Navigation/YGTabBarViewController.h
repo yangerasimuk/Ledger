@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
+/*
+ Переопределенный контроллер вкладок
+ Необходим для рефакторинга сториборды, и выделения вьюКонтроллеров в код.
+ */
 @interface YGTabBarViewController : UITabBarController
 
 @end

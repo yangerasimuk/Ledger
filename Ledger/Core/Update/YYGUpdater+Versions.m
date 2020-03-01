@@ -17,6 +17,99 @@
 
 @implementation YYGUpdater (Versions)
 
+- (NSNumber *)updateToVersionMajor1Minor4Build1
+{
+	NSLog(@"Update to version 1.4(1)...");
+
+	// Prepare updade
+	BOOL updateResult = NO;
+	NSInteger result = NSNotFound;
+	sqlite3 *db;
+	NSString *sql;
+	char *error = 0;
+
+	@try {
+		// Open db
+		NSString *databaseFullName = [[YGTools documentsDirectoryPath] stringByAppendingPathComponent:kDatabaseName];
+		NSInteger result = NSNotFound;
+		result = sqlite3_open([databaseFullName UTF8String], &db);
+		if(result != SQLITE_OK)
+			@throw [NSException exceptionWithName:@"Fail to open db."
+										   reason:[NSString stringWithFormat:@"Result: %ld", (long)result]
+										 userInfo:nil];
+
+		// BEGIN TRANSACTION;
+		sql = @"BEGIN TRANSACTION";
+		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
+		if(result != SQLITE_OK) {
+			NSString *errMsg = nil;
+			if(error){
+				errMsg = [NSString stringWithUTF8String:error];
+				NSLog(@"Error: %@", errMsg);
+			}
+			@throw [NSException exceptionWithName:@"Fail to begin transaction."
+										   reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
+										 userInfo:nil];
+		}
+		
+		// Добавить таблицу report
+		sql = @"CREATE TABLE IF NOT EXISTS report "
+		"(report_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"report_type_id INTEGER NOT NULL, "
+		"name TEXT NOT NULL, "
+		"active INTEGER NOT NULL, "
+		"created TEXT NOT NULL, "
+		"modified TEXT, "
+		"sort INTEGER NOT NULL, "
+		"comment TEXT, "
+		"uuid TEXT NOT NULL, "
+		");";
+		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
+		if(result != SQLITE_OK) {
+			NSString *errMsg = nil;
+			if(error){
+				errMsg = [NSString stringWithUTF8String:error];
+				NSLog(@"Error: %@", errMsg);
+			}
+			@throw [NSException exceptionWithName:@"Fail to add column counterparty_id entity."
+										   reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
+										 userInfo:nil];
+		}
+
+		// COMMIT
+		sql = @"COMMIT";
+		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
+		if(result != SQLITE_OK) {
+			NSString *errMsg = nil;
+			if(error){
+				errMsg = [NSString stringWithUTF8String:error];
+				NSLog(@"Error: %@", errMsg);
+			}
+			@throw [NSException exceptionWithName:@"Fail to commit transaction."
+										   reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
+										 userInfo:nil];
+		}
+		updateResult = YES;
+	}
+	@catch(NSException *ex) {
+		NSLog(@"YYGUpdater exception handled. Message: %@", [ex description]);
+
+		// ROLLBACK?
+		sql = @"ROLLBACK";
+		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
+		if(result != SQLITE_OK) {
+			NSLog(@"Fail to rollback transaction.");
+			if(error)
+				NSLog(@"Error: %@", [NSString stringWithUTF8String:error]);
+		}
+		updateResult = NO;
+	}
+	@finally {
+		sqlite3_close(db);
+		return [NSNumber numberWithBool:updateResult];
+	}
+}
+
 /**
  Update to version 1.3(3).
  

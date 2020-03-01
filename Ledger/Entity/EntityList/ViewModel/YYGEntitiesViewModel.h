@@ -12,7 +12,8 @@
 #import <ReactiveObjC/ReactiveObjC.h>
 
 @protocol YYGEntitiesViewModelable
-@property (assign, nonatomic) YGEntityType type;
+
+@property (assign, nonatomic) YGEntityType type;	/**< Depricated. Сейчас заполняется при создании vc */
 @property (strong, nonatomic) NSMutableArray<YGEntity *> *entities;
 @property (strong, nonatomic) RACSubject *cacheUpdateEvent;
 @property (strong, nonatomic) RACSubject *decimalFractionHideChangeEvent;

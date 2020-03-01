@@ -12,6 +12,7 @@
 
 @interface YGEntityViewController : UITableViewController
 
+@property (assign, nonatomic) YGEntityType type;	/**< Тип сущности - счёт или долг */
 @property (strong, nonatomic, readonly) id<YYGEntitiesViewModelable> viewModel;
 
 @end

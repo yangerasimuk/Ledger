@@ -165,6 +165,28 @@
     [self createTable:@"entity" createSQL:createSql];
     
     [YYGDBLog logEvent:@"Table entity created"];
+	
+	#ifdef DEBUG_REBUILD_DATABASE
+		if([self isTableExist:@"report"])
+			[self dropTable:@"report"];
+	#endif
+	
+	createSql = @"CREATE TABLE IF NOT EXISTS report "
+	"(report_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+	"report_type_id INTEGER NOT NULL, "
+	"name TEXT NOT NULL, "
+	"active INTEGER NOT NULL, "
+	"created TEXT NOT NULL, "
+	"modified TEXT, "
+	"sort INTEGER NOT NULL, "
+	"comment TEXT, "
+	"uuid TEXT NOT NULL, "
+	");";
+	
+	[self createTable:@"report" createSQL:createSql];
+	
+	[YYGDBLog logEvent:@"Table report created"];
+
     
 #ifdef DEBUG_REBUILD_DATABASE
     if([self isTableExist:@"operation"])

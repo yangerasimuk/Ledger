@@ -40,18 +40,7 @@ static NSString *const kEntityCellId = @"EntityCellId";
 }
 
 - (void)injectViewModel {
-    YGEntityType type = 0;
-    switch(self.tabBarController.selectedIndex) {
-        case 1:
-            type = YGEntityTypeAccount;
-            break;
-        case 2:
-            type = YGEntityTypeDebt;
-            break;
-        default:
-            @throw [NSException exceptionWithName:@"YYGEntityViewController.injectViewModel fails" reason:@"Unknown entity type" userInfo:nil];
-    }
-    _viewModel = [YYGEntitiesViewModel viewModelWith:type];
+    _viewModel = [YYGEntitiesViewModel viewModelWith:self.type];
 }
 
 - (void)setupUI {
