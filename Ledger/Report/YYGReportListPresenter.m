@@ -14,7 +14,7 @@
 - (void)didLoad
 {
 	[self.view setupUI];
-	[self.view showNoDataView];
+	[self.view showEmptyView];
 }
 
 @end

@@ -15,11 +15,12 @@
 @implementation YYGAppVersion
 
 + (NSArray <YYGAppVersion *> *)updateLog {
-    YYGAppVersion *v1_1_13 = [[YYGAppVersion alloc] initWithMajor:1 minor:1 build:13];
-    YYGAppVersion *v1_2_6 = [[YYGAppVersion alloc] initWithMajor:1 minor:2 build:6];
-    YYGAppVersion *v1_3_3 = [[YYGAppVersion alloc] initWithMajor:1 minor:3 build:3];
-    
-    return @[v1_1_13, v1_2_6, v1_3_3];
+	YYGAppVersion *v1_1_13 = [[YYGAppVersion alloc] initWithMajor:1 minor:1 build:13];
+	YYGAppVersion *v1_2_6 = [[YYGAppVersion alloc] initWithMajor:1 minor:2 build:6];
+	YYGAppVersion *v1_3_3 = [[YYGAppVersion alloc] initWithMajor:1 minor:3 build:3];
+	YYGAppVersion *v1_4_1 = [[YYGAppVersion alloc] initWithMajor:1 minor:4 build:1];
+
+	return @[v1_1_13, v1_2_6, v1_3_3, v1_4_1];
 }
 
 /**

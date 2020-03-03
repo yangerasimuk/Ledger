@@ -116,6 +116,10 @@
 		13A658162115F39B0059C2BF /* YGOperationViewController+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A658152115F39B0059C2BF /* YGOperationViewController+Actions.m */; };
 		13A6582A21188C100059C2BF /* YYGOperationPermissionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A6582921188C100059C2BF /* YYGOperationPermissionViewModel.m */; };
 		13B129662308C151007045B2 /* YYGReportListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B129652308C151007045B2 /* YYGReportListViewController.m */; };
+		13C6C060240DA2B80093741B /* YYGEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C6C05F240DA2B80093741B /* YYGEmptyView.m */; };
+		13C6C063240E1CD50093741B /* YYGApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C6C062240E1CD50093741B /* YYGApplication.m */; };
+		13C6C066240EE80F0093741B /* YYGSemanticFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C6C065240EE80F0093741B /* YYGSemanticFont.m */; };
+		13C6C069240EE81D0093741B /* YYGSemanticColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C6C068240EE81D0093741B /* YYGSemanticColor.m */; };
 		13CCF86C1F16861400EAB928 /* YGFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8521F16861400EAB928 /* YGFile.m */; };
 		13CCF86D1F16861400EAB928 /* YGFileSystemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8551F16861400EAB928 /* YGFileSystemObject.m */; };
 		13CCF86E1F16861400EAB928 /* YGSearchRuleNameIsRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF8561F16861400EAB928 /* YGSearchRuleNameIsRegex.m */; };
@@ -383,6 +387,14 @@
 		13A6582921188C100059C2BF /* YYGOperationPermissionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGOperationPermissionViewModel.m; sourceTree = "<group>"; };
 		13B129642308C151007045B2 /* YYGReportListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGReportListViewController.h; sourceTree = "<group>"; };
 		13B129652308C151007045B2 /* YYGReportListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGReportListViewController.m; sourceTree = "<group>"; };
+		13C6C05E240DA2B70093741B /* YYGEmptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGEmptyView.h; sourceTree = "<group>"; };
+		13C6C05F240DA2B80093741B /* YYGEmptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGEmptyView.m; sourceTree = "<group>"; };
+		13C6C061240E1CD50093741B /* YYGApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGApplication.h; sourceTree = "<group>"; };
+		13C6C062240E1CD50093741B /* YYGApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGApplication.m; sourceTree = "<group>"; };
+		13C6C064240EE80F0093741B /* YYGSemanticFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGSemanticFont.h; sourceTree = "<group>"; };
+		13C6C065240EE80F0093741B /* YYGSemanticFont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGSemanticFont.m; sourceTree = "<group>"; };
+		13C6C067240EE81D0093741B /* YYGSemanticColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGSemanticColor.h; sourceTree = "<group>"; };
+		13C6C068240EE81D0093741B /* YYGSemanticColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGSemanticColor.m; sourceTree = "<group>"; };
 		13CCF8521F16861400EAB928 /* YGFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGFile.m; sourceTree = "<group>"; };
 		13CCF8531F16861400EAB928 /* YGFileSystemObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGFileSystemObject.h; sourceTree = "<group>"; };
 		13CCF8541F16861400EAB928 /* YGSearchPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGSearchPattern.h; sourceTree = "<group>"; };
@@ -465,8 +477,8 @@
 			children = (
 				131531B8240C247C007677C2 /* YYGReportManager.h */,
 				131531B9240C247C007677C2 /* YYGReportManager.m */,
-				131531BB240C2746007677C2 /* YYGReport.h */,
 				131531BC240C2746007677C2 /* YYGReport.m */,
+				131531BB240C2746007677C2 /* YYGReport.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1094,6 +1106,14 @@
 				1397437A20E10BD700391439 /* YGLoadView.m */,
 				133172632109ED9900BD5A4F /* YYGNoDataView.h */,
 				133172642109ED9900BD5A4F /* YYGNoDataView.m */,
+				13C6C05E240DA2B70093741B /* YYGEmptyView.h */,
+				13C6C05F240DA2B80093741B /* YYGEmptyView.m */,
+				13C6C061240E1CD50093741B /* YYGApplication.h */,
+				13C6C062240E1CD50093741B /* YYGApplication.m */,
+				13C6C064240EE80F0093741B /* YYGSemanticFont.h */,
+				13C6C065240EE80F0093741B /* YYGSemanticFont.m */,
+				13C6C067240EE81D0093741B /* YYGSemanticColor.h */,
+				13C6C068240EE81D0093741B /* YYGSemanticColor.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1510,8 +1530,11 @@
 				1331726E210A0C4E00BD5A4F /* YYGAccountsViewModel.m in Sources */,
 				133172572109BECF00BD5A4F /* YYGIncomeViewModel.m in Sources */,
 				13279DBF1EF1903B00BA46AF /* YGCategoryDefaultEditController.m in Sources */,
+				13C6C063240E1CD50093741B /* YYGApplication.m in Sources */,
 				135510E81F177096004F10DE /* YYGConfigDefine.m in Sources */,
 				13CCF86E1F16861400EAB928 /* YGSearchRuleNameIsRegex.m in Sources */,
+				13C6C069240EE81D0093741B /* YYGSemanticColor.m in Sources */,
+				13C6C066240EE80F0093741B /* YYGSemanticFont.m in Sources */,
 				1331723E2108815A00BD5A4F /* YYGIncomesViewModel.m in Sources */,
 				132C0236212A1168000306C5 /* YYGGetCreditEditViewModel.m in Sources */,
 				133C00251F1777B400D0CB0E /* YYGFileSystemError.m in Sources */,
@@ -1531,6 +1554,7 @@
 				13CCF86F1F16861400EAB928 /* YGDirectory.m in Sources */,
 				13279D4D1EED949900BA46AF /* YGEntity.m in Sources */,
 				133172512109BEAD00BD5A4F /* YYGExpenseViewModel.m in Sources */,
+				13C6C060240DA2B80093741B /* YYGEmptyView.m in Sources */,
 				133051991EDEEFBC0031044D /* YGCategory.m in Sources */,
 				137E80D920F241E2000E4B7A /* main.m in Sources */,
 				133977BA21278FC00029297C /* YYGDebtSelectViewModel.m in Sources */,
@@ -1829,11 +1853,13 @@
 			baseConfigurationReference = 7D9EA6EC8CCFEC6265AFDFD7 /* Pods-Ledger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EF64T58JW4;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Ledger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.LedgerT;
 				PRODUCT_NAME = LedgerT;
 			};
@@ -1844,9 +1870,11 @@
 			baseConfigurationReference = 3F386E3B4F2A62DBAA823C4A /* Pods-Ledger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EF64T58JW4;
 				INFOPLIST_FILE = "$(SRCROOT)/Ledger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangerasimuk.LedgerT;
 				PRODUCT_NAME = LedgerT;
 			};

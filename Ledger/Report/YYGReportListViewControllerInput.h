@@ -9,6 +9,7 @@
 @protocol YYGReportListViewControllerInput
 
 - (void)setupUI;
-- (void)showNoDataView;
+- (void)showEmptyView;
+- (void)hideEmptyView;
 
 @end

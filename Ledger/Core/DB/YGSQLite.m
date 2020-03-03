@@ -180,12 +180,48 @@
 	"modified TEXT, "
 	"sort INTEGER NOT NULL, "
 	"comment TEXT, "
-	"uuid TEXT NOT NULL, "
+	"uuid TEXT NOT NULL"
 	");";
 	
 	[self createTable:@"report" createSQL:createSql];
 	
 	[YYGDBLog logEvent:@"Table report created"];
+	
+	#ifdef DEBUG_REBUILD_DATABASE
+		if([self isTableExist:@"report_parameter"])
+			[self dropTable:@"report_parameter"];
+	#endif
+	
+	createSql = @"CREATE TABLE IF NOT EXISTS report_parameter "
+	"(report_parameter_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+	"report_parameter_type_id INTEGER NOT NULL, "
+	"report_id INTEGER NOT NULL, "
+	"uuid TEXT NOT NULL"
+	");";
+	
+	[self createTable:@"report_parameter" createSQL:createSql];
+	
+	[YYGDBLog logEvent:@"Table report_parameter created"];
+	
+	#ifdef DEBUG_REBUILD_DATABASE
+		if([self isTableExist:@"report_value"])
+			[self dropTable:@"report_value"];
+	#endif
+	
+	createSql = @"CREATE TABLE IF NOT EXISTS report_value "
+	"(report_value_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+	"report_value_type_id INTEGER NOT NULL, "
+	"report_parameter_id INTEGER NOT NULL, "
+	"value_text TEXT NULL, "
+	"value_bool INTEGER NULL, "
+	"value_integer INTEGER NULL, "
+	"value_float REAL NULL, "
+	"uuid TEXT NOT NULL"
+	");";
+	
+	[self createTable:@"report_value" createSQL:createSql];
+	
+	[YYGDBLog logEvent:@"Table report_value created"];
 
     
 #ifdef DEBUG_REBUILD_DATABASE

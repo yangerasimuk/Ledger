@@ -62,7 +62,7 @@
 		"modified TEXT, "
 		"sort INTEGER NOT NULL, "
 		"comment TEXT, "
-		"uuid TEXT NOT NULL, "
+		"uuid TEXT NOT NULL"
 		");";
 		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
 		if(result != SQLITE_OK) {
@@ -71,7 +71,49 @@
 				errMsg = [NSString stringWithUTF8String:error];
 				NSLog(@"Error: %@", errMsg);
 			}
-			@throw [NSException exceptionWithName:@"Fail to add column counterparty_id entity."
+			@throw [NSException exceptionWithName:@"Fail to create report table."
+										   reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
+										 userInfo:nil];
+		}
+		
+		// Добавить таблицу report_parameter
+		sql = @"CREATE TABLE IF NOT EXISTS report_parameter "
+		"(report_parameter_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"report_parameter_type_id INTEGER NOT NULL, "
+		"report_id INTEGER NOT NULL, "
+		"uuid TEXT NOT NULL"
+		");";
+		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
+		if(result != SQLITE_OK) {
+			NSString *errMsg = nil;
+			if(error){
+				errMsg = [NSString stringWithUTF8String:error];
+				NSLog(@"Error: %@", errMsg);
+			}
+			@throw [NSException exceptionWithName:@"Fail to create report_parameter table."
+										   reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
+										 userInfo:nil];
+		}
+		
+		// Добавить таблицу report_value
+		sql = @"CREATE TABLE IF NOT EXISTS report_value "
+		"(report_value_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"report_value_type_id INTEGER NOT NULL, "
+		"report_parameter_id INTEGER NOT NULL, "
+		"value_text TEXT NULL, "
+		"value_bool INTEGER NULL, "
+		"value_integer INTEGER NULL, "
+		"value_float REAL NULL, "
+		"uuid TEXT NOT NULL"
+		");";
+		result = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &error);
+		if(result != SQLITE_OK) {
+			NSString *errMsg = nil;
+			if(error){
+				errMsg = [NSString stringWithUTF8String:error];
+				NSLog(@"Error: %@", errMsg);
+			}
+			@throw [NSException exceptionWithName:@"Fail to create report_value table."
 										   reason:[NSString stringWithFormat:@"Result: %ld, error: %@", (long)result, errMsg]
 										 userInfo:nil];
 		}

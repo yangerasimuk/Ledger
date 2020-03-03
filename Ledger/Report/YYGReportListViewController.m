@@ -7,13 +7,13 @@
 //
 
 #import "YYGReportListViewController.h"
-#import "YYGNoDataView.h"
 #import "YYGReportListViewControllerOutput.h"
+#import "YYGEmptyView.h"
 
 
 @interface YYGReportListViewController ()
 
-@property (nonatomic, strong) YYGNoDataView *noDataView;
+@property (nonatomic, strong) YYGEmptyView *emptyView;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -34,14 +34,20 @@
 
 - (void)setupUI
 {
+	self.view.backgroundColor = [UIColor whiteColor];
+	
 	[self createTableView];
+	[self createEmptyView];
 }
 
 
 #pragma mark - User inerface
+
 - (void)createTableView
 {
 	self.tableView = [UITableView new];
+	self.tableView.tableFooterView = [UIView new];
+	self.tableView.hidden = YES;
 	[self.view addSubview:self.tableView];
 	
 	self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -52,18 +58,24 @@
 	 [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor]]];
 }
 
-#pragma mark - Show/hide No operation view
-
-- (void)showNoDataView
+- (void)createEmptyView
 {
-    if(!self.noDataView) {
-        self.noDataView = [[YYGNoDataView alloc] initWithFrame:self.tableView.frame forView:self.tableView];
-    }
-    [self.noDataView showMessage:@"Нет отчётов"];
+	self.emptyView = [[YYGEmptyView alloc] initWithParentView:self.view
+											 navBarController:self.navigationController
+											 tabBarController:self.tabBarController];
 }
 
-- (void)hideNoDataView {
-    [self.noDataView hide];
+
+#pragma mark - Show/hide empty view
+
+- (void)showEmptyView
+{
+	[self.emptyView showWithMessage:@"No reports"];
+}
+
+- (void)hideEmptyView
+{
+	[self.emptyView hide];
 }
 
 @end
