@@ -6,10 +6,15 @@
 //  Copyright © 2020 Yan Gerasimuk. All rights reserved.
 //
 
+#import "YYGReport.h"
+
+
 @protocol YYGReportListViewControllerInput
 
 - (void)setupUI;
 - (void)showEmptyView;
 - (void)hideEmptyView;
+
+- (void)showReports:(NSArray <YYGReport *> *)reports;
 
 @end

@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class YYGReportParameter;
+
 typedef NS_ENUM(NSInteger, YYGReportType) {
-	YYGReportTypeAccountActual		= 1,	/**< Остаток по счетам */
+	YYGReportTypeAccountBalances		= 1,	/**< Остаток по счетам */
 };
 
 NSString * _Nonnull NSStringFromReportType(YYGReportType type);
@@ -20,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YYGReport : NSObject <NSCopying>
 
+// Сырые свойства из базы данных
 @property (nonatomic, assign) NSInteger rowId;
 @property (nonatomic, assign) YYGReportType type;
 @property (nonatomic, copy) NSString *name;
@@ -29,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger sort;
 @property (nonatomic, copy) NSString *comment;
 @property (nonatomic, copy) NSUUID *uuid;
+
+// Комплексный объект - параметры и их значения
+@property (nonatomic, copy) NSMutableArray <YYGReportParameter *> *parameters;
 
 - (instancetype)initWithRowId:(NSInteger)rowId type:(YYGReportType)type name:(NSString *)name
 					   active:(BOOL)active created:(NSDate *)created modified:(NSDate *)modified

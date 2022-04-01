@@ -9,13 +9,25 @@
 #import "YGTabBarViewController.h"
 #import "YGOperationViewController.h"
 #import "YGEntityViewController.h"
-#import "YYGReportListViewController.h"
+//#import "YYGReportListViewController.h"
 #import "YGOptionViewController.h"
 #import "YYGReportAssembly.h"
+
+
+typedef NS_ENUM(NSInteger, YYGTabTag)
+{
+	YYGTabTagOperation		= 0,
+	YYGTabTagReport			= 1,
+	YYGTabTagAccount		= 2,
+	YYGTabTagDebt			= 3,
+	YYGTabTagOption			= 4
+};
+
 
 @interface YGTabBarViewController ()
 
 @end
+
 
 // TODO: добавить локализацию строк
 @implementation YGTabBarViewController
@@ -42,18 +54,23 @@
 	UIImage *accountImage = [UIImage imageNamed:@"tabItemOperations"];
 	operationNC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Операции"
 														 image:accountImage
-														   tag:0];
+														   tag:YYGTabTagOperation];
 	
 	return operationNC;
 }
 
+/// Навигационный контроллер для Отчётов
 - (UINavigationController *)navControllerForReport
 {
 	UINavigationController *navController = [UINavigationController new];
-	YYGReportListViewController *reportVC = [[YYGReportAssembly new] reportViewController];
+	YYGReportAssembly *assembly = [YYGReportAssembly new];
+	UIViewController *reportVC = [assembly reportListViewControllerWithNavController:navController];
 	
 	navController.viewControllers = @[reportVC];
-	navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Отчёты" image:[UIImage imageNamed:@"tabItemReports"] tag:1];
+	UIImage *reportImage = [UIImage imageNamed:@"tabItemReports"];
+	navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Отчёты"
+															 image:reportImage
+															   tag:YYGTabTagReport];
 	return navController;
 }
 
@@ -68,7 +85,7 @@
 	UIImage *accountImage = [UIImage imageNamed:@"tabItemAccounts"];
 	accountNC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Счёта"
 														 image:accountImage
-														   tag:2];
+														   tag:YYGTabTagAccount];
 	
 	return accountNC;
 }
@@ -83,8 +100,8 @@
 	debtNC.viewControllers = @[debtVC];
 	UIImage *accountImage = [UIImage imageNamed:@"tabItemDebts"];
 	debtNC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Долги"
-														 image:accountImage
-														   tag:3];
+													  image:accountImage
+														tag:YYGTabTagDebt];
 	
 	return debtNC;
 }
@@ -97,8 +114,8 @@
 	optionNC.viewControllers = @[optionVC];
 	UIImage *accountImage = [UIImage imageNamed:@"tabItemOptions"];
 	optionNC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Настройки"
-														 image:accountImage
-														   tag:4];
+														image:accountImage
+														  tag:YYGTabTagOption];
 	
 	return optionNC;
 }

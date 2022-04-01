@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YYGReportListViewController : UIViewController <YYGReportListViewControllerInput>
 
-@property (nonatomic, strong) id<YYGReportListViewControllerOutput> output;
+@property (nonatomic, strong) id<YYGReportListViewControllerOutput> output;	/**< Presenter */
 
 @end
 

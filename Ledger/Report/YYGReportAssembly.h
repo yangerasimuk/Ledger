@@ -7,14 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "YYGReportListViewController.h"
-#import "YYGReportListPresenter.h"
+#import "YYGReport.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface YYGReportAssembly : NSObject
 
-- (YYGReportListViewController *)reportViewController;
+/// Навигационный контроллер для Отчётов.
+/// Запускается первым в сценариях работы с отчётами.
+///
+/// @param navController Навигационный контроллер
+- (UIViewController *)reportListViewControllerWithNavController:(UINavigationController *)navController;
+
+- (UIViewController *)selectReportTypeViewController;
+
+- (UIViewController *)addReportViewControllerForType:(YYGReportType)reportType;
+
+- (UIViewController *)viewControllerWithReport:(YYGReport *)report;
 
 @end
 

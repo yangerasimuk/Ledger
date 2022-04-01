@@ -25,6 +25,8 @@
 		_sort = sort;
 		_comment = [comment copy];
 		_uuid = [uuid copy];
+		
+		_parameters = [NSMutableArray new];
 	}
 	return self;
 }
@@ -46,6 +48,8 @@
 		return NO;
 	if (![self.uuid isEqual:otherReport.uuid])
 		return NO;
+	if (![self.parameters isEqualToArray:otherReport.parameters])
+		return NO;
 	
 	return YES;
 }
@@ -59,7 +63,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"Report. RowId:%ld, type:%ld, name:%@, active:%ld created:%@, modified:%@, sort:%ld, comment:%@, uuid:%@", (long)_rowId, (long)_type, _name, (long)_active, _created, _modified, (long)_sort, _comment, _uuid];
+	return [NSString stringWithFormat:@"Report. RowId:%ld, type:%@, name:%@, active:%ld created:%@, modified:%@, sort:%ld, comment:%@, uuid:%@, parameters:%@", (long)_rowId, NSStringFromReportType(_type), _name, (long)_active, _created, _modified, (long)_sort, _comment, _uuid, _parameters];
 }
 
 
@@ -68,6 +72,7 @@
 - (id)copyWithZone:(NSZone *)zone
 {
 	YYGReport *newReport = [[YYGReport alloc] initWithRowId:_rowId type:_type name:_name active:_active created:_created modified:_modified sort:_sort comment:_comment uuid:_uuid];
+	newReport.parameters = [_parameters copy];
 	return newReport;
 }
 
@@ -77,7 +82,7 @@ NSString * NSStringFromReportType(YYGReportType type)
 {
 	switch (type)
 	{
-		case YYGReportTypeAccountActual:
+		case YYGReportTypeAccountBalances:
 			return @"Остаток по счетам";
 		default:
 			@throw [NSException exceptionWithName:@"YYGReport NSStringFromReportType()" reason:@"Unknown report type." userInfo:nil];

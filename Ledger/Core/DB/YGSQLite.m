@@ -172,16 +172,16 @@
 	#endif
 	
 	createSql = @"CREATE TABLE IF NOT EXISTS report "
-	"(report_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	"report_type_id INTEGER NOT NULL, "
-	"name TEXT NOT NULL, "
-	"active INTEGER NOT NULL, "
-	"created TEXT NOT NULL, "
-	"modified TEXT, "
-	"sort INTEGER NOT NULL, "
-	"comment TEXT, "
-	"uuid TEXT NOT NULL"
-	");";
+		"(report_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"report_type_id INTEGER NOT NULL, "
+		"name TEXT NOT NULL, "
+		"active INTEGER NOT NULL, "
+		"created TEXT NOT NULL, "
+		"modified TEXT, "
+		"sort INTEGER NOT NULL, "
+		"comment TEXT, "
+		"uuid TEXT NOT NULL"
+		");";
 	
 	[self createTable:@"report" createSQL:createSql];
 	
@@ -193,11 +193,11 @@
 	#endif
 	
 	createSql = @"CREATE TABLE IF NOT EXISTS report_parameter "
-	"(report_parameter_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	"report_parameter_type_id INTEGER NOT NULL, "
-	"report_id INTEGER NOT NULL, "
-	"uuid TEXT NOT NULL"
-	");";
+		"(report_parameter_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"report_parameter_type_id INTEGER NOT NULL, "
+		"report_id INTEGER NOT NULL, "
+		"uuid TEXT NOT NULL"
+		");";
 	
 	[self createTable:@"report_parameter" createSQL:createSql];
 	
@@ -209,15 +209,15 @@
 	#endif
 	
 	createSql = @"CREATE TABLE IF NOT EXISTS report_value "
-	"(report_value_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	"report_value_type_id INTEGER NOT NULL, "
-	"report_parameter_id INTEGER NOT NULL, "
-	"value_text TEXT NULL, "
-	"value_bool INTEGER NULL, "
-	"value_integer INTEGER NULL, "
-	"value_float REAL NULL, "
-	"uuid TEXT NOT NULL"
-	");";
+		"(report_value_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"report_value_type_id INTEGER NOT NULL, "
+		"report_parameter_id INTEGER NOT NULL, "
+		"value_text TEXT NULL, "
+		"value_bool INTEGER NULL, "
+		"value_integer INTEGER NULL, "
+		"value_float REAL NULL, "
+		"uuid TEXT NOT NULL"
+		");";
 	
 	[self createTable:@"report_value" createSQL:createSql];
 	

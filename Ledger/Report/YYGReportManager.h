@@ -15,13 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YYGReportManager : NSObject
 
-@property (strong, nonatomic, readonly) NSMutableDictionary <NSString *, NSMutableArray <YYGReport *>*> *reports;
+//@property (strong, nonatomic, readonly) NSMutableDictionary <NSString *, NSMutableArray <YYGReport *>*> *reports;
+@property (strong, nonatomic, readonly) NSMutableArray <YYGReport *> *reports;
 
-+ (instancetype)sharedInstance;
++ (instancetype)shared;
 
 - (instancetype)init;
 
-- (void)addEntity:(YYGReport *)entity;
+- (NSInteger)addReport:(YYGReport *)report;
 - (YYGReport *)reportById:(NSInteger)reportId type:(YYGReportType)type;
 - (void)updateReport:(YYGReport *)report;
 - (void)deactivateReport:(YYGReport *)report;

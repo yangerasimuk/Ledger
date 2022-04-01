@@ -10,11 +10,15 @@
 #import "YGSQLite.h"
 #import "YGTools.h"
 #import "YYGLedgerDefine.h"
+#import "YYGReportManager+YYGReportParameter.h"
+#import "YYGReportManager+YYGReportValue.h"
 
 @interface YYGReportManager () {
-	YGSQLite *p_sqlite;
+//	YGSQLite *p_sqlite;
 	dispatch_queue_t p_queue;
 }
+
+@property (nonatomic, strong) YGSQLite *sqlite;
 @end
 
 
@@ -25,7 +29,8 @@
 
 #pragma mark - Singleton & init
 
-+ (instancetype)sharedInstance {
++ (instancetype)shared
+{
 	static YYGReportManager *manager = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -34,10 +39,13 @@
 	return manager;
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
+	NSLog(@"-[YYGReportManager init]");
     self = [super init];
-    if(self){
-        p_sqlite = [YGSQLite sharedInstance];
+    if(self)
+	{
+        _sqlite = [YGSQLite sharedInstance];
         p_queue = dispatch_queue_create(kReportsQueue, NULL);
 
         [self buildReportsCache];
@@ -58,21 +66,31 @@
 
 #pragma Entities setter & getter
 
-- (void)setReports:(NSMutableDictionary<NSString *, NSMutableArray<YYGReport *> *> *)reports {
+- (void)setReports:(NSMutableArray <YYGReport *> *)reports
+{
+	NSLog(@"-[YYGReportManager setReports:]");
+
 	__weak YYGReportManager *weakSelf = self;
 	dispatch_async(p_queue, ^{
 		YYGReportManager *strongSelf = weakSelf;
 		if(strongSelf)
+		{
+			NSLog(@"\t\treports is setted");
 			strongSelf->_reports = reports;
+		}
 	});
 }
 
-- (NSMutableDictionary<NSString *,NSMutableArray<YYGReport *> *> *)reports {
+- (NSMutableArray <YYGReport *> *)reports
+{
+	NSLog(@"-[YYGReportManager reports:]");
+
 	__weak YYGReportManager *weakSelf = self;
 	dispatch_sync(p_queue, ^{
 		YYGReportManager *strongSelf = weakSelf;
-		if(strongSelf && !strongSelf->_reports) {
-			strongSelf->_reports = [[NSMutableDictionary alloc] init];
+		if(strongSelf && !strongSelf->_reports)
+		{
+			strongSelf->_reports = [NSMutableArray new];
 		}
 	});
 	return _reports;
@@ -81,11 +99,15 @@
 
 #pragma mark - Inner methods for memory cache process
 
-- (NSArray <YYGReport *> *)reportsFromDb {
+- (NSArray <YYGReport *> *)reportsFromDb
+{
+	NSLog(@"-[YYGReportManager reportFromDb]");
 
 	NSString *sqlQuery = @"SELECT report_id, report_type_id, name, active, created, modified, sort, comment, uuid FROM report ORDER BY active DESC, sort ASC;";
 
-	NSArray *rawList = [p_sqlite selectWithSqlQuery:sqlQuery];
+	NSArray *rawList = [self.sqlite selectWithSqlQuery:sqlQuery];
+
+	NSLog(@"\t\trawList: %@", @(rawList.count));
 
 	NSMutableArray <YYGReport *> *result = [[NSMutableArray alloc] init];
 
@@ -108,31 +130,37 @@
 	return [result copy];
 }
 
-- (void)buildReportsCache {
+- (void)buildReportsCache
+{
+	NSLog(@"-[YYGReportManager buildReportCache]");
     
-    NSArray *reportsRaw = [self reportsFromDb];
+    NSMutableArray *reports = [[self reportsFromDb] mutableCopy];
     
-    NSMutableDictionary <NSString *, NSMutableArray <YYGReport *> *> *reportsResult = [[NSMutableDictionary alloc] init];
+//    NSMutableArray <YYGReport *> *result = [NSMutableArray new];
+
+	[self sortReportsInArray:reports];
+
+	self.reports = reports;
     
-    NSString *typeString = nil;
-    for(YYGReport *report in reportsRaw) {
-        
-        typeString = NSStringFromReportType(report.type);
-        
-        if([reportsResult valueForKey:typeString]){
-            [[reportsResult valueForKey:typeString] addObject:report];
-        } else {
-            [reportsResult setValue:[[NSMutableArray alloc] init] forKey:typeString];
-            [[reportsResult valueForKey:typeString] addObject:report];
-        }
-    }
-    
-    // sort entities in each inner array
-    NSArray *types = [reportsResult allKeys];
-    for(NSString *type in types)
-        [self sortReportsInArray:reportsResult[type]];
-    
-    self.reports = reportsResult;
+//    NSString *typeString = nil;
+//    for(YYGReport *report in reportsRaw) {
+//        
+//        typeString = NSStringFromReportType(report.type);
+//
+//        if([reportsResult valueForKey:typeString]){
+//            [[reportsResult valueForKey:typeString] addObject:report];
+//        } else {
+//            [reportsResult setValue:[[NSMutableArray alloc] init] forKey:typeString];
+//            [[reportsResult valueForKey:typeString] addObject:report];
+//        }
+//    }
+//
+//    // sort entities in each inner array
+//    NSArray *types = [reportsResult allKeys];
+//    for(NSString *type in types)
+//        [self sortReportsInArray:reportsResult[type]];
+//
+//    self.reports = reportsResult;
     
     // generate event
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -174,7 +202,7 @@
         NSString *insertSQL = @"INSERT INTO report (report_type_id, name, active, created, modified, sort, comment, uuid) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         
         // db
-        rowId = [p_sqlite addRecord:reportsArr insertSQL:insertSQL];
+        rowId = [self.sqlite addRecord:reportsArr insertSQL:insertSQL];
     }
     @catch (NSException *exception) {
         NSLog(@"Fail in -[YYGReportManager idAddReport]. Exception: %@", [exception description]);
@@ -184,7 +212,7 @@
     }
 }
 
-- (void)addReport:(YYGReport *)report {
+- (NSInteger)addReport:(YYGReport *)report {
     
     // add entity to db
     NSInteger rowId = [self idAddReport:report];
@@ -203,6 +231,8 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"EntityManagerCacheUpdateEvent"
                           object:nil];
+	
+	return rowId;
 }
 
 /**
@@ -242,7 +272,7 @@
                            [YGTools sqlStringForStringNotNull:[report.uuid UUIDString]]
                            ];
         
-    [p_sqlite execSQL:updateSQL];
+    [self.sqlite execSQL:updateSQL];
     
     // update memory cache
     NSUInteger index = [reportsByType indexOfObject:replaced];
@@ -264,7 +294,7 @@
     // update db
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE report SET active=0, modified=%@ WHERE report_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)report.rowId];
     
-    [p_sqlite execSQL:updateSQL];
+    [self.sqlite execSQL:updateSQL];
 
     // update memory cache
     NSMutableArray <YYGReport *> *reportsByType = [self.reports valueForKey:NSStringFromReportType(report.type)];
@@ -288,7 +318,7 @@
     // update db
     NSString *updateSQL = [NSString stringWithFormat:@"UPDATE report SET active=1, modified=%@ WHERE report_id=%ld;", [YGTools sqlStringForDateLocalOrNull:now], (long)report.rowId];
     
-    [p_sqlite execSQL:updateSQL];
+    [self.sqlite execSQL:updateSQL];
     
     // update memory cache
     NSMutableArray <YYGReport *> *reportsByType = [self.reports valueForKey:NSStringFromReportType(report.type)];
@@ -309,7 +339,7 @@
     // update db
     NSString* deleteSQL = [NSString stringWithFormat:@"DELETE FROM report WHERE report_id = %ld;", (long)report.rowId];
     
-    [p_sqlite removeRecordWithSQL:deleteSQL];
+    [self.sqlite removeRecordWithSQL:deleteSQL];
     
     // update memory cache
     NSMutableArray <YYGReport *> *reportsByType = [self.reports valueForKey:NSStringFromReportType(report.type)];

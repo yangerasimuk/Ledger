@@ -10,6 +10,7 @@
 #import "YGCategory.h"
 #import "YYGCategoriesViewModel.h"
 
+
 @interface YGCategoryViewController : UITableViewController
 
 @property (assign, nonatomic) YGCategoryType categoryType;
